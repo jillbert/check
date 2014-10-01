@@ -1,0 +1,16 @@
+<h2>Nation Registration:</h2>
+
+<%= form_for @nation do |f| %>
+  <label> Your Nation's Name: </label>
+  <%= f.text_field :name %>
+
+  <label> Your Nation's URL: </label>
+  <%= f.text_field :url %>
+  <label> Your Nation's Client UID: </label>
+  <%= f.text_field :client_uid %>
+  <label> Your Nation's Secrety Key: </label>
+  <%= f.text_field :secret_key %>
+  
+  <%= f.submit "Submit", :class =>"button" %>
+
+<% end -%>

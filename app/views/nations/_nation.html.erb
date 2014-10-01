@@ -1,0 +1,12 @@
+<li style="text-align:center;">
+
+  <% if nation.name != nil %>
+    <p style="text-transform:capitalize"><%= nation.name %></p>
+     <a class="button alert tiny" href= "<%= authorize_path(nation_id: nation.id) %>">Authenticate</a> <%= link_to "Edit", edit_nation_path(nation), class: "button tiny"%>
+
+  <% else %>
+
+    <%= link_to "Add information for this nation", edit_nation_path(nation), class: "button tiny" %>
+
+  <% end %>
+</li>
