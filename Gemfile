@@ -31,7 +31,7 @@ group :development do
   gem 'quiet_assets'
 end
 
-gem 'foundation'
+gem 'foundation-rails'
 
 gem 'oauth2'
 
