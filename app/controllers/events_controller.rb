@@ -3,8 +3,12 @@ class EventsController < ApplicationController
 include ApplicationHelper
 
   def index
-    response = token.get("/api/v1/sites", :headers => standard_headers, :params => { page: 1, per_page: 100});
-    @sites = JSON.parse(response.body)["results"]
+    if session[:current_site]
+      redirect_to :controller => 'events', :action => 'choose_event'
+    else 
+      response = token.get("/api/v1/sites", :headers => standard_headers, :params => { page: 1, per_page: 100});
+      @sites = JSON.parse(response.body)["results"]
+    end
 
     # if params[:event_id]
     #   @event = params[:event_id]
@@ -15,14 +19,24 @@ include ApplicationHelper
   end
 
   def choose_event
-    token_get_path = '/api/v1/sites/' + params[:nation] + '/pages/events'
-    response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100})
-    @events = JSON.parse(response.body)["results"]
-    
+    unless session[:current_site]
+      session[:current_site] = params[:nation]
+    end
+
+    if session[:current_event]
+      redirect_to :controller => 'events', :action => 'find_rsvp'
+    else
+      token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
+      response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100})
+      @events = JSON.parse(response.body)["results"]
+    end
   end
 
   def find_rsvp
-    @event = params[:event]
+    unless session[:current_event]
+      session[:current_event] = params[:event]
+    end
+    @event = session[:current_event]
   end
 
   def find_person
