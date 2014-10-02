@@ -1,0 +1,11 @@
+<h1><%= @event['name'] %></h1>
+
+<%= form_tag({controller: 'events', action: 'find_person'}, method: 'get') do %>
+  <p>First Name: <%= text_field_tag 'first_name', @first_name %></p>
+  <p>Last Name: <%= text_field_tag 'last_name', @last_name %></p>
+  <p>Email: <%= text_field_tag 'email', @email %></p>
+  <p>Phone: <%= text_field_tag 'phone', @phone %></p>
+  <p>Mobile Phone: <%= text_field_tag 'mobile', @mobile %></p>
+  <%= hidden_field_tag 'event_id', @event['id'] %>
+  <%= submit_tag 'submit' %>
+<% end%>

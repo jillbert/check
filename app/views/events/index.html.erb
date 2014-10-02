@@ -1,0 +1,5 @@
+<ul class="small-block-grid-2">
+  <% @sites.each do |s| %>
+  <li><%= link_to "#{s['name']}", choose_event_path(:nation => "#{s['slug']}"), method: :get %></li>
+  <% end %>
+</ul>

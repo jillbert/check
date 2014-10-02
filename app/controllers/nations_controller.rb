@@ -24,7 +24,7 @@ class NationsController < ApplicationController
 
   def update
     @nation = Nation.find(params[:id])
-    if @nation.update_attributes(params[:nation])
+    if @nation.update_attributes(nation_params)
       flash[:success] = "Nation updated"
       redirect_to nations_path
     else
