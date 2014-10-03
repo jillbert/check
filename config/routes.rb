@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   get "events/processCheckIn", to: "events#processCheckIn"
 
+  get "events/cancel_event", to: "events#new_event"
+  get "events/cancel_site", to: "events#new_site"
 
   root to: "nations#index"
 end

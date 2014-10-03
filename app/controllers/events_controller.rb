@@ -86,6 +86,7 @@ include ApplicationHelper
   def processCheckIn
 
     event_id = params[:event_id]
+    complete = false
 
     if params[:rsvp_id]
       rsvpObject = makeRSVP(params[:rsvp_id], event_id, params[:person_id], params[:guests_count], params[:volunteer], params[:private], params[:canceled], params[:attended]) 
@@ -103,7 +104,8 @@ include ApplicationHelper
 
     rescue => ex
 
-      puts ex
+      flash[:error] = ex
+      complete = false
 
     else
 
@@ -111,55 +113,77 @@ include ApplicationHelper
 
       if params[:guests].to_i > 0
         (params[:guests].to_i).times do |n|
-          name = "guest_" + "#{n}"
-          inputted_guest = params[name.to_sym].to_hash
-          if inputted_guest["first_name"] != "" && inputted_guest["last_name"] != "" && (inputted_guest["email"] != "" || inputted_guest["mobile"] != "")
-            guest = Person.from_hash(inputted_guest)
+          if stop = false
+            name = "guest_" + "#{n}"
+            inputted_guest = params[name.to_sym].to_hash
+            if inputted_guest["first_name"] != "" && inputted_guest["last_name"] != "" && (inputted_guest["email"] != "" || inputted_guest["mobile"] != "")
+              guest = Person.from_hash(inputted_guest)
 
-            @params = {
-              :person => {
-                :first_name => guest.first_name,
-                :last_name => guest.last_name,
-                :email => guest.email,
-                :mobile => guest.mobile
+              @params = {
+                :person => {
+                  :first_name => guest.first_name,
+                  :last_name => guest.last_name,
+                  :email => guest.email,
+                  :mobile => guest.mobile
+                }
               }
-            }
 
-            response = token.put("/api/v1/people/push", :headers => standard_headers, :params => @params)
-            guest_id = JSON.parse(response.body)["person"]["id"]
+              begin
+                response = token.put("/api/v1/people/push", :headers => standard_headers, :params => @params)
+              rescue => ex 
+                flash[:error] = ex
+                stop = true
+                complete = false
+              else
+                guest_id = JSON.parse(response.body)["person"]["id"]
 
-            putParams = {
-              "rsvp" => {
-                "event_id" => event_id.to_i,
-                "person_id" => guest_id,
-                "guests_count" => 0,
-                "volunteer" => false,
-                "private" => false,
-                "canceled" => false,
-                "attended" => true,
-                "shift_ids" => []
-              }
-            }
+                putParams = {
+                  "rsvp" => {
+                    "event_id" => event_id.to_i,
+                    "person_id" => guest_id,
+                    "guests_count" => 0,
+                    "volunteer" => false,
+                    "private" => false,
+                    "canceled" => false,
+                    "attended" => true,
+                    "shift_ids" => []
+                  }
+                }
 
-            begin
-                checkInResponse = token.post("/api/v1/sites/josho/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
-            rescue => ex 
-              puts ex
-            else
-              Guest.create(
-                :eventNBID => event_id.to_i, 
-                :plusoneNBID => guest_id.to_i,
-                :nationNBID => session[:current_nation],
-                :nation_name => "josho", 
-                :rsvpNBID => main_rsvp_id.to_i
-              )
+                begin
+                    checkInResponse = token.post("/api/v1/sites/josho/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
+                rescue => ex 
+                  flash[:error] = ex
+                  stop = true
+                  complete = false
+                  puts stop
+                else
+                  Guest.create(
+                    :eventNBID => event_id.to_i, 
+                    :plusoneNBID => guest_id.to_i,
+                    :nationNBID => session[:current_nation],
+                    :nation_name => "josho", 
+                    :rsvpNBID => main_rsvp_id.to_i
+                  )
+
+                  complete = true
+                end
+              end
+            else 
+              complete = false
+              stop = true
+              flash[:error] = "Please complete all fields for #{inputted_guest["first_name"]}"
             end
           end
         end
+      else
+        complete = true
       end
     end
 
-    redirect_to :controller => 'events', :action => 'index', :event_id => event_id
+    if complete = true
+      redirect_to :controller => 'events', :action => 'index', :event_id => event_id
+    end
 
   end
 
@@ -229,6 +253,17 @@ include ApplicationHelper
 
     return params
   
+  end
+
+  def new_site
+    session[:current_site] = nil
+    session[:current_event] = nil
+    redirect_to :controller => "events", :action => "index"
+  end
+
+  def new_event
+    session[:current_event] = nil
+    redirect_to :controller => "events", :action => "choose_event"
   end
 
 end

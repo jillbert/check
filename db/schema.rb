@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001195253) do
+ActiveRecord::Schema.define(version: 20141003204952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20141001195253) do
   create_table "credentials", force: true do |t|
     t.integer  "nation_id"
     t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "guests", force: true do |t|
+    t.integer  "nationNBID"
+    t.string   "nation_name"
+    t.integer  "eventNBID"
+    t.integer  "rsvpNBID"
+    t.integer  "plusoneNBID"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

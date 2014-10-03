@@ -12,6 +12,21 @@
   </head>
 
   <body>
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">NBCheckIn</a></h1>
+        </li>
+      </ul>
+
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li<% if session[:current_site] %> class="active has-dropdown"><a href="#">Site: <%= session[:current_site] %></a><ul class="dropdown"><li><%= link_to "Cancel", events_cancel_site_path %></ul><%else%>><a href="#">Site: --</a><%end%></li>
+          <li<% if session[:current_event] %> class="active has-dropdown"><a href="#">Event: <%= session[:current_event]["name"] %></a><ul class="dropdown"><li><%= link_to "Cancel", events_cancel_event_path %></ul><%else%>><a href="#">Event: --</a><%end%></li>
+        </ul>
+      </section>
+    </nav>
     <div class="row" style="padding: 15px 0">
       <div class="small-12 centered columns">
         <% flash.each do |type, message| %>

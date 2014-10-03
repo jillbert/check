@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nationNBID: 1
+  nation_name: MyString
+  eventNBID: 1
+  rsvpNBID: 1
+  plusoneNBID: 1
+
+two:
+  nationNBID: 1
+  nation_name: MyString
+  eventNBID: 1
+  rsvpNBID: 1
+  plusoneNBID: 1
