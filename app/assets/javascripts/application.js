@@ -17,3 +17,37 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+var guests = [];
+
+$(document).ready(function() {
+	if ($('#processcheckin fieldset')) {
+		
+		$('#processcheckin fieldset').each(function() {
+			var firstn = $(this).find('.first');
+			var lastn = $(this).find('.last');
+			var email = $(this).find('.email');
+			var phone = $(this).find('.phone');
+			guests.push({"firstn": firstn, "lastn": lastn, "email": email, "phone": phone})
+		})
+		
+		$('#processcheckin fieldset').on('change', function() {
+			var validated = true;
+
+			if($('div.error').length > 0) {
+				validated = false;
+			}
+			
+			for(i=0;i<guests.length;i++) {
+				if(guests[i].firstn.val() != "" || guests[i].lastn.val() != "" || guests[i].email.val() != "" || guests[i].phone.val()) {
+					if(guests[i].firstn.val() != "" && guests[i].lastn.val() != "" && guests[i].email.val() != "" && validated) {
+					} else {
+						validated = false;
+					}
+				}
+			}
+			console.log(validated)
+		})
+	}
+
+})

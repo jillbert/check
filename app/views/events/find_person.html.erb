@@ -2,7 +2,7 @@
 
 <h1>RSVP Found for: <%= @personMatch.name %></h1>
 
-		<%= form_tag({controller: 'events', action: 'processCheckIn'}, method: 'get') do %>
+		<%= form_tag({controller: 'events', action: 'processCheckIn'}, method: 'get', id: "processcheckin", data: {abide: ''}) do %>
 			<%= hidden_field_tag 'rsvp_id', @rsvpFound.rsvp_id %>
 			<%= hidden_field_tag "event_id", @rsvpFound.event_id %>
 			<%= hidden_field_tag "person_id", @rsvpFound.person_id %>
@@ -30,11 +30,13 @@
 		  <% if @rsvpFound.guests_count - @plusonearray.size > 0 %>
 		  <%= hidden_field_tag "guests", @rsvpFound.guests_count - @plusonearray.size %>
 		  	<% (@rsvpFound.guests_count - @plusonearray.size).times do |n| %>
+		  		<fieldset id="guest_<%=n%>">
 		  		<p> Unchecked in guest #<%= n+1 %>: </p>
-		  		<div>First Name: <%= text_field_tag "guest_#{n}[first_name]" %></div>
-		  		<div>Last Name: <%= text_field_tag "guest_#{n}[last_name]" %></div>
-		  		<div>Email: <%= text_field_tag "guest_#{n}[email]" %></div>
-		  		<div>Mobile Phone: <%= text_field_tag "guest_#{n}[mobile]" %></div>
+		  		<div>First Name: <%= text_field_tag "guest_#{n}[first_name]", nil, class: 'first' %></div>
+		  		<div>Last Name: <%= text_field_tag "guest_#{n}[last_name]", nil, class: 'last' %></div>
+		  		<div><label>Email: <%= email_field_tag "guest_#{n}[email]", nil, class: 'email' %><small class="error">Email is in the improper format.</small><label></div>
+		  		<div>Mobile Phone: <%= text_field_tag "guest_#{n}[mobile]", nil, class: 'phone' %></div>
+		  		</fieldset>
 		  	<% end %>
 		  <% end %>
 
