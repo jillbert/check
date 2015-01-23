@@ -34,8 +34,8 @@
 		  		<p> Unchecked in guest #<%= n+1 %>: </p>
 		  		<div>First Name: <%= text_field_tag "guest_#{n}[first_name]", nil, class: 'first' %></div>
 		  		<div>Last Name: <%= text_field_tag "guest_#{n}[last_name]", nil, class: 'last' %></div>
-		  		<div><label>Email: <%= email_field_tag "guest_#{n}[email]", nil, class: 'email' %><small class="error">Email is in the improper format.</small><label></div>
-		  		<div>Mobile Phone: <%= text_field_tag "guest_#{n}[mobile]", nil, class: 'phone' %></div>
+		  		<div><label>Email: <%= email_field_tag "guest_#{n}[email]", nil, class: 'email', placeholder: 'example@example.ca' %><small class="error">Email is in the improper format.</small><label></div>
+		  		<div><label>Mobile Phone: <%= text_field_tag "guest_#{n}[mobile]", nil, class: 'phone', pattern: 'user_phone', placeholder: 'XXX-XXX-XXXX' %><small class="error">Phone number is in the improper format.</small><label></div>
 		  		</fieldset>
 		  	<% end %>
 		  <% end %>

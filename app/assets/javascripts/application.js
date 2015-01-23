@@ -16,13 +16,21 @@
 //= require turbolinks
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+$(function(){ 
+	$(document).foundation({
+		abide: { 
+			patterns: { 
+				user_phone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/ 
+			} 
+		} 
+	}) 
+});
 
 var guests = [];
-
 $(document).ready(function() {
 	if ($('#processcheckin fieldset')) {
-		
+		var focused;
+
 		$('#processcheckin fieldset').each(function() {
 			var firstn = $(this).find('.first');
 			var lastn = $(this).find('.last');
@@ -43,10 +51,15 @@ $(document).ready(function() {
 					if(guests[i].firstn.val() != "" && guests[i].lastn.val() != "" && guests[i].email.val() != "" && validated) {
 					} else {
 						validated = false;
+						console.log('all fields not validated')
 					}
 				}
 			}
-			console.log(validated)
+			if(!validated) {
+				$('input[type="submit"]').attr('disabled','disabled');
+			} else {
+				$('input[type="submit"]').removeattr('disabled');
+			}
 		})
 	}
 
