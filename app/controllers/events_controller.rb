@@ -35,8 +35,9 @@ include EventsHelper
   end
 
   def get_all
-    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers)
-    @rsvps = JSON.parse(response.body)["results"]
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {per_page: 100})
+    @rsvpsfullinfo = JSON.parse(response.body)
+    @rsvps = @rsvpsfullinfo["results"]
 
     @persons = []
     @rsvps.each do |r|
@@ -49,7 +50,7 @@ include EventsHelper
   def find_person
 
     @params = createMatchParams(params[:first_name], params[:last_name], params[:email], params[:phone], params[:mobile])
-    @event_id = params[:event_id]
+
     @personMatch = nil
 
     begin
@@ -58,7 +59,7 @@ include EventsHelper
 
     rescue => ex
 
-      redirect_to :controller => 'events', :action => 'find_rsvp', :event_id => @event_id, :params => @params
+      redirect_to :controller => 'events', :action => 'find_rsvp', :event_id => session[:current_event]['id'], :params => @params
       flash[:error] = JSON.parse(ex.response.body)["message"]
 
     else
@@ -66,11 +67,11 @@ include EventsHelper
       person = JSON.parse(response.body)["person"]
       @personMatch = Person.from_hash(person)
       
-      @rsvpFound = findRSVP(@event_id, @personMatch.id)
+      @rsvpFound = findRSVP(session[:current_event]['id'], @personMatch.id)
       if @rsvpFound
-        flash[:success] = "RSVP found. Please update personal info and check in."
+        flash[:success] = "RSVP found."
         rsvpidsearch = @rsvpFound.rsvp_id
-        plusone = Guest.where(rsvpNBID: rsvpidsearch, eventNBID: @event_id, nationNBID: session[:current_nation])
+        plusone = Guest.where(rsvpNBID: rsvpidsearch, eventNBID: session[:current_event]['id'], nationNBID: session[:current_nation])
 
         @plusonearray = []
         plusone.each do |n|
@@ -84,28 +85,67 @@ include EventsHelper
           end
         end
       else
-        flash[:error] = "#{@personMatch.name}'s RSVP does not exist. Please update personal info, create an RSVP, and check them in."
+        flash[:error] = "#{@personMatch.name}'s RSVP does not exist. Would you like to check them in."
       end
     end
 
   end
 
+  def new_rsvp
+  end
+
+  def make_new_rsvp
+
+    @params = createMatchParams(params[:first_name], params[:last_name], params[:email], params[:phone], params[:mobile])
+    
+    begin
+
+      response = token.get("api/v1/people/match", :headers => standard_headers, :params => @params )
+
+    rescue
+      newPersonParams = 
+      {
+        :person => {
+          :email => params[:email],
+          :last_name => params[:last_name],
+          :first_name => params[:first_name],
+          :phone => params[:phone],
+          :mobile => params[:mobile]
+        }
+      }
+
+      response = token.post('api/v1/people', :headers => standard_headers, :params => newPersonParams)
+    end      
+
+    id = JSON.parse(response.body)["person"]["id"]
+    rsvpObject = makeRSVP(nil, session[:current_event]['id'], id.to_i, 0, false, false, false, true) 
+
+    begin
+      checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
+    rescue => ex
+      flash[:error] = ex['message']
+    else
+      flash[:success] = "#{params['first_name']} #{params['last_name']} successfully added and checked in."
+    end
+
+    redirect_to :controller => 'events', :action => 'index'
+
+  end
+
   def processCheckIn
 
-    event_id = params[:event_id]
-
     if params[:rsvp_id]
-      rsvpObject = makeRSVP(params[:rsvp_id], event_id, params[:person_id], params[:guests_count], params[:volunteer], params[:private], params[:canceled], params[:attended]) 
+      rsvpObject = makeRSVP(params[:rsvp_id], session[:current_event]['id'], params[:person_id], params[:guests_count], params[:volunteer], params[:private], params[:canceled], params[:attended]) 
     else
-      rsvpObject = makeRSVP(nil, event_id, params[:person_id], params[:guests_count], params[:volunteer], params[:private], params[:canceled], params[:attended]) 
+      rsvpObject = makeRSVP(nil, session[:current_event]['id'], params[:person_id], params[:guests_count], params[:volunteer], params[:private], params[:canceled], params[:attended]) 
     end
 
     begin
 
       if params[:rsvp_id]
-        checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{event_id}/rsvps/#{params[:rsvp_id]}", :headers => standard_headers, :body => rsvpObject.to_json)
+        checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/#{params[:rsvp_id]}", :headers => standard_headers, :body => rsvpObject.to_json)
       else
-        checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
+        checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
       end
 
     rescue => ex
@@ -142,7 +182,7 @@ include EventsHelper
 
               putParams = {
                 "rsvp" => {
-                  "event_id" => event_id.to_i,
+                  "event_id" => session[:current_event]['id'].to_i,
                   "person_id" => guest_id,
                   "guests_count" => 0,
                   "volunteer" => false,
@@ -154,12 +194,12 @@ include EventsHelper
               }
 
               begin
-                  checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
+                  checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
               rescue => ex 
                 flash[:error] = ex
               else
                 Guest.create(
-                  :eventNBID => event_id.to_i, 
+                  :eventNBID => session[:current_event]['id'].to_i, 
                   :plusoneNBID => guest_id.to_i,
                   :nationNBID => session[:current_nation],
                   :nation_name => "#{session[:current_site]}", 
@@ -167,15 +207,13 @@ include EventsHelper
                 )
               end
             end
-          else 
-            flash[:error] = "Please complete all fields for #{inputted_guest["first_name"]}"
           end
 
         end
       end
     end
 
-      redirect_to :controller => 'events', :action => 'index', :event_id => event_id
+      redirect_to :controller => 'events', :action => 'index', :event_id => session[:current_event]['id']
 
   end
 

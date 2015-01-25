@@ -58,7 +58,7 @@ $(document).ready(function() {
 			if(!validated) {
 				$('input[type="submit"]').attr('disabled','disabled');
 			} else {
-				$('input[type="submit"]').removeattr('disabled');
+				$('input[type="submit"]').removeAttr('disabled');
 			}
 		})
 	}

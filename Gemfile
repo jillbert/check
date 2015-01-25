@@ -33,6 +33,8 @@ end
 
 gem 'foundation-rails', '5.4.3.1'
 
+gem 'will_paginate', '~> 3.0.6'
+
 gem 'sorcery'
 
 gem 'oauth2'

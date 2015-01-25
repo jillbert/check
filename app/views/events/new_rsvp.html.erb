@@ -1,35 +1,34 @@
-<h3>Search for RSVP:</h3>
+<h3>Add New Person and Check Them In:</h3>
 
-<%= form_tag({controller: 'events', action: 'find_person'}, method: 'get') do %>
+<%= form_tag({controller: 'events', action: 'make_new_rsvp'}, method: 'get') do %>
   <div class="row">
     <div class="medium-6 columns">
       <label>First Name
-        <%= text_field_tag 'first_name', @first_name %>
+        <%= text_field_tag 'first_name' %>
       </label>
     </div>
     <div class="medium-6 columns">
       <label>Last Name 
-        <%= text_field_tag 'last_name', @last_name %>
+        <%= text_field_tag 'last_name' %>
       </label>
     </div>
   </div>
   <div class="row">
     <div class="medium-4 columns">
       <label>Email
-        <%= text_field_tag 'email', @email %>
+        <%= text_field_tag 'email' %>
       </label>
     </div>
     <div class="medium-4 columns">
       <label>Phone
-        <%= text_field_tag 'phone', @phone %>
+        <%= text_field_tag 'phone' %>
       </label>
     </div>
     <div class="medium-4 columns">
       <label>Mobile Phone
-        <%= text_field_tag 'mobile', @mobile %>
+        <%= text_field_tag 'mobile' %>
       <label>
     </div>
   </div>
-  <%= hidden_field_tag 'event_id', @event['id'] %>
-  <%= submit_tag 'Search', class:'button' %>
+  <%= submit_tag 'Add + Check In', class:'button' %>
 <% end%>

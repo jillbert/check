@@ -6,7 +6,7 @@ module EventsHelper
       putParams = {
         "rsvp" => {
           "id" => rsvp.to_i,
-          "event_id" => event_id.to_i,
+          "event_id" => session[:current_event]['id'].to_i,
           "person_id" => person_id.to_i,
           "guests_count" => guests_count.to_i,
           "volunteer" => to_boolean(volunteer),
@@ -19,7 +19,7 @@ module EventsHelper
     else
       putParams = {
         "rsvp" => {
-          "event_id" => event_id.to_i,
+          "event_id" => session[:current_event]['id'].to_i,
           "person_id" => person_id.to_i,
           "guests_count" => guests_count.to_i,
           "volunteer" => to_boolean(volunteer),

@@ -11,9 +11,10 @@ Rails.application.routes.draw do
 
   get "/findrsvp", to: "events#find_rsvp"
   get "everyone", to: "events#get_all"
+  get "new_rsvp", to: "events#new_rsvp"
 
   get "events/find_person", to: "events#find_person"
-
+  get "events/make_new_rsvp", to: "events#make_new_rsvp"
   get "events/processCheckIn", to: "events#processCheckIn"
 
   get "events/cancel_event", to: "events#new_event"

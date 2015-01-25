@@ -1,6 +1,6 @@
 <% if @rsvpFound %>
 
-<h1>RSVP Found for: <%= @personMatch.name %></h1>
+<h3>RSVP Found for: <%= @personMatch.name %></h3>
 
 		<%= form_tag({controller: 'events', action: 'processCheckIn'}, method: 'get', id: "processcheckin", data: {abide: ''}) do %>
 			<%= hidden_field_tag 'rsvp_id', @rsvpFound.rsvp_id %>
@@ -19,7 +19,7 @@
 
 			<% if @rsvpFound.attended %>
 
-				<h2> Already checked in </h2>
+				<h3 class="button disabled"> Already checked in </h3>
 
 			<% end %>
 
@@ -41,14 +41,14 @@
 		  <% end %>
 
 		  <% if !@rsvpFound.attended || @rsvpFound.guests_count - @plusonearray.size > 0 %>
-				<%= submit_tag 'Check In' %>
+				<%= submit_tag 'Check In', class:"button" %>
 			<% end %>
 
 	<% end %>
 
 <% else %>
 
-	<h1>No RSVP found for <%= @personMatch.name %>. Add RSVP?</h1>
+	<h3>No RSVP found for <%= @personMatch.name %>. Add RSVP?</h3>
 
 	<%= form_tag({controller: 'events', action: 'processCheckIn'}, method: 'get') do %>
 		<%= hidden_field_tag "event_id", @event_id %>
@@ -59,7 +59,7 @@
 		<%= hidden_field_tag "canceled", false %>
 		<%= hidden_field_tag "attended", true %>
 		<%= hidden_field_tag "shift_ids", "" %>
-		<%= submit_tag 'RSVP & Check In' %>
+		<%= submit_tag 'RSVP & Check In', class:"button" %>
 	<% end %>
 
 <%end%>

@@ -27,6 +27,33 @@
         </ul>
       </section>
     </nav>
+    <% if session[:current_site] && session[:current_event] %>
+    <div id="choices">
+      <div class="row">
+        <div class="medium-4 centered columns">
+          <% if current_page?(controller:'events', action:'get_all') %>
+            <div class="button disabled"> Entire RSVP List </div>
+          <% else %>
+            <%= link_to "Entire RSVP List", everyone_path, class:"button success" %>
+          <% end %>
+        </div>
+        <div class="medium-4 centered columns">
+          <% if current_page?(controller:'events', action:'find_rsvp') %>
+            <div class="button disabled"> Search for RSVP </div>
+          <% else %>
+            <%= link_to "Search for RSVP", findrsvp_path, class:"button success" %>
+          <% end %>
+        </div>
+        <div class="medium-4 centered columns">
+        <% if current_page?(controller:'events', action:'new_rsvp') %>
+          <div class="button disabled"> Add New RSVP </div>
+        <% else %>
+          <%= link_to "Add New RSVP", new_rsvp_path, class:"button success" %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
     <div class="row" style="padding: 15px 0">
       <div class="small-12 centered columns">
         <% flash.each do |type, message| %>
@@ -35,17 +62,12 @@
             <%= message %>
           <% end %>
         <% end %>
-        <div class="medium-8 columns">
+      </div>
+    </div>
+    <div class="row">
+        <div class="medium-8 medium-centered columns">
           <%= yield %>
         </div>
-        <div class="medium-4 columns">
-          <% if session[:current_site] && session[:current_event] %>
-          <h3>Your Options:</h3>
-          <%= link_to "See Entire RSVP List", everyone_path, class:"button secondary" %>
-          <%= link_to "Search for RSVP", findrsvp_path, class:"button secondary" %>
-          <% end %>
-        </div>
-      </div>
     </div>
     <%= javascript_include_tag "application" %>
   </body>
