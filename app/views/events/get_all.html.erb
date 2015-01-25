@@ -1,0 +1,30 @@
+<h3>Event RSVP List</h3>
+<table>
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th class="show-for-medium-up">Guests</th>
+      <th class="show-for-medium-up">Status</th>
+      <th>Edit</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @persons.each_with_index do |p, i| %>
+      <tr>
+        <td><%= p.first_name %></td>
+        <td><%= p.last_name %></td>
+        <td class="show-for-medium-up"><%= @rsvps[i]['guests_count'] %></td>
+        <td class="show-for-medium-up"><% if @rsvps[i]['attended'] %>Yes<% else %>No<%end %></td>
+        <%= form_tag({controller: 'events', action: 'find_person'}, method: 'get') do %>
+          <%= hidden_field_tag 'first_name', p.first_name %>
+          <%= hidden_field_tag 'last_name', p.last_name %>
+          <%= hidden_field_tag 'email', p.email %>
+          <%= hidden_field_tag 'phone', "" %>
+          <%= hidden_field_tag 'mobile', "" %>
+          <td><%= submit_tag 'Edit', class:'button' %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

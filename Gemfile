@@ -33,6 +33,8 @@ end
 
 gem 'foundation-rails', '5.4.3.1'
 
+gem 'sorcery'
+
 gem 'oauth2'
 
 # Use ActiveModel has_secure_password

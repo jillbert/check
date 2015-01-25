@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get "events/cancel_event", to: "events#new_event"
   get "events/cancel_site", to: "events#new_site"
-
+  get "events/everyone", to: "events#get_all"
+  
   root to: "nations#index"
 end

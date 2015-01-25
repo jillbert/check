@@ -30,12 +30,21 @@
     <div class="row" style="padding: 15px 0">
       <div class="small-12 centered columns">
         <% flash.each do |type, message| %>
-          <%= content_tag :div, class: "alert alert-#{type}" do %>
+          <%= content_tag :div, class: "alert-box warning alert-#{type}", data: {alert:''} do %>
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <%= message %>
           <% end %>
         <% end %>
-      <%= yield %>
+        <div class="medium-8 columns">
+          <%= yield %>
+        </div>
+        <div class="medium-4 columns">
+          <% if session[:current_site] && session[:current_event] %>
+          <h3>Your Options:</h3>
+          <%= link_to "See Entire RSVP List", events_everyone_path, class:"button secondary" %>
+          <%= link_to "Search for RSVP", findrsvp_path, class:"button secondary" %>
+          <% end %>
+        </div>
       </div>
     </div>
     <%= javascript_include_tag "application" %>

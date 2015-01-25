@@ -1,3 +1,4 @@
+<h3>Choose your site:</h3>
 <ul class="small-block-grid-2">
   <% @events.each do |e| %>
   <li><%= link_to e["name"], findrsvp_path(:event => e), method: :get %></li>

@@ -34,6 +34,18 @@ include EventsHelper
     @event = session[:current_event]
   end
 
+  def get_all
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers)
+    @rsvps = JSON.parse(response.body)["results"]
+
+    @persons = []
+    @rsvps.each do |r|
+      response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
+      person = JSON.parse(response.body)["person"]
+      @persons << Person.from_hash(person)
+    end
+  end
+
   def find_person
 
     @params = createMatchParams(params[:first_name], params[:last_name], params[:email], params[:phone], params[:mobile])
@@ -91,9 +103,9 @@ include EventsHelper
     begin
 
       if params[:rsvp_id]
-        checkInResponse = token.put("/api/v1/sites/josho/pages/events/#{event_id}/rsvps/#{params[:rsvp_id]}", :headers => standard_headers, :body => rsvpObject.to_json)
+        checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{event_id}/rsvps/#{params[:rsvp_id]}", :headers => standard_headers, :body => rsvpObject.to_json)
       else
-        checkInResponse = token.post("/api/v1/sites/josho/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
+        checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
       end
 
     rescue => ex
@@ -144,7 +156,7 @@ include EventsHelper
               }
 
               begin
-                  checkInResponse = token.post("/api/v1/sites/josho/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
+                  checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{event_id}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
               rescue => ex 
                 flash[:error] = ex
               else
@@ -152,7 +164,7 @@ include EventsHelper
                   :eventNBID => event_id.to_i, 
                   :plusoneNBID => guest_id.to_i,
                   :nationNBID => session[:current_nation],
-                  :nation_name => "josho", 
+                  :nation_name => "#{session[:current_site]}", 
                   :rsvpNBID => main_rsvp_id.to_i
                 )
               end
@@ -172,7 +184,7 @@ include EventsHelper
   def findRSVP(event, person)
     rsvpFound = nil
 
-    rsvpresponse = token.get("/api/v1/sites/josho/pages/events/#{event}/rsvps", :headers => standard_headers, :params => { page: 1, per_page: 100 })
+    rsvpresponse = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps", :headers => standard_headers, :params => { page: 1, per_page: 100 })
     rsvps = JSON.parse(rsvpresponse.body)["results"]
 
     rsvps.each do |rsvp|
