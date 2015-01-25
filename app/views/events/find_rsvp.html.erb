@@ -1,11 +1,35 @@
 <h3>Check in for <%= @event['name'] %></h3>
 
 <%= form_tag({controller: 'events', action: 'find_person'}, method: 'get') do %>
-  <p>First Name: <%= text_field_tag 'first_name', @first_name %></p>
-  <p>Last Name: <%= text_field_tag 'last_name', @last_name %></p>
-  <p>Email: <%= text_field_tag 'email', @email %></p>
-  <p>Phone: <%= text_field_tag 'phone', @phone %></p>
-  <p>Mobile Phone: <%= text_field_tag 'mobile', @mobile %></p>
+  <div class="row">
+    <div class="medium-6 columns">
+      <label>First Name
+        <%= text_field_tag 'first_name', @first_name %>
+      </label>
+    </div>
+    <div class="medium-6 columns">
+      <label>Last Name 
+        <%= text_field_tag 'last_name', @last_name %>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-4 columns">
+      <label>Email
+        <%= text_field_tag 'email', @email %>
+      </label>
+    </div>
+    <div class="medium-4 columns">
+      <label>Phone
+        <%= text_field_tag 'phone', @phone %>
+      </label>
+    </div>
+    <div class="medium-4 columns">
+      <label>Mobile Phone
+        <%= text_field_tag 'mobile', @mobile %>
+      <label>
+    </div>
+  </div>
   <%= hidden_field_tag 'event_id', @event['id'] %>
   <%= submit_tag 'Search', class:'button' %>
 <% end%>

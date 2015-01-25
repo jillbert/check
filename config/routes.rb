@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/choose_event", to: "events#choose_event"
 
   get "/findrsvp", to: "events#find_rsvp"
+  get "everyone", to: "events#get_all"
 
   get "events/find_person", to: "events#find_person"
 
@@ -17,7 +18,6 @@ Rails.application.routes.draw do
 
   get "events/cancel_event", to: "events#new_event"
   get "events/cancel_site", to: "events#new_site"
-  get "events/everyone", to: "events#get_all"
-  
+
   root to: "nations#index"
 end

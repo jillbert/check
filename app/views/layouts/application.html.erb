@@ -41,7 +41,7 @@
         <div class="medium-4 columns">
           <% if session[:current_site] && session[:current_event] %>
           <h3>Your Options:</h3>
-          <%= link_to "See Entire RSVP List", events_everyone_path, class:"button secondary" %>
+          <%= link_to "See Entire RSVP List", everyone_path, class:"button secondary" %>
           <%= link_to "Search for RSVP", findrsvp_path, class:"button secondary" %>
           <% end %>
         </div>

@@ -121,8 +121,6 @@ include EventsHelper
 
           name = "guest_" + "#{n}"
           inputted_guest = params[name.to_sym].to_hash
-          puts inputted_guest["first_name"] != ""
-          puts inputted_guest["email"] != ""
 
           if inputted_guest["first_name"] != "" && inputted_guest["last_name"] != "" && (inputted_guest["email"] != "" || inputted_guest["mobile"] != "")
             guest = Person.from_hash(inputted_guest)
@@ -188,8 +186,6 @@ include EventsHelper
     rsvps = JSON.parse(rsvpresponse.body)["results"]
 
     rsvps.each do |rsvp|
-      puts rsvp['person_id']
-      puts person
       if rsvp['person_id'] == person
           rsvpFound = Rsvp.from_hash(rsvp)
       end
