@@ -63,4 +63,6 @@ $(document).ready(function() {
 		})
 	}
 
+	$('a:not(.toggle-topbar.menu-icon a, .top-bar-section a)').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})})
+
 })

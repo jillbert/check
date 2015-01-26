@@ -1,4 +1,15 @@
-<h3>Event RSVP List</h3>
+<div id="header">
+  <h3>Event RSVP List</h3>
+  <div id="pagination" class="show-for-medium-up">
+  <% if @current_page > 1 %>
+  <%= link_to "< Previous", everyone_path(page: @current_page - 1), class:'button secondary' %>
+  <% end %>
+  <% if @current_page < @total_pages %>
+  <%= link_to "Next >", everyone_path(page: @current_page + 1), class:'button secondary'  %>
+  <% end %>
+  </div>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -30,7 +41,11 @@
   </tbody>
 </table>
 
-<div style="text-align:center;margin:20px 0">
-<%= link_to "< Previous", everyone_path(page: @current_page - 1) if @current_page > 1 %> |
-<%= link_to "Next >", everyone_path(page: @current_page + 1) if @current_page < @total_pages %>
+<div style="text-align:center;">
+<% if @current_page > 1 %>
+<%= link_to "< Previous", everyone_path(page: @current_page - 1), class:'button secondary' %>
+<% end %>
+<% if @current_page < @total_pages %>
+<%= link_to "Next >", everyone_path(page: @current_page + 1), class:'button secondary'  %>
+<% end %>
 </div>
