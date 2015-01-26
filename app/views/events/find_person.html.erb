@@ -1,6 +1,6 @@
 <% if @rsvpFound %>
 
-<h3>RSVP Found for: <%= @personMatch.name %></h3>
+<h3><% if @rsvpFound.attended %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %>RSVP Found for: <%= @personMatch.name %></h3>
 
 		<%= form_tag({controller: 'events', action: 'processCheckIn'}, method: 'get', id: "processcheckin", data: {abide: ''}) do %>
 			<%= hidden_field_tag 'rsvp_id', @rsvpFound.rsvp_id %>
@@ -19,19 +19,19 @@
 
 			<% if @rsvpFound.attended %>
 
-				<h3 class="button disabled"> Already checked in </h3>
+				<h3 class="button disabled">Already checked in </h3>
 
 			<% end %>
 
 			<% @plusonearray.each_with_index do |m, i| %>
-				<fieldset><h3 class="subheader">Checked-In Guest #<%= i+1 %>: <%= m.first_name %> <%= m.last_name %></h3></fieldset>
+				<fieldset><h3 class="subheader"><i class="fa fa-check-square-o"></i> Checked-In Guest #<%= i+1 %>: <%= m.first_name %> <%= m.last_name %></h3></fieldset>
 			<%end %>
 
 		  <% if @rsvpFound.guests_count - @plusonearray.size > 0 %>
 		  <%= hidden_field_tag "guests", @rsvpFound.guests_count - @plusonearray.size %>
 		  	<% (@rsvpFound.guests_count - @plusonearray.size).times do |n| %>
 		  		<fieldset id="guest_<%=n%>">
-		  		<h3 class="subheader">Unchecked-In Guest #<%= @plusonearray.size + n +1 %>: </h3>
+		  		<h3 class="subheader"><i class="fa fa-square-o"></i> Unchecked-In Guest #<%= @plusonearray.size + n +1 %>: </h3>
 		  		<div>First Name: <%= text_field_tag "guest_#{n}[first_name]", nil, class: 'first' %></div>
 		  		<div>Last Name: <%= text_field_tag "guest_#{n}[last_name]", nil, class: 'last' %></div>
 		  		<div><label>Email: <%= email_field_tag "guest_#{n}[email]", nil, class: 'email', placeholder: 'example@example.ca' %><small class="error">Email is in the improper format.</small><label></div>

@@ -33,23 +33,29 @@
       <div class="row">
         <div class="small-4 centered columns">
           <% if current_page?(controller:'events', action:'get_all') %>
-            <div class="button disabled"> Entire RSVP List </div>
+            <div class="button disabled"><i class="fa fa-list-alt"></i> <span class="show-for-medium-up">Entire RSVP List</span></div>
           <% else %>
-            <%= link_to "Entire RSVP List", everyone_path, class:"button success" %>
+            <%= link_to everyone_path, class:"button success" do %>
+            <i class="fa fa-list-alt"></i> <span class="show-for-medium-up">Entire RSVP List</span>
+            <% end %>
           <% end %>
         </div>
         <div class="small-4 centered columns">
           <% if current_page?(controller:'events', action:'find_rsvp') %>
-            <div class="button disabled"> Search for RSVP </div>
+            <div class="button disabled"><i class="fa fa-search"></i> <span class="show-for-medium-up">Search for RSVP</span></div>
           <% else %>
-            <%= link_to "Search for RSVP", findrsvp_path, class:"button success" %>
+            <%= link_to findrsvp_path, class:"button success" do %>
+            <i class="fa fa-search"></i> <span class="show-for-medium-up">Search for RSVP</span>
+            <% end %>
           <% end %>
         </div>
         <div class="small-4 centered columns">
         <% if current_page?(controller:'events', action:'new_rsvp') %>
-          <div class="button disabled"> Add New RSVP </div>
+          <div class="button disabled"><i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span></div>
         <% else %>
-          <%= link_to "Add New RSVP", new_rsvp_path, class:"button success" %>
+          <%= link_to new_rsvp_path, class:"button success" do %>
+          <i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span>
+          <% end %> 
         <% end %>
         </div>
       </div>
