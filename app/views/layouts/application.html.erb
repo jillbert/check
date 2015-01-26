@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "NBCheckIn" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -17,6 +17,7 @@
         <li class="name">
           <h1><a href="#">NBCheckIn</a></h1>
         </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
 
       <section class="top-bar-section">
@@ -30,21 +31,21 @@
     <% if session[:current_site] && session[:current_event] %>
     <div id="choices">
       <div class="row">
-        <div class="medium-4 centered columns">
+        <div class="small-4 centered columns">
           <% if current_page?(controller:'events', action:'get_all') %>
             <div class="button disabled"> Entire RSVP List </div>
           <% else %>
             <%= link_to "Entire RSVP List", everyone_path, class:"button success" %>
           <% end %>
         </div>
-        <div class="medium-4 centered columns">
+        <div class="small-4 centered columns">
           <% if current_page?(controller:'events', action:'find_rsvp') %>
             <div class="button disabled"> Search for RSVP </div>
           <% else %>
             <%= link_to "Search for RSVP", findrsvp_path, class:"button success" %>
           <% end %>
         </div>
-        <div class="medium-4 centered columns">
+        <div class="small-4 centered columns">
         <% if current_page?(controller:'events', action:'new_rsvp') %>
           <div class="button disabled"> Add New RSVP </div>
         <% else %>
@@ -57,7 +58,7 @@
     <div class="row" style="padding: 15px 0">
       <div class="small-12 centered columns">
         <% flash.each do |type, message| %>
-          <%= content_tag :div, class: "alert-box warning alert-#{type}", data: {alert:''} do %>
+          <%= content_tag :div, class: "alert-box info alert-#{type}", data: {alert:''} do %>
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <%= message %>
           <% end %>
