@@ -29,3 +29,8 @@
     <% end %>
   </tbody>
 </table>
+
+<div style="text-align:center;margin:20px 0">
+<%= link_to "< Previous", everyone_path(page: @current_page - 1) if @current_page > 1 %> |
+<%= link_to "Next >", everyone_path(page: @current_page + 1) if @current_page < @total_pages %>
+</div>

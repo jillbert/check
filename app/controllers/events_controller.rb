@@ -35,7 +35,9 @@ include EventsHelper
   end
 
   def get_all
-    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {per_page: 100})
+    @current_page = (params[:page] || 1).to_i
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {page: @current_page})
+    @total_pages = JSON.parse(response.body)["total_pages"]
     @rsvpsfullinfo = JSON.parse(response.body)
     @rsvps = @rsvpsfullinfo["results"]
 
@@ -169,7 +171,8 @@ include EventsHelper
                 :first_name => guest.first_name,
                 :last_name => guest.last_name,
                 :email => guest.email,
-                :mobile => guest.mobile
+                :mobile => guest.mobile,
+                :recruiter_id => params[:person_id]
               }
             }
 

@@ -24,14 +24,14 @@
 			<% end %>
 
 			<% @plusonearray.each_with_index do |m, i| %>
-				<p>Checked-In Guest #<%= i+1 %>: <%= m.first_name %> <%= m.last_name %></p>
+				<fieldset><h3 class="subheader">Checked-In Guest #<%= i+1 %>: <%= m.first_name %> <%= m.last_name %></h3></fieldset>
 			<%end %>
 
 		  <% if @rsvpFound.guests_count - @plusonearray.size > 0 %>
 		  <%= hidden_field_tag "guests", @rsvpFound.guests_count - @plusonearray.size %>
 		  	<% (@rsvpFound.guests_count - @plusonearray.size).times do |n| %>
 		  		<fieldset id="guest_<%=n%>">
-		  		<p> Unchecked in guest #<%= n+1 %>: </p>
+		  		<h3 class="subheader">Unchecked-In Guest #<%= @plusonearray.size + n +1 %>: </h3>
 		  		<div>First Name: <%= text_field_tag "guest_#{n}[first_name]", nil, class: 'first' %></div>
 		  		<div>Last Name: <%= text_field_tag "guest_#{n}[last_name]", nil, class: 'last' %></div>
 		  		<div><label>Email: <%= email_field_tag "guest_#{n}[email]", nil, class: 'email', placeholder: 'example@example.ca' %><small class="error">Email is in the improper format.</small><label></div>
