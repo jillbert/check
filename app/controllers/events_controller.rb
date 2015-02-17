@@ -49,6 +49,21 @@ include EventsHelper
     end
   end
 
+  def create_cache
+    current_page = 1
+    @rsvpsfullinfo = []
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {page: current_page})
+    total_pages = JSON.parse(response.body)["total_pages"]
+    @rsvpsfullinfo << JSON.parse(response.body)["results"]
+    while total_pages >= current_page
+      current_page += 1
+      response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {page: current_page})
+      @rsvpsfullinfo << JSON.parse(response.body)["results"]
+    end
+    puts @rsvpsfullinfo
+
+  end
+
   def find_person
 
     @params = createMatchParams(params[:first_name], params[:last_name], params[:email], params[:phone], params[:mobile])

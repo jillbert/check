@@ -40,6 +40,6 @@ class NationsController < ApplicationController
 
   private
   def nation_params
-    params.require(:nation).permit(:name, :url, :client_uid, :secret_key)
+    params.require(:nation).permit(:name, :url, :client_uid, :secret_key, :user_id)
   end
 end

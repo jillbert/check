@@ -3,9 +3,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :require_login
+
   delegate :access_token, :to => :credential
 
-  helper_method :logged_in?
+  # helper_method :logged_in?
 
   private
 
@@ -19,9 +21,9 @@ class ApplicationController < ActionController::Base
     credential.access_token
   end
 
-  def logged_in?
-    credential.present?
-  end
+  # def logged_in?
+  #   credential.present?
+  # end
 
   def credential
     @credential ||= Credential.find_by_id(session[:credential_id])
@@ -47,6 +49,10 @@ class ApplicationController < ActionController::Base
 
   private
   
+  def not_authenticated
+    redirect_to login_path, alert: "Please login first"
+  end
+
   def credential_params
     params.require(:credential).permit(:nation, :token, :refresh_token, :expires_at)
   end
