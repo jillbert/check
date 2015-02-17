@@ -35,32 +35,71 @@ include EventsHelper
   end
 
   def get_all
-    @current_page = (params[:page] || 1).to_i
-    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {page: @current_page})
-    @total_pages = JSON.parse(response.body)["total_pages"]
-    @rsvpsfullinfo = JSON.parse(response.body)
-    @rsvps = @rsvpsfullinfo["results"]
+    e = Event.where(nation_id: session[:current_nation], eventNBID: session[:current_event]['id']).first
+    if e
+      @has_cache = true
+      @rsvps = Rsvp.where(event_id: e.id).order( 'last_name ASC' )
+    else
+      @current_page = (params[:page] || 1).to_i
+      response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {page: @current_page})
+      @total_pages = JSON.parse(response.body)["total_pages"]
+      @rsvpsfullinfo = JSON.parse(response.body)
+      @rsvps = @rsvpsfullinfo["results"]
 
-    @persons = []
-    @rsvps.each do |r|
-      response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-      person = JSON.parse(response.body)["person"]
-      @persons << Person.from_hash(person)
+      @persons = []
+      @rsvps.each do |r|
+        response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
+        person = JSON.parse(response.body)["person"]
+        @persons << Person.from_hash(person)
+      end
     end
   end
 
   def create_cache
+    
+    event = nil
+    e = Event.where(nation_id: session[:current_nation], eventNBID: session[:current_event]['id'])
+    if e.size > 0
+      event = e.first
+    else
+      event = Event.create!(nation_id: session[:current_nation], eventNBID: session[:current_event]['id'])
+    end
+
+    puts event.id
+
     current_page = 1
-    @rsvpsfullinfo = []
+    rsvpListfromNB = []
     response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {page: current_page})
     total_pages = JSON.parse(response.body)["total_pages"]
-    @rsvpsfullinfo << JSON.parse(response.body)["results"]
+    rsvpListfromNB << JSON.parse(response.body)["results"]
     while total_pages >= current_page
       current_page += 1
       response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]['id']}/rsvps/", :headers => standard_headers, params: {page: current_page})
-      @rsvpsfullinfo << JSON.parse(response.body)["results"]
+      rsvpListfromNB << JSON.parse(response.body)["results"]
     end
-    puts @rsvpsfullinfo
+
+    @rsvps = []
+    rsvpListfromNB.flatten!.each do |r|
+      existentRSVP = Rsvp.where(rsvpNBID: r['id'])
+      if existentRSVP.size == 0
+        response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
+        person = JSON.parse(response.body)["person"]
+        newrsvp = Rsvp.create!(
+          event_id: event.id,
+          rsvpNBID: r['id'],
+          personNBID: person['id'],
+          first_name: person['first_name'],
+          last_name: person['last_name'],
+          email: person['email'],
+          guests_count: r['guests_count'].to_i,
+          canceled: to_boolean(r['canceled']),
+          attended: to_boolean(r['attended'])
+        )
+
+      end
+    end
+
+    redirect_to :controller => 'events', :action => 'get_all'
 
   end
 
@@ -249,6 +288,25 @@ include EventsHelper
 
     return rsvpFound
 
+  end
+
+  private 
+
+  def rsvp_params
+    params.require(:rsvp).permit(
+      :event_id,
+      :rsvpNBID,
+      :personNBID,
+      :first_name,
+      :last_name,
+      :email,
+      :guests_count,
+      :canceled,
+      :attended)
+  end
+
+  def event_params
+    params.require(:event).permit(:nation_id, :eventNBID)
   end
 
 end

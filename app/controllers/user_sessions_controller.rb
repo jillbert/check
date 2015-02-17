@@ -11,7 +11,7 @@ class UserSessionsController < ApplicationController
       set_current_nation(nation.id)
       credential = Credential.where(nation_id: nation.id).first
       set_current_credential(credential.id)
-      redirect_back_or_to(:users, notice: 'Login successful')
+      redirect_back_or_to(:root, notice: 'Login successful')
     else
       flash.now[:alert] = 'Login failed'
       render action: 'new'
@@ -21,7 +21,7 @@ class UserSessionsController < ApplicationController
   def destroy
     logout
     destroy_currents
-    redirect_to(:users, notice: 'Logged out!')
+    redirect_to(:root, notice: 'Logged out!')
   end
 
 

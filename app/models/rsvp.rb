@@ -1,6 +1,8 @@
-class Rsvp
+class Rsvp < ActiveRecord::Base
+	
+	# attr_accessor :rsvp_id, :person_id, :event_id, :guests_count, :canceled, :attended, :volunteer, :is_private, :shift_ids
 
-	attr_accessor :rsvp_id,:person_id, :event_id, :guests_count, :canceled, :attended, :volunteer, :is_private, :shift_ids
+	belongs_to :event
 
 	def self.from_hash(hash)
 	  new.tap do |rsvp|
