@@ -1,23 +1,23 @@
 <% if @rsvpFound %>
 
-<h3><% if @rsvpFound.attended %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %>RSVP Found for: <%= @personMatch.name %></h3>
+<h3><% if @rsvpFound['attended'] %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %>RSVP Found for: <%= @personMatch.name %></h3>
 
 		<%= form_tag({controller: 'events', action: 'processCheckIn'}, method: 'get', id: "processcheckin", data: {abide: ''}) do %>
-			<%= hidden_field_tag 'rsvp_id', @rsvpFound.rsvp_id %>
-			<%= hidden_field_tag "event_id", @rsvpFound.event_id %>
-			<%= hidden_field_tag "person_id", @rsvpFound.person_id %>
-			<%= hidden_field_tag "guests_count", @rsvpFound.guests_count %>
-			<%= hidden_field_tag "volunteer", @rsvpFound.volunteer %>
-			<%= hidden_field_tag "private", @rsvpFound.is_private %>
-			<%= hidden_field_tag "canceled", @rsvpFound.canceled %>
-			<%= hidden_field_tag "shift_ids", @rsvpFound.shift_ids %>
-			<% if @rsvpFound.attended %>
+			<%= hidden_field_tag 'rsvp_id', @rsvpFound['id'] %>
+			<%= hidden_field_tag "event_id", @rsvpFound['event_id'] %>
+			<%= hidden_field_tag "person_id", @rsvpFound['person_id'] %>
+			<%= hidden_field_tag "guests_count", @rsvpFound['guests_count'] %>
+			<%= hidden_field_tag "volunteer", @rsvpFound['volunteer'] %>
+			<%= hidden_field_tag "private", @rsvpFound['is_private'] %>
+			<%= hidden_field_tag "canceled", @rsvpFound['canceled'] %>
+			<%= hidden_field_tag "shift_ids", @rsvpFound['shift_ids'] %>
+			<% if @rsvpFound['attended'] %>
 			<%= hidden_field_tag "already_checkedin", true%>
 			<%else%>
 			<%= hidden_field_tag "attended", true %>
 			<%end%>
 
-			<% if @rsvpFound.attended %>
+			<% if @rsvpFound['attended'] %>
 
 				<h3 class="button disabled">Already checked in </h3>
 
@@ -27,9 +27,9 @@
 				<fieldset><h3 class="subheader"><i class="fa fa-check-square-o"></i> Checked-In Guest #<%= i+1 %>: <%= m.first_name %> <%= m.last_name %></h3></fieldset>
 			<%end %>
 
-		  <% if @rsvpFound.guests_count - @plusonearray.size > 0 %>
-		  <%= hidden_field_tag "guests", @rsvpFound.guests_count - @plusonearray.size %>
-		  	<% (@rsvpFound.guests_count - @plusonearray.size).times do |n| %>
+		  <% if @rsvpFound['guests_count'] - @plusonearray.size > 0 %>
+		  <%= hidden_field_tag "guests", @rsvpFound['guests_count'] - @plusonearray.size %>
+		  	<% (@rsvpFound['guests_count'] - @plusonearray.size).times do |n| %>
 		  		<fieldset id="guest_<%=n%>">
 		  		<h3 class="subheader"><i class="fa fa-square-o"></i> Unchecked-In Guest #<%= @plusonearray.size + n +1 %>: </h3>
 		  		<div>First Name: <%= text_field_tag "guest_#{n}[first_name]", nil, class: 'first' %></div>
@@ -40,7 +40,7 @@
 		  	<% end %>
 		  <% end %>
 
-		  <% if !@rsvpFound.attended || @rsvpFound.guests_count - @plusonearray.size > 0 %>
+		  <% if !@rsvpFound['attended'] || @rsvpFound['guests_count'] - @plusonearray.size > 0 %>
 				<%= submit_tag 'Check In', class:"button" %>
 			<% end %>
 
