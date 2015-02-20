@@ -1,8 +1,19 @@
 <div id="header">
   <h3>Event RSVP List</h3>
+  <div style="clear:both"></div>
 <% if @has_cache %>
-<table>
+<table id="list" role="grid">
   <thead>
+    <tr>
+      <th width="40"></th>
+      <th width="40"></th>
+      <th scope="column">First Name</th>
+      <th scope="column">Last Name</th>
+      <th class="show-for-medium-up">Guests</th>
+    </tr>
+  </thead>
+
+  <tfoot style="display:none">
     <tr>
       <th width="40"></th>
       <th width="40"></th>
@@ -10,7 +21,8 @@
       <th>Last Name</th>
       <th class="show-for-medium-up">Guests</th>
     </tr>
-  </thead>
+  </tfoot>
+
   <tbody>
     <% @rsvps.each_with_index do |r| %>
       <tr>
@@ -59,7 +71,7 @@
       <th width="40"></th>
       <th>First Name</th>
       <th>Last Name</th>
-      <th>Guests</td>
+      <th class="show-for-medium-up">Guests</td>
     </tr>
   </thead>
   <tbody>

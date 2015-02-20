@@ -33,6 +33,7 @@ end
 
 gem 'foundation-rails', '5.4.3.1'
 gem "font-awesome-rails"
+gem 'jquery-datatables-rails', '~> 3.1.1'
 
 gem 'will_paginate', '~> 3.0.6'
 
