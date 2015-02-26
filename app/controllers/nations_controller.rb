@@ -1,6 +1,7 @@
 class NationsController < ApplicationController
   def index
-    @nations = Nation.all
+    @nations = Nation.find_by user_id: current_user.id
+    @credential = Credential.find_by nation_id: @nations.id
   end
 
   def new
@@ -40,6 +41,6 @@ class NationsController < ApplicationController
 
   private
   def nation_params
-    params.require(:nation).permit(:name, :url, :client_uid, :secret_key, :user_id)
+    params.require(:nation).permit(:name, :url, :client_uid, :secret_key)
   end
 end

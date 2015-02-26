@@ -1,12 +1,17 @@
-<li style="text-align:center;">
-
-  <% if nation.name != nil %>
-    <p style="text-transform:capitalize"><%= nation.name %></p>
-    <a class="button alert tiny" href= "<%= authorize_path(nation_id: nation.id) %>">Authenticate</a> <%= link_to "Edit", edit_nation_path(nation), class: "button tiny"%>
-
+<% if nation.name != nil %>
+ Your Nation: <%= nation.name %>
+  <% if @credential %>
+  <a class="button alert tiny" disabled>Authenticated</a>
   <% else %>
-
-    <%= link_to "Add information for this nation", edit_nation_path(nation), class: "button tiny" %>
-
+  <a class="button alert tiny" href= "<%= authorize_path(nation_id: nation.id) %>">Authenticate</a> 
   <% end %>
-</li>
+  <%= link_to "Edit", edit_user_path(current_user), class: "button tiny"%>
+
+  <% if @credential %>
+  <p><%= link_to "Continue to CheckIn", events_path, class: "button" %></p>
+  <% end %>
+<% else %>
+
+  <%= link_to "Add information for this nation", edit_nation_path(nation), class: "button tiny" %>
+
+<% end %>

@@ -10,8 +10,12 @@ class UserSessionsController < ApplicationController
       nation = Nation.where(user_id: @user.id).first
       set_current_nation(nation.id)
       credential = Credential.where(nation_id: nation.id).first
-      set_current_credential(credential.id)
-      redirect_back_or_to(:root, notice: 'Login successful')
+      if credential
+        set_current_credential(credential.id)
+        redirect_back_or_to(:events_path, notice: 'Login successful')
+      else
+        redirect_to :controller => 'nations', :action => 'index'
+      end
     else
       flash.now[:alert] = 'Login failed'
       render action: 'new'
