@@ -92,8 +92,8 @@ include EventsHelper
           last_name: person['last_name'],
           email: person['email'],
           guests_count: r['guests_count'].to_i,
-          canceled: to_boolean(r['canceled']),
-          attended: to_boolean(r['attended'])
+          canceled: r['canceled'],
+          attended: r['attended']
         )
       end
     end
@@ -173,12 +173,12 @@ include EventsHelper
     end      
 
     id = JSON.parse(response.body)["person"]["id"]
-    rsvpObject = makeRSVP(nil, session[:current_event], id.to_i, 0, false, false, false, true) 
-
+    rsvpObject = makeRSVP(nil, session[:current_event], id.to_i, 0, "false", "false", "false", "true") 
+    puts rsvpObject
     begin
       checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
     rescue => ex
-      flash[:error] = ex['message']
+        flash[:error] = ex.message.split('"validation_errors":')[1]
     else
       flash[:success] = "#{params['first_name']} #{params['last_name']} successfully added and checked in."
     end
