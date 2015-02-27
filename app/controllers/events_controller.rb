@@ -86,8 +86,10 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
 
     @rsvps = []
     rsvpListfromNB.flatten!.each do |r|
-      existentRSVP = Rsvp.where(event_id: event.id, rsvpNBID: r['id'], nation_id: session[:current_nation])
-      if existentRSVP.size == 0
+      existentRSVP = Rsvp.find_by(event_id: event.id, rsvpNBID: r['id'], nation_id: session[:current_nation])
+      if existentRSVP
+        existentRSVP.update(attended: r['attended'])
+      else
         response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
         person = JSON.parse(response.body)["person"]
         newrsvp = Rsvp.create!(
@@ -101,7 +103,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
           guests_count: r['guests_count'].to_i,
           canceled: r['canceled'],
           attended: r['attended']
-        )
+        )        
       end
     end
   end
