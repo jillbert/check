@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get "events/make_new_rsvp", to: "events#make_new_rsvp"
   get "events/processCheckIn", to: "events#processCheckIn"
   get "events/cache", to: "events#create_cache"
+  get "events/update_cache", to: "events#update_cache"
   
   get "events/cancel_event", to: "events#new_event"
   get "events/cancel_site", to: "events#new_site"

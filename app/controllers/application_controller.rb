@@ -47,6 +47,18 @@ class ApplicationController < ActionController::Base
     { "Accept" => "application/json", "Content-Type" => "application/json" }
   end
 
+  def has_session_info
+    if session[:current_site]
+      if session[:current_event]
+        true
+      else
+        redirect_to choose_event_path
+      end
+    else
+      redirect_to events_path
+    end
+  end
+
   private
   
   def not_authenticated

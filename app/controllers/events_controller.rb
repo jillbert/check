@@ -3,6 +3,8 @@ class EventsController < ApplicationController
 include ApplicationHelper
 include EventsHelper
 
+before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
+
   def index
     if session[:current_site]
       redirect_to :controller => 'events', :action => 'choose_event'
@@ -19,7 +21,7 @@ include EventsHelper
     end
 
     if session[:current_event]
-      redirect_to :controller => 'events', :action => 'find_rsvp'
+      redirect_to :controller => 'events', :action => 'get_all'
     else
       token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
       response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100})
@@ -38,22 +40,27 @@ include EventsHelper
   def get_all
     e = Event.where(nation_id: session[:current_nation], eventNBID: session[:current_event]).first
     if e
-      @has_cache = true
       @rsvps = Rsvp.where(event_id: e.id).order( 'last_name ASC' )
     else
-      @current_page = (params[:page] || 1).to_i
-      response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, params: {page: @current_page})
-      @total_pages = JSON.parse(response.body)["total_pages"]
-      @rsvpsfullinfo = JSON.parse(response.body)
-      @rsvps = @rsvpsfullinfo["results"]
+      create_cache
+      # @current_page = (params[:page] || 1).to_i
+      # response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, params: {page: @current_page})
+      # @total_pages = JSON.parse(response.body)["total_pages"]
+      # @rsvpsfullinfo = JSON.parse(response.body)
+      # @rsvps = @rsvpsfullinfo["results"]
 
-      @persons = []
-      @rsvps.each do |r|
-        response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-        person = JSON.parse(response.body)["person"]
-        @persons << Person.from_hash(person)
-      end
+      # @persons = []
+      # @rsvps.each do |r|
+      #   response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
+      #   person = JSON.parse(response.body)["person"]
+      #   @persons << Person.from_hash(person)
+      # end
     end
+  end
+
+  def update_cache
+    create_cache
+    redirect_to everyone_path, :notice => "Cache updated"
   end
 
   def create_cache
@@ -97,9 +104,6 @@ include EventsHelper
         )
       end
     end
-
-    redirect_to :controller => 'events', :action => 'get_all'
-
   end
 
   def find_person
