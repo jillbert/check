@@ -60,4 +60,9 @@ module EventsHelper
     session[:current_event] = nil
     redirect_to :controller => "events", :action => "choose_event"
   end
+
+  def get_event
+    Event.find_by(eventNBID: session[:current_event].to_i)
+  end
+
 end

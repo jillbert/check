@@ -1,31 +1,32 @@
 <h3>Add New Person and Check Them In:</h3>
 
-<%= form_tag({controller: 'events', action: 'make_new_rsvp'}, method: 'get') do %>
+<%= form_tag({controller: 'events', action: 'make_new_rsvp'}, method: 'get', data: {abide: ''}) do %>
   <div class="row">
-    <div class="medium-6 columns">
-      <label>First Name
-        <%= text_field_tag 'first_name' %>
+    <div class="medium-6 columns name-field">
+      <label>First Name <small>required</small>
+        <%= text_field_tag 'first_name', nil, :required => true, :pattern => "[a-zA-Z]+" %>
       </label>
     </div>
-    <div class="medium-6 columns">
-      <label>Last Name 
-        <%= text_field_tag 'last_name' %>
+    <div class="medium-6 columns name-field">
+      <label>Last Name <small>required</small>
+        <%= text_field_tag 'last_name', nil, :required => true, :pattern => "[a-zA-Z]+" %>
       </label>
     </div>
   </div>
   <div class="row">
+    <div class="medium-4 columns email-field">
+      <label>Email <small>required</small>
+        <%= text_field_tag 'email', nil, :required => true, :pattern => "user_email" %>
+      </label>
+      <small class="error">Email is required and must be in the following pattern: example@test.com.</small>
+    </div>
     <div class="medium-4 columns">
-      <label>Email
-        <%= text_field_tag 'email' %>
+      <label for="phone">Phone
+        <%= text_field_tag 'phone'%>
       </label>
     </div>
     <div class="medium-4 columns">
-      <label>Phone
-        <%= text_field_tag 'phone' %>
-      </label>
-    </div>
-    <div class="medium-4 columns">
-      <label>Mobile Phone
+      <label for="mobile">Mobile Phone
         <%= text_field_tag 'mobile' %>
       <label>
     </div>

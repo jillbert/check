@@ -12,7 +12,7 @@ class UserSessionsController < ApplicationController
       credential = Credential.where(nation_id: nation.id).first
       if credential
         set_current_credential(credential.id)
-        redirect_back_or_to(:events_path, notice: 'Login successful')
+        redirect_back_or_to(events_path, notice: 'Login successful')
       else
         redirect_to :controller => 'nations', :action => 'index'
       end

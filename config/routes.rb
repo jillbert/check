@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "/events", to: "events#index"
 
   get "/choose_event", to: "events#choose_event"
+  get "/set_event", to: "events#set_event"
 
   get "/findrsvp", to: "events#find_rsvp"
   get "everyone", to: "events#get_all"

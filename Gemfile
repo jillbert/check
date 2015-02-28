@@ -31,7 +31,7 @@ group :development do
   gem 'quiet_assets'
 end
 
-gem 'foundation-rails', '5.4.3.1'
+gem 'foundation-rails'
 gem "font-awesome-rails"
 gem 'jquery-datatables-rails', '~> 3.1.1'
 

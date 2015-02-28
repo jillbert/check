@@ -22,7 +22,8 @@ $(function(){
 	$(document).foundation({
 		abide: { 
 			patterns: { 
-				user_phone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/ 
+				user_phone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+				user_email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 			} 
 		} 
 	}) 
@@ -65,7 +66,7 @@ $(document).ready(function() {
 		})
 	}
 
-	$('a:not(.toggle-topbar.menu-icon a, .top-bar-section a), input[type="submit"]').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})})
+	// $('a:not(.toggle-topbar.menu-icon a, .top-bar-section a), input[type="submit"]').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})})
 
 	if($('#list')) {
 		$('#list tfoot th').each( function () {

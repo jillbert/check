@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 include ApplicationHelper
 include EventsHelper
 
-before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
+before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
 
   def index
     if session[:current_site]
@@ -29,10 +29,20 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
     end
   end
 
-  def find_rsvp
-    unless session[:current_event]
+  def set_event
+    if params[:event] 
       session[:current_event] = params[:event]
       session[:current_event_name] = params[:name]
+      redirect_to everyone_path
+    else
+      session[:current_event] = nil
+      session[:current_event_name] = nil
+      redirect_to choose_event_path
+    end
+  end
+
+  def find_rsvp
+    unless session[:current_event]
     end
     @event = session[:current_event]
   end
@@ -43,18 +53,9 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
       @rsvps = Rsvp.where(event_id: e.id).order( 'last_name ASC' )
     else
       create_cache
-      # @current_page = (params[:page] || 1).to_i
-      # response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, params: {page: @current_page})
-      # @total_pages = JSON.parse(response.body)["total_pages"]
-      # @rsvpsfullinfo = JSON.parse(response.body)
-      # @rsvps = @rsvpsfullinfo["results"]
 
-      # @persons = []
-      # @rsvps.each do |r|
-      #   response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-      #   person = JSON.parse(response.body)["person"]
-      #   @persons << Person.from_hash(person)
-      # end
+      e = Event.where(nation_id: session[:current_nation], eventNBID: session[:current_event]).first
+      @rsvps = Rsvp.where(event_id: e.id).order( 'last_name ASC' )
     end
   end
 
@@ -84,7 +85,6 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
       rsvpListfromNB << JSON.parse(response.body)["results"]
     end
 
-    @rsvps = []
     rsvpListfromNB.flatten!.each do |r|
       existentRSVP = Rsvp.find_by(event_id: event.id, rsvpNBID: r['id'], nation_id: session[:current_nation])
       if existentRSVP
@@ -92,18 +92,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
       else
         response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
         person = JSON.parse(response.body)["person"]
-        newrsvp = Rsvp.create!(
-          nation_id: session[:current_nation],
-          event_id: event.id,
-          rsvpNBID: r['id'],
-          personNBID: person['id'],
-          first_name: person['first_name'],
-          last_name: person['last_name'],
-          email: person['email'],
-          guests_count: r['guests_count'].to_i,
-          canceled: r['canceled'],
-          attended: r['attended']
-        )        
+        createNewRsvp(event.id, r['id'], person['id'], person['first_name'], person['last_name'], person['email'], r['guests_count'].to_i, r['canceled'], r['attended']) 
       end
     end
   end
@@ -130,7 +119,9 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
       
       @rsvpFound = findRSVP(session[:current_event], @personMatch.id)
       if @rsvpFound
-        flash[:success] = "RSVP found."
+        if !flash
+          flash[:success] = "RSVP found."
+        end
         rsvpidsearch = @rsvpFound['id']
         plusone = Guest.where(rsvpNBID: rsvpidsearch, eventNBID: session[:current_event], nationNBID: session[:current_nation])
 
@@ -178,19 +169,22 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
       response = token.post('api/v1/people', :headers => standard_headers, :params => newPersonParams)
     end      
 
-    id = JSON.parse(response.body)["person"]["id"]
-    rsvpObject = makeRSVP(nil, session[:current_event], id.to_i, 0, "false", "false", "false", "true") 
-    puts rsvpObject
+    person = JSON.parse(response.body)["person"]
+    rsvpObject = makeRSVP(nil, session[:current_event], person['id'].to_i, 0, "false", "false", "false", "true") 
     begin
       checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
     rescue => ex
-        flash[:error] = ex.message.split('"validation_errors":')[1]
+        flash[:error] = "Either the RSVP already exists or there was an error."
+        redirect_to :controller => 'events', :action => 'find_person', :email => params[:email], :last_name => params[:last_name],:first_name => params[:first_name], :phone => params[:phone], :mobile => params[:mobile]
     else
       flash[:success] = "#{params['first_name']} #{params['last_name']} successfully added and checked in."
+
+      rsvpObject = JSON.parse(checkInResponse.body)["rsvp"]
+      event = Event.find_by(eventNBID: session[:current_event].to_i)
+      createNewRsvp(get_event.id, rsvpObject['id'].to_i, person['id'].to_i, person['first_name'], person['last_name'], person['email'], rsvpObject['guests_count'].to_i, to_boolean(rsvpObject['canceled']), to_boolean(rsvpObject['attended'])) 
+      
+      redirect_to :controller => 'events', :action => 'index'
     end
-
-    redirect_to :controller => 'events', :action => 'index'
-
   end
 
   def processCheckIn
@@ -215,7 +209,10 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
 
     else
 
-      main_rsvp_id = JSON.parse(checkInResponse.body)["rsvp"]["id"]
+      main_rsvp = JSON.parse(checkInResponse.body)["rsvp"]
+      existentRSVP = Rsvp.find_by(event_id: get_event.id, rsvpNBID: main_rsvp["id"].to_i, nation_id: session[:current_nation].to_i)
+      existentRSVP.update(attended: true)
+      flash[:success] = "#{existentRSVP.first_name} #{existentRSVP.last_name} checked in."
 
       if params[:guests].to_i > 0
         (params[:guests].to_i).times do |n|
@@ -260,13 +257,19 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
               rescue => ex 
                 flash[:error] = ex
               else
+                guest_rsvp = JSON.parse(checkInResponse.body)["rsvp"]
                 Guest.create(
                   :eventNBID => session[:current_event].to_i, 
                   :plusoneNBID => guest_id.to_i,
                   :nationNBID => session[:current_nation],
                   :nation_name => "#{session[:current_site]}", 
-                  :rsvpNBID => main_rsvp_id.to_i
+                  :rsvpNBID => main_rsvp["id"].to_i
                 )
+
+                createNewRsvp(get_event.id, guest_rsvp["id"].to_i, guest_id.to_i, guest.first_name, guest.last_name, guest.email, 0, false, true)
+
+                flash[:success] = "#{existentRSVP.first_name} #{existentRSVP.last_name} and guests checked in."
+
               end
             end
           end
@@ -275,7 +278,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
       end
     end
 
-      redirect_to :controller => 'events', :action => 'index', :event_id => session[:current_event]
+    redirect_to :controller => 'events', :action => 'index', :event_id => session[:current_event]
 
   end
 
@@ -296,6 +299,24 @@ before_filter :has_session_info, :except => [:index, :choose_event, :find_rsvp]
   end
 
   private 
+
+  def createNewRsvp(eventID, rsvpNBID, personNBID, first_name, last_name, email, guests_count, canceled, attendance) 
+
+    newRsvp = Rsvp.create(
+      nation_id: session[:current_nation],
+      event_id: eventID,
+      rsvpNBID: rsvpNBID,
+      personNBID: personNBID,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      guests_count: guests_count,
+      canceled: canceled,
+      attended: attendance
+    )
+
+    return newRsvp
+  end
 
   def rsvp_params
     params.require(:rsvp).permit(
