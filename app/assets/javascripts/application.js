@@ -75,7 +75,11 @@ $(document).ready(function() {
 		} );
 
 		// DataTable
-		var table = $('#list').DataTable();
+		var table = $('#list').DataTable({
+			"oLanguage": {
+			        "sZeroRecords": "None found. <a href='/new_rsvp'>Add a new RSVP?</a>"
+			    }
+		});
 
 		// Apply the search
 		table.columns().eq( 0 ).each( function ( colIdx ) {

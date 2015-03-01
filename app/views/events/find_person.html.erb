@@ -1,6 +1,6 @@
 <% if @rsvpFound %>
 
-<h3><% if @rsvpFound['attended'] %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %>RSVP Found for: <%= @personMatch.name %></h3>
+<h3><% if @rsvpFound['attended'] %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %> RSVP Found for: <%= @personMatch.name %></h3>
 
 		<%= form_tag({controller: 'events', action: 'processCheckIn'}, method: 'get', id: "processcheckin", data: {abide: ''}) do %>
 			<%= hidden_field_tag 'rsvp_id', @rsvpFound['id'] %>
