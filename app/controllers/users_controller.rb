@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  http_basic_authenticate_with name: "cstreet", password: "nationbuilder", only: [:new, :create]
+  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASS'], only: [:new, :create]
   skip_before_filter :require_login, only: [:new, :create]
   # GET /users
   # GET /users.json
