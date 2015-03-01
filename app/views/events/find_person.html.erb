@@ -12,7 +12,7 @@
 			<%= hidden_field_tag "canceled", @rsvpFound['canceled'] %>
 			<%= hidden_field_tag "shift_ids", @rsvpFound['shift_ids'] %>
 			<% if @rsvpFound['attended'] %>
-			<%= hidden_field_tag "already_checkedin", true%>
+			<%= hidden_field_tag "already_checkedin", true %>
 			<%else%>
 			<%= hidden_field_tag "attended", true %>
 			<%end%>
@@ -28,16 +28,16 @@
 			<%end %>
 
 		  <% if @rsvpFound['guests_count'] - @plusonearray.size > 0 %>
-		  <%= hidden_field_tag "guests", @rsvpFound['guests_count'] - @plusonearray.size %>
-		  	<% (@rsvpFound['guests_count'] - @plusonearray.size).times do |n| %>
-		  		<fieldset id="guest_<%=n%>">
-		  		<h3 class="subheader"><i class="fa fa-square-o"></i> Unchecked-In Guest #<%= @plusonearray.size + n +1 %>: </h3>
-		  		<div>First Name: <%= text_field_tag "guest_#{n}[first_name]", nil, class: 'first' %></div>
-		  		<div>Last Name: <%= text_field_tag "guest_#{n}[last_name]", nil, class: 'last' %></div>
-		  		<div><label>Email: <%= email_field_tag "guest_#{n}[email]", nil, class: 'email', placeholder: 'example@example.ca' %><small class="error">Email is in the improper format.</small><label></div>
-		  		<div><label>Mobile Phone: <%= text_field_tag "guest_#{n}[mobile]", nil, class: 'phone', pattern: 'user_phone', placeholder: 'XXX-XXX-XXXX' %><small class="error">Phone number is in the improper format.</small><label></div>
-		  		</fieldset>
-		  	<% end %>
+		  <%= hidden_field_tag "guests", @rsvpFound['guests_count'] - @plusonearray.size, readonly: true %>
+		  <div class="row">
+		    <div class="medium-6 columns">
+		      Guests remaining to be checked in: <span id="guest-counter"><%=@rsvpFound['guests_count'] - @plusonearray.size %></span>
+		    </div>
+		    <div class="medium-6 columns">
+		      <a href="#" id="add_guest" class="button">Check in guest?</a>
+		    </div>
+		  </div>
+		  <div id="guest_placement" data-count="0"></div>
 		  <% end %>
 
 		  <% if !@rsvpFound['attended'] || @rsvpFound['guests_count'] - @plusonearray.size > 0 %>

@@ -218,62 +218,63 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
         (params[:guests].to_i).times do |n|
 
           name = "guest_" + "#{n}"
-          inputted_guest = params[name.to_sym].to_hash
+          if(params[name])
+            inputted_guest = params[name.to_sym].to_hash
 
-          if inputted_guest["first_name"] != "" && inputted_guest["last_name"] != "" && (inputted_guest["email"] != "" || inputted_guest["mobile"] != "")
-            guest = Person.from_hash(inputted_guest)
-            @params = {
-              :person => {
-                :first_name => guest.first_name,
-                :last_name => guest.last_name,
-                :email => guest.email,
-                :mobile => guest.mobile,
-                :recruiter_id => params[:person_id]
-              }
-            }
-
-            begin
-              response = token.put("/api/v1/people/push", :headers => standard_headers, :params => @params)
-            rescue => ex
-              flash[:error] = ex
-            else
-              guest_id = JSON.parse(response.body)["person"]["id"]
-
-              putParams = {
-                "rsvp" => {
-                  "event_id" => session[:current_event].to_i,
-                  "person_id" => guest_id,
-                  "guests_count" => 0,
-                  "volunteer" => false,
-                  "private" => false,
-                  "canceled" => false,
-                  "attended" => true,
-                  "shift_ids" => []
+            if inputted_guest["first_name"] != "" && inputted_guest["last_name"] != "" && (inputted_guest["email"] != "" || inputted_guest["mobile"] != "")
+              guest = Person.from_hash(inputted_guest)
+              @params = {
+                :person => {
+                  :first_name => guest.first_name,
+                  :last_name => guest.last_name,
+                  :email => guest.email,
+                  :mobile => guest.mobile,
+                  :recruiter_id => params[:person_id]
                 }
               }
 
               begin
-                  checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
-              rescue => ex 
+                response = token.put("/api/v1/people/push", :headers => standard_headers, :params => @params)
+              rescue => ex
                 flash[:error] = ex
               else
-                guest_rsvp = JSON.parse(checkInResponse.body)["rsvp"]
-                Guest.create(
-                  :eventNBID => session[:current_event].to_i, 
-                  :plusoneNBID => guest_id.to_i,
-                  :nationNBID => session[:current_nation],
-                  :nation_name => "#{session[:current_site]}", 
-                  :rsvpNBID => main_rsvp["id"].to_i
-                )
+                guest_id = JSON.parse(response.body)["person"]["id"]
 
-                createNewRsvp(get_event.id, guest_rsvp["id"].to_i, guest_id.to_i, guest.first_name, guest.last_name, guest.email, 0, false, true)
+                putParams = {
+                  "rsvp" => {
+                    "event_id" => session[:current_event].to_i,
+                    "person_id" => guest_id,
+                    "guests_count" => 0,
+                    "volunteer" => false,
+                    "private" => false,
+                    "canceled" => false,
+                    "attended" => true,
+                    "shift_ids" => []
+                  }
+                }
 
-                flash[:success] = "#{existentRSVP.first_name} #{existentRSVP.last_name} and guests checked in."
+                begin
+                    checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
+                rescue => ex 
+                  flash[:error] = ex
+                else
+                  guest_rsvp = JSON.parse(checkInResponse.body)["rsvp"]
+                  Guest.create(
+                    :eventNBID => session[:current_event].to_i, 
+                    :plusoneNBID => guest_id.to_i,
+                    :nationNBID => session[:current_nation],
+                    :nation_name => "#{session[:current_site]}", 
+                    :rsvpNBID => main_rsvp["id"].to_i
+                  )
 
+                  createNewRsvp(get_event.id, guest_rsvp["id"].to_i, guest_id.to_i, guest.first_name, guest.last_name, guest.email, 0, false, true)
+
+                  flash[:success] = "#{existentRSVP.first_name} #{existentRSVP.last_name} and guests checked in."
+
+                end
               end
             end
           end
-
         end
       end
     end
