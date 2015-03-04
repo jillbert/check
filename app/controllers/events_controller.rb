@@ -9,8 +9,13 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
     if session[:current_site]
       redirect_to :controller => 'events', :action => 'choose_event'
     else 
-      response = token.get("/api/v1/sites", :headers => standard_headers, :params => { page: 1, per_page: 100});
-      @sites = JSON.parse(response.body)["results"]
+      begin 
+        response = token.get("/api/v1/sites", :headers => standard_headers, :params => { page: 1, per_page: 100});
+      rescue => ex
+        @error = ex
+      else
+        @sites = JSON.parse(response.body)["results"]
+      end
     end
 
   end
@@ -74,15 +79,32 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
       event = Event.create!(nation_id: session[:current_nation], eventNBID: session[:current_event])
     end
 
-    current_page = 1
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers)
+    parsed = JSON.parse(response.body)
     rsvpListfromNB = []
-    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, params: {page: current_page})
-    total_pages = JSON.parse(response.body)["total_pages"]
-    rsvpListfromNB << JSON.parse(response.body)["results"]
-    while total_pages >= current_page
-      current_page += 1
-      response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, params: {page: current_page})
-      rsvpListfromNB << JSON.parse(response.body)["results"]
+    puts parsed
+    if parsed['next']
+      rsvpListfromNB << parsed["results"]
+      currentpage = 1
+      is_next = parsed['next']
+      while is_next
+        currentpage += 1
+        pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
+        response = JSON.parse(pagination_result.body)
+        rsvpListfromNB << response['results']
+        is_next = response['next']
+      end
+    elsif parsed["total_pages"]
+      current_page = 1
+      total_pages = parsed["total_pages"]
+      rsvpListfromNB << parsed["results"]
+      while total_pages >= current_page
+        current_page += 1
+        response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, params: {page: current_page})
+        rsvpListfromNB << JSON.parse(response.body)["results"]
+      end
+    else 
+      rsvpListfromNB << parsed["results"]
     end
 
     rsvpListfromNB.flatten!.each do |r|

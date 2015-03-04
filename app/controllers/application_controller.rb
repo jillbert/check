@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   # helper_method :logged_in?
 
+  @error = nil 
+  
   private
 
   def deauthorize!
