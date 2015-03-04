@@ -10,7 +10,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
       redirect_to :controller => 'events', :action => 'choose_event'
     else 
       begin 
-        response = token.get("/api/v1/sites", :headers => standard_headers, :params => { page: 1, per_page: 100});
+        response = token.get("/api/v1/sites", :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100});
       rescue => ex
         @error = ex
       else
@@ -29,7 +29,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
       redirect_to :controller => 'events', :action => 'get_all'
     else
       token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
-      response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100})
+      response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100})
       @events = JSON.parse(response.body)["results"]
     end
   end
@@ -308,7 +308,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
   def findRSVP(event, person)
     rsvpFound = nil
 
-    rsvpresponse = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps", :headers => standard_headers, :params => { page: 1, per_page: 100 })
+    rsvpresponse = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps", :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100 })
     rsvps = JSON.parse(rsvpresponse.body)["results"]
 
     rsvps.each do |rsvp|
