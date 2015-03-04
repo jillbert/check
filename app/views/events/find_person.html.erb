@@ -34,14 +34,18 @@
 		      Guests remaining to be checked in: <span id="guest-counter"><%=@rsvpFound['guests_count'] - @plusonearray.size %></span>
 		    </div>
 		    <div class="medium-6 columns">
-		      <a href="#" id="add_guest" class="button">Check in guest?</a>
+		      <a href="#" id="add_guest" class="button">Add a guest?</a>
 		    </div>
 		  </div>
 		  <div id="guest_placement" data-count="0"></div>
 		  <% end %>
 
 		  <% if !@rsvpFound['attended'] || @rsvpFound['guests_count'] - @plusonearray.size > 0 %>
-				<%= submit_tag 'Check In', class:"button" %>
+				<% if @rsvpFound['attended'] && @rsvpFound['guests_count'] - @plusonearray.size > 0 %>
+					<%= submit_tag 'Check In', class:"button forguestcheckin" %>
+				<% else %>
+					<%= submit_tag 'Check In', class:"button" %>
+				<% end %>
 			<% end %>
 
 	<% end %>

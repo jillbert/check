@@ -75,13 +75,17 @@ $(document).ready(function() {
 			guestForm = '<fieldset id="guest_' + newAddedCount + '"><h3 class="subheader"><i class="fa fa-square-o"></i> Unchecked-In Guest #' + newAddedCount + ': </h3><div class="row"><div class="medium-6 columns name-field"><label>First Name <small>required</small> <input class="first" id="guest_' + newAddedCount + '_first_name" name="guest_' + newAddedCount + '[first_name]" type="text" required pattern="[a-zA-Z]+"><label></div><div class="medium-6 columns name-field"><label>Last Name <small>required</small> <input class="last" id="guest_' + newAddedCount + '_last_name" name="guest_' + newAddedCount + '[last_name]" type="text" required pattern="[a-zA-Z]+"></label></div></div><div class="row"><div class="medium-6 columns email-field"><label>Email <small>required</small> <input class="email" id="guest_' + newAddedCount + '_email" name="guest_' + newAddedCount + '[email]" placeholder="example@example.ca" type="email" required pattern="user_email"><small class="error">Email is required.</small><label></label></label></div><div class="medium-6 columns"><label>Mobile Phone <input class="phone" id="guest_' + newAddedCount + '_mobile" name="guest_' + newAddedCount + '[mobile]" pattern="user_phone" placeholder="XXX-XXX-XXXX" type="text"><small class="error">Phone number is in the improper format.</small><label></label></label></div></div></fieldset>';
 			$('#guest_placement').append(guestForm);
 			$('#guest_placement').data('count', newAddedCount);
-			$('#guest-counter').text(newRemainingCount)
+			$('#guest-counter').text(newRemainingCount);
+			$('.button.forguestcheckin').show();
 			if(newRemainingCount == 0) {
 				$('#add_guest').attr('disabled', true);
 			}
 
 		}
 	})
+
+	$('.updatecache').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})});
+
 
 	// $('a:not(.toggle-topbar.menu-icon a, .top-bar-section a), input[type="submit"]').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})})
 
