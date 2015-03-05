@@ -33,6 +33,7 @@
           <%= hidden_field_tag 'email', r.email %>
           <%= hidden_field_tag 'phone', "" %>
           <%= hidden_field_tag 'mobile', "" %>
+          <%= hidden_field_tag 'rsvp_id', r.id %>
           <%= button_tag(type: 'submit', class:"no-style") do %>
             <i class="fa fa-edit"></i>
           <% end %>

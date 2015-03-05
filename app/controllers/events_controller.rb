@@ -121,25 +121,11 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
 
   def find_person
 
-    @params = createMatchParams(params[:first_name], params[:last_name], params[:email], params[:phone], params[:mobile])
+    if params[:rsvp_id]
+      personNBID = Rsvp.find(params[:rsvp_id]).personNBID
+      @personMatch = findPerson(personNBID)
+      @rsvpFound = findRSVP(session[:current_event], personNBID)
 
-    @personMatch = nil
-
-    begin
-
-      response = token.get("api/v1/people/match", :headers => standard_headers, :params => @params )
-
-    rescue => ex
-
-      redirect_to :controller => 'events', :action => 'find_rsvp', :event_id => session[:current_event], :params => @params
-      flash[:error] = JSON.parse(ex.response.body)["message"]
-
-    else
-
-      person = JSON.parse(response.body)["person"]
-      @personMatch = Person.from_hash(person)
-      
-      @rsvpFound = findRSVP(session[:current_event], @personMatch.id)
       if @rsvpFound
         if !flash
           flash[:success] = "RSVP found."
@@ -160,6 +146,50 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
         end
       else
         flash[:error] = "#{@personMatch.name}'s RSVP does not exist. Would you like to check them in."
+      end
+
+    else
+
+      @params = createMatchParams(params[:first_name], params[:last_name], params[:email], params[:phone], params[:mobile])
+
+      @personMatch = nil
+
+      begin
+
+        response = token.get("api/v1/people/match", :headers => standard_headers, :params => @params )
+
+      rescue => ex
+
+        redirect_to :controller => 'events', :action => 'find_rsvp', :event_id => session[:current_event], :params => @params
+        flash[:error] = JSON.parse(ex.response.body)["message"]
+
+      else
+
+        person = JSON.parse(response.body)["person"]
+        @personMatch = Person.from_hash(person)
+        
+        @rsvpFound = findRSVP(session[:current_event], @personMatch.id)
+        if @rsvpFound
+          if !flash
+            flash[:success] = "RSVP found."
+          end
+          rsvpidsearch = @rsvpFound['id']
+          plusone = Guest.where(rsvpNBID: rsvpidsearch, eventNBID: session[:current_event], nationNBID: session[:current_nation])
+
+          @plusonearray = []
+          plusone.each do |n|
+            begin
+            response = token.get("api/v1/people/#{n.plusoneNBID}", :headers => standard_headers)
+            rescue => ex
+              puts ex
+            else
+              person = JSON.parse(response.body)["person"]
+              @plusonearray << Person.from_hash(person)
+            end
+          end
+        else
+          flash[:error] = "#{@personMatch.name}'s RSVP does not exist. Would you like to check them in."
+        end
       end
     end
 
@@ -303,6 +333,12 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
 
     redirect_to :controller => 'events', :action => 'index', :event_id => session[:current_event]
 
+  end
+
+  def findPerson(id)
+    response = token.get("/api/v1/people/#{id}", :headers => standard_headers)
+    person = JSON.parse(response.body)["person"]
+    return Person.from_hash(person)
   end
 
   def findRSVP(event, person)
