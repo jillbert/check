@@ -344,13 +344,26 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
   def findRSVP(event, person)
     rsvpFound = nil
 
-    rsvpresponse = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps", :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100 })
-    rsvps = JSON.parse(rsvpresponse.body)["results"]
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps", :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100 })
+    parsed = JSON.parse(response.body)
+    rsvpListfromNB = []
+    puts parsed
+    if parsed['next']
+      rsvpListfromNB << parsed["results"]
+      currentpage = 1
+      is_next = parsed['next']
+      while is_next
+        currentpage += 1
+        pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
+        response = JSON.parse(pagination_result.body)
+        rsvpListfromNB << response['results']
+        is_next = response['next']
+      end
+    else
+      rsvpListfromNB << parsed["results"]
+    end
 
-    rsvps.each do |rsvp|
-      puts "RSVP Object Person ID #{rsvp['person_id']}"
-      puts "person ID #{person}"
-      puts rsvp['person_id'] == person
+    rsvpListfromNB.flatten!.each do |rsvp|
       if rsvp['person_id'] == person
           rsvpFound = rsvp
       end
