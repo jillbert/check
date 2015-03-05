@@ -348,6 +348,9 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
     rsvps = JSON.parse(rsvpresponse.body)["results"]
 
     rsvps.each do |rsvp|
+      puts "RSVP Object Person ID #{rsvp['person_id']}"
+      puts "person ID #{person}"
+      puts rsvp['person_id'] == person
       if rsvp['person_id'] == person
           rsvpFound = rsvp
       end
