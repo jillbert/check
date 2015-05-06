@@ -49,6 +49,9 @@ GEM
     execjs (2.3.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     foundation-rails (5.5.0.0)
@@ -160,6 +163,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
+  figaro
   font-awesome-rails
   foundation-rails
   jbuilder (~> 2.0)

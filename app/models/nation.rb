@@ -6,7 +6,7 @@ class Nation < ActiveRecord::Base
   has_many :rsvps
   
 
-  def client
-    @client ||= OAuth2::Client.new(client_uid, secret_key, :site => url)
+  def client()
+    @client ||= OAuth2::Client.new(ENV['CLIENT_ID'], ENV['SECRET_KEY'], :site => url)
   end
 end

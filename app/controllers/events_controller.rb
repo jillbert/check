@@ -3,7 +3,8 @@ class EventsController < ApplicationController
 include ApplicationHelper
 include EventsHelper
 
-before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
+before_filter :has_credential?
+before_filter :has_session_info, :except => [:index, :choose_event, :set_event, :new_site, :new_event]
 
   def index
     if session[:current_site]
@@ -35,9 +36,24 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
   end
 
   def set_event
-    if params[:event] 
+    if params[:event]
       session[:current_event] = params[:event]
       session[:current_event_name] = params[:name]
+
+      begin
+        token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + session[:current_event]
+        response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100})
+      else 
+        event = JSON.parse(response.body)
+        if event['event']['rsvp_form']['address'] == "required"
+          event['event']['rsvp_form']['address'] = "optional"
+          event['event']['status'] = "published"
+          token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + session[:current_event]
+          response = token.put(token_put_path, :headers => standard_headers, :body => event.to_json )
+          puts response
+        end
+      end
+
       redirect_to everyone_path
     else
       session[:current_event] = nil
@@ -238,8 +254,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event]
 
       if params[:guests].to_i > 0
         (params[:guests].to_i).times do |n|
-
-          name = "guest_" + "#{n}"
+          name = "guest_" + "#{n+1}"
           if(params[name])
             inputted_guest = params[name.to_sym].to_hash
 

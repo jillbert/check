@@ -42,7 +42,7 @@
     <% if session[:current_site] && session[:current_event] %>
     <div id="choices">
       <div class="row">
-        <div class="small-4 centered columns">
+        <div class="small-6 centered columns">
           <% if current_page?(controller:'events', action:'get_all') %>
             <div class="button disabled"><i class="fa fa-list-alt"></i> <span class="show-for-medium-up">Entire RSVP List</span></div>
           <% else %>
@@ -51,16 +51,7 @@
             <% end %>
           <% end %>
         </div>
-        <div class="small-4 centered columns">
-          <% if current_page?(controller:'events', action:'find_rsvp') %>
-            <div class="button disabled"><i class="fa fa-search"></i> <span class="show-for-medium-up">Search for RSVP</span></div>
-          <% else %>
-            <%= link_to findrsvp_path, class:"button success" do %>
-            <i class="fa fa-search"></i> <span class="show-for-medium-up">Search for RSVP</span>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="small-4 centered columns">
+        <div class="small-6 centered columns">
         <% if current_page?(controller:'events', action:'new_rsvp') %>
           <div class="button disabled"><i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span></div>
         <% else %>

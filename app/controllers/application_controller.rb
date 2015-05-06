@@ -23,6 +23,15 @@ class ApplicationController < ActionController::Base
     credential.access_token
   end
 
+  def has_credential?
+    @nations = Nation.find_by user_id: current_user.id
+    if !Credential.find_by nation_id: @nations.id
+      redirect_to nations_path
+      flash[:error] = "Please authenticate."
+    end
+
+  end
+
   # def logged_in?
   #   credential.present?
   # end
