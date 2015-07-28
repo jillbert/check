@@ -1,0 +1,9 @@
+<div id="rsvp_<%=@rsvp.id%>">
+	<h2><%= @rsvp.full_name %></h2>
+
+	<% if !@rsvp.attended %>
+	<%= link_to "Check In", '#', :class => "checkin button", data: {id: @rsvp.id}, :method => "post", remote: true %>
+	<% else %>
+		<i class="fa fa-check-square-o"></i>
+	<% end %>
+</div>

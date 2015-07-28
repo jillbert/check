@@ -19,4 +19,24 @@ class Rsvp < ActiveRecord::Base
 	  end
 	end
 
+	def full_name
+		return self.first_name + " " + self.last_name
+	end
+
+	def rsvpObject
+		rsvpObject = {
+		  "rsvp" => {
+		    "id" => self.rsvpNBID.to_i,
+		    "event_id" => self.event_id.to_i,
+		    "person_id" => self.personNBID.to_i,
+		    "guests_count" => self.guests_count.to_i,
+		    "volunteer" => false,
+		    "private" => false,
+		    "canceled" => false,
+		    "attended" => true,
+		    "shift_ids" => []
+		  }
+		}
+	end
+
 end

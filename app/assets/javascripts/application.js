@@ -15,7 +15,6 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.foundation
 //= require foundation
-//= require turbolinks
 //= require_tree .
 
 $(function(){ 
@@ -65,6 +64,24 @@ $(document).ready(function() {
 	// 		}
 	// 	})
 	// }
+
+	$('.checkin').on('click', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var url = '/rsvps/check_in';
+		$.ajax({
+			type: "POST",
+		  url: url,
+		  dataType: 'script',
+		  data: {
+		  	'id': $(this).data('id'),
+		  	'attended': true
+		  },
+		  success: function(result) {
+		    eval(result);
+		  },
+		});
+	});
 
 	$('#add_guest').on('click', function(e) {
 		e.preventDefault();

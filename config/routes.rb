@@ -13,14 +13,16 @@ Rails.application.routes.draw do
 
   resources :nations
 
-  get "/events", to: "events#index"
-
+  get "/choose_site", to: "events#index"
   get "/choose_event", to: "events#choose_event"
   get "/set_event", to: "events#set_event"
 
   get "/findrsvp", to: "events#find_rsvp"
   get "everyone", to: "events#get_all"
   get "new_rsvp", to: "events#new_rsvp"
+
+  resources :rsvps
+  post "/rsvps/check_in", to: "rsvps#check_in"
 
   get "events/find_person", to: "events#find_person"
   get "events/make_new_rsvp", to: "events#make_new_rsvp"

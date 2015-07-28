@@ -4,7 +4,7 @@ include ApplicationHelper
 include EventsHelper
 
 before_filter :has_credential?
-before_filter :has_session_info, :except => [:index, :choose_event, :set_event, :new_site, :new_event]
+before_filter :has_session_info?, :except => [:index, :choose_event, :set_event, :new_site, :new_event]
 
   def index
     if session[:current_site]
@@ -50,7 +50,6 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event, 
           event['event']['status'] = "published"
           token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + session[:current_event]
           response = token.put(token_put_path, :headers => standard_headers, :body => event.to_json )
-          puts response
         end
       end
 
@@ -86,7 +85,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event, 
   end
 
   def create_cache
-    
+
     event = nil
     e = Event.where(nation_id: session[:current_nation], eventNBID: session[:current_event])
     if e.size > 0
@@ -98,7 +97,9 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event, 
     response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers)
     parsed = JSON.parse(response.body)
     rsvpListfromNB = []
-    puts parsed
+
+    # This is due different pagination rules implemented by NationBuilder
+    
     if parsed['next']
       rsvpListfromNB << parsed["results"]
       currentpage = 1
@@ -110,6 +111,7 @@ before_filter :has_session_info, :except => [:index, :choose_event, :set_event, 
         rsvpListfromNB << response['results']
         is_next = response['next']
       end
+
     elsif parsed["total_pages"]
       current_page = 1
       total_pages = parsed["total_pages"]

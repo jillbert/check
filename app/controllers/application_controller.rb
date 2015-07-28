@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     { "Accept" => "application/json", "Content-Type" => "application/json" }
   end
 
-  def has_session_info
+  def has_session_info?
     if session[:current_site]
       if session[:current_event]
         true
@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
         redirect_to choose_event_path
       end
     else
-      redirect_to events_path
+      redirect_to choose_site_path
     end
   end
 
