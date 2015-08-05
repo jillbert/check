@@ -12,9 +12,9 @@ class OauthController < ApplicationController
     credential = Credential.find_by nation_id: params[:nation_id]
     if credential == nil
       set_current_nation(params[:nation_id])
+      puts client
       redirect_to client.auth_code.authorize_url(
-        :redirect_uri => callback_url,
-        :state => params[:nation_id]
+        :redirect_uri => callback_url
       )
     else
       flash[:alert] = "Nation is already authenticated."
