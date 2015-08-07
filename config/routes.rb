@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :rsvps
   post "/rsvps/check_in", to: "rsvps#check_in"
+  post "/rsvps/new_rsvp_check_in", to: "rsvps#new_rsvp_check_in"
 
   get "events/find_person", to: "events#find_person"
   get "events/make_new_rsvp", to: "events#make_new_rsvp"

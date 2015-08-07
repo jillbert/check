@@ -1,1 +1,7 @@
 <%= render @rsvp %>
+
+<% if @guests %>
+  <% @guests.each_with_index do |guest, index| %>
+    <%= render "new_rsvp", new_rsvp: guest, host_id: @rsvp.id, guest_id: index %>
+  <% end %>
+<% end %>

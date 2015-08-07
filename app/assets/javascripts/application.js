@@ -65,6 +65,23 @@ $(document).ready(function() {
 	// 	})
 	// }
 
+	$('.new_rsvp').submit(function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		data = $(this).serialize();
+		var url = '/rsvps/new_rsvp_check_in';
+		$.ajax({
+			type: "POST",
+		  url: url,
+		  dataType: 'JSON',
+		  data: data,
+		  success: function(result) {
+		    eval(result);
+		  },
+		});
+	})
+
+
 	$('.checkin').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -82,6 +99,7 @@ $(document).ready(function() {
 		  },
 		});
 	});
+
 
 	$('#add_guest').on('click', function(e) {
 		e.preventDefault();

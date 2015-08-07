@@ -1,0 +1,38 @@
+<div id="new_rsvp_#{guest_id}">
+  <h3>New Guest</h3>
+
+  <%= form_for(new_rsvp, remote: true) do |f| %>
+    <%= f.hidden_field 'host_id', value: host_id %>
+    <%= f.hidden_field 'guest_id', value: guest_id %>
+    <div class="row">
+      <div class="medium-6 columns name-field">
+        <label>First Name <small>required</small>
+          <%= f.text_field 'first_name', :required => true %>
+        </label>
+      </div>
+      <div class="medium-6 columns name-field">
+        <label>Last Name <small>required</small>
+          <%= f.text_field 'last_name', :required => true %>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="medium-4 columns email-field">
+        <label>Email <small>required</small>
+          <%= f.text_field 'email', :placeholder=>'example@example.com', :required => true %>
+        </label>
+      </div>
+      <!-- <div class="medium-4 columns">
+        <label for="phone">Phone
+          <%#= f.text_field 'phone'%>
+        </label>
+      </div>
+      <div class="medium-4 columns">
+        <label for="mobile">Mobile Phone
+          <%#= f.text_field 'mobile' %>
+        <label>
+      </div> -->
+    </div>
+    <%= f.submit 'Check In', class:'button new_rsvp_checkin' %>
+  <% end %>
+</div>

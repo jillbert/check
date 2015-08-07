@@ -19,6 +19,7 @@ class Credential < ActiveRecord::Base
   end
 
   def build_access_token
+    puts client
     OAuth2::AccessToken.new(client, token)
   end
 end

@@ -7,6 +7,6 @@ class Nation < ActiveRecord::Base
   
 
   def client()
-    @client ||= OAuth2::Client.new(ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], :site => url)
+    @client ||= OAuth2::Client.new(self.client_uid, self.secret_key, :site => url)
   end
 end
