@@ -14,7 +14,8 @@ class OauthController < ApplicationController
       set_current_nation(params[:nation_id])
       puts client
       redirect_to client.auth_code.authorize_url(
-        :redirect_uri => callback_url
+        :redirect_uri => callback_url,
+        :state => current_nation.id
       )
     else
       flash[:alert] = "Nation is already authenticated."

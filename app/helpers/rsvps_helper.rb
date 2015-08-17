@@ -1,6 +1,7 @@
 module RsvpsHelper
 
 	def new_rsvp(person_params)
+
 		person_object = {
 		  :person => {
 		    :first_name => person_params[:first_name],
@@ -11,14 +12,18 @@ module RsvpsHelper
 		}
 
 		begin
-		  response = token.put("/api/v1/people/push", :headers => standard_headers, :params => person_object)
+		  response = token.put("/api/v1/people/push/", :headers => standard_headers, :body => person_object.to_json)
 		rescue => ex
-			puts ex.inspect
+			puts ex
 		else
-			person = (JSON.parse(response["person"]))
+			person = JSON.parse(response.body)["person"]
 		end
 
 		if person
+			rsvp_exists = Rsvp.find_by(personNBID: person["id"].to_i)
+		end
+
+		if person && !rsvp_exists
 			rsvp =
 			{
 			  "rsvp" => {
@@ -32,25 +37,45 @@ module RsvpsHelper
 			    "shift_ids" => []
 			  }
 			}
+			
 			begin
-			  checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => putParams.to_json)
+			  checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => rsvp.to_json)
+			rescue => ex
+				response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers)
+				parsed = JSON.parse(response.body)["results"]
+				checked_in = parsed.find { |rsvp| rsvp if rsvp["person_id"].to_i == person["id"].to_i }			
+				if !checked_in && parsed['next']
+				  currentpage = 1
+				  is_next = parsed['next']
+				  while !checked_in && is_next
+				    currentpage += 1
+				    pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
+				    response = JSON.parse(pagination_result.body)["results"]
+				    checked_in = response.find { |rsvp| rsvp if rsvp["person_id"].to_i == person["id"].to_i }			
+				    is_next = response['next']
+				  end
+				end
 			else
-				check_in = JSON.parse(checkInResponse.body)["rsvp"]
-				return Rsvp.create(
-					rsvpNBID: check_in["id"].to_i,
-					event_id: check_in["event_id"].to_i,
-					person_id: person["id"].to_i,
-					first_name: person["first_name"],
-					last_name: person["last_name"],
-					email: person["email"],
-					guests_count: check_in["guests_count"].to_i,
-					volunteer: check_in["volunteer"],
-					is_private: check_in["private"],
-					canceled: check_in["canceled"],
-					attended: check_in["attended"],
-					shift_ids: check_in["shift_ids"],
-					)
+				checked_in = JSON.parse(checkInResponse.body)["rsvp"]
 			end
+
+			return Rsvp.create(
+				rsvpNBID: checked_in["id"].to_i,
+				event_id: checked_in["event_id"].to_i,
+				personNBID: person["id"].to_i,
+				first_name: person["first_name"],
+				last_name: person["last_name"],
+				email: person["email"],
+				guests_count: checked_in["guests_count"].to_i,
+				volunteer: checked_in["volunteer"],
+				is_private: checked_in["private"],
+				canceled: checked_in["canceled"],
+				attended: checked_in["attended"],
+				shift_ids: checked_in["shift_ids"],
+				)
+
+		elsif rsvp_exists
+			return rsvp_exists
 		end
 	end
 

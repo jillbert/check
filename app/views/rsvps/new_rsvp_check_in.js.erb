@@ -1,1 +1,3 @@
-$("#new_rsvp_#{@guest_id} form").remove().html("<%= escape_javascript(render partial: "rsvps/rsvp", locals: {rsvp: @rsvp}) %>");
+puts "HERE"
+
+$("#new_rsvp_<%= @guest_id %>").remove()

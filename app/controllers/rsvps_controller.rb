@@ -25,6 +25,7 @@ end
 
 def new_rsvp_check_in
   @rsvp = new_rsvp(params[:rsvp])
+  @guest_id = params[:rsvp][:guest_id]
   if @rsvp
     respond_to do |format|
       format.js {}
