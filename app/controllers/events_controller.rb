@@ -77,6 +77,7 @@ before_filter :has_session_info?, :except => [:index, :choose_event, :set_event,
       e = Event.where(nation_id: session[:current_nation], eventNBID: session[:current_event]).first
       @rsvps = Rsvp.where(event_id: e.id).order( 'last_name ASC' )
     end
+    @people = @rsvps.each { |rsvp| Person.where(rsvp_id: rsvp.id) }
   end
 
   def update_cache
@@ -126,14 +127,16 @@ before_filter :has_session_info?, :except => [:index, :choose_event, :set_event,
     end
 
     rsvpListfromNB.flatten!.each do |r|
-      existentRSVP = Rsvp.find_by(event_id: event.id, rsvpNBID: r['id'], nation_id: session[:current_nation])
-      if existentRSVP
-        existentRSVP.update(attended: r['attended'])
+      rsvp = Rsvp.find_by(event_id: event.id, rsvpNBID: r['id'], nation_id: session[:current_nation])
+      if rsvp
+        rsvp.update(attended: r['attended'])
       else
         response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
         person = JSON.parse(response.body)["person"]
-        createNewRsvp(event.id, r['id'], person['id'], person['first_name'], person['last_name'], person['email'], r['guests_count'].to_i, r['canceled'], r['attended']) 
+        rsvp = createNewRsvp(event.id, r['id'], r['guests_count'].to_i, r['canceled'], r['attended'])
+        createNewPerson(person['id'], person['first_name'], person['last_name'], person['email'], person['phone'], rsvp.id)
       end
+
     end
   end
 
@@ -356,22 +359,27 @@ before_filter :has_session_info?, :except => [:index, :choose_event, :set_event,
 
   private 
 
-  def createNewRsvp(eventID, rsvpNBID, personNBID, first_name, last_name, email, guests_count, canceled, attendance) 
+  def createNewRsvp(eventID, rsvpNBID, guests_count, canceled, attendance) 
 
-    newRsvp = Rsvp.create(
+    Rsvp.create(
       nation_id: session[:current_nation],
       event_id: eventID,
       rsvpNBID: rsvpNBID,
-      personNBID: personNBID,
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
       guests_count: guests_count,
       canceled: canceled,
       attended: attendance
     )
+  end
 
-    return newRsvp
+  def createNewPerson(nbid, first_name, last_name, email, phone_number, rsvp_id)
+    Person.create(
+      nbid: nbid,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone_number: phone_number,
+      rsvp_id: rsvp_id
+    )
   end
 
   def rsvp_params
@@ -390,6 +398,10 @@ before_filter :has_session_info?, :except => [:index, :choose_event, :set_event,
 
   def event_params
     params.require(:event).permit(:nation_id, :eventNBID)
+  end
+
+  def person_params
+    params.require(:person).permit(:nbid, :first_name, :last_name, :email, :phone_number)
   end
 
 end

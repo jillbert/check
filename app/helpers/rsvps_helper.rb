@@ -85,7 +85,7 @@ module RsvpsHelper
 	    "rsvp" => {
 	      "id" => rsvp.rsvpNBID.to_i,
 	      "event_id" => rsvp.event_id.to_i,
-	      "person_id" => rsvp.personNBID.to_i,
+	      "person_id" => rsvp.person.nbid.to_i,
 	      "guests_count" => rsvp.guests_count.to_i,
 	      "volunteer" => rsvp.volunteer,
 	      "private" => rsvp.is_private,

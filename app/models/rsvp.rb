@@ -1,9 +1,12 @@
 class Rsvp < ActiveRecord::Base
 	
+	
 	# attr_accessor :rsvp_id, :person_id, :event_id, :guests_count, :canceled, :attended, :volunteer, :is_private, :shift_ids
 
 	belongs_to :event
 	belongs_to :nation
+	
+	has_one :person
 
 	def self.from_hash(hash)
 	  new.tap do |rsvp|
@@ -17,10 +20,6 @@ class Rsvp < ActiveRecord::Base
 	    rsvp.attended = hash.fetch("attended")
 	    rsvp.shift_ids = hash.fetch("shift_ids")
 	  end
-	end
-
-	def full_name
-		return self.first_name + " " + self.last_name
 	end
 
 	def rsvpObject
