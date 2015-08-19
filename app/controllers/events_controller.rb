@@ -367,7 +367,9 @@ before_filter :has_session_info?, :except => [:index, :choose_event, :set_event,
       rsvpNBID: rsvpNBID,
       guests_count: guests_count,
       canceled: canceled,
-      attended: attendance
+      attended: attendance,
+      volunteer: volunteer,
+      shift_ids: shift_ids
     )
   end
 

@@ -7,6 +7,10 @@ class Rsvp < ActiveRecord::Base
 	belongs_to :nation
 	
 	has_one :person
+	accepts_nested_attributes_for :person
+
+	has_many :guests, class_name: "Rsvp", foreign_key: "host_id"
+	belongs_to :host, class_name: "Rsvp"
 
 	def self.from_hash(hash)
 	  new.tap do |rsvp|

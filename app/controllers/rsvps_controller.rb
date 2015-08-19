@@ -6,8 +6,10 @@ include RsvpsHelper
 def show
 	@rsvp = Rsvp.find(params[:id])
   @guests = []
-  (@rsvp.guests_count).times do 
-    @guests << Rsvp.new
+  (@rsvp.guests_count - @rsvp.guests.count).times do 
+   guest = Rsvp.new
+   guest.build_person
+   @guests << guest
   end
 end
 
@@ -23,15 +25,24 @@ def check_in
 	end
 end
 
-def new_rsvp_check_in
-  @rsvp = new_rsvp(params[:rsvp])
-  @guest_id = params[:rsvp][:guest_id]
-  if @rsvp
-    respond_to do |format|
-      format.js {}
-    end
+def create
+  @rsvp = Rsvp.new(rsvp_params)
+  if @rsvp.save
+    redirect_to rsvp_path(params[:rsvp][:host_id])
+  else
+    render rsvp_path(params[:rsvp][:host_id])
   end
 end
+
+# def new_rsvp_check_in
+#   @rsvp = new_rsvp(params[:rsvp])
+#   @guest_id = params[:rsvp][:guest_id]
+#   if @rsvp
+#     respond_to do |format|
+#       format.js {}
+#     end
+#   end
+# end
 
 private 
   def rsvp_params
@@ -39,13 +50,13 @@ private
       :nation_id,
       :event_id,
       :rsvpNBID,
-      :personNBID,
-      :first_name,
-      :last_name,
-      :email,
       :guests_count,
       :canceled,
-      :attended)
+      :host_id,
+      :volunteer, 
+      :is_private, 
+      :shift_ids,
+      :attended, person_attributes: [:id, :first_name, :last_name, :email, :phone_number])
   end
 
 end
