@@ -43,16 +43,16 @@
     <div id="choices">
       <div class="row">
         <div class="small-6 centered columns">
-          <% if current_page?(controller:'events', action:'get_all') %>
+          <% if current_page?(controller:'rsvps', action:'index') %>
             <div class="button disabled"><i class="fa fa-list-alt"></i> <span class="show-for-medium-up">Entire RSVP List</span></div>
           <% else %>
-            <%= link_to everyone_path, class:"button success" do %>
+            <%= link_to rsvps_path, class:"button success" do %>
             <i class="fa fa-list-alt"></i> <span class="show-for-medium-up">Entire RSVP List</span>
             <% end %>
           <% end %>
         </div>
         <div class="small-6 centered columns">
-        <% if current_page?(controller:'events', action:'new_rsvp') %>
+        <% if current_page?(controller:'rsvps', action:'new') %>
           <div class="button disabled"><i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span></div>
         <% else %>
           <%= link_to new_rsvp_path, class:"button success" do %>

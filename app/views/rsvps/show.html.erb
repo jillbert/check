@@ -11,6 +11,9 @@ Guests:
 
 <% if @guests %>
   <% @guests.each_with_index do |guest, index| %>
-    <%= render "new_rsvp", new_rsvp: guest, host_id: @rsvp.id, guest_id: index %>
+  	<div id="new_rsvp_<%= index %>">
+    	<h3>New Guest</h3>
+    	<%= render "new_rsvp", new_rsvp: guest, host_id: @rsvp.id %>
+    </div>
   <% end %>
 <% end %>
