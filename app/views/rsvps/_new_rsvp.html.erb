@@ -3,7 +3,16 @@
 
   <%= form_for(new_rsvp) do |f| %>
     <%= f.hidden_field 'host_id', value: host_id %>
-      <%= f.fields_for :person do |p| %>
+    <%= f.hidden_field 'nation_id', value: session[:current_nation] %>
+    <%= f.hidden_field 'event_id', value: session[:current_event] %>
+    <%= f.hidden_field 'guests_count', value: 0 %>
+    <%= f.hidden_field 'canceled', value: false %>
+    <%= f.hidden_field 'attended', value: true %>
+    <%= f.hidden_field 'volunteer', value: false %>
+    <%= f.hidden_field 'is_private', value: false %>
+    <%= f.hidden_field 'shift_ids', value: [] %>
+
+    <%= f.fields_for :person do |p| %>
       <div class="row">
         <div class="medium-6 columns name-field">
           <label>First Name <small>required</small>
@@ -24,7 +33,6 @@
         </div>
       </div>
       <% end %>
-    </div>
     <%= f.submit 'Check In', class:'button' %>
   <% end %>
 </div>

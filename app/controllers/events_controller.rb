@@ -133,7 +133,7 @@ before_filter :has_session_info?, :except => [:index, :choose_event, :set_event,
       else
         response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
         person = JSON.parse(response.body)["person"]
-        rsvp = createNewRsvp(event.id, r['id'], r['guests_count'].to_i, r['canceled'], r['attended'])
+        rsvp = createNewRsvp(event.id, r['id'], r['guests_count'].to_i, r['canceled'], r['attended'], r['volunteer'], r['shift_ids'])
         createNewPerson(person['id'], person['first_name'], person['last_name'], person['email'], person['phone'], rsvp.id)
       end
 
@@ -359,7 +359,7 @@ before_filter :has_session_info?, :except => [:index, :choose_event, :set_event,
 
   private 
 
-  def createNewRsvp(eventID, rsvpNBID, guests_count, canceled, attendance) 
+  def createNewRsvp(eventID, rsvpNBID, guests_count, canceled, attendance, volunteer, shift_ids) 
 
     Rsvp.create(
       nation_id: session[:current_nation],

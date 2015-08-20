@@ -42,4 +42,27 @@ class Rsvp < ActiveRecord::Base
 		}
 	end
 
+	def to_rsvp_object 
+
+		rsvpObject = {
+		  "rsvp" => {
+		    "event_id" => self.event_id.to_i,
+		    "person_id" => self.person.nbid.to_i,
+		    "guests_count" => self.guests_count.to_i,
+		    "volunteer" => self.volunteer,
+		    "private" => self.is_private,
+		    "canceled" => self.canceled,
+		    "attended" => true,
+		    "shift_ids" => self.shift_ids
+		  }
+		}
+
+		if self.rsvpNBID
+			rsvpObject["rsvp"]["id"] = self.rsvpNBID.to_i
+		end
+
+		return rsvpObject
+
+	end
+
 end

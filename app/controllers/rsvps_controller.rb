@@ -2,6 +2,7 @@ class RsvpsController < ApplicationController
 
 include ApplicationHelper
 include RsvpsHelper
+include PeopleHelper
 
 def show
 	@rsvp = Rsvp.find(params[:id])
@@ -15,9 +16,8 @@ end
 
 def check_in
 	@rsvp = Rsvp.find(params[:id])
-  @guest_to_check_in = params[:guest_id]
-	if makeRSVP(@rsvp)
-		@rsvp.update_attribute(:attended, true)
+	if send_rsvp_to_nationbuilder(@rsvp)
+    @rsvp.update_attribute('attended', true)
 		respond_to do |format|
 		  format.js {}
 		end
@@ -28,6 +28,9 @@ end
 def create
   @rsvp = Rsvp.new(rsvp_params)
   if @rsvp.save
+    @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
+    new_rsvp_id =send_rsvp_to_nationbuilder(@rsvp)
+    @rsvp.update_attribute('rsvpNBID', new_rsvp_id )
     redirect_to rsvp_path(params[:rsvp][:host_id])
   else
     render rsvp_path(params[:rsvp][:host_id])
@@ -56,7 +59,8 @@ private
       :volunteer, 
       :is_private, 
       :shift_ids,
-      :attended, person_attributes: [:id, :first_name, :last_name, :email, :phone_number])
+      :attended, 
+      person_attributes: [:id, :first_name, :last_name, :email, :phone_number, :nbid])
   end
 
 end

@@ -1,9 +1,13 @@
 <%= render @rsvp %>
 
+<% if @rsvp.guests.count > 0 %>
+
 Guests:
 <% @rsvp.guests.each do |guest| %>
 <%= render 'rsvp', rsvp: guest %>
 <% end %>
+
+<% end %> 
 
 <% if @guests %>
   <% @guests.each_with_index do |guest, index| %>

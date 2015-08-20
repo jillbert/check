@@ -5,6 +5,20 @@ class Person < ActiveRecord::Base
   def full_name
     return self.first_name + " " + self.last_name
   end
+
+  def to_person_object
+    person_object = {
+      :person => {
+        :first_name => self.first_name,
+        :last_name => self.last_name,
+        :email => self.email,
+      }
+    }
+    
+    return person_object.to_json
+
+  end
+
   # extend ActiveModel::Naming
   # include ActiveModel::Conversion
 
