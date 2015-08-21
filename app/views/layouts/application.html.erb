@@ -27,11 +27,11 @@
             <li<% if session[:current_site] %> class="active has-dropdown"><a href="#">Site: <%= session[:current_site] %></a><ul class="dropdown"><li><%= link_to "Choose new site", events_cancel_site_path %></ul><%else%>><a href="#">Site: --</a><%end%></li>
             <li<% if session[:current_event] %> class="active has-dropdown"><a href="#">Event: <%= session[:current_event_name] %></a><ul class="dropdown"><li><%= link_to "Choose new event", events_cancel_event_path %></ul><%else%>><a href="#">Event: --</a><%end%></li>
             <li>
-              <%= link_to "Logout", :logout, method: :post %>
+              <%= link_to "Logout", logout_path, method: :post %>
             </li>
           <% else %>
             <li>
-              <%= link_to "Login", :login %>
+              <%= link_to "Login", login_path %>
             </li>
           <% end %>
           

@@ -41,12 +41,11 @@ def create
   @rsvp = Rsvp.new(rsvp_params)
   if @rsvp.save
     @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
-    new_rsvp_id = send_rsvp_to_nationbuilder(@rsvp)
-    @rsvp.update_attribute('rsvpNBID', new_rsvp_id )
+    @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
     if params[:rsvp][:host_id].to_i > 0
       redirect_to rsvp_path(params[:rsvp][:host_id])
     else
-      redirect_to everyone_path
+      redirect_to rsvps_path
     end
   else
     render rsvp_path(params[:rsvp][:host_id])

@@ -54,7 +54,7 @@ module EventsHelper
     session[:current_site] = nil
     session[:current_event] = nil
     puts session[:current_site]
-    redirect_to :controller => "events", :action => "index"
+    redirect_to :controller => "events", :action => "choose_site"
   end
 
   def new_event

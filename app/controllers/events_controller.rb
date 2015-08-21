@@ -4,13 +4,11 @@ include ApplicationHelper
 include EventsHelper
 
 before_filter :has_credential?
-# before_filter :has_session_info?, :except => [:index, :choose_event, :set_event, :new_site, :new_event]
-
-# before_filter :has_event_session_info?
 
   def choose_site
     if session[:current_site]
       session[:current_site] = nil
+      session[:current_event] = nil
     end
 
     begin 

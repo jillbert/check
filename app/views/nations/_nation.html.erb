@@ -8,7 +8,15 @@
   <%= link_to "Edit", edit_user_path(current_user), class: "button tiny"%>
 
   <% if @credential %>
-  <p><%= link_to "Continue to CheckIn", choose_site_path, class: "button" %></p>
+  
+    <% if session[:current_site] && session[:current_event] %>
+      <p><%= link_to "Continue to CheckIn", rsvps_path, class: "button" %></p>
+    <% elsif session[:current_site] %>
+      <p><%= link_to "Continue to CheckIn", choose_event_path, class: "button" %></p>
+    <% else %>
+      <p><%= link_to "Continue to CheckIn", choose_site_path, class: "button" %></p>
+    <% end %>
+
   <% end %>
 <% else %>
 

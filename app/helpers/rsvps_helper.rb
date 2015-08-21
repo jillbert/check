@@ -3,7 +3,7 @@ module RsvpsHelper
 	def send_rsvp_to_nationbuilder(rsvp)
 
 		rsvpObject = rsvp.to_rsvp_object
-		puts rsvpObject
+
 		if rsvpObject["rsvp"].has_key?("id")
 			checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
 			checked_in = JSON.parse(checkInResponse.body)["rsvp"]

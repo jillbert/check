@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get "events/cancel_event", to: "events#new_event"
   get "events/cancel_site", to: "events#new_site"
 
-  root :to => 'events#index'
+  root :to => 'nations#index'
   resources :user_sessions
   resources :users
 
