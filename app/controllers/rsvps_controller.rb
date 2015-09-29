@@ -24,12 +24,16 @@ end
 
 def show
 	@rsvp = Rsvp.find(params[:id])
-  @guests = []
-  (@rsvp.guests_count - @rsvp.guests.count).times do 
-   guest = Rsvp.new
-   guest.build_person
-   @guests << guest
+  if @rsvp.guests.count < @rsvp.guests_count
+    @guest = Rsvp.new
+    @guest.build_person
   end
+  # @guests = []
+  # (@rsvp.guests_count - @rsvp.guests.count).times do 
+  #  guest = Rsvp.new
+  #  guest.build_person
+  #  @guests << guest
+  # end
 end
 
 def new
@@ -39,6 +43,7 @@ end
 
 def create
   @rsvp = Rsvp.new(rsvp_params)
+  @host = params[:rsvp][:host_id].to_i
   if @rsvp.save
     @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
     @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
@@ -48,7 +53,7 @@ def create
       redirect_to rsvps_path
     end
   else
-    render rsvp_path(params[:rsvp][:host_id])
+    render "check_in_error"
   end
 end
 

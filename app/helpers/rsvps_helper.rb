@@ -74,6 +74,8 @@ module RsvpsHelper
 	    else
 	      response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
 	      person = JSON.parse(response.body)["person"]
+	      puts person
+
 	      rsvp = Rsvp.create(
 	      	  nation_id: session[:current_nation],
 	      	  event_id: session[:current_event],
@@ -85,14 +87,17 @@ module RsvpsHelper
 	      	  shift_ids: r['shift_ids'].to_a,
 	      	)
 
-	      Person.create(
-	        nbid: person['id'],
+	      p = Person.new(
+	        nbid: person['id'].to_i,
 	        first_name: person["first_name"],
 	        last_name: person["last_name"],
 	        email: person["email"],
 	        phone_number: person["phone"],
 	        rsvp_id: rsvp.id
 	      )
+
+	      p.save(:validate => false)
+
 	    end
 	  end
 	end

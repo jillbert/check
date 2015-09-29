@@ -8,7 +8,8 @@ class Rsvp < ActiveRecord::Base
 	
 	has_one :person
 	accepts_nested_attributes_for :person
-
+	validates_associated :person
+	
 	has_many :guests, class_name: "Rsvp", foreign_key: "host_id"
 	belongs_to :host, class_name: "Rsvp"
 

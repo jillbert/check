@@ -39,6 +39,7 @@ gem 'jquery-datatables-rails', '~> 3.1.1'
 gem 'will_paginate', '~> 3.0.6'
 
 gem 'sorcery'
+gem 'email_validator'
 
 gem 'oauth2'
 
