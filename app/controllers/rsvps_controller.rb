@@ -24,17 +24,20 @@ end
 
 def show
 	@rsvp = Rsvp.find(params[:id])
-  @guests = []
-  (@rsvp.guests_count - @rsvp.guests.count).times do 
-   guest = Rsvp.new
-   guest.build_person
-   @guests << guest
-  end
 end
 
 def new
   @rsvp = Rsvp.new
   @rsvp.build_person
+
+  if params[:host_id]
+    @host_id = params[:host_id]
+  end
+
+  respond_to do |f|
+    f.html {}
+    f.js {}
+  end
 end
 
 def create
@@ -48,7 +51,7 @@ def create
       redirect_to rsvps_path
     end
   else
-    render rsvp_path(params[:rsvp][:host_id])
+    redirect_to rsvp_path(params[:rsvp][:host_id])
   end
 end
 

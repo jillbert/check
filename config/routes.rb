@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   # end
   # resources :rsvps
   get "rsvps/cache", to: "rsvps#cache"
+  get "rsvps/new_guest", to: "rsvps#new_guest"
 
   resources :rsvps
 

@@ -45,6 +45,18 @@ class ApplicationController < ActionController::Base
     return cred.token
   end
 
+  def check_credential
+    begin 
+      response = token.get("/api/v1/people/me", :headers => standard_headers)
+      
+    rescue => ex 
+      Credential.find_by_id(session[:credential_id]).destroy
+      @credential = nil
+    else
+      @credential ||= Credential.find_by_id(session[:credential_id])
+    end
+  end
+
   def token_for_transactions(credential)
     return credential.access_token
   end

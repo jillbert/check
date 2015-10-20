@@ -82,6 +82,23 @@ $(document).ready(function() {
 	// })
 
 
+	$('.add_guest').on('click', function(e) {
+		e.preventDefault();
+		var url = '/rsvps/new';
+		$.ajax({
+			type: "GET",
+			url: url,
+			dataType: 'script',
+			data: {
+				'host_id': $(this).data('host-id')
+			},
+			success: function(result) {
+				eval(result);
+				$(this).hide();
+			}
+		})
+	})
+
 	$('.checkin').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();

@@ -1,7 +1,7 @@
 class NationsController < ApplicationController
   def index
     @nations = Nation.find_by user_id: current_user.id
-    @credential = Credential.find_by nation_id: @nations.id
+    @credential = check_credential
   end
 
   def new

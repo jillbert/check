@@ -7,6 +7,11 @@
     <%= render 'rsvp', rsvp: guest %>
   <% end %>
 
+  <%= link_to "Add New Guest", "#", class: "add_guest", data: { host_id: @rsvp.id } %>
+
+  <div id="guests"></div>
+
+<!-- 
   <% if @guests %>
     <% @guests.each_with_index do |guest, index| %>
     	<div id="new_rsvp_<%= index %>">
@@ -14,5 +19,5 @@
       	<%= render "new_rsvp", new_rsvp: guest, host_id: @rsvp.id %>
       </div>
     <% end %>
-  <% end %>
+  <% end %> -->
 <% end %> 
