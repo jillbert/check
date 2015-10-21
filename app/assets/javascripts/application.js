@@ -117,7 +117,6 @@ $(document).ready(function() {
 		});
 	});
 
-
 	$('#add_guest').on('click', function(e) {
 		e.preventDefault();
 
@@ -137,7 +136,6 @@ $(document).ready(function() {
 	})
 
 	$('.updatecache').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})});
-
 
 	// $('a:not(.toggle-topbar.menu-icon a, .top-bar-section a), input[type="submit"]').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})})
 

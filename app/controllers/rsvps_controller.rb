@@ -43,15 +43,21 @@ end
 def create
   @rsvp = Rsvp.new(rsvp_params)
   if @rsvp.save
-    @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
-    @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
+    # @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
+    # @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
     if params[:rsvp][:host_id].to_i > 0
-      redirect_to rsvp_path(params[:rsvp][:host_id])
+      respond_to do |format|
+        format.js {}
+        format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+      end
     else
       redirect_to rsvps_path
     end
   else
-    redirect_to rsvp_path(params[:rsvp][:host_id])
+    respond_to do |format|
+      format.js { render status: 500 }
+      format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+    end
   end
 end
 

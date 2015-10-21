@@ -3,9 +3,11 @@
 <% if @rsvp.guests_count > 0 %>
 
   Guests:
+  <div id="checked-guests">
   <% @rsvp.guests.each do |guest| %>
     <%= render 'rsvp', rsvp: guest %>
   <% end %>
+  </div>
 
   <%= link_to "Add New Guest", "#", class: "add_guest", data: { host_id: @rsvp.id } %>
 

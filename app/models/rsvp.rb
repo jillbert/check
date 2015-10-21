@@ -71,7 +71,7 @@ class Rsvp < ActiveRecord::Base
 		rsvps = Rsvp.where(event_id: self.event_id)
 		rsvps.each do |r|
 			if r.person.email == self.person.email
-				errors.add(:rsvp, 'This RSVP is not unique')
+				self.errors.add(:rsvp, 'This RSVP is not unique')
 				break
 			end
 		end
