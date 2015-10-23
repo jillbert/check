@@ -7,5 +7,9 @@ module ApplicationHelper
       return true
     end
   end
+
+  def get_event
+    @current_event = Event.find_by_id(session[:current_event])
+  end
 	  
 end

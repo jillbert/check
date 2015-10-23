@@ -58,12 +58,4 @@ before_filter :has_credential?
     
   end
 
- 
-
-  private 
-
-  def event_params
-    params.require(:event).permit(:nation_id, :eventNBID)
-  end
-
 end

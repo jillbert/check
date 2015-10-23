@@ -1,40 +1,46 @@
 module EventsHelper
   
-  def makeRSVP(rsvp, event_id, person_id, guests_count, volunteer, isPrivate, canceled, attended)
+  #NOT USED CONSIDER DELETING
 
-    if rsvp
-      putParams = {
-        "rsvp" => {
-          "id" => rsvp.to_i,
-          "event_id" => session[:current_event].to_i,
-          "person_id" => person_id.to_i,
-          "guests_count" => guests_count.to_i,
-          "volunteer" => to_boolean(volunteer),
-          "private" => to_boolean(isPrivate),
-          "canceled" => to_boolean(canceled),
-          "attended" => to_boolean(attended),
-          "shift_ids" => []
-        }
-      }
-    else
-      putParams = {
-        "rsvp" => {
-          "event_id" => session[:current_event].to_i,
-          "person_id" => person_id.to_i,
-          "guests_count" => guests_count.to_i,
-          "volunteer" => to_boolean(volunteer),
-          "private" => to_boolean(isPrivate),
-          "canceled" => to_boolean(canceled),
-          "attended" => to_boolean(attended),
-          "shift_ids" => []
-        }
-      }
-    end
+  # def makeRSVP(rsvp, event_id, person_id, guests_count, volunteer, isPrivate, canceled, attended)
 
-    return putParams
+  #   if rsvp
+  #     putParams = {
+  #       "rsvp" => {
+  #         "id" => rsvp.to_i,
+  #         "event_id" => session[:current_event].to_i,
+  #         "person_id" => person_id.to_i,
+  #         "guests_count" => guests_count.to_i,
+  #         "volunteer" => to_boolean(volunteer),
+  #         "private" => to_boolean(isPrivate),
+  #         "canceled" => to_boolean(canceled),
+  #         "attended" => to_boolean(attended),
+  #         "shift_ids" => []
+  #       }
+  #     }
+  #   else
+  #     putParams = {
+  #       "rsvp" => {
+  #         "event_id" => session[:current_event].to_i,
+  #         "person_id" => person_id.to_i,
+  #         "guests_count" => guests_count.to_i,
+  #         "volunteer" => to_boolean(volunteer),
+  #         "private" => to_boolean(isPrivate),
+  #         "canceled" => to_boolean(canceled),
+  #         "attended" => to_boolean(attended),
+  #         "shift_ids" => []
+  #       }
+  #     }
+  #   end
 
-  end
+  #   return putParams
 
+  # end
+
+  # def get_event
+  #   Event.find_by(eventNBID: session[:current_event].to_i)
+  # end
+  
   def createMatchParams(first_name, last_name, email, phone, mobile)
     params = {
       :first_name => first_name,
@@ -62,8 +68,5 @@ module EventsHelper
     redirect_to :controller => "events", :action => "choose_event"
   end
 
-  def get_event
-    Event.find_by(eventNBID: session[:current_event].to_i)
-  end
 
 end

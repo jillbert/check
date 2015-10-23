@@ -6,7 +6,7 @@ module RsvpsHelper
     puts rsvpObject
     if rsvpObject["rsvp"].has_key?("id")
       begin
-        checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
+        checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.nbid}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
         checked_in = JSON.parse(checkInResponse.body)["rsvp"]
       rescue => ex
         return {status: false, error: ex}
@@ -17,10 +17,10 @@ module RsvpsHelper
     else
 
       begin
-        checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
+        checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.nbid}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
       rescue => ex
         begin
-          response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers)
+          response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.nbid}/rsvps/", :headers => standard_headers)
         rescue => ex
           return { status: false, error: ex }
         else
@@ -62,7 +62,7 @@ module RsvpsHelper
 
 	def create_cache
 
-	  response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers)
+	  response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.nbid}/rsvps/", :headers => standard_headers)
 	  parsed = JSON.parse(response.body)
 	  rsvpListfromNB = []
 
@@ -86,7 +86,7 @@ module RsvpsHelper
 	    rsvpListfromNB << parsed["results"]
 	    while total_pages >= current_page
 	      current_page += 1
-	      response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, params: {page: current_page})
+	      response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.nbid}/rsvps/", :headers => standard_headers, params: {page: current_page})
 	      rsvpListfromNB << JSON.parse(response.body)["results"]
 	    end
 	  else 
@@ -94,7 +94,7 @@ module RsvpsHelper
 	  end
 
 	  rsvpListfromNB.flatten!.each do |r|
-	    rsvp = Rsvp.find_by(event_id: session[:current_event], rsvpNBID: r['id'], nation_id: session[:current_nation])
+	    rsvp = Rsvp.find_by(event_id: @current_event.nbid, rsvpNBID: r['id'], nation_id: session[:current_nation])
 	    if rsvp
 	      rsvp.update(attended: r['attended'])
 	    else
@@ -102,7 +102,7 @@ module RsvpsHelper
 	      person = JSON.parse(response.body)["person"]
 	      rsvp = Rsvp.create(
 	      	  nation_id: session[:current_nation],
-	      	  event_id: session[:current_event],
+	      	  event_id: @current_event.nbid,
 	      	  rsvpNBID: r['id'].to_i,
 	      	  guests_count: r['guests_count'].to_i,
 	      	  canceled: r['canceled'],
