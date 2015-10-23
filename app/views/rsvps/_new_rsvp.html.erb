@@ -2,7 +2,7 @@
   
   <%= f.hidden_field 'host_id', value: host_id %>
   <%= f.hidden_field 'nation_id', value: session[:current_nation] %>
-  <%= f.hidden_field 'event_id', value: @current_event.nbid %>
+  <%= f.hidden_field 'event_id', value: @current_event.eventNBID %>
   <%= f.hidden_field 'guests_count', value: 0 %>
   <%= f.hidden_field 'canceled', value: false %>
   <%= f.hidden_field 'attended', value: true %>

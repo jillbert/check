@@ -28,7 +28,12 @@ before_filter :has_credential?
     if session[:current_site]
       token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
       response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100})
-      @events = JSON.parse(response.body)["results"]
+      events = JSON.parse(response.body)["results"]
+
+      @current_events = Hash[events.select { |e| e if e['start_time'].to_date.future? }.group_by { |e| e['start_time'].to_datetime.strftime("%B %Y") }.to_a.reverse]
+
+      @past_events = Hash[events.select { |e| e if e['start_time'].to_date.past? }.group_by { |e| e['start_time'].to_datetime.strftime("%B %Y") }.to_a.reverse]
+
     else
       redirect_to choose_site_path
     end
