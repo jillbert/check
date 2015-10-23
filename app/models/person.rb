@@ -6,6 +6,10 @@ class Person < ActiveRecord::Base
     return self.first_name + " " + self.last_name
   end
 
+  def nbid=(val)
+    write_attribute(:nbid, val.to_i)
+  end
+
   def to_person_object
     person_object = {
       :person => {

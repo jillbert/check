@@ -1,38 +1,64 @@
 module RsvpsHelper
 
-	def send_rsvp_to_nationbuilder(rsvp)
+  def send_rsvp_to_nationbuilder(rsvp)
 
-		rsvpObject = rsvp.to_rsvp_object
+    rsvpObject = rsvp.to_rsvp_object
+    puts rsvpObject
+    if rsvpObject["rsvp"].has_key?("id")
+      begin
+        checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
+        checked_in = JSON.parse(checkInResponse.body)["rsvp"]
+      rescue => ex
+        return {status: false, error: ex}
+      else
+        return {status: true, id: checked_in["id"].to_i }
+      end
 
-		if rsvpObject["rsvp"].has_key?("id")
-			checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
-			checked_in = JSON.parse(checkInResponse.body)["rsvp"]
-		else
-			begin
-			  checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
-			rescue => ex
-				response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers)
-				parsed = JSON.parse(response.body)["results"]
-				checked_in = parsed.find { |r| r if r["person_id"].to_i == rsvp.person.nbid }			
-				if !checked_in && parsed['next']
-				  currentpage = 1
-				  is_next = parsed['next']
-				  while !checked_in && is_next
-				    currentpage += 1
-				    pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
-				    response = JSON.parse(pagination_result.body)["results"]
-				    checked_in = response.find { |r| r if r["person_id"].to_i == rsvp.person.nbid }			
-				    is_next = response['next']
-				  end
-				end
-			else
-				checked_in = JSON.parse(checkInResponse.body)["rsvp"]
-			end
+    else
 
-		end
+      begin
+        checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
+      rescue => ex
+        begin
+          response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{session[:current_event]}/rsvps/", :headers => standard_headers)
+        rescue => ex
+          return { status: false, error: ex }
+        else
+        	puts response.body
+          parsed = JSON.parse(response.body)
+          checked_in = parsed['results'].find { |r| r if r["person_id"].to_i == rsvp.person.nbid }
+          if !checked_in && parsed['next']
+            currentpage = 1
+            is_next = parsed['next']
+            while !checked_in && is_next
+              currentpage += 1
+              begin
+                pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
+              rescue => ex
+                return { status: false, error: ex }
+              else
+                response = JSON.parse(pagination_result.body)
+                checked_in = response['results'].find { |r| r if r["person_id"].to_i == rsvp.person.nbid }     
+                is_next = response['next']
+              end
+            end
+          end
+        end
 
-		return checked_in["id"].to_i
-	end
+        if checked_in
+          return {status: true, id: checked_in["id"].to_i }
+        else
+          return { status: false, error: "Unknown error occured sending this RSVP to NationBuilder" }
+        end
+
+      else
+        checked_in = JSON.parse(checkInResponse.body)["rsvp"]
+        return {status: true, id: checked_in["id"].to_i }
+      end
+
+    end
+
+  end
 
 	def create_cache
 

@@ -4,10 +4,10 @@ module PeopleHelper
 		begin
 		  response = token.put("/api/v1/people/push/", :headers => standard_headers, :body => person.to_person_object)
 		rescue => ex
-		  puts ex
+      return {status: false, error: ex}
 		else
 		  nbperson = JSON.parse(response.body)["person"]
-		  return nbperson["id"].to_i
+      return {status: true, id: nbperson["id"].to_i}
 		end
 
 	end

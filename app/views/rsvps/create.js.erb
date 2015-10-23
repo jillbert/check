@@ -1,5 +1,4 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
-  alert("form success");
   $('#checked-guests').append("<%= j(render 'rsvp', rsvp: @rsvp) %>");
   $("form.new_rsvp").remove();
   console.log(status);

@@ -2,4 +2,15 @@ class Event < ActiveRecord::Base
   has_many :rsvps
   belongs_to :nation
 
+  def self.import(nb, session_nation)
+    event = self.find_or_create_by(
+      nation_id: session_nation, 
+      eventNBID: nb['id'].to_i, 
+      name: nb['name'], 
+      start_time: nb['start_time'].to_datetime, 
+      end_time: nb['end_time'].to_datetime,
+      time_zone: nb['time_zone'] 
+    )
+    return event
+  end
 end

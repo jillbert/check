@@ -37,21 +37,18 @@ before_filter :has_credential?
   def set_event
 
     if params[:event]
-      session[:current_event] = params[:event]
-      session[:current_event_name] = params[:name]
-
       begin
-        token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + session[:current_event]
+        token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event]
         response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100})
       else 
-        event = JSON.parse(response.body)
-        if event['event']['rsvp_form']['address'] == "required"
-          event['event']['rsvp_form']['address'] = "optional"
-          event['event']['status'] = "published"
-          token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + session[:current_event]
+        event = JSON.parse(response.body)['event']
+        if event['rsvp_form']['address'] == "required"
+          event['rsvp_form']['address'] = "optional"
+          event['status'] = "published"
+          token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event]
           response = token.put(token_put_path, :headers => standard_headers, :body => event.to_json )
         end
-        @event = Event.find_or_create_by(nation_id: session[:current_nation], eventNBID: session[:current_event])
+        session[:current_event] = Event.import(event, session[:current_nation]).id
       end
 
       redirect_to rsvps_path

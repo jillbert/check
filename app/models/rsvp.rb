@@ -12,7 +12,7 @@ class Rsvp < ActiveRecord::Base
 	has_many :guests, class_name: "Rsvp", foreign_key: "host_id"
 	belongs_to :host, class_name: "Rsvp"
 
-	validate :is_unique_rsvp
+	# validate :is_unique_rsvp
 
 	def self.from_hash(hash)
 	  new.tap do |rsvp|
@@ -69,10 +69,12 @@ class Rsvp < ActiveRecord::Base
 
 	def is_unique_rsvp
 		rsvps = Rsvp.where(event_id: self.event_id)
-		rsvps.each do |r|
-			if r.person.email == self.person.email
-				self.errors.add(:rsvp, 'This RSVP is not unique')
-				break
+		if rsvps
+			rsvps.each do |r|
+				if r.person.nbid == self.person.nbid
+					self.errors.add(:rsvp, 'is not unique')
+					break
+				end
 			end
 		end
 	end

@@ -42,24 +42,58 @@ end
 
 def create
   @rsvp = Rsvp.new(rsvp_params)
-  if @rsvp.save
-    # @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
-    # @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
-    if params[:rsvp][:host_id].to_i > 0
+
+  nationbuilder_person = send_person_to_nationbuilder(@rsvp.person)
+  puts nationbuilder_person
+  if nationbuilder_person[:status]
+    @rsvp.person.update_attribute('nbid', nationbuilder_person[:id])
+    nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp)
+    puts nationbuilder_rsvp
+    if nationbuilder_rsvp[:status]
+      @rsvp.update_attribute('rsvpNBID', nationbuilder_rsvp[:id])
+
+      @rsvp.save
       respond_to do |format|
         format.js {}
         format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
       end
+
     else
-      redirect_to rsvps_path
+      @rsvp.errors.add(:rsvp, nationbuilder_rsvp[:error])
+      respond_to do |format|
+        format.js { render status: 500 }
+        format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+      end
     end
+  
   else
+    @rsvp.errors.add(:person, nationbuilder_person[:error])
     respond_to do |format|
       format.js { render status: 500 }
       format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
     end
   end
+
 end
+
+    # else
+    # @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
+    # if params[:rsvp][:host_id].to_i > 0
+  #     respond_to do |format|
+  #       format.js {}
+  #       format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+  #     end
+  #   else
+  #     redirect_to rsvps_path
+  #   end
+  # else
+  #   @rsvp.errors.add(:person, nationbuilder_person[:error])
+  #   respond_to do |format|
+  #     format.js { render status: 500 }
+  #     format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+  #   end
+  # end
+# end
 
 def check_in
 	@rsvp = Rsvp.find(params[:id])
