@@ -41,6 +41,7 @@ class UserSessionsController < ApplicationController
 
   def destroy_currents
     session[:current_nation] = nil
+    session[:current_event] = nil
     session[:credential_id] = nil
 
   end

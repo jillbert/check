@@ -98,8 +98,8 @@ end
 
 def check_in
 	@rsvp = Rsvp.find(params[:id])
+  @rsvp.update_attribute('attended', true)
 	if send_rsvp_to_nationbuilder(@rsvp)
-    @rsvp.update_attribute('attended', true)
 		respond_to do |format|
 		  format.js {}
 		end

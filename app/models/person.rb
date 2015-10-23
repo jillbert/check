@@ -10,6 +10,24 @@ class Person < ActiveRecord::Base
     write_attribute(:nbid, val.to_i)
   end
 
+  def self.import(p, rsvp_id)
+    person = Person.find_or_create_by(
+      nbid: p['id'],
+      rsvp_id: rsvp_id
+    )
+
+    person.update(
+      first_name: p["first_name"],
+      last_name: p["last_name"],
+      email: p["email"],
+      phone_number: p["phone"],
+      pic: p["profile_image_url_ssl"]
+    )
+
+    return person
+
+  end
+
   def to_person_object
     person_object = {
       :person => {

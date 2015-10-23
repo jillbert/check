@@ -14,34 +14,54 @@ class Rsvp < ActiveRecord::Base
 
 	# validate :is_unique_rsvp
 
-	def self.from_hash(hash)
-	  new.tap do |rsvp|
-	  	rsvp.rsvp_id = hash.fetch("id")
-	    rsvp.person_id = hash.fetch("person_id")
-	    rsvp.event_id = hash.fetch("event_id")
-	    rsvp.guests_count = hash.fetch("guests_count")
-	    rsvp.volunteer = hash.fetch("volunteer")
-	    rsvp.is_private = hash.fetch("private")
-	    rsvp.canceled = hash.fetch("canceled")
-	    rsvp.attended = hash.fetch("attended")
-	    rsvp.shift_ids = hash.fetch("shift_ids")
-	  end
-	end
+	# def self.from_hash(hash)
+	#   new.tap do |rsvp|
+	#   	rsvp.rsvp_id = hash.fetch("id")
+	#     rsvp.person_id = hash.fetch("person_id")
+	#     rsvp.event_id = hash.fetch("event_id")
+	#     rsvp.guests_count = hash.fetch("guests_count")
+	#     rsvp.volunteer = hash.fetch("volunteer")
+	#     rsvp.is_private = hash.fetch("private")
+	#     rsvp.canceled = hash.fetch("canceled")
+	#     rsvp.attended = hash.fetch("attended")
+	#     rsvp.shift_ids = hash.fetch("shift_ids")
+	#   end
+	# end
 
-	def rsvpObject
-		rsvpObject = {
-		  "rsvp" => {
-		    "id" => self.rsvpNBID.to_i,
-		    "event_id" => self.event_id.to_i,
-		    "person_id" => self.personNBID.to_i,
-		    "guests_count" => self.guests_count.to_i,
-		    "volunteer" => false,
-		    "private" => false,
-		    "canceled" => false,
-		    "attended" => true,
-		    "shift_ids" => []
-		  }
-		}
+	# def rsvpObject
+	# 	rsvpObject = {
+	# 	  "rsvp" => {
+	# 	    "id" => self.rsvpNBID.to_i,
+	# 	    "event_id" => self.event_id.to_i,
+	# 	    "person_id" => self.personNBID.to_i,
+	# 	    "guests_count" => self.guests_count.to_i,
+	# 	    "volunteer" => false,
+	# 	    "private" => false,
+	# 	    "canceled" => false,
+	# 	    "attended" => true,
+	# 	    "shift_ids" => []
+	# 	  }
+	# 	}
+	# end
+
+	def self.import(r, nation, event)
+
+		rsvp = Rsvp.find_or_create_by(
+		  nation_id: nation,
+		  event_id: event,
+		  rsvpNBID: r['id'].to_i
+		)
+		
+		rsvp.update(
+			guests_count: r['guests_count'].to_i,
+			canceled: r['canceled'],
+			volunteer: r['volunteer'],
+			shift_ids: r['shift_ids'].to_a,
+			attended: r['attended']
+			)
+
+		return rsvp
+
 	end
 
 	def to_rsvp_object 
