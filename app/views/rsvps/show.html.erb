@@ -21,5 +21,14 @@
       	<%= render "new_rsvp", new_rsvp: guest, host_id: @rsvp.id %>
       </div>
     <% end %>
-  <% end %> -->
+  <% end %>
+
+  <% if @guest %>
+    	<div id="new_rsvp">
+      	<h3>New Guest:</h3>
+      	<%= render "new_rsvp", new_rsvp: @guest, host_id: @rsvp.id %>
+      </div>
+  <% end %>
+  
 <% end %> 
+ -->
