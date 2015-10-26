@@ -60,8 +60,13 @@ def create
 
       @rsvp.save
       respond_to do |format|
-        format.js {}
-        format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+        if params[:rsvp][:host_id]
+          format.js {}
+          format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+        else
+          format.js {redirect_to rsvp_path(@rsvp.id)}
+          format.html {redirect_to rsvp_path(@rsvp.id) }
+        end
       end
 
     else
