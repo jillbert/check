@@ -7,7 +7,7 @@ module PeopleHelper
       return {status: false, error: ex}
 		else
 		  nbperson = JSON.parse(response.body)["person"]
-      return {status: true, id: nbperson["id"].to_i}
+      return {status: true, person: nbperson}
 		end
 
 	end

@@ -52,7 +52,7 @@ def create
   nationbuilder_person = send_person_to_nationbuilder(@rsvp.person)
   puts nationbuilder_person
   if nationbuilder_person[:status]
-    @rsvp.person.update_attribute('nbid', nationbuilder_person[:id])
+    @rsvp.person.update_attributes(nbid: nationbuilder_person[:person]["id"], pic: nationbuilder_person[:person]["profile_image_url_ssl"])
     nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp)
     puts nationbuilder_rsvp
     if nationbuilder_rsvp[:status]
