@@ -56,7 +56,7 @@ end
 
 def create
   @rsvp = Rsvp.new(rsvp_params)
-<<<<<<< HEAD
+# <<<<<<< HEAD
 
   nationbuilder_person = send_person_to_nationbuilder(@rsvp.person)
   puts nationbuilder_person
@@ -73,14 +73,14 @@ def create
         format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
       end
 
-=======
-  @host = params[:rsvp][:host_id].to_i
-  if @rsvp.save
-    @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
-    @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
-    if params[:rsvp][:host_id].to_i > 0
-      redirect_to rsvp_path(params[:rsvp][:host_id])
->>>>>>> 718f88ac013bab50542dfe33b14a8a4db4187f11
+# # =======
+#   @host = params[:rsvp][:host_id].to_i
+#   if @rsvp.save
+#     @rsvp.person.update_attribute('nbid', send_person_to_nationbuilder(@rsvp.person))
+#     @rsvp.update_attribute('rsvpNBID', send_rsvp_to_nationbuilder(@rsvp))
+#     if params[:rsvp][:host_id].to_i > 0
+#       redirect_to rsvp_path(params[:rsvp][:host_id])
+# >>>>>>> 718f88ac013bab50542dfe33b14a8a4db4187f11
     else
       @rsvp.errors.add(:rsvp, nationbuilder_rsvp[:error])
       respond_to do |format|
@@ -90,15 +90,15 @@ def create
     end
   
   else
-<<<<<<< HEAD
+# <<<<<<< HEAD
     @rsvp.errors.add(:person, nationbuilder_person[:error])
     respond_to do |format|
       format.js { render status: 500 }
       format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
     end
-=======
+# =======
     render "check_in_error"
->>>>>>> 718f88ac013bab50542dfe33b14a8a4db4187f11
+# >>>>>>> 718f88ac013bab50542dfe33b14a8a4db4187f11
   end
 
 end
