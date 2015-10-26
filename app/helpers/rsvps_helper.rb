@@ -18,37 +18,7 @@ module RsvpsHelper
       begin
         checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
       rescue => ex
-        begin
-          response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers)
-        rescue => ex
-          return { status: false, error: ex }
-        else
-          parsed = JSON.parse(response.body)
-          checked_in = parsed['results'].find { |r| r if r["person_id"].to_i == rsvp.person.nbid }
-          if !checked_in && parsed['next']
-            currentpage = 1
-            is_next = parsed['next']
-            while !checked_in && is_next
-              currentpage += 1
-              begin
-                pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
-              rescue => ex
-                return { status: false, error: ex }
-              else
-                response = JSON.parse(pagination_result.body)
-                checked_in = response['results'].find { |r| r if r["person_id"].to_i == rsvp.person.nbid }     
-                is_next = response['next']
-              end
-            end
-          end
-        end
-
-        if checked_in
-          return {status: true, id: checked_in["id"].to_i }
-        else
-          return { status: false, error: "Unknown error occured sending this RSVP to NationBuilder" }
-        end
-
+        return { status: false, error: ex }
       else
         checked_in = JSON.parse(checkInResponse.body)["rsvp"]
         return {status: true, id: checked_in["id"].to_i }
@@ -92,71 +62,11 @@ module RsvpsHelper
 	  end
 
 	  rsvpListfromNB.flatten!.each do |r|
-# <<<<<<< HEAD
       rsvp = Rsvp.import(r, session[:current_nation], @current_event.id)
 
       response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
       person = Person.import(JSON.parse(response.body)["person"], rsvp.id)
 
-	    # rsvp = Rsvp.find_by(event_id: @current_event.eventNBID, rsvpNBID: r['id'], nation_id: session[:current_nation])
-	    # if rsvp
-	    #   rsvp.update(attended: r['attended'])
-	    # else
-	    #   response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-	    #   person = JSON.parse(response.body)["person"]
-	    #   rsvp = Rsvp.create(
-	    #   	  nation_id: session[:current_nation],
-	    #   	  event_id: @current_event.id,
-	    #   	  rsvpNBID: r['id'].to_i,
-	    #   	  guests_count: r['guests_count'].to_i,
-	    #   	  canceled: r['canceled'],
-	    #   	  attended: r['attended'],
-	    #   	  volunteer: r['volunteer'],
-	    #   	  shift_ids: r['shift_ids'].to_a,
-	    #   	)
-
-	    #   Person.create(
-	    #     nbid: person['id'],
-	    #     first_name: person["first_name"],
-	    #     last_name: person["last_name"],
-	    #     email: person["email"],
-	    #     phone_number: person["phone"],
-	    #     rsvp_id: rsvp.id
-	    #   )
-	    # end
-# =======
-# 	    rsvp = Rsvp.find_by(event_id: session[:current_event], rsvpNBID: r['id'], nation_id: session[:current_nation])
-# 	    if rsvp
-# 	      rsvp.update(attended: r['attended'])
-# 	    else
-# 	      response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-# 	      person = JSON.parse(response.body)["person"]
-# 	      puts person
-
-# 	      rsvp = Rsvp.create(
-# 	      	  nation_id: session[:current_nation],
-# 	      	  event_id: session[:current_event],
-# 	      	  rsvpNBID: r['id'].to_i,
-# 	      	  guests_count: r['guests_count'].to_i,
-# 	      	  canceled: r['canceled'],
-# 	      	  attended: r['attended'],
-# 	      	  volunteer: r['volunteer'],
-# 	      	  shift_ids: r['shift_ids'].to_a,
-# 	      	)
-
-# 	      p = Person.new(
-# 	        nbid: person['id'].to_i,
-# 	        first_name: person["first_name"],
-# 	        last_name: person["last_name"],
-# 	        email: person["email"],
-# 	        phone_number: person["phone"],
-# 	        rsvp_id: rsvp.id
-# 	      )
-
-# 	      p.save(:validate => false)
-
-# 	    end
-# >>>>>>> 718f88ac013bab50542dfe33b14a8a4db4187f11
 	  end
 	end
 

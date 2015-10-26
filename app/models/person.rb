@@ -2,11 +2,11 @@ class Person < ActiveRecord::Base
 
   belongs_to :rsvp
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates_format_of :first_name, :with => /\A[^0-9`!@#\$%\^&*+_=]+\z/
-  validates_format_of :last_name, :with => /\A[^0-9`!@#\$%\^&*+_=]+\z/
-  validates :email, :email => true
+  # validates :first_name, presence: true
+  # validates :last_name, presence: true
+  # validates_format_of :first_name, :with => /\A[^0-9`!@#\$%\^&*+_=]+\z/
+  # validates_format_of :last_name, :with => /\A[^0-9`!@#\$%\^&*+_=]+\z/
+  # validates :email, :email => true
   
   def full_name
     return self.first_name + " " + self.last_name

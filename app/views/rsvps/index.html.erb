@@ -29,8 +29,9 @@
       <tr>
         <td><% if r.attended %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %></td>
         <td><%= link_to "Edit", rsvp_path(r.id) %></td>
-        <td><%= r.person.first_name %></td>
-        <td><%= r.person.last_name %></td>
+
+        <td><% if r.person.first_name %><%= r.person.first_name %><% end %></td>
+        <td><% if r.person.last_name %><%= r.person.last_name %><% end %></td>
         <td class="show-for-medium-up"><%= r.guests_count %></td>
       </tr>
     <% end %>
