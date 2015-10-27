@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023175516) do
+ActiveRecord::Schema.define(version: 20151027024047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,16 +32,6 @@ ActiveRecord::Schema.define(version: 20151023175516) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.string   "time_zone"
-  end
-
-  create_table "guests", force: true do |t|
-    t.integer  "nationNBID"
-    t.string   "nation_name"
-    t.integer  "eventNBID"
-    t.integer  "rsvpNBID"
-    t.integer  "plusoneNBID"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "nations", force: true do |t|
@@ -68,10 +58,6 @@ ActiveRecord::Schema.define(version: 20151023175516) do
 
   create_table "rsvps", force: true do |t|
     t.integer  "event_id"
-    t.integer  "personNBID"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
     t.integer  "guests_count"
     t.boolean  "canceled"
     t.boolean  "attended"
