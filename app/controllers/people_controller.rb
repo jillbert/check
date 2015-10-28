@@ -66,6 +66,55 @@ class PeopleController < ApplicationController
     end
   end
 
+  def edit
+    @person = Person.find(params[:id])
+    respond_to do |format|
+      format.js {}
+      format.html { render 'edit' }
+    end
+  end
+
+  def update
+    @person = Person.find(params[:id])
+    @person.assign_attributes(person_params)
+    nationbuilder_person = send_person_to_nationbuilder(@person)
+    puts nationbuilder_person
+    if nationbuilder_person[:status]
+      @person.save
+      @person.update_attributes(pic: nationbuilder_person[:person]["profile_image_url_ssl"])
+      @rsvp = Rsvp.find_by(person_id: @person, event_id: @current_event.id, nation_id: session[:current_nation])
+
+      if !@rsvp.attended
+        @rsvp.assign_attributes(attended: true)
+        nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @person)
+
+        if nationbuilder_rsvp[:status]
+          @rsvp.save
+
+          respond_to do |format|
+            format.js
+          end
+        else
+          @person.errors.add(:rsvp, nationbuilder_rsvp[:error])
+          respond_to do |format|
+            format.js {}
+            format.html {render 'edit' }
+          end
+        end
+      else
+        respond_to do |format|
+          format.js
+        end
+      end
+    else
+      @person.errors.add(:person, nationbuilder_person[:error])
+      respond_to do |format|
+        format.js
+        format.html { render 'edit' }
+      end
+    end
+  end
+
   private
 
   def has_current_site_and_event

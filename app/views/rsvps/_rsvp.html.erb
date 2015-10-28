@@ -7,4 +7,7 @@
 	<% else %>
 		<i class="fa fa-check-square-o"></i>
 	<% end %>
+  
+  <%= link_to "Edit information", '#', :class => "edit button", data: {rsvp_id: rsvp.id, person_id: rsvp.person.id}, remote: true %>
+
 </div>

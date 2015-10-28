@@ -1,0 +1,30 @@
+$(document).bind('ajax:success', function(data, status, xhr) {
+  $('#modal').foundation('reveal', 'close');
+  $('#rsvp_<%= @rsvp.id %>').empty().html("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
+  console.log(status);
+
+  $('#rsvp_<%= @rsvp.id %> .edit').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    person_id = $(this).data('person-id');
+    rsvp_id = $(this).data('rsvp-id');
+    var url = '/people/' + person_id + '/edit';
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: 'script',
+      data: {
+        'rsvp_id': rsvp_id
+      },
+      success: function(result) {
+        eval(result);
+      },
+    });
+  });
+
+}).bind('ajax:error', function(xhr, status, error) {
+  $("form.new_person").prepend('<%= escape_javascript(render("shared/error_messages", object: @rsvp)) %>');
+  console.log(status);
+});
+

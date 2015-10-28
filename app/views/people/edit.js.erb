@@ -1,0 +1,3 @@
+$('#modal').html("<%= j(render :partial => 'person_update', :locals => {:person => @person, :host_id => nil }) %> " );
+
+$('#modal').foundation('reveal', 'open');
