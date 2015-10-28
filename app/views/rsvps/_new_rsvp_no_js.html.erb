@@ -1,3 +1,6 @@
+<% if new_rsvp.errors.any? %>
+<%= render("shared/error_messages", object: @rsvp) %>
+<% end %>
 <%= form_for(new_rsvp, url: { controller: "rsvps", action: "create"}, method: "post") do |f| %>
   <%= f.hidden_field 'nation_id', value: session[:current_nation] %>
   <%= f.hidden_field 'event_id', value: @current_event.id %>

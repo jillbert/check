@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027024047) do
+ActiveRecord::Schema.define(version: 20151027193551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20151027024047) do
     t.string   "last_name"
     t.string   "email"
     t.string   "phone_number"
-    t.integer  "rsvp_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "pic"
@@ -69,6 +68,7 @@ ActiveRecord::Schema.define(version: 20151027024047) do
     t.boolean  "is_private"
     t.string   "shift_ids",    default: [], array: true
     t.integer  "host_id"
+    t.integer  "person_id"
   end
 
   create_table "users", force: true do |t|

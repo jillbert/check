@@ -2,20 +2,20 @@ class Rsvp < ActiveRecord::Base
 	
 	belongs_to :event
 	belongs_to :nation
-	
-	has_one :person
+	belongs_to :person
 	accepts_nested_attributes_for :person
-	validates_associated :person
-	
+	# accepts_nested_attributes_for :person, reject_if: proc { |attributes| !Person.find_by(email: attributes['email']).nil? }
+		
 	has_many :guests, class_name: "Rsvp", foreign_key: "host_id"
 	belongs_to :host, class_name: "Rsvp"
 
-	def self.import(r, nation, event)
+	def self.import(r, nation, event, p_id)
 
 		rsvp = Rsvp.find_or_create_by(
 		  nation_id: nation,
 		  event_id: event,
-		  rsvpNBID: r['id'].to_i
+		  rsvpNBID: r['id'].to_i,
+		  person_id: p_id
 		)
 		
 		rsvp.update(
@@ -30,12 +30,25 @@ class Rsvp < ActiveRecord::Base
 
 	end
 
-	def to_rsvp_object 
+	def self.create_new_rsvp(nation, event, p_id)
+		Rsvp.new(
+		  nation_id: nation,
+		  event_id: event,
+		  person_id: p_id,
+			guests_count: 0,
+			canceled: false,
+			volunteer: false,
+			shift_ids: [],
+			attended: true
+			)
+	end
+
+	def to_rsvp_object(person)
 
 		rsvpObject = {
 		  "rsvp" => {
 		    "event_id" => self.event_id.to_i,
-		    "person_id" => self.person.nbid.to_i,
+		    "person_id" => person.nbid.to_i,
 		    "guests_count" => self.guests_count.to_i,
 		    "volunteer" => self.volunteer,
 		    "private" => self.is_private,

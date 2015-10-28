@@ -84,7 +84,7 @@ $(document).ready(function() {
 
 	$('.add_guest').on('click', function(e) {
 		e.preventDefault();
-		var url = '/rsvps/new';
+		var url = '/people/new';
 		$.ajax({
 			type: "GET",
 			url: url,

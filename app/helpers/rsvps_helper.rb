@@ -1,8 +1,8 @@
 module RsvpsHelper
 
-  def send_rsvp_to_nationbuilder(rsvp)
+  def send_rsvp_to_nationbuilder(rsvp, person)
 
-    rsvpObject = rsvp.to_rsvp_object
+    rsvpObject = rsvp.to_rsvp_object(person)
     if rsvpObject["rsvp"].has_key?("id")
       begin
         checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
@@ -62,11 +62,10 @@ module RsvpsHelper
 	  end
 
 	  rsvpListfromNB.flatten!.each do |r|
-      rsvp = Rsvp.import(r, session[:current_nation], @current_event.id)
-
       response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-      person = Person.import(JSON.parse(response.body)["person"], rsvp.id)
+      person = Person.import(JSON.parse(response.body)["person"])
 
+      rsvp = Rsvp.import(r, session[:current_nation], @current_event.id, person.id)
 	  end
 	end
 

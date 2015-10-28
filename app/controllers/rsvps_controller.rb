@@ -25,11 +25,6 @@ end
 
 def show
 	@rsvp = Rsvp.find(params[:id])
-
-  if @rsvp.guests.count < @rsvp.guests_count
-    @guest = Rsvp.new
-    @guest.build_person
-  end
 end
 
 def new
@@ -47,18 +42,20 @@ def new
 end
 
 def create
-  @rsvp = Rsvp.new(rsvp_params)
 
-  nationbuilder_person = send_person_to_nationbuilder(@rsvp.person)
+  @rsvp = Rsvp.new(rsvp_params)
+  puts params[:rsvp][:person_attributes].class.name
+  @person = Person.new(params[:rsvp][:person_attributes])
+  nationbuilder_person = send_person_to_nationbuilder(@person)
   puts nationbuilder_person
   if nationbuilder_person[:status]
-    @rsvp.person.update_attributes(nbid: nationbuilder_person[:person]["id"], pic: nationbuilder_person[:person]["profile_image_url_ssl"])
-    nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp)
-    puts nationbuilder_rsvp
-    if nationbuilder_rsvp[:status]
-      @rsvp.update_attribute('rsvpNBID', nationbuilder_rsvp[:id])
 
+    nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp)
+
+    if nationbuilder_rsvp[:status]
+      @rsvp.update_attribute(rsvpNBID: nationbuilder_rsvp[:id])
       @rsvp.save
+      @rsvp.updaate_attribute(person_id: nationbuilder_person[:person].id)
       respond_to do |format|
         if params[:rsvp][:host_id]
           format.js {}
@@ -72,16 +69,24 @@ def create
     else
       @rsvp.errors.add(:rsvp, nationbuilder_rsvp[:error])
       respond_to do |format|
-        format.js { render status: 500 }
-        format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+        if params[:rsvp][:host_id]
+          format.js {}
+          format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+        else
+          format.html {render 'new' }
+        end
       end
     end
   
   else
     @rsvp.errors.add(:person, nationbuilder_person[:error])
     respond_to do |format|
-      format.js { render status: 500 }
-      format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+      if params[:rsvp][:host_id]
+        format.js {}
+        format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
+      else
+        format.html { render 'new' }
+      end
     end
   end
 
@@ -90,8 +95,8 @@ end
 
 def check_in
 	@rsvp = Rsvp.find(params[:id])
-  @rsvp.update_attribute('attended', true)
 	if send_rsvp_to_nationbuilder(@rsvp)
+    @rsvp.update_attribute('attended', true)
 		respond_to do |format|
 		  format.js {}
 		end
@@ -124,8 +129,8 @@ private
       :volunteer, 
       :is_private, 
       :shift_ids,
-      :attended, 
-      person_attributes: [:id, :first_name, :last_name, :email, :phone_number, :nbid])
+      :attended,
+      person_attributes: [:id, :first_name, :last_name, :email, :phone_number, :nbid, :pic])
   end
 
 end

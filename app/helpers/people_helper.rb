@@ -1,6 +1,7 @@
 module PeopleHelper 
 
 	def send_person_to_nationbuilder(person)
+		
 		begin
 		  response = token.put("/api/v1/people/push/", :headers => standard_headers, :body => person.to_person_object)
 		rescue => ex
@@ -11,4 +12,5 @@ module PeopleHelper
 		end
 
 	end
+
 end

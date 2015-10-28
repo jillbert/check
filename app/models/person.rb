@@ -1,7 +1,7 @@
 class Person < ActiveRecord::Base
 
-  belongs_to :rsvp
-
+  has_many :rsvps
+  
   def full_name
     return self.first_name + " " + self.last_name
   end
@@ -10,10 +10,9 @@ class Person < ActiveRecord::Base
     write_attribute(:nbid, val.to_i)
   end
 
-  def self.import(p, rsvp_id)
+  def self.import(p)
     person = Person.find_or_create_by(
       nbid: p['id'],
-      rsvp_id: rsvp_id
     )
 
     person.update(

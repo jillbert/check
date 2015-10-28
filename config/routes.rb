@@ -12,11 +12,13 @@ Rails.application.routes.draw do
 
   get "events/cancel_event", to: "events#new_event"
   get "events/cancel_site", to: "events#new_site"
-
+  
+  get "rsvps/cache", to: "rsvps#cache"
   resources :rsvps
   post "/rsvps/check_in", to: "rsvps#check_in"
-  get "rsvps/cache", to: "rsvps#cache"
   get "rsvps/new_guest", to: "rsvps#new_guest"
+
+  resources :people
 
   root :to => 'nations#index'
   resources :user_sessions

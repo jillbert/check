@@ -10,6 +10,10 @@
   <%= f.hidden_field 'shift_ids', value: [] %>
 
   <%= f.fields_for :person do |p| %>
+  <%= p.hidden_field 'person_id', value: nil %>
+  <%= p.hidden_field 'nbid', value: nil %>
+  <%= p.hidden_field 'pic', value: nil %>
+  
     <div class="row">
       <div class="medium-6 columns name-field">
         <label>First Name <small>required</small>
