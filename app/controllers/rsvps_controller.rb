@@ -8,7 +8,7 @@ before_filter :has_current_site_and_event
 before_filter :get_event
 
 def index
-  @rsvps = Rsvp.where(event_id: session[:current_event], host_id: nil)
+  @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
   get_count
   if @rsvps.size > 0
     @rsvps.order( 'last_name DESC')

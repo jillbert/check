@@ -28,7 +28,6 @@ $(function(){
 	}) 
 });
 
-var guests = [];
 $(document).ready(function() {
 	// if ($('#processcheckin fieldset')) {
 	// 	var focused;
@@ -169,6 +168,8 @@ $(document).ready(function() {
 
 		// DataTable
 		var table = $('#list').DataTable({
+			"order": [[ 0, 'asc' ]],
+			"paging": false,
 			"oLanguage": {
 			        "sZeroRecords": "No one found. <a href='/new_rsvp'>Add a new RSVP?</a>"
 			    }
