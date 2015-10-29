@@ -2,7 +2,12 @@ module PeopleHelper
 
 	def send_person_to_nationbuilder(person)
 		begin
-		  response = token.put("/api/v1/people/push/", :headers => standard_headers, :body => person.to_person_object)
+
+			if person.nbid
+		  	response = token.put("/api/v1/people/#{person.nbid}/", :headers => standard_headers, :body => person.to_person_object)
+		  else
+		  	response = token.put("/api/v1/people/push/", :headers => standard_headers, :body => person.to_person_object)
+		  end
 		rescue => ex
       return {status: false, error: ex}
 		else

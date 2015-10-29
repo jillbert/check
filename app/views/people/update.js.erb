@@ -1,5 +1,5 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
-  $('#modal').foundation('reveal', 'close');
+  $('#modal').empty().foundation('reveal', 'close');
   $('#rsvp_<%= @rsvp.id %>').empty().html("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
   console.log(status);
 

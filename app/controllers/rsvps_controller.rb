@@ -9,6 +9,7 @@ before_filter :get_event
 
 def index
   @rsvps = Rsvp.where(event_id: session[:current_event], host_id: nil)
+  get_count
   if @rsvps.size > 0
     @rsvps.order( 'last_name DESC')
   end
@@ -27,75 +28,10 @@ def show
 	@rsvp = Rsvp.find(params[:id])
 end
 
-def new
-  @rsvp = Rsvp.new
-  @rsvp.build_person
-
-  if params[:host_id]
-    @host_id = params[:host_id]
-  end
-
-  respond_to do |f|
-    f.html {}
-    f.js {}
-  end
-end
-
-def create
-
-  @rsvp = Rsvp.new(rsvp_params)
-  puts params[:rsvp][:person_attributes].class.name
-  @person = Person.new(params[:rsvp][:person_attributes])
-  nationbuilder_person = send_person_to_nationbuilder(@person)
-  puts nationbuilder_person
-  if nationbuilder_person[:status]
-
-    nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp)
-
-    if nationbuilder_rsvp[:status]
-      @rsvp.update_attribute(rsvpNBID: nationbuilder_rsvp[:id])
-      @rsvp.save
-      @rsvp.updaate_attribute(person_id: nationbuilder_person[:person].id)
-      respond_to do |format|
-        if params[:rsvp][:host_id]
-          format.js {}
-          format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
-        else
-          format.js {redirect_to rsvp_path(@rsvp.id)}
-          format.html {redirect_to rsvp_path(@rsvp.id) }
-        end
-      end
-
-    else
-      @rsvp.errors.add(:rsvp, nationbuilder_rsvp[:error])
-      respond_to do |format|
-        if params[:rsvp][:host_id]
-          format.js {}
-          format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
-        else
-          format.html {render 'new' }
-        end
-      end
-    end
-  
-  else
-    @rsvp.errors.add(:person, nationbuilder_person[:error])
-    respond_to do |format|
-      if params[:rsvp][:host_id]
-        format.js {}
-        format.html { redirect_to rsvp_path(params[:rsvp][:host_id]) }
-      else
-        format.html { render 'new' }
-      end
-    end
-  end
-
-end
-
-
 def check_in
 	@rsvp = Rsvp.find(params[:id])
-	if send_rsvp_to_nationbuilder(@rsvp)
+  nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
+	if nationbuilder_rsvp[:status]
     @rsvp.update_attribute('attended', true)
 		respond_to do |format|
 		  format.js {}

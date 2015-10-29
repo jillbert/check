@@ -56,7 +56,7 @@
         <% if current_page?(controller:'rsvps', action:'new') %>
           <div class="button disabled"><i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span></div>
         <% else %>
-          <%= link_to new_rsvp_path, class:"button success" do %>
+          <%= link_to "#", class:"button success add", data: { host_id: nil } do %>
           <i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span>
           <% end %> 
         <% end %>

@@ -28,6 +28,17 @@ module RsvpsHelper
 
   end
 
+  def get_count
+    rsvps = @current_event.rsvps
+    @total = rsvps.select { |r| r if !r.host_id}.count
+    rsvps.each do |r|
+      @total += r.guests_count
+    end
+
+    @attending =  rsvps.select { |r| r if r.attended }.count
+  end
+
+
 	def create_cache
 
 	  response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers)

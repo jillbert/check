@@ -12,7 +12,7 @@ class OauthController < ApplicationController
     credential = Credential.find_by nation_id: params[:nation_id]
     if credential == nil
       set_current_nation(params[:nation_id])
-      puts client.inspect
+
       redirect_to client.auth_code.authorize_url(
         :redirect_uri => callback_url,
         :state => current_nation.id

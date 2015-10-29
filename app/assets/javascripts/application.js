@@ -82,7 +82,7 @@ $(document).ready(function() {
 	// })
 
 
-	$('.add_guest').on('click', function(e) {
+	$('.add').on('click', function(e) {
 		e.preventDefault();
 		var url = '/people/new';
 		$.ajax({
@@ -102,6 +102,7 @@ $(document).ready(function() {
 	$('.checkin').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
+		console.log($(this).data('id'))
 		var url = '/rsvps/check_in';
 		$.ajax({
 			type: "POST",

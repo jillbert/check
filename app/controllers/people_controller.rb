@@ -11,7 +11,7 @@ class PeopleController < ApplicationController
     @person = Person.new
 
     if params[:host_id]
-      @host_id = params[:host_id]
+      @host_id = params[:host_id].to_i
     end
 
     respond_to do |f|
@@ -23,6 +23,12 @@ class PeopleController < ApplicationController
 
   def create
     @person = Person.new(person_params)
+    @person.errors.clear
+    if params[:host_id].to_i > 0
+      @host_id = params[:host_id].to_i
+    else 
+      @host_id = nil
+    end
 
     nationbuilder_person = send_person_to_nationbuilder(@person)
     if nationbuilder_person[:status]
@@ -35,16 +41,12 @@ class PeopleController < ApplicationController
         new_person = Person.create_with(last_name: @person.last_name, first_name: @person.first_name, pic: @person.pic)
         .find_or_create_by(email: @person.email, nbid: @person.nbid)
 
-        @rsvp.update_attributes(rsvpNBID: nationbuilder_rsvp["id"].to_i, person_id: new_person.id)
+        @rsvp.update_attributes(rsvpNBID: nationbuilder_rsvp[:id].to_i, person_id: new_person.id, host_id: @host_id)
         
-        if params[:host_id]
-          @rsvp.update_attributes(host_id: params[:host_id])
-        end
-
         respond_to do |format|
           format.js {}
-          if params[:host_id]
-            format.html { redirect_to rsvp_path(params[:host_id]) }
+          if @host_id
+            format.html { redirect_to rsvp_path(@host_id) }
           else
             format.html {redirect_to rsvp_path(@rsvp.id)}
           end
@@ -52,7 +54,7 @@ class PeopleController < ApplicationController
       else
         @person.errors.add(:rsvp, nationbuilder_rsvp[:error])
         respond_to do |format|
-          format.js {}
+          format.js { render status: 500 }
           format.html {render 'new' }
         end
       end
@@ -60,7 +62,7 @@ class PeopleController < ApplicationController
     else
       @person.errors.add(:person, nationbuilder_person[:error])
       respond_to do |format|
-        format.js {}
+        format.js { render :status => 500 }
         format.html { render 'new' }
       end
     end
@@ -78,7 +80,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
     @person.assign_attributes(person_params)
     nationbuilder_person = send_person_to_nationbuilder(@person)
-    puts nationbuilder_person
+    
     if nationbuilder_person[:status]
       @person.save
       @person.update_attributes(pic: nationbuilder_person[:person]["profile_image_url_ssl"])

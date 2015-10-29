@@ -3,6 +3,7 @@ class Rsvp < ActiveRecord::Base
 	belongs_to :event
 	belongs_to :nation
 	belongs_to :person
+	
 	accepts_nested_attributes_for :person
 	# accepts_nested_attributes_for :person, reject_if: proc { |attributes| !Person.find_by(email: attributes['email']).nil? }
 		
