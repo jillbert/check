@@ -1,6 +1,11 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
   $('#checked-guests').append("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
   $('#modal').foundation('reveal', 'close');
+
+  <% if @add_guests == false %>
+    $('.add').remove()
+  <% end %>
+
 }).bind('ajax:error', function(xhr, status, error) {
   $("#errors").empty().append('<%= escape_javascript(render("shared/error_messages", object: @person)) %>');
 });

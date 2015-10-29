@@ -46,6 +46,9 @@ class PeopleController < ApplicationController
         respond_to do |format|
           format.js {}
           if @host_id
+            
+            @add_guests = add_guests(@rsvp.host)
+
             format.html { redirect_to rsvp_path(@host_id) }
           else
             format.html {redirect_to rsvp_path(@rsvp.id)}

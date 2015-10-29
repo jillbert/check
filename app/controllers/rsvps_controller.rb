@@ -26,6 +26,8 @@ end
 
 def show
 	@rsvp = Rsvp.find(params[:id])
+  @add_guests = add_guests(@rsvp)
+
 end
 
 def check_in

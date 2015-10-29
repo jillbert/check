@@ -2,29 +2,31 @@ module RsvpsHelper
 
   def send_rsvp_to_nationbuilder(rsvp, person)
 
-    rsvpObject = rsvp.to_rsvp_object(person)
-    if rsvpObject["rsvp"].has_key?("id")
-      begin
-        checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
-        checked_in = JSON.parse(checkInResponse.body)["rsvp"]
-      rescue => ex
-        return {status: false, error: ex}
-      else
-        return {status: true, id: checked_in["id"].to_i }
-      end
+    return {status: true, id: 10000000}
 
-    else
+    # rsvpObject = rsvp.to_rsvp_object(person)
+    # if rsvpObject["rsvp"].has_key?("id")
+    #   begin
+    #     checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
+    #     checked_in = JSON.parse(checkInResponse.body)["rsvp"]
+    #   rescue => ex
+    #     return {status: false, error: ex}
+    #   else
+    #     return {status: true, id: checked_in["id"].to_i }
+    #   end
 
-      begin
-        checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
-      rescue => ex
-        return { status: false, error: ex }
-      else
-        checked_in = JSON.parse(checkInResponse.body)["rsvp"]
-        return {status: true, id: checked_in["id"].to_i }
-      end
+    # else
 
-    end
+    #   begin
+    #     checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
+    #   rescue => ex
+    #     return { status: false, error: ex }
+    #   else
+    #     checked_in = JSON.parse(checkInResponse.body)["rsvp"]
+    #     return {status: true, id: checked_in["id"].to_i }
+    #   end
+
+    # end
 
   end
 
@@ -38,6 +40,13 @@ module RsvpsHelper
     @attending =  rsvps.select { |r| r if r.attended }.count
   end
 
+  def add_guests(rsvp)
+    if rsvp.guests.count >= rsvp.guests_count
+      return false
+    else
+      return true
+    end
+  end
 
 	def create_cache
 

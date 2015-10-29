@@ -9,7 +9,8 @@
   <% end %>
   </div>
 
-  <%= link_to "Add New Guest", "#", class: "add", data: { host_id: @rsvp.id } %>
+  <% if @add_guests %>
+    <%= link_to "Add New Guest", "#", class: "add", data: { host_id: @rsvp.id } %>
+  <% end %>
 
-  <div id="guests"></div>
 <% end %> 
