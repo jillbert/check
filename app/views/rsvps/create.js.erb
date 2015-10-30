@@ -1,8 +1,0 @@
-$(document).bind('ajax:success', function(data, status, xhr) {
-  $('#checked-guests').append("<%= j(render 'rsvp', rsvp: @rsvp) %>");
-  $("form.new_rsvp").remove();
-  console.log(status);
-}).bind('ajax:error', function(xhr, status, error) {
-  $("form.new_rsvp").prepend('<%= escape_javascript(render("shared/error_messages", object: @rsvp)) %>');
-  console.log(status);
-});
