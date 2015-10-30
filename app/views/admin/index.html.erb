@@ -1,0 +1,8 @@
+<% @users.each do |u| %>
+  <div>
+    <%= link_to u.email, edit_user_path(u.id) %>
+    <%= u.nation.name %>
+  </div>
+<% end %>
+
+<%= link_to "Create New User", new_user_path, class: "button" %>

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :same_user, only: [:show, :edit, :update, :destroy]
   # http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASS'], only: [:new, :create]
   skip_before_filter :require_login, only: [:new, :create]
   # GET /users
@@ -62,6 +64,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def same_user
+      redirect_to root_path if (current_user != @user && current_user.id != 2)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
