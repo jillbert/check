@@ -1,6 +1,8 @@
 class Person < ActiveRecord::Base
 
+  belongs_to :nation
   has_many :rsvps
+
   
   def full_name
     return self.first_name + " " + self.last_name
@@ -10,9 +12,10 @@ class Person < ActiveRecord::Base
     write_attribute(:nbid, val.to_i)
   end
 
-  def self.import(p)
+  def self.import(p, nation)
     person = Person.find_or_create_by(
       nbid: p['id'],
+      nation_id: nation
     )
 
     person.update(

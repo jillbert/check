@@ -22,6 +22,7 @@ class PeopleController < ApplicationController
   end
 
   def create
+    @person, @rsvp = nil
     @person = Person.new(person_params)
     @person.errors.clear
     if params[:host_id].to_i > 0
@@ -32,11 +33,12 @@ class PeopleController < ApplicationController
 
     nationbuilder_person = send_person_to_nationbuilder(@person)
     if nationbuilder_person[:status]
-      @person.assign_attributes(nbid: nationbuilder_person[:person]["id"].to_i, pic: nationbuilder_person[:person]["profile_image_url_ssl"])
+      @person = Person.import(nationbuilder_person[:person], current_user.nation.id)
+      # @person.assign_attributes(nbid: nationbuilder_person[:person]["id"].to_i, pic: nationbuilder_person[:person]["profile_image_url_ssl"])
 
      @rsvp = Rsvp.create_new_rsvp(session[:current_nation], @current_event.id, @person.id)
+     # @person.save
       nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @person)
-      
       if nationbuilder_rsvp[:status]
         new_person = Person.create_with(last_name: @person.last_name, first_name: @person.first_name, pic: @person.pic)
         .find_or_create_by(email: @person.email, nbid: @person.nbid)
@@ -57,7 +59,7 @@ class PeopleController < ApplicationController
       else
         @person.errors.add(:rsvp, nationbuilder_rsvp[:error])
         respond_to do |format|
-          format.js { render status: 500 }
+          format.js { render :status => 500 }
           format.html {render 'new' }
         end
       end
@@ -133,7 +135,6 @@ class PeopleController < ApplicationController
       end
     end
   end
-  
 
   def person_params
     params.require(:person).permit(

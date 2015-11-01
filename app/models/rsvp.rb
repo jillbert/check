@@ -1,19 +1,14 @@
 class Rsvp < ActiveRecord::Base
 	
 	belongs_to :event
-	belongs_to :nation
 	belongs_to :person
-	
-	accepts_nested_attributes_for :person
-	# accepts_nested_attributes_for :person, reject_if: proc { |attributes| !Person.find_by(email: attributes['email']).nil? }
 		
 	has_many :guests, class_name: "Rsvp", foreign_key: "host_id"
 	belongs_to :host, class_name: "Rsvp"
 
-	def self.import(r, nation, event, p_id)
+	def self.import(r, event, p_id)
 
 		rsvp = Rsvp.find_or_create_by(
-		  nation_id: nation,
 		  event_id: event,
 		  rsvpNBID: r['id'].to_i,
 		  person_id: p_id

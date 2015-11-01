@@ -6,6 +6,7 @@ include PeopleHelper
 
 before_filter :has_current_site_and_event
 before_filter :get_event
+before_filter :is_owner, only: [:show]
 
 def index
   @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
@@ -16,12 +17,8 @@ def index
 end
 
 def cache 
-  if session[:current_event]
-    create_cache
-    redirect_to rsvps_path
-  else
-    redirect_to choose_event_path
-  end
+  create_cache
+  redirect_to rsvps_path
 end
 
 def show
@@ -56,20 +53,11 @@ private
     end
   end
   
-  def rsvp_params
-    params.require(:rsvp).permit(
-      :nation_id,
-      :event_id,
-      :rsvpNBID,
-      :guests_count,
-      :canceled,
-      :host_id,
-      :volunteer, 
-      :is_private, 
-      :shift_ids,
-      :attended,
-      person_attributes: [:id, :first_name, :last_name, :email, :phone_number, :nbid, :pic])
+  def is_owner
+    puts current_user.nation.id
+    puts Rsvp.find(params[:id]).person.nation_id
+    redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.nation.id != Rsvp.find(params[:id]).person.nation_id
+    
   end
-
 end
 

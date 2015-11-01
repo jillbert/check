@@ -53,7 +53,7 @@ before_filter :has_credential?
           token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event]
           response = token.put(token_put_path, :headers => standard_headers, :body => event.to_json )
         end
-        session[:current_event] = Event.import(event, session[:current_nation]).id
+        session[:current_event] = Event.import(event, current_user.nation.id).id
       end
 
       redirect_to rsvps_path

@@ -6,11 +6,15 @@ class Event < ActiveRecord::Base
     event = self.find_or_create_by(
       nation_id: session_nation, 
       eventNBID: nb['id'].to_i, 
+    )
+
+    event.update(
       name: nb['name'], 
       start_time: nb['start_time'].to_datetime, 
       end_time: nb['end_time'].to_datetime,
       time_zone: nb['time_zone'] 
     )
+    
     return event
   end
 

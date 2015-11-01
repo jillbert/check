@@ -82,10 +82,16 @@ module RsvpsHelper
 	  end
 
 	  rsvpListfromNB.flatten!.each do |r|
-      response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-      person = Person.import(JSON.parse(response.body)["person"])
 
-      rsvp = Rsvp.import(r, session[:current_nation], @current_event.id, person.id)
+      begin
+        response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
+      rescue => ex
+        puts ex
+      else
+        person = Person.import(JSON.parse(response.body)["person"], current_user.nation.id)
+        rsvp = Rsvp.import(r, @current_event.id, person.id)
+      end
+
 	  end
 	end
 
