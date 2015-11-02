@@ -12,20 +12,15 @@
   <% end %>
 
   <h3>Part 1: User Credentials</h3>
-
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field">
-     <%= f.label :password %><br />
-     <%= f.password_field :password %>
-  </div>
   
   <div class="field">
-     <%= f.label :password_confirmation %><br />
-     <%= f.password_field :password_confirmation %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+
   </div>
 
   <h3>Part 2: Nation Credentials</h3>

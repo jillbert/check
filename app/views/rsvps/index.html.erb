@@ -1,39 +1,37 @@
 <% if @rsvps.size > 0 %>
-<div id="header">
-  <p><%= @current_event.name %></p>
-  <p><%= @current_event.to_local_time %></p>
-  <p><%= @attending %> out of <%= pluralize(@total, 'guest') %> are attending.</p>
-  <div style="clear:both"></div>
+  <div id="header">
+    <p><%= @current_event.name %></p>
+    <p><%= @current_event.to_local_time %></p>
+    <p id="attending">
+      <%= render('attending', attending: @attending, total: @total) %>
+    </p>
+  </div>
 
-<table id="list" role="grid">
-  <thead>
-    <tr  style="display:none">
-      <th scope="column">Name</th>
-    </tr>
-  </thead>
+  <table id="list" role="grid">
+    <thead>
+      <tr  style="display:none">
+        <th scope="column">Name</th>
+      </tr>
+    </thead>
 
-  <tfoot style="display:none">
-    <tr>
-      <th>Name</th>
-    </tr>
-  </tfoot>
+    <tfoot style="display:none">
+      <tr>
+        <th>Name</th>
+      </tr>
+    </tfoot>
 
-  <tbody>
-    <% @rsvps.each do |r| %>
-      
+    <tbody>
+      <% @rsvps.each do |r| %>
         <tr>
           <td>
-            <%= link_to rsvp_path(r.id) do%>
-              <%= r.person.full_name %>
-              <% if r.attended %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %>
-              <%= r.guests_count %>
-            <% end %>
+            <%= render('rsvp_row', r: r) %>
           </td>
         </tr>
-    <% end %>
-  </tbody>
-</table>
-<h3>Update the cache? <%= link_to "Update Cache", rsvps_cache_path %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h3>Update the cache? <%= link_to "Update Cache", rsvps_cache_path %>
 <% else %>
   <h3>No RSVPs found, would you like to create a cache? <%= link_to "Create Cache", rsvps_cache_path %>
 <% end %>

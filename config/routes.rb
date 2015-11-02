@@ -21,11 +21,13 @@ Rails.application.routes.draw do
   resources :people
 
   root :to => 'nations#index'
+
+
   resources :user_sessions
   resources :users
 
   get 'admin', to: 'admin#index'
   get 'login' => 'user_sessions#new', :as => :login
-  post 'logout' => 'user_sessions#destroy', :as => :logout
+  get 'logout' => 'user_sessions#destroy', :as => :logout
 
 end

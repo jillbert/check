@@ -27,6 +27,19 @@ class UsersController < ApplicationController
     @nation = Nation.find_by user_id: current_user.id
   end
 
+  def new_password
+    @user = User.find(params[:id])
+  end
+
+  def change_password
+    if @user.update(user_params)
+      redirect_to nations_path, notice: 'Password was successfully updated!'
+    else
+      render :new_password
+      flash[:error] = @user.errors
+    end
+  end
+  
   # POST /users
   # POST /users.json
   def create

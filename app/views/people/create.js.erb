@@ -1,13 +1,24 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
-  $('#checked-guests').append("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
-  $('#modal').foundation('reveal', 'close');
 
-  <% if @rsvp.host %>
-    <% if @add_guests == false %>
-      $('.add').remove()
+  <% if @host_id %>
+    $('#checked-guests').append("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
+
+    <% if @rsvp.host %>
+      <% if @add_guests == false %>
+        $('.add').remove()
+      <% end %>
     <% end %>
+  
+  <% else %>
+    
+    table.destroy();
+    $('#list').append('<tr><td><%= j(render "rsvps/rsvp_row", r: @rsvp) %></td></tr>');
+    $('#attending').empty().text('<%= j(render "rsvps/attending", attending: @attending, total: @total) %>');
+    initializeRsvpList();
+
   <% end %>
 
+  $('#modal').foundation('reveal', 'close');
 
 }).bind('ajax:error', function(xhr, status, error) {
   $("#errors").empty().append('<%= escape_javascript(render("shared/error_messages", object: @person)) %>');

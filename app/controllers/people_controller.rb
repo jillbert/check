@@ -34,7 +34,6 @@ class PeopleController < ApplicationController
     nationbuilder_person = send_person_to_nationbuilder(@person)
     if nationbuilder_person[:status]
       @person = Person.import(nationbuilder_person[:person], current_user.nation.id)
-      # @person.assign_attributes(nbid: nationbuilder_person[:person]["id"].to_i, pic: nationbuilder_person[:person]["profile_image_url_ssl"])
 
      @rsvp = Rsvp.create_new_rsvp(session[:current_nation], @current_event.id, @person.id)
      # @person.save
@@ -48,11 +47,10 @@ class PeopleController < ApplicationController
         respond_to do |format|
           format.js {}
           if @host_id
-            
             @add_guests = add_guests(@rsvp.host)
-
             format.html { redirect_to rsvp_path(@host_id) }
           else
+            get_count
             format.html {redirect_to rsvp_path(@rsvp.id)}
           end
         end
