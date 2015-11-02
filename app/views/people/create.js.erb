@@ -1,21 +1,22 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
-
-  <% if @host_id %>
-    $('#checked-guests').append("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
-
-    <% if @rsvp.host %>
-      <% if @add_guests == false %>
-        $('.add').remove()
-      <% end %>
-    <% end %>
   
-  <% else %>
-    
-    table.destroy();
-    $('#list').append('<tr><td><%= j(render "rsvps/rsvp_row", r: @rsvp) %></td></tr>');
-    $('#attending').empty().text('<%= j(render "rsvps/attending", attending: @attending, total: @total) %>');
-    initializeRsvpList();
+  <% if @rsvp %>
+    <% if @host_id %>
+      $('#checked-guests').append("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
 
+      <% if @rsvp.host %>
+        <% if @add_guests == false %>
+          $('.add').remove()
+        <% end %>
+      <% end %>
+    
+    <% else %>
+      
+        table.destroy();
+        $('#list').append('<tr><td><%= j(render "rsvps/rsvp_row", r: @rsvp) %></td></tr>');
+        $('#attending').empty().text('<%= j(render "rsvps/attending", attending: @attending, total: @total) %>');
+        initializeRsvpList();
+    <% end %>
   <% end %>
 
   $('#modal').foundation('reveal', 'close');

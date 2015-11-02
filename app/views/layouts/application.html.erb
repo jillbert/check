@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link href="//cloud.webtype.com/css/f3a5aac8-1919-4d5c-b564-8fe3712600ae.css" rel="stylesheet" type="text/css" />
     <title><%= content_for?(:title) ? yield(:title) : "NBCheckIn" %></title>
 
     <%= stylesheet_link_tag    "application" %>
@@ -12,33 +13,12 @@
   </head>
 
   <body>
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="#">NBCheckIn</a></h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-      </ul>
-
-      <section class="top-bar-section">
-        <!-- Right Nav Section -->
-        <ul class="right">
-          <% if current_user %>
-            <li<% if session[:current_site] %> class="active has-dropdown"><a href="#">Site: <%= session[:current_site] %></a><ul class="dropdown"><li><%= link_to "Choose new site", events_cancel_site_path %></ul><%else%>><a href="#">Site: --</a><%end%></li>
-            <li<% if @current_event %> class="active has-dropdown"><a href="#">Event: <%= Event.find_by_id(session[:current_event]).name %></a><ul class="dropdown"><li><%= link_to "Choose new event", events_cancel_event_path %></ul><%else%>><a href="#">Event: --</a><%end%></li>
-            <li>
-              <%= link_to "Logout", logout_path %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to "Login", login_path %>
-            </li>
-          <% end %>
-          
-
-        </ul>
-      </section>
-    </nav>
+    <div class="navbar">
+      <% if session[:current_site] && session[:current_event] %>
+      <% else %>
+        <%= image_tag "checkapp_logo.svg", class:"logo" %>
+      <% end %>
+    </div>
 
     <% if session[:current_site] && session[:current_event] %>
     <div id="choices">

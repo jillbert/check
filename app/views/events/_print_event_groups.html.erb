@@ -1,6 +1,11 @@
 <% event_group.each do |g| %>
-<h2><%= g[0] %></h2>
-<% g[1].each do |e| %>
-  <%= link_to e["name"], set_event_path(event: e["id"]), method: :get %>
-  <p><%= e['start_time'].to_datetime.strftime("%B %d, %Y at %I:%M%p")%></p>
-<% end %><% end %>
+  <div class="event-group">
+    <h2><%= g[0] %></h2>
+    <% g[1].each do |e| %>
+      <div class="event-block">
+        <div class="event-info"><%= e['start_time'].to_datetime.strftime("%b %d")%></div>
+        <%= link_to e["name"], set_event_path(event: e["id"]), method: :get %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
