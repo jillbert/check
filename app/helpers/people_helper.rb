@@ -11,7 +11,22 @@ module PeopleHelper
 		  	response = token.put("/api/v1/people/push/", :headers => standard_headers, :body => person.to_person_object)
 		  end
 		rescue => ex
-      return {status: false, error: ex}
+			puts ex
+			begin
+				puts ex
+				nb_error = JSON.parse(ex.response.body)
+			  error = nb_error['message']
+			  if nb_error['validation_errors']
+			  	error += "<ul>"
+			  	for v_error in nb_error['validation_errors']
+			  		error = error + "<li>" + v_error + "</li>"
+			  	end
+			  	error += "</ul>"
+			  end
+			rescue JSON::ParserError => e
+			  error = "Nationbuilder unresponsive, please try again"
+			end
+      return {status: false, error: error}
 		else
 		  nbperson = JSON.parse(response.body)["person"]
       return {status: true, person: nbperson}

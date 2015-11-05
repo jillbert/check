@@ -1,43 +1,46 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- *= require foundation_and_overrides
- *= require font-awesome
- *= require dataTables/extras/dataTables.responsive
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any styles
+* defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+* file per style scope.
+*
+*= require_tree .
+*= require_self
+*= require foundation_and_overrides
+*= require font-awesome
+*= require dataTables/extras/dataTables.responsive
+*/
 
- $primary-color: #008CBA;
- $secondary-color: #e7e7e7;
- $alert-color: #f04124;
- $success-color: #43AC6A;
- $warning-color: #f08a24;
- $info-color: #a0d3e8;
+$primary-color: #008CBA;
+$secondary-color: #e7e7e7;
+$alert-color: #f04124;
+$success-color: #43AC6A;
+$warning-color: #f08a24;
+$info-color: #a0d3e8;
 
- $purple: #465da2;
- $salmon: #f47f62;
- $heather: #fbccc0;
+@import "colours";
 
- .alert-box .close {
-  padding: 10px;
-  background-color: transparent;
-  color: white;
- }
- 
- .logo {
-   margin: 20px auto;
-   display: block;
- }
+.alert-box .close {
+padding: 10px;
+background-color: transparent;
+color: white;
+}
+
+.logo {
+ margin: 20px auto;
+ display: block;
+}
+
+.app {
+  background-color: $purple;
+  min-height: 100vh;
+}
 
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
   border-bottom: 3px solid white;
@@ -107,47 +110,39 @@ h3 {
   }
 }
 
-.event-group {
-  margin-top: 50px;
-  .event-block {
-    position: relative;
+nav {
+  background-color: $teal;
+  margin: 0 -0.9375rem;
+  ul {
+    list-style: none;
     padding: 20px 0;
-    border-bottom: 2px solid white;
-    .event-info {
-      color: $heather;
-      position: absolute;
-      width: 10%;
-      left: 0;
-      top: 15%;
+    li {
+      display: inline-block;
+      width: 17%;
       text-align: center;
-    }
-    a {
-      padding-left: 15%;
-      -webkit-transition: all 0.15s linear;
-      -moz-transition: all 0.15s linear;
-      -ms-transition: all 0.15s linear;
-      transition: all 0.15s linear;
-      display: block;
-      width: 100%;
-      height: 100%;
-      &:hover {
-        color: $salmon;
+      vertical-align: top;
+      a {
+        color: white;
+        display: block;
+        font-size: 8px;
+        text-transform: uppercase;
+        i.fa {
+          display: block;
+          font-size: 24px;
+        }
+      }
+      &:first-of-type {
+        width: 25%;
+        text-align: left;
+        img {
+          width: 35px;
+          height: 35px;
+          margin: 0;
+        }
       }
     }
-    &:first-of-type {
-      border-top: 2px solid white;
-    }
   }
 }
-
-#choices {
-  padding-top: 20px;
-  background-color: $secondary-color;
-  .button {
-    width: 100%;
-  }
-}
-
 #header {
   h3 {
     float:left;

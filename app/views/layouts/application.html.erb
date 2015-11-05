@@ -13,54 +13,90 @@
   </head>
 
   <body>
-    <div class="navbar">
-      <% if session[:current_site] && session[:current_event] %>
-      <% else %>
-        <%= image_tag "checkapp_logo.svg", class:"logo" %>
-      <% end %>
-    </div>
-
-    <% if session[:current_site] && session[:current_event] %>
-    <div id="choices">
-      <div class="row">
-        <div class="small-6 centered columns">
-          <% if current_page?(controller:'rsvps', action:'index') %>
-            <div class="button disabled"><i class="fa fa-list-alt"></i> <span class="show-for-medium-up">Entire RSVP List</span></div>
-          <% else %>
-            <%= link_to rsvps_path, class:"button success" do %>
-            <i class="fa fa-list-alt"></i> <span class="show-for-medium-up">Entire RSVP List</span>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="small-6 centered columns">
-        <% if current_page?(controller:'rsvps', action:'new') %>
-          <div class="button disabled"><i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span></div>
-        <% else %>
-          <%= link_to "#", class:"button success add", data: { host_id: nil } do %>
-          <i class="fa fa-user-plus"></i> <span class="show-for-medium-up">Add New RSVP</span>
-          <% end %> 
-        <% end %>
-        </div>
-      </div>
-    </div>
-    <% end %>
-    <div class="row" style="padding: 15px 0">
-      <div class="small-12 centered columns">
-        <% flash.each do |type, message| %>
-          <%= content_tag :div, class: "alert-box info alert-#{type}", data: {alert:''} do %>
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <%= message %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
     <div class="row">
-        <div class="medium-8 medium-centered columns">
-          <%= yield %>
+      <div class="medium-8 small-centered columns app">
+        <div class="navbar">
+          <% if controller.controller_name == 'rsvps' || controller.controller_name == "people" %>
+            <nav>
+              <ul>
+                <li>
+                  <%= image_tag "checkapp_logo.svg", class:"logo" %>
+                </li>
+                <li>
+                  <%= link_to logout_path do %>
+                    <i class="fa fa-power-off"></i>Logout
+                  <% end %> 
+                </li>
+                <li>
+
+                  <% back = nil %>
+                  <% if controller.controller_name == 'rsvps' %>
+                    <% if controller.action_name == 'index' %>
+                      <% back = choose_event_path %>
+                    <% elsif controller.action_name == 'show' %>
+                      <% back = rsvps_path %>
+                    <% end %>
+                  <% elsif controller.controller_name == 'people' %>
+                    <% if controller.action_name == 'show' %>
+                      <% back = rsvps_path %>
+                    <% end %>
+                  <% end %>
+
+                  <%= link_to back do %>
+                    <i class="fa fa-arrow-left"></i>Go Back
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to rsvps_cache_path do %>
+                    <i class="fa fa-repeat"></i>Refresh
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to rsvps_cache_path do %>
+                    <i class="fa fa-recycle"></i>Sync
+                  <% end %>
+                </li>
+              </ul>
+            </nav>
+          <% else %>
+            <%= image_tag "checkapp_logo.svg", class:"logo" %>
+          <% end %>
+        <% if current_page?(controller:'rsvps', action:'index') %>
+        <div id="rsvp-choices">
+          <div class="row">
+            <div class="small-6 centered columns">
+              <%= link_to "#", class:"add", data: { host_id: nil } do %>
+              <i class="fa fa-user-plus"></i>Add a Guest
+              <% end %>
+            </div>
+            <div class="small-6 centered columns search">
+              <label>
+                <i class="fa fa-search"></i>
+              </label>
+              <input type="search" id="datatable-search" placeholder="search">
+            </div>
+          </div>
         </div>
+        <% end %>
+        <div class="row" style="padding: 15px 0">
+          <div class="small-12 centered columns">
+            <% flash.each do |type, message| %>
+              <%= content_tag :div, class: "alert-box info alert-#{type}", data: {alert:''} do %>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <%= message %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        </div>
+
+        <%= yield %>
+      </div>
     </div>
 
-    <div id="modal" class="reveal-modal" data-reveal aria-labelledby="" aria-hidden="true" role="dialog"></div>
+    <div id="modal" class="reveal-modal" data-reveal aria-labelledby="" aria-hidden="true" role="dialog">
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
     <%= javascript_include_tag "application" %>
     <div id="thinking"><i class="fa fa-spinner fa-pulse"></i></div>
   </body>

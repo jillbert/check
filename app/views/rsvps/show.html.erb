@@ -1,12 +1,12 @@
-<%= render @rsvp %>
+<div class="main-rsvp">
+  <%= render @rsvp %>
+</div>
 
 <% if @rsvp.guests_count > 0 %>
-
-  Guests:
   <div id="checked-guests">
-  <% @rsvp.guests.each do |guest| %>
-    <%= render 'rsvp', rsvp: guest %>
-  <% end %>
+    <% @rsvp.guests.each do |guest| %>
+      <%= render 'rsvp', rsvp: guest %>
+    <% end %>
   </div>
 
   <% if @add_guests %>

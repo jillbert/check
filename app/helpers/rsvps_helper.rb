@@ -10,7 +10,20 @@ module RsvpsHelper
         checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/#{rsvp.rsvpNBID}", :headers => standard_headers, :body => rsvpObject.to_json)
         checked_in = JSON.parse(checkInResponse.body)["rsvp"]
       rescue => ex
-        return {status: false, error: ex}
+        begin
+          nb_error = JSON.parse(ex.response.body)
+          error = nb_error['message']
+          if nb_error['validation_errors']
+            error += "<ul>"
+            for v_error in nb_error['validation_errors']
+              error = error + "<li>" + v_error + "</li>"
+            end
+            error += "</ul>"
+          end
+        rescue JSON::ParserError => e
+          error = "Nationbuilder unresponsive, please try again"
+        end
+        return {status: false, error: error}
       else
         return {status: true, id: checked_in["id"].to_i }
       end
@@ -20,7 +33,20 @@ module RsvpsHelper
       begin
         checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, :body => rsvpObject.to_json)
       rescue => ex
-        return { status: false, error: ex }
+        begin
+          nb_error = JSON.parse(ex.response.body)
+          error = nb_error['message']
+          if nb_error['validation_errors']
+            error += "<ul>"
+            for v_error in nb_error['validation_errors']
+              error = error + "<li>" + v_error + "</li>"
+            end
+            error += "</ul>"
+          end
+        rescue JSON::ParserError => e
+          error = "Nationbuilder unresponsive, please try again"
+        end
+        return {status: false, error: error}
       else
         checked_in = JSON.parse(checkInResponse.body)["rsvp"]
         return {status: true, id: checked_in["id"].to_i }

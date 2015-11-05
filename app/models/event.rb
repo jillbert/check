@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
   end
 
   def to_local_time
-    return self.start_time.in_time_zone(self.time_zone).strftime("%B %e, %Y %l:%M%P %Z")
+    return self.start_time.in_time_zone(self.time_zone).strftime("%B %e, %Y at %l%P %Z")
   end
 
 end

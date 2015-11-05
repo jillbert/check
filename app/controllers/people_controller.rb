@@ -35,8 +35,8 @@ class PeopleController < ApplicationController
     if nationbuilder_person[:status]
       @person = Person.import(nationbuilder_person[:person], current_user.nation.id)
 
-     @rsvp = Rsvp.create_new_rsvp(session[:current_nation], @current_event.id, @person.id)
-     # @person.save
+       @rsvp = Rsvp.create_new_rsvp(session[:current_nation], @current_event.id, @person.id)
+       # @person.save
       nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @person)
       if nationbuilder_rsvp[:status]
         new_person = Person.create_with(last_name: @person.last_name, first_name: @person.first_name, pic: @person.pic)

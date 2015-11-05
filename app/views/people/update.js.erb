@@ -1,6 +1,6 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
   $('#modal').empty().foundation('reveal', 'close');
-  $('#rsvp_<%= @rsvp.id %>').empty().html("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
+  $('#rsvp_<%= @rsvp.id %>').replaceWith("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
   console.log(status);
 
   $('#rsvp_<%= @rsvp.id %> .edit').on('click', function(e) {

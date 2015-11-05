@@ -1,5 +1,6 @@
 <%= link_to rsvp_path(r.id) do %>
+  <%= image_tag r.person.pic %>
   <%= r.person.full_name %>
   <% if r.attended %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %>
-  <%= r.guests_count %>
+  <% if r.guests_count > 0 %><div class="guests-count">+ <%= r.guests_count %></div><% end %>
 <% end %>

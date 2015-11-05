@@ -42,6 +42,7 @@ gem 'sorcery'
 gem 'email_validator'
 
 gem 'oauth2'
+gem 'rest-client'
 
 gem 'rails_12factor', group: :production
 

@@ -1,3 +1,112 @@
 // Place all the styles related to the rsvps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "colours";
+
+#list_filter {
+  display: none !important;
+}
+
+table#list {
+  td {
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+      }
+      .guests-count {
+        float:right;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+#rsvp-choices {
+  padding-top: 20px;
+  input, a {
+    border: 1px solid $teal;
+    padding: 10px 10px 10px 20px;
+    margin: 0;
+    height: auto;
+    font-size: 16px;
+    line-height: 30px;
+    color: $teal;
+    i {
+      margin-right: 5px; 
+    }
+  }
+  a {
+    display: block;
+    text-transform: uppercase;
+  }
+  .search {
+    position: relative;
+    label {
+      position: absolute;
+      left: 30px;
+      font-size: 20px;
+      top: 10px;
+      color: $teal;
+    }
+    input {
+      text-align: left;
+      padding-left: 35px;
+      &::-webkit-input-placeholder {
+        color: $teal;
+        text-transform: uppercase;
+      } &:-moz-placeholder {
+        color: $teal;
+        text-transform: uppercase;
+      } &::-moz-placeholder {
+        color: $teal;
+        text-transform: uppercase;
+      } &:-ms-input-placeholder {
+        color: $teal;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.rsvp-card {
+  position: relative;
+  padding: 20px 0 20px 60px;
+  font-size: 16px;
+  border-bottom: 1px solid white;
+  .name {
+    font-weight: bold;
+  }
+  img {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 50px;
+    height: 50px;
+  }
+  .rsvp-actions {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+.main-rsvp {
+  .rsvp-card {
+    padding: 20px 0 35px 85px;
+    border-bottom: 3px solid white;
+    img {
+      width: 75px;
+      height: 75px;
+    }
+    .rsvp-guest-count {
+      font-size: 24px;
+    }
+  }
+}

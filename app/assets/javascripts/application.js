@@ -112,7 +112,7 @@ function initializeRsvpList() {
 
 		// Apply the search
 		table.columns().eq( 0 ).each( function ( colIdx ) {
-		    $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+		    $('#datatable-search').on( 'keyup change', function () {
 		        table
 		            .column( colIdx )
 		            .search( this.value )

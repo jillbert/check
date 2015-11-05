@@ -1,13 +1,25 @@
-<div id="rsvp_<%= rsvp.id %>">
+<div class="rsvp-card" id="rsvp_<%= rsvp.id %>">
   <img src="<%=rsvp.person.pic %>">
-	<h2><%= rsvp.person.full_name %></h2>
+	<div class="row">
+    <div class="small-8 columns">
+      <div class="name"><%= rsvp.person.full_name %></div>
+      <div class="email"><%= rsvp.person.email %></div>
+    </div>
+    <div class="small-4 columns rsvp-actions">
+      <% if !rsvp.attended %>
+    	<%= link_to "Check In", '#', :class => "checkin button", data: {id: rsvp.id}, :method => "post", remote: true %>
+    	<% else %>
+        <i class="fa fa-check-square-o"></i>
+    	<% end %>
+      
+      <%= link_to '#', :class => "edit", data: {rsvp_id: rsvp.id, person_id: rsvp.person.id}, remote: true do %>
+        <i class="fa fa-bars"></i>
+      <% end %>
+    </div>
+  </div>
 
-	<% if !rsvp.attended %>
-	<%= link_to "Check In", '#', :class => "checkin button", data: {id: rsvp.id}, :method => "post", remote: true %>
-	<% else %>
-		<i class="fa fa-check-square-o"></i>
-	<% end %>
-  
-  <%= link_to "Edit information", '#', :class => "edit button", data: {rsvp_id: rsvp.id, person_id: rsvp.person.id}, remote: true %>
+  <% if rsvp.guests_count > 0 %>
 
+    <div class="rsvp-guest-count">+<%= pluralize(rsvp.guests_count, 'RSVP') %></div>
+  <% end %>
 </div>
