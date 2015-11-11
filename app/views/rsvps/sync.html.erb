@@ -1,0 +1,7 @@
+<% @rsvps.each do |r| %>
+  <p><%= r.person.full_name %></p>
+<% end %>
+<% @nb.each do |r| %>
+  <% person = @nb_person.find{ |p| p['id'] == r['person_id']} %>
+  <p><%= person['first_name'] %> <%= person['last_name'] %></p>
+<% end %>

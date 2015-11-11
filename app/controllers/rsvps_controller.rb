@@ -1,45 +1,73 @@
 class RsvpsController < ApplicationController
 
-include ApplicationHelper
-include RsvpsHelper
-include PeopleHelper
+  include ApplicationHelper
+  include RsvpsHelper
+  include PeopleHelper
 
-before_filter :has_current_site_and_event
-before_filter :get_event
-before_filter :is_owner, only: [:show]
+  before_filter :has_current_site_and_event
+  before_filter :get_event
+  before_filter :is_owner, only: [:show]
 
-def index
-  @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
-  get_count
-  if @rsvps.size > 0
-    @rsvps.order( 'last_name DESC')
+  def index
+    @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
+    get_count
+    if @rsvps.size > 0
+      @rsvps.order( 'last_name DESC')
+    end
   end
-end
 
-def cache 
-  create_cache
-  redirect_to rsvps_path
-end
+  def cache 
+    create_cache
+    redirect_to rsvps_path
+  end
 
-def show
-	@rsvp = Rsvp.find(params[:id])
-  @add_guests = add_guests(@rsvp)
+  def show
+  	@rsvp = Rsvp.find(params[:id])
+    @add_guests = add_guests(@rsvp)
 
-end
+  end
 
-def check_in
-	@rsvp = Rsvp.find(params[:id])
-  nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
-	if nationbuilder_rsvp[:status]
-    @rsvp.update_attribute('attended', true)
-		respond_to do |format|
-		  format.js {}
-		end
-	else
-	end
-end
+  def check_in
+  	@rsvp = Rsvp.find(params[:id])
+    nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
+  	if nationbuilder_rsvp[:status]
+      @rsvp.update_attribute('attended', true)
+  		respond_to do |format|
+  		  format.js {}
+  		end
+  	else
+  	end
+  end
 
-private 
+  def sync
+    @rsvps = Rsvp.where(event_id: @current_event.id).to_a
+    @nb = check_sync
+    @same = []
+
+
+    @rsvps.each do |r|
+      if r.rsvpNBID
+        @nb.each do |n|
+          if n['id'] == r.rsvpNBID
+            @same << r
+          end
+        end
+      end
+    end
+
+    @same.each do |s|
+      @rsvps.delete(s)
+      @nb.delete_if { |n| n['id'] == s.rsvpNBID }
+    end
+
+    @nb_person = []
+    @nb.each do |n|
+      @nb_person << get_person(n)
+    end
+
+  end
+
+  private 
 
   def has_current_site_and_event
     unless session[:current_site]

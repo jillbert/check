@@ -32,11 +32,6 @@ background-color: transparent;
 color: white;
 }
 
-.logo {
- margin: 20px auto;
- display: block;
-}
-
 .app {
   background-color: $purple;
   min-height: 100vh;
@@ -47,6 +42,7 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   text-align: center;
   font-size: 23px;
   font-weight: 300;
+  margin-bottom: 50px;
   &::-webkit-input-placeholder {
      color: #fff;
      -webkit-transition: color 0.15s linear;
@@ -110,6 +106,10 @@ h3 {
   }
 }
 
+.navbar.stripped {
+  text-align: center;
+  padding-top: 20px;
+}
 nav {
   background-color: $teal;
   margin: 0 -0.9375rem;
@@ -121,15 +121,16 @@ nav {
       width: 17%;
       text-align: center;
       vertical-align: top;
+      font-size: 8px;
+      text-transform: uppercase;
+      color: grey;
       a {
         color: white;
         display: block;
-        font-size: 8px;
-        text-transform: uppercase;
-        i.fa {
-          display: block;
-          font-size: 24px;
-        }
+      }
+      i.fa {
+        display: block;
+        font-size: 24px;
       }
       &:first-of-type {
         width: 25%;
@@ -188,4 +189,37 @@ button.no-style {
 
 .dataTable {
   width: 100%;
+}
+
+#errors {
+  text-align:left;
+}
+.reveal-modal {
+  form {
+    background-color: $purple;
+    padding-top: 150px;
+    text-align: center;
+    &:before {
+      content: "";
+      background-color: $navy;
+      background-image: url("checkapp_logo.svg");
+      background-repeat: no-repeat;
+      background-size: 35px;
+      background-position: 15px;
+      height: 76px;
+      width: 100%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+  @media only screen and (min-width: 768px) {
+    a.close-reveal-modal {
+      right: 1em;
+    }
+  }
+  &:focus {
+    outline: 0;
+  }
 }

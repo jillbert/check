@@ -1,1 +1,1 @@
-$("#rsvp_<%= @rsvp.id %>").html("<%= escape_javascript(render partial: "rsvps/rsvp", locals: {rsvp: @rsvp}) %>");
+$("#rsvp_<%= @rsvp.id %>").replaceWith("<%= escape_javascript(render partial: "rsvps/rsvp", locals: {rsvp: @rsvp}) %>");

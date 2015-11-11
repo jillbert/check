@@ -5,19 +5,16 @@
 
   <div class="row">
     <div class="medium-6 columns name-field">
-      <label>First Name <small>required</small>
-        <%= p.text_field 'first_name' %>
+        <%= p.text_field 'first_name', placeholder: "First Name" %>
       </label>
     </div>
     <div class="medium-6 columns name-field">
-      <label>Last Name <small>required</small>
-        <%= p.text_field 'last_name' %>
+        <%= p.text_field 'last_name', placeholder: "Last Name" %>
       </label>
     </div>
   </div>
   <div class="row">
     <div class="medium-4 columns email-field">
-      <label>Email <small>required</small>
         <%= p.text_field 'email', :placeholder=>'example@example.com' %>
       </label>
     </div>

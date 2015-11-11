@@ -6,12 +6,13 @@ class Rsvp < ActiveRecord::Base
 	has_many :guests, class_name: "Rsvp", foreign_key: "host_id"
 	belongs_to :host, class_name: "Rsvp"
 
-	def self.import(r, event, p_id)
+	def self.import(r, event, p_id, n_id)
 
 		rsvp = Rsvp.find_or_create_by(
 		  event_id: event,
 		  rsvpNBID: r['id'].to_i,
-		  person_id: p_id
+		  person_id: p_id,
+		  nation_id: n_id
 		)
 		
 		rsvp.update(

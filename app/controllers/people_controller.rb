@@ -9,6 +9,7 @@ class PeopleController < ApplicationController
 
   def new
     @person = Person.new
+    @welcome_message = "Add RSVP"
 
     if params[:host_id]
       @host_id = params[:host_id].to_i
@@ -43,7 +44,6 @@ class PeopleController < ApplicationController
         .find_or_create_by(email: @person.email, nbid: @person.nbid)
 
         @rsvp.update_attributes(rsvpNBID: nationbuilder_rsvp[:id].to_i, person_id: new_person.id, host_id: @host_id)
-        
         respond_to do |format|
           format.js {}
           if @host_id
@@ -73,6 +73,7 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
+    @welcome_message = "Edit RSVP"
     respond_to do |format|
       format.js {}
       format.html { render 'edit' }
@@ -87,8 +88,9 @@ class PeopleController < ApplicationController
     if nationbuilder_person[:status]
       @person.save
       @person.update_attributes(pic: nationbuilder_person[:person]["profile_image_url_ssl"])
-      @rsvp = Rsvp.find_by(person_id: @person, event_id: @current_event.id, nation_id: session[:current_nation])
-
+      @rsvp = Rsvp.find_by(person_id: @person, event_id: @current_event.id, nation_id: current_user.nation.id)
+      puts session[:current_event]
+      puts @rsvp
       if !@rsvp.attended
         @rsvp.assign_attributes(attended: true)
         nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @person)

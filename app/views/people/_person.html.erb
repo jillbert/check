@@ -1,30 +1,38 @@
-<%= form_for(person, url: {action: 'create'}, method: "post", remote: true) do |p| %>
-  <div id="errors">
-    <%= render("shared/error_messages", object: person) %>
+<div class="row">
+  <div class="medium-8 small-centered columns app">
+    <%= form_for(person, url: {action: 'create'}, method: "post", remote: true, data: {abide: ''}) do |p| %>
+      <div id="errors">
+        <%= render("shared/error_messages", object: person) %>
+      </div>
+
+      <%= hidden_field_tag 'host_id', host_id %>
+      <div class="row">
+        <div class="small-12 small-centered columns">
+          <p><%= welcome_message %></p>
+      <div class="row">
+        <div class="small-12 small-centered columns name-field">
+            <%= p.text_field 'first_name', placeholder: "First Name", required: "", pattern: "[a-zA-Z]+" %>
+            <%= content_tag(:small, "This field is required", class: "error") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 small-centered columns name-field">
+            <%= p.text_field 'last_name', placeholder: "Last Name", required: "", pattern: "[a-zA-Z]+" %>
+            <%= content_tag(:small, "This field is required", class: "error") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 small-centered columns email-field">
+            <%= p.text_field 'email', :placeholder=>'example@example.com', required: "", pattern: "[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)" %>
+            <%= content_tag(:small, "This field is required", class: "error") %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 small-centered columns email-field">
+          <%= p.submit 'Check In', class:'button' %>
+        </div>
+      </div>
+
+    <% end %>
   </div>
-
-  <%= hidden_field_tag 'host_id', host_id %>
-
-  <div class="row">
-    <div class="medium-6 columns name-field">
-      <label>First Name <small>required</small>
-        <%= p.text_field 'first_name' %>
-      </label>
-    </div>
-    <div class="medium-6 columns name-field">
-      <label>Last Name <small>required</small>
-        <%= p.text_field 'last_name' %>
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="medium-4 columns email-field">
-      <label>Email <small>required</small>
-        <%= p.text_field 'email', :placeholder=>'example@example.com' %>
-      </label>
-    </div>
-  </div>
-
-  <%= p.submit 'Check In', class:'button' %>
-
-<% end %>
+</div>

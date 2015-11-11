@@ -34,4 +34,13 @@ module PeopleHelper
 
 	end
 
+	def get_person(r)
+		begin
+		  response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
+		rescue => ex
+		  puts ex
+		else
+		  return JSON.parse(response.body)["person"]
+		end
+	end
 end

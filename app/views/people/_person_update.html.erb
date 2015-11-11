@@ -1,30 +1,35 @@
-<%= form_for(person, url: {action: 'update'}, method: "put", remote: true) do |p| %>
-  <% if person.errors.any? %>
-  <%= render("shared/error_messages", object: person) %>
-  <% end %>
+<div class="row">
+  <div class="medium-8 small-centered columns app">
+    <%= form_for(person, url: {action: 'update'}, method: "put", remote: true) do |p| %>
+      <div id="errors">
+        <%= render("shared/error_messages", object: person) %>
+      </div>
 
-  <%= hidden_field_tag 'host_id', value: host_id %>
+      <%= hidden_field_tag 'host_id', host_id %>
+      <div class="row">
+        <div class="small-12 small-centered columns">
+          <p><%= welcome_message %></p>
+      <div class="row">
+        <div class="small-12 small-centered columns name-field">
+            <%= p.text_field 'first_name', placeholder: "First Name" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 small-centered columns name-field">
+            <%= p.text_field 'last_name', placeholder: "Last Name" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 small-centered columns email-field">
+            <%= p.text_field 'email', :placeholder=>'example@example.com' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 small-centered columns email-field">
+          <%= p.submit 'Update Info', class:'button' %>
+        </div>
+      </div>
 
-  <div class="row">
-    <div class="medium-6 columns name-field">
-      <label>First Name <small>required</small>
-        <%= p.text_field 'first_name' %>
-      </label>
-    </div>
-    <div class="medium-6 columns name-field">
-      <label>Last Name <small>required</small>
-        <%= p.text_field 'last_name' %>
-      </label>
-    </div>
+    <% end %>
   </div>
-  <div class="row">
-    <div class="medium-4 columns email-field">
-      <label>Email <small>required</small>
-        <%= p.text_field 'email', :placeholder=>'example@example.com' %>
-      </label>
-    </div>
-  </div>
-
-  <%= p.submit 'Update Info', class:'button' %>
-
-<% end %>
+</div>

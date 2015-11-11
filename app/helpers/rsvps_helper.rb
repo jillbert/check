@@ -74,51 +74,53 @@ module RsvpsHelper
     end
   end
 
+  def get_rsvps
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers)
+    parsed = JSON.parse(response.body)
+    rsvpListfromNB = []
+
+    # This is due different pagination rules implemented by NationBuilder
+    
+    if parsed['next']
+      rsvpListfromNB << parsed["results"]
+      currentpage = 1
+      is_next = parsed['next']
+      while is_next
+        currentpage += 1
+        pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
+        response = JSON.parse(pagination_result.body)
+        rsvpListfromNB << response['results']
+        is_next = response['next']
+      end
+
+    elsif parsed["total_pages"]
+      current_page = 1
+      total_pages = parsed["total_pages"]
+      rsvpListfromNB << parsed["results"]
+      while total_pages >= current_page
+        current_page += 1
+        response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, params: {page: current_page})
+        rsvpListfromNB << JSON.parse(response.body)["results"]
+      end
+    else 
+      rsvpListfromNB << parsed["results"]
+    end
+
+    return rsvpListfromNB.flatten!
+  end
+
 	def create_cache
 
-	  response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers)
-	  parsed = JSON.parse(response.body)
-	  rsvpListfromNB = []
-
-	  # This is due different pagination rules implemented by NationBuilder
-	  
-	  if parsed['next']
-	    rsvpListfromNB << parsed["results"]
-	    currentpage = 1
-	    is_next = parsed['next']
-	    while is_next
-	      currentpage += 1
-	      pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
-	      response = JSON.parse(pagination_result.body)
-	      rsvpListfromNB << response['results']
-	      is_next = response['next']
-	    end
-
-	  elsif parsed["total_pages"]
-	    current_page = 1
-	    total_pages = parsed["total_pages"]
-	    rsvpListfromNB << parsed["results"]
-	    while total_pages >= current_page
-	      current_page += 1
-	      response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, params: {page: current_page})
-	      rsvpListfromNB << JSON.parse(response.body)["results"]
-	    end
-	  else 
-	    rsvpListfromNB << parsed["results"]
-	  end
-
-	  rsvpListfromNB.flatten!.each do |r|
-
-      begin
-        response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)
-      rescue => ex
-        puts ex
-      else
-        person = Person.import(JSON.parse(response.body)["person"], current_user.nation.id)
-        rsvp = Rsvp.import(r, @current_event.id, person.id)
-      end
+      get_rsvps.each do |r|
+      person = Person.import(get_person(r), current_user.nation.id)
+      rsvp = Rsvp.import(r, @current_event.id, person.id, current_user.nation.id)
 
 	  end
 	end
 
+  def check_sync
+
+    return get_rsvps 
+
+  end
 end

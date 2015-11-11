@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :rsvps
   post "/rsvps/check_in", to: "rsvps#check_in"
   get "rsvps/new_guest", to: "rsvps#new_guest"
+  get "/sync", to: "rsvps#sync"
 
   resources :people
 

@@ -22,10 +22,10 @@ var table;
 $(function(){ 
 	$(document).foundation({
 		abide: { 
-			patterns: { 
+			patterns: { 	
 				user_phone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
 				user_email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-			} 
+			},
 		} 
 	}) 
 });
@@ -89,7 +89,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.updatecache').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})});
+	$('.to-cache').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})});
 
 	initializeRsvpList();
 })

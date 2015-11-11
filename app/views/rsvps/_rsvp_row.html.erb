@@ -3,4 +3,5 @@
   <%= r.person.full_name %>
   <% if r.attended %><i class="fa fa-check-square-o"></i> <% else%><i class="fa fa-square-o"></i><% end %>
   <% if r.guests_count > 0 %><div class="guests-count">+ <%= r.guests_count %></div><% end %>
+  <div style="display:none!important"><% if r.attended %><% else %>nyci<% end %></div>
 <% end %>
