@@ -1,6 +1,6 @@
 <% event_group.each do |g| %>
   <div class="event-group">
-    <h2><%= g[0] %></h2>
+    <h2 class="check-events"><%= g[0] %></h2>
     <% g[1].each do |e| %>
       <div class="event-block">
         <div class="event-info"><%= e['start_time'].to_datetime.strftime("%b %d")%></div>
