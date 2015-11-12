@@ -34,6 +34,32 @@ module PeopleHelper
 
 	end
 
+	def send_rsvp_host_to_nationbuilder(host, person)
+		begin
+			response = token.get("/api/v1/people/#{person.nbid}", :headers => standard_headers)
+		rescue => ex
+			puts ex
+		else
+			nbperson = JSON.parse(response.body)["person"]
+			if !nbperson['recruiter_id']
+				recruiter_person = {
+				  :person => {
+				    :recruiter_id => host.nbid
+				  }
+				}
+				begin
+					response = token.put("/api/v1/people/#{person.nbid}", :headers => standard_headers, :body => recruiter_person.to_json)
+				rescue => ex
+					puts ex
+				else
+					return true
+				end
+			else
+				return true
+			end
+		end
+	end
+
 	def get_person(r)
 		begin
 		  response = token.get("/api/v1/people/#{r['person_id']}", :headers => standard_headers)

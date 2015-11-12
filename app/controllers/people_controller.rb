@@ -37,13 +37,16 @@ class PeopleController < ApplicationController
       @person = Person.import(nationbuilder_person[:person], current_user.nation.id)
 
        @rsvp = Rsvp.create_new_rsvp(session[:current_nation], @current_event.id, @person.id)
-       # @person.save
       nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @person)
       if nationbuilder_rsvp[:status]
         new_person = Person.create_with(last_name: @person.last_name, first_name: @person.first_name, pic: @person.pic)
         .find_or_create_by(email: @person.email, nbid: @person.nbid)
 
         @rsvp.update_attributes(rsvpNBID: nationbuilder_rsvp[:id].to_i, person_id: new_person.id, host_id: @host_id)
+        if(@rsvp.host_id)
+          host = Person.find @rsvp.host_id
+          send_rsvp_host_to_nationbuilder(host, @rsvp.person)
+        end
         respond_to do |format|
           format.js {}
           if @host_id
