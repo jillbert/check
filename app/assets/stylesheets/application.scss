@@ -28,9 +28,9 @@ $info-color: #a0d3e8;
 @import "additionalstyles";
 
 .alert-box .close {
-padding: 10px;
-background-color: transparent;
-color: white;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
 }
 
 .app {
@@ -50,19 +50,18 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
      color: #fff;
      -webkit-transition: color 0.15s linear;
      -moz-transition: color 0.15s linear;
-
   }
+
   &:-moz-placeholder {
      color: #fff;
      -moz-transition: color 0.15s linear;
      transition: color 0.15s linear;
-
   }
+
   &::-moz-placeholder {  /* Firefox 19+ */
      color: #fff;  
      -moz-transition: color 0.15s linear;
      transition: color 0.15s linear;
-
   }
 
   &:-ms-input-placeholder {  
@@ -71,20 +70,23 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
      -ms-transition: color 0.15s linear;
      transition: color 0.15s linear;
   }
-  &:focus {
-  &::-webkit-input-placeholder {
-     color: $salmon;
-  }
-  &:-moz-placeholder {
-     color: $salmon;  
-  }
-  &::-moz-placeholder {  /* Firefox 19+ */
-     color: $salmon;  
-  }
 
-  &:-ms-input-placeholder {  
-     color: $salmon;  
-  }
+  &:focus {
+    &::-webkit-input-placeholder {
+       color: $salmon;
+    }
+
+    &:-moz-placeholder {
+       color: $salmon;  
+    }
+
+    &::-moz-placeholder {  /* Firefox 19+ */
+       color: $salmon;  
+    }
+
+    &:-ms-input-placeholder {  
+       color: $salmon;  
+    }
   }
 }
 
