@@ -24,7 +24,7 @@
                 </li>
                 <li>
                   <%= link_to logout_path do %>
-                    <i class="fa fa-power-off"></i>Logout
+                    <%= image_tag "check_logout.svg" %>Logout
                   <% end %> 
                 </li>
                 <li>
@@ -51,25 +51,25 @@
                   <% end %>
 
                   <%= link_to back do %>
-                    <i class="fa fa-arrow-left"></i>Go Back
+                    <%= image_tag "check_goback.svg" %>Go Back
                   <% end %>
                 </li>
                 <li>                    
                   <% if button_enabled %>
                     <%= link_to(rsvps_cache_path, class: "to-cache") do %>
-                      <i class="fa fa-repeat"></i>Refresh
+                      <%= image_tag "check_refresh.svg" %>Refresh
                     <% end %>
                   <% else %>
-                    <i class="fa fa-repeat"></i>Refresh
+                    <%= image_tag "check_refresh.svg" %>Refresh
                   <% end %>
                 </li>
                 <li>
                   <% if button_enabled %>
                     <%= link_to(rsvps_cache_path, class: "to-cache") do %>
-                      <i class="fa fa-recycle"></i>Refresh
+                      <%= image_tag "check_sync.svg" %>Refresh
                     <% end %>
                   <% else %>
-                    <i class="fa fa-recycle"></i>Refresh
+                    <%= image_tag "check_sync.svg" %>Refresh
                   <% end %>
                 </li>
               </ul>

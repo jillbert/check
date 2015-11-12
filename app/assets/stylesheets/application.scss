@@ -127,10 +127,12 @@ nav {
       a {
         color: white;
         display: block;
+        line-height: 0;
       }
-      i.fa {
+      img {
         display: block;
-        font-size: 24px;
+        margin: 0 auto;
+        height: 44px;
       }
       &:first-of-type {
         width: 25%;
