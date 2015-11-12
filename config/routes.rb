@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/create'
+
+  get 'password_resets/edit'
+
+  get 'password_resets/update'
+
   get "/callback", to: "oauth#callback"
   get "/authorize", to: "oauth#authorize"
   get "/deauthorize", to: "oauth#deauthorize"
@@ -25,7 +31,15 @@ Rails.application.routes.draw do
 
 
   resources :user_sessions
-  resources :users
+  
+  resources :users do
+    member do
+      get :activate
+      put :confirm
+    end
+  end
+
+  resources :password_resets
 
   get 'admin', to: 'admin#index'
   get 'login' => 'user_sessions#new', :as => :login

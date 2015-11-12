@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :same_user, only: [:show, :edit, :update, :destroy]
   # http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASS'], only: [:new, :create]
-  skip_before_filter :require_login, only: [:new, :create]
+  skip_before_filter :require_login, only: [:new, :create, :activate, :confirm]
   # GET /users
   # GET /users.json
   def index
@@ -70,6 +70,28 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def activate
+    if (@user = User.load_from_activation_token(params[:id]))
+      @token = params[:id]
+    else
+      not_authenticated
+    end
+  end
+
+  def confirm
+    @token = params[:activation_token]
+    if @user = User.load_from_activation_token(@token)
+      if @user.update_attributes(user_params)
+        @user.activate!
+        redirect_to login_url, :notice => 'Your account is now activated.'
+      else
+        render :activate
+      end
+    else
+      not_authenticated
     end
   end
 

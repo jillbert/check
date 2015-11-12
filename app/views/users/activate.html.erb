@@ -1,4 +1,5 @@
-<%= form_for @user do |f| %>
+<%= form_for @user, url: confirm_user_url(@user), method: :put do |f| %>
+
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -11,21 +12,16 @@
     </div>
   <% end %>
 
-  <h3>Part 1: User Credentials</h3>
+  <h3>Please create a password:</h3>
   
   <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.email_field :email, placeholder:"Email Address" %>
+    <%= f.password_field :password, placeholder:"Password" %>
+    <%= f.password_field :password_confirmation, placeholder:"Password Confirmation" %>
+
   </div>
 
-  <h3>Part 2: Nation Credentials</h3>
-
-  <%= f.fields_for :nation do |n| %>
-  <label>Your Nation's Name: </label>
-    <%= n.text_field :name %>
-  <label>Your Nation's URL: </label>
-    <%= n.text_field :url %>
-  <% end %>
+  <%= hidden_field_tag 'activation_token', @token %>
 
   <div class="actions">
     <%= f.submit 'Submit', :class =>"button" %>
