@@ -5,3 +5,27 @@
   <% person = @nb_person.find{ |p| p['id'] == r['person_id']} %>
   <p><%= person['first_name'] %> <%= person['last_name'] %></p>
 <% end %>
+<table id="list" role="grid" class="whiteout">
+  <thead>
+    <tr  style="display:none">
+      <th scope="column">Name</th>
+    </tr>
+  </thead>
+
+  <tfoot style="display:none">
+    <tr>
+      <th>Name</th>
+    </tr>
+  </tfoot>
+
+  <tbody>
+    <% @same.each do |r| %>
+      <tr>
+        <td>
+          <%= render('rsvp_row', r: r) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

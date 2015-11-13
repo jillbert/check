@@ -28,6 +28,18 @@
         }
       }
     }
+    &.whiteout {
+      pointer-events: none;
+      a {
+        color: grey !important;
+        img {
+          opacity: 0.5;
+        }
+      }
+      td {
+        border-bottom: 2px solid grey;
+      }
+    }
   }
   &>.row:last-of-type {
     .large-6.columns:first-of-type {

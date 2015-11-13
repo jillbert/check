@@ -44,7 +44,7 @@ class PeopleController < ApplicationController
 
         @rsvp.update_attributes(rsvpNBID: nationbuilder_rsvp[:id].to_i, person_id: new_person.id, host_id: @host_id)
         if(@rsvp.host_id)
-          host = Person.find @rsvp.host_id
+          host = Rsvp.find(@rsvp.host_id).person
           send_rsvp_host_to_nationbuilder(host, @rsvp.person)
         end
         respond_to do |format|
