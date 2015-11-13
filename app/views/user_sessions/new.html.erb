@@ -2,5 +2,13 @@
 
 <%= render 'form' %>
 
-<h3 class="check-title">Forget your password?</h3>
-<%= render 'forgot_password_form' %>
+<div class="password-reset-box">
+  <div class="row">
+    <div class="medium-8 small-centered columns">
+      <%= link_to(reset_path) do %>
+        <p>Forgot your password?</p>
+        <p>Get a reminder <span class="lnr lnr-arrow-right"></span></p>
+      <% end %>
+    </div>
+  </div>
+</div>

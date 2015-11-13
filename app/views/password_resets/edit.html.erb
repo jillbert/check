@@ -1,4 +1,4 @@
-<h1>Choose a new password</h1>
+<h3 class="check-title">Choose a new password</h3>
 <%= form_for @user, :url => password_reset_path(@token), :html => {:method => :put} do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -13,18 +13,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= @user.email %>
+    <input type="text" value="<%=@user.email %>" readonly >
   </div>
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
+    <%= f.password_field :password, placeholder:"Password" %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, placeholder:"Password Confirmation" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= button_tag(type: "submit", class: "no-style check-login") do %>
+      <span class="lnr lnr-arrow-right-circle"></span>
+  <% end %>
 <% end %>

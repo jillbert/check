@@ -65,6 +65,8 @@ class RsvpsController < ApplicationController
       @nb_person << get_person(n)
     end
 
+    get_count
+
   end
 
   private 
@@ -82,10 +84,7 @@ class RsvpsController < ApplicationController
   end
   
   def is_owner
-    puts current_user.nation.id
-    puts Rsvp.find(params[:id]).person.nation_id
     redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.nation.id != Rsvp.find(params[:id]).person.nation_id
-    
   end
 end
 

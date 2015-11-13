@@ -1,3 +1,39 @@
 // Place all the styles related to the UserSessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "colours";
+
+.app {
+  overflow: hidden;
+}
+.password-reset-box {
+  .row {
+    margin: 0 auto;
+    max-width: 62.5rem;
+    width: 100%;
+    .medium-8.small-centered.columns {
+      background-color: $teal;
+      padding: 10px 0;
+    }
+  }
+  color: white;
+  text-align: center;
+  width: 100%;
+  display: block;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  p {
+  margin: 0;
+  }
+  a {
+    -webkit-transition: all 0.15s linear;
+    -moz-transition: all 0.15s linear;
+    -ms-transition: all 0.15s linear;
+    transition: all 0.15s linear;
+    &:hover {
+      color: $navy;
+    }
+  }
+}

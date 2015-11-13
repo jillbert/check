@@ -1,11 +1,48 @@
-<% @rsvps.each do |r| %>
-  <p><%= r.person.full_name %></p>
-<% end %>
-<% @nb.each do |r| %>
-  <% person = @nb_person.find{ |p| p['id'] == r['person_id']} %>
-  <p><%= person['first_name'] %> <%= person['last_name'] %></p>
-<% end %>
-<table id="list" role="grid" class="whiteout">
+<div id="header">
+  <p><%= @current_event.name %></p>
+  <p><%= @current_event.to_local_time %></p>
+  <p id="attending">
+    <%= render('attending', attending: @attending, total: @total) %>
+  </p>
+</div>
+
+<table id="synclist" role="grid">
+  <thead>
+    <tr  style="display:none">
+      <th scope="column">Name</th>
+    </tr>
+  </thead>
+  <tfoot style="display:none">
+    <tr>
+      <th>Name</th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @rsvps.each do |r| %>
+    <tr>
+      <td>
+        <%= render('rsvp_row', r: r) %>
+      </td>
+    </tr>
+    <% end %>
+    <% @nb.each do |r| %>
+      <% person = @nb_person.find{ |p| p['id'] == r['person_id']} %>
+      <tr>
+        <td>
+          <a href="#">
+            <img src="<%= person['profile_image_url_ssl'] %>" %>
+            <%= person['first_name'] %> <%= person['last_name'] %>
+            <% if r['attended'] %><span class="lnr lnr-checkmark-circle"></span><% end %>
+            <% if r['guests_count'] > 0 %><div class="guests-count">+ <%= r.guests_count %></div><% end %>
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<table id="list" role="grid">
   <thead>
     <tr  style="display:none">
       <th scope="column">Name</th>
@@ -21,7 +58,7 @@
   <tbody>
     <% @same.each do |r| %>
       <tr>
-        <td>
+        <td class="whiteout">
           <%= render('rsvp_row', r: r) %>
         </td>
       </tr>

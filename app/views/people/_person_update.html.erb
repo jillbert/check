@@ -26,7 +26,10 @@
       </div>
       <div class="row">
         <div class="small-12 small-centered columns email-field">
-          <%= p.submit 'Update Info', class:'button' %>
+          <p>Please note, all fields are required</p>
+          <%= button_tag(type: "submit", class: "no-style check-login") do %>
+              <span class="lnr lnr-arrow-right-circle"></span>
+          <% end %>
         </div>
       </div>
 

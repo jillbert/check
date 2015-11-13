@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   end
 
   resources :password_resets
+  get "reset", to: "password_resets#password_reset"
 
   get 'admin', to: 'admin#index'
   get 'login' => 'user_sessions#new', :as => :login

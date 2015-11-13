@@ -91,6 +91,13 @@ $(document).ready(function() {
 
 	$('.to-cache').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})});
 
+	$('.reveal-modal').on('open.fndtn.reveal', '[data-reveal]', function () {
+	    $('body').addClass('modal-open');
+	});
+	$('.reveal-modal').on('close.fndtn.reveal', '[data-reveal]', function () {
+	    $('body').removeClass('modal-open');
+	});
+	
 	initializeRsvpList();
 })
 

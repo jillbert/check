@@ -65,11 +65,11 @@
                 </li>
                 <li>
                   <% if button_enabled %>
-                    <%= link_to(rsvps_cache_path, class: "to-cache") do %>
-                      <%= image_tag "check_sync.svg" %>Refresh
+                    <%= link_to(sync_path, class: "to-cache") do %>
+                      <%= image_tag "check_sync.svg" %>Sync
                     <% end %>
                   <% else %>
-                    <%= image_tag "check_sync.svg" %>Refresh
+                    <%= image_tag "check_sync.svg" %>Sync
                   <% end %>
                 </li>
               </ul>
@@ -82,12 +82,12 @@
           <div class="row">
             <div class="small-6 centered columns">
               <%= link_to "#", class:"add", data: { host_id: nil } do %>
-              <i class="fa fa-user-plus"></i>Add a Guest
+              <span class="lnr lnr-plus-circle"></span> Add a Guest
               <% end %>
             </div>
             <div class="small-6 centered columns search">
               <label>
-                <i class="fa fa-search"></i>
+                <span class="lnr lnr-magnifier"></span>
               </label>
               <input type="search" id="datatable-search" placeholder="search">
             </div>
@@ -109,10 +109,15 @@
         <%= yield %>
       </div>
       <div id="modal" class="reveal-modal" data-reveal aria-labelledby="" aria-hidden="true" role="dialog">
-        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        <a class="close-reveal-modal" aria-label="Close"><span class='lnr lnr-cross-circle'></span>Close</a>
       </div>
     </div>
     <%= javascript_include_tag "application" %>
-    <div id="thinking"><i class="fa fa-spinner fa-pulse"></i></div>
+    <div id="thinking">
+      <h3 class="check-title">Updating.<br/>Thanks for your patience!</h3>
+      <div class="cssload-jumping">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
   </body>
 </html>
