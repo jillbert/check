@@ -5,7 +5,7 @@
     <p id="attending">
       <%= render('attending', attending: @attending, total: @total) %>
     </p>
-   <%= link_to 'Delete RSVPS',  { action: :destroy, controller: 'events', id: @current_event.id }, method: :delete, data: { confirm: 'Are you sure? This will delete ALL event rsvps and their +1 associations.' } %>
+   <%#= link_to 'Delete RSVPS',  { action: :destroy, controller: 'events', id: @current_event.id }, method: :delete, data: { confirm: 'Are you sure? This will delete ALL event rsvps and their +1 associations.' } %>
   </div>
 
   <table id="list" role="grid">
@@ -32,6 +32,7 @@
     </tbody>
   </table>
 
+  <h3>Update the cache? <%= link_to "Update Cache", rsvps_cache_path, class: "to-cache" %>
 <% else %>
-  <h3>No RSVPs in this event. <%= link_to "Refresh your list.", rsvps_cache_path, class: "to-cache" %></h3>
+  <h3>No RSVPs found, would you like to create a cache? <%= link_to "Create Cache", rsvps_cache_path, class: "to-cache" %>
 <% end %>
