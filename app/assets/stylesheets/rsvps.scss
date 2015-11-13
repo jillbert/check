@@ -200,6 +200,9 @@ form {
   button.check-login, .check-login {
     margin-top: 0;
     margin-bottom: 0;
+    &.user-sessions-new {
+      margin-bottom: 150px;
+    }
   }
 }
 
