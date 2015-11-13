@@ -1,17 +1,16 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "colours";
 
- $purple: #465da2;
- $salmon: #f47f62;
- $heather: #fbccc0;
- 
 .event-group {
   margin-top: 50px;
+  
   .event-block {
     position: relative;
     padding: 20px 0;
     border-bottom: 2px solid white;
+
     .event-info {
       color: $heather;
       position: absolute;
@@ -19,7 +18,10 @@
       left: 0;
       top: 15%;
       text-align: center;
+      line-height: 15px;
+      vertical-align: center;
     }
+
     a {
       padding-left: 50px;
       -webkit-transition: all 0.15s linear;
@@ -29,10 +31,12 @@
       display: block;
       width: 100%;
       height: 100%;
+
       &:hover {
         color: $salmon;
       }
     }
+
     &:first-of-type {
       border-top: 2px solid #fff;
     }

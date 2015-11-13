@@ -1,5 +1,7 @@
 <% if nation.name != nil %>
- Your Nation: <%= nation.name %>
+  <h2 class="check-nation">
+    Your Nation: <%= nation.name %>
+  </h2>
   <% if @credential %>
   <a class="button alert tiny" disabled>Authenticated</a>
   <% else %>
@@ -9,12 +11,18 @@
 
   <% if @credential %>
   
-    <% if session[:current_site] && session[:current_event] %>
-      <p><%= link_to "Continue to CheckIn", rsvps_path, class: "button" %></p>
+  <% if session[:current_site] && session[:current_event] %>
+    <%= link_to rsvps_path, class: "no-style check-login" do %>
+       <span class="lnr lnr-arrow-right-circle"></span>
+    <% end %>
     <% elsif session[:current_site] %>
-      <p><%= link_to "Continue to CheckIn", choose_event_path, class: "button" %></p>
+    <%= link_to choose_event_path, class: "no-style check-login" do %>
+       <span class="lnr lnr-arrow-right-circle"></span>
+    <% end %>
     <% else %>
-      <p><%= link_to "Continue to CheckIn", choose_site_path, class: "button" %></p>
+    <%= link_to choose_site_path, class: "no-style check-login" do %>
+       <span class="lnr lnr-arrow-right-circle"></span>
+    <% end %>
     <% end %>
 
   <% end %>
