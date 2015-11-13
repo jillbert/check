@@ -2,8 +2,9 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :same_user, only: [:show, :edit, :update, :destroy]
+  before_filter :is_admin, only: [:new, :create]
   # http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASS'], only: [:new, :create]
-  skip_before_filter :require_login, only: [:new, :create, :activate, :confirm]
+  skip_before_filter :require_login, only: [:activate, :confirm]
   # GET /users
   # GET /users.json
   def index
@@ -104,6 +105,11 @@ class UsersController < ApplicationController
     def same_user
       redirect_to root_path if (current_user != @user && current_user.id != 2)
     end
+
+
+  def is_admin
+    redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.id != 1
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

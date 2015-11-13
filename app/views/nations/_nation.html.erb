@@ -2,13 +2,14 @@
   <h2 class="check-nation">
     Your Nation: <%= nation.name %>
   </h2>
-  <% if @credential %>
-  <a class="button alert tiny" disabled>Authenticated</a>
-  <% else %>
-  <a class="button alert tiny" href= "<%= authorize_path(nation_id: nation.id) %>">Authenticate</a> 
-  <% end %>
-  <%= link_to "Edit", edit_user_path(current_user), class: "button tiny"%>
-
+  <div style="text-align:center">
+    <% if @credential %>
+      <a class="button success tiny" disabled>Authenticated</a>
+    <% else %>
+      <a class="button success tiny" href= "<%= authorize_path(nation_id: nation.id) %>">Authenticate</a> 
+    <% end %>
+    <%= link_to "Edit", edit_user_path(current_user), class: "button tiny"%>
+  </div>
   <% if @credential %>
   
   <% if session[:current_site] && session[:current_event] %>

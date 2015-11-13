@@ -11,23 +11,28 @@
     </div>
   <% end %>
 
-  <h3>Part 1: User Credentials</h3>
+  <h3 class="check-title">Part 1: User Credentials</h3>
   
   <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, placeholder:"Email" %>
   </div>
 
-  <h3>Part 2: Nation Credentials</h3>
+  <% if controller.controller_name == 'users' && controller.action_name == "edit" %>
+    <%= f.password_field :password, placeholder:"Password" %>
+    <%= f.password_field :password_confirmation, placeholder:"Password Confirmation" %>
+  <% end %>
+
+
+  <h3 class="check-title">Part 2: Nation Credentials</h3>
 
   <%= f.fields_for :nation do |n| %>
-  <label>Your Nation's Name: </label>
-    <%= n.text_field :name %>
-  <label>Your Nation's URL: </label>
-    <%= n.text_field :url %>
+    <%= n.text_field :name, placeholder:"Nation's Name" %>
+    <%= n.text_field :url, placeholder:"Nation's URL" %>
   <% end %>
 
   <div class="actions">
-    <%= f.submit 'Submit', :class =>"button" %>
+    <%= button_tag(type: "submit", class: "no-style check-login") do %>
+        <span class="lnr lnr-arrow-right-circle"></span>
+    <% end %>
   </div>
 <% end %>

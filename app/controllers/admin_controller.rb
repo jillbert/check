@@ -8,6 +8,6 @@ class AdminController < ApplicationController
   private
 
   def is_admin
-    redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.id != 2
+    redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.id != 1
   end
 end
