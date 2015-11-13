@@ -17,12 +17,6 @@
     <%= f.text_field :email, placeholder:"Email" %>
   </div>
 
-  <% if controller.controller_name == 'users' && controller.action_name == "edit" %>
-    <%= f.password_field :password, placeholder:"Password" %>
-    <%= f.password_field :password_confirmation, placeholder:"Password Confirmation" %>
-  <% end %>
-
-
   <h3 class="check-title">Part 2: Nation Credentials</h3>
 
   <%= f.fields_for :nation do |n| %>

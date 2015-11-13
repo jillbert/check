@@ -6,7 +6,7 @@
   </p>
 </div>
 
-<table id="synclist" role="grid">
+<table id="synclist" role="grid" style="display:none">
   <thead>
     <tr  style="display:none">
       <th scope="column">Name</th>
@@ -33,7 +33,7 @@
             <img src="<%= person['profile_image_url_ssl'] %>" %>
             <%= person['first_name'] %> <%= person['last_name'] %>
             <% if r['attended'] %><span class="lnr lnr-checkmark-circle"></span><% end %>
-            <% if r['guests_count'] > 0 %><div class="guests-count">+ <%= r.guests_count %></div><% end %>
+            <% if r['guests_count'] > 0 %><div class="guests-count">+ <%= r['guests_count'] %></div><% end %>
           </a>
         </td>
       </tr>

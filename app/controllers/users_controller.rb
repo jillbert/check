@@ -2,9 +2,8 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :same_user, only: [:show, :edit, :update, :destroy]
-  before_filter :is_admin, only: [:new, :create]
-  # http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASS'], only: [:new, :create]
-  skip_before_filter :require_login, only: [:activate, :confirm]
+  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: [:new, :create]
+  skip_before_filter :require_login, only: [:new, :create, :activate, :confirm]
   # GET /users
   # GET /users.json
   def index
@@ -103,7 +102,7 @@ class UsersController < ApplicationController
     end
 
     def same_user
-      redirect_to root_path if (current_user != @user && current_user.id != 2)
+      redirect_to root_path if (current_user != @user && current_user.id != 1)
     end
 
 

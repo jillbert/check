@@ -20,7 +20,6 @@ before_filter :has_credential?
     end
   end
 
-
   def choose_event
     if params[:site]
       session[:current_site] = params[:site]
@@ -61,6 +60,14 @@ before_filter :has_credential?
       redirect_to choose_event_path
     end
     
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.rsvps.destroy_all
+    @event.destroy
+    session[:current_event] = nil
+    redirect_to choose_event_path
   end
 
 end

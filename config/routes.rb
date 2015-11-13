@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :nations
 
+  resources :events
   get "/choose_site", to: "events#choose_site"
   get "/choose_event", to: "events#choose_event"
   get "/set_event", to: "events#set_event"

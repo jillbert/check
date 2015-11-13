@@ -84,7 +84,13 @@ class RsvpsController < ApplicationController
   end
   
   def is_owner
-    redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.nation.id != Rsvp.find(params[:id]).person.nation_id
+    if current_user.nation.id != Rsvp.find(params[:id]).person.nation_id
+      begin
+        redirect_to(:back, flash: { error: "Sorry, you don't have access to this information"}) 
+      rescue ActionController::RedirectBackError 
+        redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) 
+      end
+    end
   end
 end
 
