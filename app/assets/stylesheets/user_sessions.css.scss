@@ -7,16 +7,20 @@
 .app {
   overflow: hidden;
 }
+
 .password-reset-box {
+
   .row {
     margin: 0 auto;
     max-width: 62.5rem;
     width: 100%;
+
     .medium-8.small-centered.columns {
       background-color: $teal;
       padding: 10px 0;
     }
   }
+
   color: white;
   text-align: center;
   width: 100%;
@@ -24,9 +28,11 @@
   position: fixed;
   left: 0;
   bottom: 0;
+
   p {
-  margin: 0;
+     margin: 0;
   }
+  
   a {
     -webkit-transition: all 0.15s linear;
     -moz-transition: all 0.15s linear;
