@@ -1,6 +1,6 @@
 /*
-* This is a manifest file that'll be compiled into application.css, which will include all the files
-* listed below.
+* This is a manifest file that'll be compiled into application.css, which will include 
+* all the files listed below.
 *
 * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
 * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
@@ -38,7 +38,11 @@ $info-color: #a0d3e8;
   min-height: 100vh;
 }
 
-input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
+input[type="text"], input[type="password"], input[type="date"], 
+input[type="datetime"], input[type="datetime-local"], input[type="month"], 
+input[type="week"], input[type="email"], input[type="number"], 
+input[type="search"], input[type="tel"], input[type="time"], 
+input[type="url"], input[type="color"], textarea {
   border-bottom: 3px solid white;
   text-align: center;
   font-size: 25px;
@@ -90,7 +94,27 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
   }
 }
 
-input[type="text"][disabled], input[type="text"][readonly], fieldset[disabled] input[type="text"], input[type="password"][disabled], input[type="password"][readonly], fieldset[disabled] input[type="password"], input[type="date"][disabled], input[type="date"][readonly], fieldset[disabled] input[type="date"], input[type="datetime"][disabled], input[type="datetime"][readonly], fieldset[disabled] input[type="datetime"], input[type="datetime-local"][disabled], input[type="datetime-local"][readonly], fieldset[disabled] input[type="datetime-local"], input[type="month"][disabled], input[type="month"][readonly], fieldset[disabled] input[type="month"], input[type="week"][disabled], input[type="week"][readonly], fieldset[disabled] input[type="week"], input[type="email"][disabled], input[type="email"][readonly], fieldset[disabled] input[type="email"], input[type="number"][disabled], input[type="number"][readonly], fieldset[disabled] input[type="number"], input[type="search"][disabled], input[type="search"][readonly], fieldset[disabled] input[type="search"], input[type="tel"][disabled], input[type="tel"][readonly], fieldset[disabled] input[type="tel"], input[type="time"][disabled], input[type="time"][readonly], fieldset[disabled] input[type="time"], input[type="url"][disabled], input[type="url"][readonly], fieldset[disabled] input[type="url"], input[type="color"][disabled], input[type="color"][readonly], fieldset[disabled] input[type="color"], textarea[disabled], textarea[readonly], fieldset[disabled] textarea {
+input[type="text"][disabled], input[type="text"][readonly], 
+fieldset[disabled] input[type="text"], input[type="password"][disabled], 
+input[type="password"][readonly], fieldset[disabled] input[type="password"], 
+input[type="date"][disabled], input[type="date"][readonly], fieldset[disabled] 
+input[type="date"], input[type="datetime"][disabled], 
+input[type="datetime"][readonly], fieldset[disabled] input[type="datetime"], 
+input[type="datetime-local"][disabled], input[type="datetime-local"][readonly], 
+fieldset[disabled] input[type="datetime-local"], input[type="month"][disabled], 
+input[type="month"][readonly], fieldset[disabled] input[type="month"], 
+input[type="week"][disabled], input[type="week"][readonly], 
+fieldset[disabled] input[type="week"], input[type="email"][disabled], 
+input[type="email"][readonly], fieldset[disabled] input[type="email"], 
+input[type="number"][disabled], input[type="number"][readonly], 
+fieldset[disabled] input[type="number"], input[type="search"][disabled], 
+input[type="search"][readonly], fieldset[disabled] input[type="search"], 
+input[type="tel"][disabled], input[type="tel"][readonly], fieldset[disabled] 
+input[type="tel"], input[type="time"][disabled], input[type="time"][readonly], 
+fieldset[disabled] input[type="time"], input[type="url"][disabled], 
+input[type="url"][readonly], fieldset[disabled] input[type="url"], 
+input[type="color"][disabled], input[type="color"][readonly], fieldset[disabled] 
+input[type="color"], textarea[disabled], textarea[readonly], fieldset[disabled] textarea {
   background: transparent;
   color: $navy;
 }
@@ -109,53 +133,67 @@ h3 {
   padding: 10px;
   margin-bottom: 35px;
   display: block;
-
   color: #fff;
   -webkit-transition: all 0.15s linear;
   -moz-transition: all 0.15s linear;
   -ms-transition: all 0.15s linear;
   transition: all 0.15s linear;
+
   &:hover, &:focus {
     color: $salmon;
     border-color: $salmon;
   }
 }
 
-.navbar.stripped {
+.navbar,
+.stripped {
   text-align: center;
-  padding-top: 20px;
 }
+
+.stripped {
+  padding-top: 20px
+}
+
 nav {
   background-color: $teal;
   margin: 0 -0.9375rem;
+
   ul {
     list-style: none;
-    padding: 20px 0;
+    padding: 15px 0px;
+
     li {
       display: inline-block;
+      min-height: 50px;
+      margin: 5px;
       width: 17%;
       text-align: center;
       vertical-align: top;
-      font-size: 8px;
+      font-size: 10px;
       text-transform: uppercase;
-      color: grey;
-      a {
-        color: white;
-        display: block;
-        line-height: 0;
+      letter-spacing: 1px;
+      line-height: 0;
+
+      &:hover {
+        opacity: 0.7;
+        // background-color: rgba(225,0,0,.5); 
       }
+
       img {
         display: block;
         margin: 0 auto;
-        height: 44px;
+        height: 40px;
       }
+
       &:first-of-type {
-        width: 25%;
-        text-align: left;
         img {
-          width: 35px;
-          height: 35px;
+          width: 45px;
+          height: 45px;
           margin: 0;
+        }
+
+        &:hover {
+          opacity: 1;
         }
       }
     }
@@ -166,6 +204,7 @@ nav {
   h3 {
     float:left;
   }
+
   #pagination {
     float:right;
   }
@@ -183,7 +222,8 @@ nav {
   padding-top: 15%;
   font-size: 100px;
   color: $primary-color;
-  .cssload-jumping{
+
+  .cssload-jumping {
     position:relative;
     display:block;
     margin: -130px auto 0 auto;
@@ -202,46 +242,46 @@ nav {
     border-radius: 487px;
     border-color: 1px solid white;
     background-clip: padding-box;
-      -o-background-clip: padding-box;
-      -ms-background-clip: padding-box;
-      -webkit-background-clip: padding-box;
-      -moz-background-clip: padding-box;
+    -o-background-clip: padding-box;
+    -ms-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
   }
 
   .cssload-jumping span:nth-child(1) {
     animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -o-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -ms-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -webkit-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -moz-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -o-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -ms-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -webkit-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -moz-animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
   }
   .cssload-jumping span:nth-child(2) {
     animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -o-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -ms-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -webkit-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -moz-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -o-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -ms-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -webkit-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -moz-animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
   }
   .cssload-jumping span:nth-child(3) {
     animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -o-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -ms-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -webkit-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -moz-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -o-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -ms-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -webkit-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -moz-animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
   }
   .cssload-jumping span:nth-child(4) {
     animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -o-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -ms-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -webkit-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -moz-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -o-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -ms-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -webkit-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -moz-animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
   }
   .cssload-jumping span:nth-child(5) {
     animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -o-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -ms-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -webkit-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      -moz-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -o-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -ms-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -webkit-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    -moz-animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
   }
 
 
@@ -250,16 +290,18 @@ nav {
     0% {
       transform: scale(0);
     }
+
     25% {
       transform: scale(0.9, 0.9);
       background: transparent;
-
     }
+
     50% {
       transform: scale(1, 1);
       margin: 0 3px;
       background: rgb(255,255,255);
     }
+
     100% {
       transform: scale(0);
     }
@@ -269,16 +311,19 @@ nav {
     0% {
       -o-transform: scale(0);
     }
+
     25% {
       -o-transform: scale(0.9, 0.9);
       background: transparent;
 
     }
+
     50% {
       -o-transform: scale(1, 1);
       margin: 0 3px;
       background: rgb(255,255,255);
     }
+
     100% {
       -o-transform: scale(0);
     }
@@ -288,16 +333,19 @@ nav {
     0% {
       -ms-transform: scale(0);
     }
+
     25% {
       -ms-transform: scale(0.9, 0.9);
       background: transparent;
 
     }
+
     50% {
       -ms-transform: scale(1, 1);
       margin: 0 3px;
       background: rgb(255,255,255);
     }
+
     100% {
       -ms-transform: scale(0);
     }
@@ -307,16 +355,18 @@ nav {
     0% {
       -webkit-transform: scale(0);
     }
+
     25% {
       -webkit-transform: scale(0.9, 0.9);
       background: transparent;
-
     }
+
     50% {
       -webkit-transform: scale(1, 1);
       margin: 0 3px;
       background: rgb(255,255,255);
     }
+
     100% {
       -webkit-transform: scale(0);
     }
@@ -326,16 +376,18 @@ nav {
     0% {
       -moz-transform: scale(0);
     }
+
     25% {
       -moz-transform: scale(0.9, 0.9);
       background: transparent;
-
     }
+
     50% {
       -moz-transform: scale(1, 1);
       margin: 0 3px;
       background: rgb(255,255,255);
     }
+
     100% {
       -moz-transform: scale(0);
     }
@@ -366,6 +418,7 @@ button.check-login,
   width: 100%;
   margin: 70px auto;
   display: block;
+
   &:hover {
       color: #fff;
       border: none;
@@ -375,6 +428,7 @@ button.check-login,
       transition: all 0.15s linear;
       text-decoration: none;
   }
+
   &:focus {
     outline: 0;
   }
@@ -391,25 +445,29 @@ button.check-login,
 #errors {
   text-align:left;
 }
+
 body.modal-open {
    overflow: hidden;
    position: fixed;
 }
+
 .reveal-modal {
   overflow-y: auto;
   height: 100%;
   position: fixed;
   top: 0 !important;
+
   form {
     background-color: $purple;
     padding-top: 150px;
     text-align: center;
+
     &:before {
       content: "";
       background-color: $navy;
       background-image: url("checkapp_logo.svg");
       background-repeat: no-repeat;
-      background-size: 35px;
+      background-size: 45px;
       background-position: 15px;
       height: 76px;
       width: 100%;
@@ -417,21 +475,28 @@ body.modal-open {
       position: absolute;
       top: 0;
       left: 0;
+
     }
   }
+
   a.close-reveal-modal {
     text-align: center;
     font-size: 10px;
     font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 2;
     right: 20px;
     top: 20px;
     color: white;
+
     span {
       font-size: 25px;
       display: block;
       margin-bottom: 5px;
     }
   }
+
   &:focus {
     outline: 0;
   }
