@@ -27,12 +27,6 @@ $info-color: #a0d3e8;
 @import "colours";
 @import "additionalstyles";
 
-.alert-box .close {
-  padding: 10px;
-  background-color: transparent;
-  color: white;
-}
-
 .app {
   background-color: $purple;
   min-height: 100vh;
@@ -147,6 +141,7 @@ h3 {
 
 .navbar,
 .stripped {
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -502,18 +497,30 @@ body.modal-open {
   }
 }
 
-.alert-box {
+.alert-box.info {
   position: absolute;
   width: 90%;
   left: 0;
   right: 0;
   margin: 0 auto;
   top: 0;
-  box-shadow: 0 0px 20px #444;
+  border: none;
+  box-shadow: 2px 2px #2A7867;
+  background-color: #50E3C2;
+  color: black;
+  font-size: 13px;
+
 }
 
 .alert-box .close {
-  top: 30%;
+  background-color: transparent;
+  color: white;
+  top: 50%;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .errors {

@@ -206,49 +206,59 @@
   padding: 20px 0 20px 70px;
   font-size: 16px;
   border-bottom: 1px solid white;
-  .name {
-    font-weight: bold;
-  }
-  img {
-    position: absolute;
-    left: 10px;
-    top: 20px;
-    width: 50px;
-    height: 50px;
-  }
-  .rsvp-actions {
-    float: right;
-    font-size: 32px;
-    text-align: right;
-    padding-top: 10px;
-    padding-right: 40px;
-    span {
-      color: $navy;
-      -webkit-transition: all 0.15s linear;
-      -moz-transition: all 0.15s linear;
-      -ms-transition: all 0.15s linear;
-      transition: all 0.15s linear;
-      &:hover {
-        color: $teal;
-      }    
-      &.checked-in {
-        color: $salmon;
-      }
+
+    .name {
+      font-weight: bold;
     }
-  }
+
+    img {
+      position: absolute;
+      left: 10px;
+      top: 20px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .rsvp-actions {
+      float: right;
+      font-size: 33px;
+      text-align: right;
+      padding-top: 10px;
+      padding-right: 40px;
+
+        span {
+        color: $navy;
+        -webkit-transition: all 0.15s linear;
+        -moz-transition: all 0.15s linear;
+        -ms-transition: all 0.15s linear;
+        transition: all 0.15s linear;
+
+          &:hover {
+            color: $teal;
+          }    
+
+          &.checked-in {
+            color: $salmon;
+          }
+        }
+    }
 }
 
 .main-rsvp {
+
   .rsvp-card {
     padding: 20px 0 20px 95px;
     border-bottom: 3px solid white;
-    img {
-      width: 75px;
-      height: 75px;
-    }
-    .rsvp-guest-count {
-      font-size: 24px;
-    }
+    border-spacing: 5px;
+
+      img {
+        width: 75px;
+        height: 75px;
+      }
+
+      .rsvp-guest-count {
+        font-size: 24px;
+      }
   }
 }
 
