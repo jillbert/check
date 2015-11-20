@@ -1,3 +1,4 @@
+<% if @rsvps.size > 0 %>
 <div id="rsvp-choices">
   <div class="row">
     <div class="small-6 centered columns">
@@ -6,7 +7,7 @@
       <% end %>
     </div>
     <div class="small-6 centered columns">
-      <div class="search">
+      <div class="search disabled">
         <div class="overlay"><span class="lnr lnr-magnifier"></span><span class="text">Search</span></div>
         <input type="search" id="datatable-search">
       </div>
@@ -14,7 +15,6 @@
   </div>
 </div>
 
-<% if @rsvps.size > 0 %>
   <div id="header">
     <p><%= @current_event.name %></p>
     <p><%= @current_event.to_local_time %></p>
@@ -49,14 +49,17 @@
   </table>
 <% else %>
 
-<div class="teal-box">
-  <div class="row">
-    <div class="medium-8 small-centered columns">
-      <%= link_to(rsvps_cache_path, class: "to-cache") do %>
-        <p>No RSVPs found.</p>
-        <p>Would you like to sync with NationBuilder? <span class="lnr lnr-arrow-right"></span></p>
-      <% end %>
+<div class="row">
+  <div class="medium-6 small-centered columns no-list">
+    <div class="top">
+      <span class="lnr lnr-star-empty"></span>
+      <p>You don't have guests on the list right now</p>
     </div>
+    <div class="bottom">
+      <p>Refresh and sync your NationBuilder list</p>
+    <%= link_to(rsvps_cache_path, class: "to-cache") do %>
+      <span class="lnr lnr-sync"></span>
+    <% end %>
   </div>
 </div>
 <% end %>

@@ -24,7 +24,8 @@
                 </li>
                 <li>
                   <%= link_to logout_path do %>
-                    <%= image_tag "check_logout.svg", id:"logo-hover" %>Logout
+                    <%= render 'layouts/check_logout' %>
+                    Logout
                   <% end %> 
                 </li>
                 <li>
@@ -51,25 +52,29 @@
                   <% end %>
 
                   <%= link_to back do %>
-                    <%= image_tag "check_goback.svg" %>Go Back
+                    <%= render 'layouts/check_goback' %>Go Back
                   <% end %>
                 </li>
                 <li>                    
                   <% if button_enabled %>
                     <%= link_to(rsvps_cache_path, class: "to-cache") do %>
-                      <%= image_tag "check_refresh.svg" %>Refresh
+                      <%= render 'layouts/check_refresh' %>Refresh
                     <% end %>
                   <% else %>
-                    <%= image_tag "check_refresh.svg" %>Refresh
+                    <div class="button-disabled">
+                      <%= render 'layouts/check_refresh' %>Refresh
+                    </div>
                   <% end %>
                 </li>
                 <li>
                   <% if button_enabled %>
                     <%= link_to(sync_path, class: "to-cache") do %>
-                      <%= image_tag "check_sync.svg" %>Sync
+                      <%= render 'layouts/check_sync' %>Sync
                     <% end %>
                   <% else %>
-                    <%= image_tag "check_sync.svg" %>Sync
+                    <div class="button-disabled">
+                      <%= render 'layouts/check_sync' %>Sync
+                    </div>
                   <% end %>
                 </li>
               </ul>
