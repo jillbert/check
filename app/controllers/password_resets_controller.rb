@@ -7,17 +7,21 @@ class PasswordResetsController < ApplicationController
   def password_reset
   end
 
-  def create 
-    @user = User.find_by_email(params[:email])
+def create
+   @user = User.find_by_email(params[:email])
+   if @user
+   # This line sends an email to the user with instructions on how to reset their password (a url with a random token)
+   @user.deliver_reset_password_instructions! if @user
 
-    # This line sends an email to the user with instructions on how to reset their password (a url with a random token)
-    @user.deliver_reset_password_instructions! if @user
-
-    # Tell the user instructions have been sent whether or not email was found.
-    # This is to not leak information to attackers about which emails exist in the system.
-    redirect_to(login_path, :notice => 'Instructions have been sent to your email.')
-  end
-
+   # Tell the user instructions have been sent whether or not email was found.
+   # This is to not leak information to attackers about which emails exist in the system.
+   redirect_to(login_path, :notice => 'Instructions have been sent to your email.')
+   else 
+     flash.now[:alert] = 'That email does not exist, please try again.'
+     render action: 'password_reset'
+   end
+ end
+ 
   # This is the reset password form.
   def edit
     @token = params[:id]
