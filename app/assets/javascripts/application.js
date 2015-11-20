@@ -32,6 +32,9 @@ $(function(){
 
 $(document).ready(function() {
 
+	$('.search label').on('click', function() {
+		$('.search').addClass('active');
+	})
 	$('.add').on('click', function(e) {
 		e.preventDefault();
 		var url = '/people/new';

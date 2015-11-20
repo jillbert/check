@@ -4,6 +4,10 @@
     <div class="small-8 columns">
       <div class="name"><%= rsvp.person.full_name %></div>
       <div class="email"><%= rsvp.person.email %></div>
+      <% if rsvp.guests_count > 0 %>
+
+        <div class="rsvp-guest-count">+<%= pluralize(rsvp.guests_count, 'RSVP') %></div>
+      <% end %>
     </div>
     <div class="small-4 columns rsvp-actions">
       <% if !rsvp.attended %>
@@ -19,9 +23,4 @@
       <% end %>
     </div>
   </div>
-
-  <% if rsvp.guests_count > 0 %>
-
-    <div class="rsvp-guest-count">+<%= pluralize(rsvp.guests_count, 'RSVP') %></div>
-  <% end %>
 </div>

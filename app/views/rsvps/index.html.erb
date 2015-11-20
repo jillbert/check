@@ -32,5 +32,15 @@
     </tbody>
   </table>
 <% else %>
-  <h3>No RSVPs found, would you like to create a cache? <%= link_to "Create Cache", rsvps_cache_path, class: "to-cache" %>
+
+<div class="teal-box">
+  <div class="row">
+    <div class="medium-8 small-centered columns">
+      <%= link_to(rsvps_cache_path, class: "to-cache") do %>
+        <p>No RSVPs found.</p>
+        <p>Would you like to sync with NationBuilder? <span class="lnr lnr-arrow-right"></span></p>
+      <% end %>
+    </div>
+  </div>
+</div>
 <% end %>

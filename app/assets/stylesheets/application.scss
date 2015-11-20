@@ -166,7 +166,7 @@ nav {
       display: inline-block;
       min-height: 50px;
       margin: 5px;
-      width: 17%;
+      width: 16%;
       text-align: center;
       vertical-align: top;
       font-size: 10px;
@@ -468,13 +468,13 @@ body.modal-open {
       background-image: url("checkapp_logo.svg");
       background-repeat: no-repeat;
       background-size: 45px;
-      background-position: 15px;
-      height: 76px;
+      background-position: 8.2% 20px;
       width: 100%;
       display: block;
       position: absolute;
       top: 0;
       left: 0;
+      height: 90px;
 
     }
   }
@@ -523,4 +523,40 @@ body.modal-open {
   padding: 10px;
   color: black;
   margin-bottom: 40px;
+}
+
+.teal-box {
+
+  .row {
+    margin: 0 auto;
+    max-width: 62.5rem;
+    width: 100%;
+
+    .medium-8.small-centered.columns {
+      background-color: $teal;
+      padding: 10px 0;
+    }
+  }
+
+  color: white;
+  text-align: center;
+  width: 100%;
+  display: block;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  p {
+     margin: 0;
+  }
+  
+  a {
+    -webkit-transition: all 0.15s linear;
+    -moz-transition: all 0.15s linear;
+    -ms-transition: all 0.15s linear;
+    transition: all 0.15s linear;
+    &:hover {
+      color: $navy;
+    }
+  }
 }

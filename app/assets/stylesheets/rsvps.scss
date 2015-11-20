@@ -55,6 +55,7 @@
         .guests-count {
           float:right;
           font-size: 20px;
+          font-weight: bold;
           margin-top: 1%;
         }
       }
@@ -71,7 +72,7 @@
     td.whiteout {
       pointer-events: none;
       border-bottom: 2px solid $navy;
-
+      opacity: 0.5;
       a {
         color: $navy !important;
 
@@ -139,25 +140,35 @@
 
   .search {
     position: relative;
-
-    label {
-      position: absolute;
-      left: 30px;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+     label {
       font-size: 12px;
-      top: 10px;
       color: #64cbed;
-      border: 1px solid #64cbed;
-      border-radius: 500px;
-      padding: 5px;
-      margin-top: 3px;
-
-      span {
-        display: block;
+      margin: 0 auto;
+      height: 50px;
+      padding-top: 9px;
+      text-transform: uppercase;
+      font-size: 16px;
+      span.lnr {
+        display: inline-block;
+        border: 1px solid #64cbed;
+        border-radius: 500px;
+        margin-top: 3px;
+        margin-right: 10px;
+        padding: 5px;
       }
     }
-
-    input {
+    &.active {
       text-align: left;
+      label {
+        .text {
+          display: none;
+        }
+      }
+    }
+    input {
+      text-align: center;
       padding-left: 45px;
       &::-webkit-input-placeholder {
         color: $teal;
@@ -180,7 +191,6 @@
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   padding-top: 15px;
-  margin-bottom: 5px;
 
   p {
     margin-bottom: 15px;
