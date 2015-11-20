@@ -85,6 +85,10 @@
         }
       }
     }
+    td.dataTables_empty {
+      color: white;
+      text-align: center;
+    }
   }
 
   &>.row:last-of-type {
@@ -100,7 +104,7 @@
 }
 
 #rsvp-choices {
-  padding-top: 20px;
+  padding-bottom: 20px;
 
   input, a {
     border: 1px solid $teal;
@@ -108,6 +112,7 @@
     margin: 0;
     height: 50px;
     font-size: 10px;
+    text-align: center;
 
     @media only screen and (min-width: 768px) {
       font-size: 16px;
@@ -120,7 +125,7 @@
       margin-right: 5px;
       font-size: 25px;
       display: inline-block;
-      vertical-align: middle;
+      vertical-align: top;
     }
 
     -webkit-transition: all 0.15s linear;
@@ -140,36 +145,47 @@
 
   .search {
     position: relative;
-    text-align: center;
     transition: all 0.5s ease-in-out;
-     label {
-      font-size: 12px;
+     .overlay {
       color: #64cbed;
-      margin: 0 auto;
       height: 50px;
-      padding-top: 9px;
+      padding-top: 5px;
       text-transform: uppercase;
       font-size: 16px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      width: 103px;
+      transition: all 0.3s ease-in-out;
       span.lnr {
         display: inline-block;
         border: 1px solid #64cbed;
         border-radius: 500px;
-        margin-top: 3px;
+        margin-top: 7px;
         margin-right: 10px;
         padding: 5px;
+        font-size: 12px;
       }
     }
+    input {
+      pointer-events: none;
+    }
     &.active {
-      text-align: left;
-      label {
-        .text {
-          display: none;
-        }
+      .overlay {
+        left: 0;
+        padding-left: 10px;
+        width: 100%;
+      }
+      input {
+        text-align: left;
+        pointer-events: auto;
       }
     }
     input {
       text-align: center;
-      padding-left: 45px;
+      padding-left: 35px;
       &::-webkit-input-placeholder {
         color: $teal;
         text-transform: uppercase;

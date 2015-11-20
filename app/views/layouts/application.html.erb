@@ -77,23 +77,6 @@
           <% else %>
             <%= image_tag "checkapp_logo.svg", class:"logo" %>
           <% end %>
-        <% if current_page?(controller:'rsvps', action:'index') %>
-        <div id="rsvp-choices">
-          <div class="row">
-            <div class="small-6 centered columns">
-              <%= link_to "#", class:"add", data: { host_id: nil } do %>
-              <span class="lnr lnr-plus-circle"></span> Add a Guest
-              <% end %>
-            </div>
-            <div class="small-6 centered columns search">
-              <label>
-                <span class="lnr lnr-magnifier"></span><span class="text">Search</span>
-              </label>
-              <input type="search" id="datatable-search">
-            </div>
-          </div>
-        </div>
-        <% end %>
         <div class="row" style="padding: 15px 0">
           <div class="small-12 centered columns">
             <% flash.each do |type, message| %>

@@ -30,11 +30,33 @@ $(function(){
 	}) 
 });
 
+function addRSVP() {
+	var url = '/people/new';
+	$.ajax({
+		type: "GET",
+		url: url,
+		dataType: 'script',
+		data: {
+			'host_id': $(this).data('host-id')
+		},
+		success: function(result) {
+			eval(result);
+			$(this).hide();
+		}
+	})
+}
+
 $(document).ready(function() {
 
-	$('.search label').on('click', function() {
-		$('.search').addClass('active');
+	$('.search').on('click', function() {
+		$('.search .overlay .text').fadeOut(function() {
+			$('.search').addClass('active');
+			setTimeout( function() {
+				$('.search input').focus();
+			}, 300);
+		});
 	})
+
 	$('.add').on('click', function(e) {
 		e.preventDefault();
 		var url = '/people/new';
@@ -71,7 +93,6 @@ $(document).ready(function() {
 		});
 	});
 
-
 	$('.edit').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -102,6 +123,7 @@ $(document).ready(function() {
 	});
 	
 	initializeRsvpList();
+
 })
 
 function initializeRsvpList() {
@@ -116,8 +138,8 @@ function initializeRsvpList() {
 			"order": [[ 0, 'asc' ]],
 			"paging": false,
 			"oLanguage": {
-			        "sZeroRecords": "No one found. <a href='/new_rsvp'>Add a new RSVP?</a>"
-			    }
+	      "sZeroRecords": "No one found."
+	    }
 		});
 
 		// Apply the search
