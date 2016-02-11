@@ -28,9 +28,6 @@ Rails.application.routes.draw do
 
   resources :people
 
-  root :to => 'nations#index'
-
-
   resources :user_sessions
   
   resources :users do
@@ -46,5 +43,7 @@ Rails.application.routes.draw do
   get 'admin', to: 'admin#index'
   get 'login' => 'user_sessions#new', :as => :login
   get 'logout' => 'user_sessions#destroy', :as => :logout
+
+  root :to => 'user_sessions#new'
 
 end

@@ -20,9 +20,10 @@ class ApplicationController < ActionController::Base
   end
 
   def has_credential?
-    @nations = Nation.find_by user_id: current_user.id
-    if !Credential.find_by nation_id: @nations.id
-      redirect_to nations_path
+    nation = Nation.find_by user_id: current_user.id
+    credential = Credential.find_by nation_id: nation.id
+    if !credential
+      redirect_to authorize_path(nation_id: current_user.nation.id)
       flash[:error] = "Please authenticate."
     end
   end
@@ -57,6 +58,15 @@ class ApplicationController < ActionController::Base
   def standard_headers
     { "Accept" => "application/json", "Content-Type" => "application/json" }
   end
+
+  def set_current_nation(id)
+    session[:current_nation] = id
+  end
+
+  def set_current_credential(id)
+    session[:credential_id] = id
+  end
+
 
   private
   

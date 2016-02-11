@@ -1,7 +1,11 @@
 class NationsController < ApplicationController
   def index
-    @nations = Nation.find_by user_id: current_user.id
     @credential = check_credential
+
+    if @credential
+      redirect_to choose_site_path
+    end
+
   end
 
   def new

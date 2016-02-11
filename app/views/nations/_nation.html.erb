@@ -1,32 +1,12 @@
 <% if nation.name != nil %>
-  <h2 class="check-nation">
+  <h3 class="check-title">
     Your Nation: <%= nation.name %>
-  </h2>
-  <div style="text-align:center">
     <% if @credential %>
       <a class="button success tiny" disabled>Authenticated</a>
     <% else %>
       <a class="button success tiny" href= "<%= authorize_path(nation_id: nation.id) %>">Authenticate</a> 
     <% end %>
-    <%#= link_to "Edit", edit_user_path(current_user), class: "button tiny"%>
-  </div>
-  <% if @credential %>
-  
-  <% if session[:current_site] && session[:current_event] %>
-    <%= link_to rsvps_path, class: "no-style check-login" do %>
-       <span class="lnr lnr-arrow-right-circle"></span>
-    <% end %>
-    <% elsif session[:current_site] %>
-    <%= link_to choose_event_path, class: "no-style check-login" do %>
-       <span class="lnr lnr-arrow-right-circle"></span>
-    <% end %>
-    <% else %>
-    <%= link_to choose_site_path, class: "no-style check-login" do %>
-       <span class="lnr lnr-arrow-right-circle"></span>
-    <% end %>
-    <% end %>
-
-  <% end %>
+  </h3>
 <% else %>
 
   <%= link_to "Add information for this nation", edit_nation_path(nation), class: "button tiny" %>
