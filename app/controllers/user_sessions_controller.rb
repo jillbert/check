@@ -16,8 +16,13 @@ class UserSessionsController < ApplicationController
     if @user = login(params[:email], params[:password])
       nation = Nation.where(user_id: @user.id).first
       credential = Credential.find_by nation_id: nation.id
+
       set_current_nation(nation.id)
-      set_current_credential(credential.id)
+
+      if(credential)
+        set_current_credential(credential.id)
+      end
+
       # credential = Credential.where(nation_id: nation.id).first
       # if credential
       #   set_current_credential(credential.id)
