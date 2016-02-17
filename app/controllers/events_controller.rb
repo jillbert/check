@@ -26,12 +26,39 @@ before_filter :has_credential?
     end
     if session[:current_site]
       token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
-      response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100})
-      events = JSON.parse(response.body)["results"]
+      response = token.get(token_get_path, :headers => standard_headers, :params => { page: 1, per_page: 100, limit: 100, starting: 14.days.ago.to_s})
+      parsed = JSON.parse(response.body)
+      events = []
+      if parsed['next']
+        events << parsed["results"]
+        currentpage = 1
+        is_next = parsed['next']
+        while is_next
+          currentpage += 1
+          pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
+          response = JSON.parse(pagination_result.body)
+          events << response['results']
+          is_next = response['next']
+        end
 
-      @current_events = Hash[events.select { |e| e if e['start_time'].to_date.future? }.group_by { |e| e['start_time'].to_datetime.strftime("%B %Y") }.to_a.reverse]
+      elsif parsed["total_pages"]
+        current_page = 1
+        total_pages = parsed["total_pages"]
+        events << parsed["results"]
+        while total_pages >= current_page
+          current_page += 1
+          response = token.get(token_get_path, :headers => standard_headers, params: {page: current_page, per_page: 100, limit: 100,starting: 14.days.ago.to_s})
+          events << JSON.parse(response.body)["results"]
+        end
+      else 
+        events << parsed["results"]
+      end
 
-      @past_events = Hash[events.select { |e| e if e['start_time'].to_date.past? }.group_by { |e| e['start_time'].to_datetime.strftime("%B %Y") }.to_a.reverse]
+      events.flatten!
+
+      @current_events = Hash[events.select { |e| Time.zone = e['time_zone'] if e['start_time'] > 1.day.ago }.group_by { |e| e['start_time'].to_datetime.strftime("%B %Y") }.to_a.reverse]
+
+      @past_events = Hash[events.select { |e| Time.zone = e['time_zone'] if e['start_time'] < 1.day.ago }.group_by { |e| e['start_time'].to_datetime.strftime("%B %Y") }.to_a.reverse]
 
     else
       redirect_to choose_site_path
