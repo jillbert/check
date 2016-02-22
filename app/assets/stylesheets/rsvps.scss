@@ -164,6 +164,9 @@
       margin-left: auto;
       margin-right: auto;
       width: 95px;
+      @media (min-width: 640px) {
+        width: 103px;
+      }
       transition: all 0.3s ease-in-out;
       span.lnr {
         display: inline-block;
@@ -187,6 +190,7 @@
       input {
         text-align: left;
         pointer-events: auto;
+        font-size: 16px;
       }
     }
     input {

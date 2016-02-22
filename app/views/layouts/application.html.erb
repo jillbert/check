@@ -82,6 +82,7 @@
           <% else %>
             <%= image_tag "checkapp_logo.svg", class:"logo" %>
           <% end %>
+        <% if flash.count > 0 %>
         <div class="row" style="padding: 15px 0">
           <div class="small-12 centered columns">
             <% flash.each do |type, message| %>
@@ -92,6 +93,7 @@
             <% end %>
           </div>
         </div>
+        <% end %>
         </div>
 
         <%= yield %>
