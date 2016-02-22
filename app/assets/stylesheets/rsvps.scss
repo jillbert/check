@@ -146,6 +146,9 @@
   .search {
     position: relative;
     transition: all 0.5s ease-in-out;
+    @media (max-width: 640px) {
+      margin-top: 10px;
+    }
      .overlay {
       color: #64cbed;
       height: 50px;
@@ -160,7 +163,7 @@
       right: 0;
       margin-left: auto;
       margin-right: auto;
-      width: 103px;
+      width: 95px;
       transition: all 0.3s ease-in-out;
       span.lnr {
         display: inline-block;
@@ -177,9 +180,9 @@
     }
     &.active {
       .overlay {
-        left: 0;
+        right: 100%;
         padding-left: 10px;
-        width: 100%;
+        width: 0;
       }
       input {
         text-align: left;
@@ -188,7 +191,7 @@
     }
     input {
       text-align: center;
-      padding-left: 35px;
+      padding-left: 45px;
       &::-webkit-input-placeholder {
         color: $teal;
         text-transform: uppercase;
@@ -244,22 +247,24 @@
       text-align: right;
       padding-top: 10px;
       padding-right: 40px;
+      @media (max-width: 500px) {
+        width: 100%;
+      }
+      span {
+      color: $navy;
+      -webkit-transition: all 0.15s linear;
+      -moz-transition: all 0.15s linear;
+      -ms-transition: all 0.15s linear;
+      transition: all 0.15s linear;
 
-        span {
-        color: $navy;
-        -webkit-transition: all 0.15s linear;
-        -moz-transition: all 0.15s linear;
-        -ms-transition: all 0.15s linear;
-        transition: all 0.15s linear;
+        &:hover {
+          color: $teal;
+        }    
 
-          &:hover {
-            color: $teal;
-          }    
-
-          &.checked-in {
-            color: $salmon;
-          }
+        &.checked-in {
+          color: $salmon;
         }
+      }
     }
 }
 

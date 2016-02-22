@@ -1,6 +1,6 @@
 <%= form_tag user_sessions_path, :method => :post do %>
   <div class="field">
-    <%= text_field_tag :email, "", placeholder: "Email Address" %>
+    <%= email_field_tag :email, "", placeholder: "Email Address" %>
   </div>
   <div class="field">
     <%= password_field_tag :password, "", placeholder: "Password"  %>

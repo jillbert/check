@@ -1,15 +1,15 @@
 <% if @rsvps.size > 0 %>
 <div id="rsvp-choices">
   <div class="row">
-    <div class="small-6 centered columns">
+    <div class="small-12 medium-6 centered columns">
       <%= link_to "#", class:"add", data: { host_id: nil } do %>
       <span class="lnr lnr-plus-circle"></span> Add a Guest
       <% end %>
     </div>
-    <div class="small-6 centered columns">
+    <div class="small-12 medium-6 centered columns">
       <div class="search disabled">
         <div class="overlay"><span class="lnr lnr-magnifier"></span><span class="text">Search</span></div>
-        <input type="search" id="datatable-search">
+        <input type="text" id="datatable-search">
       </div>
     </div>
   </div>
