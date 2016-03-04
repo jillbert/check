@@ -75,8 +75,9 @@ module RsvpsHelper
   end
 
   def get_rsvps
-    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers)
+    response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :params => {per_page: 100, limit: 100}, :headers => standard_headers)
     parsed = JSON.parse(response.body)
+    puts parsed["results"].size
     rsvpListfromNB = []
 
     # This is due different pagination rules implemented by NationBuilder
@@ -87,7 +88,7 @@ module RsvpsHelper
       is_next = parsed['next']
       while is_next
         currentpage += 1
-        pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage})
+        pagination_result = token.get(is_next, :headers => standard_headers, :params => { token_paginator: currentpage, per_page: 100, limit: 100})
         response = JSON.parse(pagination_result.body)
         rsvpListfromNB << response['results']
         is_next = response['next']
@@ -99,7 +100,7 @@ module RsvpsHelper
       rsvpListfromNB << parsed["results"]
       while total_pages >= current_page
         current_page += 1
-        response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, params: {page: current_page})
+        response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :headers => standard_headers, params: {page: current_page, per_page: 100, limit: 100})
         rsvpListfromNB << JSON.parse(response.body)["results"]
       end
     else 
