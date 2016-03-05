@@ -2,7 +2,8 @@ class Nation < ActiveRecord::Base
 
   has_many :credentials
 
-  has_many :events
+  has_many :events, inverse_of: :nation
+  
   has_many :people
   has_many :rsvps, through: :events
   

@@ -57,7 +57,7 @@
     </div>
     <div class="bottom">
       <p>Refresh and sync your NationBuilder list</p>
-    <%= link_to(rsvps_cache_path, class: "to-cache") do %>
+    <%= link_to(rsvps_cache_path, class: "to-cache", data: {event: @current_event.id}) do %>
       <span class="lnr lnr-sync"></span>
     <% end %>
   </div>

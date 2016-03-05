@@ -57,7 +57,7 @@
                 </li>
                 <li>                    
                   <% if button_enabled %>
-                    <%= link_to(rsvps_cache_path, class: "to-cache") do %>
+                    <%= link_to(rsvps_cache_path, class: "to-cache", data: {event: @current_event.id}) do %>
                       <%= render 'layouts/check_refresh' %>Refresh
                     <% end %>
                   <% else %>
@@ -105,8 +105,10 @@
     <%= javascript_include_tag "application" %>
     <div id="thinking">
       <h3 class="check-title">
-        Retrieving your list...<br/>
+        <span class="message">Retrieving your list... <span class="percent"></span> Complete</span>
+        <br/>
         Thank you for your patience.
+
       </h3>
       <div class="cssload-jumping">
         <span></span><span></span><span></span><span></span><span></span>

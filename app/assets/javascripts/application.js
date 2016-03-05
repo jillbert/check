@@ -113,7 +113,48 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.to-cache').on('click', function() { $('#thinking').show();$('body').css({'overflow': 'hidden'})});
+	$('.to-cache').on('click', function(e) {
+		e.preventDefault();
+
+		$('#thinking').show();
+		$('body').css({'overflow': 'hidden'});
+
+		event_id = $(this).data('event');
+
+		console.log(event_id)
+
+		$.ajax({
+			type: "GET",
+		  url: "/rsvps/cache",
+		  dataType: 'json',
+		  data: {
+		  	'id': event_id
+		  },
+		  success: function() {
+		  	var polling = setInterval(function(){
+			  	$.ajax({
+			  		type: "GET",
+			  	  url: "/sync_status",
+			  	  dataType: 'json',
+			  	  data: {
+			  	  	'event_id': event_id
+			  	  },
+			  	  success: function(result) {
+			  	    if (result.sync_status == "pending") {
+			  	      $('#thinking .percent').text(result.sync_percent + "%");
+			  	    } else {
+			  	      $('#thinking .message').text("Done! Refreshing list...");
+			  	      window.location = window.location.origin + '/rsvps';
+			  	      clearInterval(polling);
+			  	    }
+			  	  }
+			  	});
+			  }, 1000);
+		  }
+		});
+
+
+	});
 
 	$('.reveal-modal').on('open.fndtn.reveal', '[data-reveal]', function () {
 	    $('body').addClass('modal-open');

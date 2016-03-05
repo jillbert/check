@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   has_many :rsvps
-  belongs_to :nation
+  belongs_to :nation, inverse_of: :events
 
   def self.import(nb, session_nation)
     event = self.find_or_create_by(
