@@ -9,17 +9,22 @@ class RsvpsController < ApplicationController
   before_filter :is_owner, only: [:show]
 
   def index
-    @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
-    get_count
-    if @rsvps.size > 0
-      @rsvps.order( 'last_name DESC')
+    @syncing = false
+    if(@current_event.sync_status == "pending")
+      @syncing = true
+    else
+      @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
+      get_count
+      if @rsvps.size > 0
+        @rsvps.order( 'last_name DESC')
+      end
     end
   end
 
   def cache 
     # create_cache
     # redirect_to rsvps_path
-    @current_event.update_attributes(sync_status: "pending", sync_percent: 0)
+    @current_event.update_attributes(sync_status: "pending", sync_percent: 0, sync_date: DateTime.now)
     Resque.enqueue(Sync, params[:id], session[:current_site], session[:credential_id])
 
     respond_to do |format|
@@ -29,7 +34,9 @@ class RsvpsController < ApplicationController
   end
 
   def show
-  	@rsvp = Rsvp.find(params[:id])
+    check_nb_update(Rsvp.find(params[:id]).person)
+
+    @rsvp = Rsvp.find(params[:id])
     @add_guests = add_guests(@rsvp)
 
   end
@@ -47,7 +54,7 @@ class RsvpsController < ApplicationController
   end
 
   def sync
-    @rsvps = Rsvp.where(event_id: @current_event.id).to_a
+    @rsvps = Rsvp.where(nation_id: @current_event.nation_id, event_id: @current_event.id).to_a
     @nb = check_sync
     @same = []
 

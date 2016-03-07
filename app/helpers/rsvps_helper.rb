@@ -77,7 +77,6 @@ module RsvpsHelper
   def get_rsvps
     response = token.get("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", :params => {per_page: 100, limit: 100}, :headers => standard_headers)
     parsed = JSON.parse(response.body)
-    puts parsed["results"].size
     rsvpListfromNB = []
 
     # This is due different pagination rules implemented by NationBuilder

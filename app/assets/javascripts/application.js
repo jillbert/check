@@ -113,11 +113,39 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.to-cache').on('click', function(e) {
-		e.preventDefault();
-
+	function activateThinking() {
 		$('#thinking').show();
 		$('body').css({'overflow': 'hidden'});
+	}
+
+	function activatePolling(event_id) {
+  	var polling = setInterval(function(){
+	  	$.ajax({
+	  		type: "GET",
+	  	  url: "/sync_status",
+	  	  dataType: 'json',
+	  	  data: {
+	  	  	'event_id': event_id
+	  	  },
+	  	  success: function(result) {
+	  	    if (result.sync_status == "pending") {
+	  	      $('#thinking .percent').text(result.sync_percent + "% Complete");
+	  	    } else {
+	  	      $('#thinking .message').text("Done! Refreshing list...");
+	  	      window.location = window.location.origin + '/rsvps';
+	  	      clearInterval(polling);
+	  	    }
+	  	  }
+	  	});
+	  }, 1000);
+	}
+
+	$('.activate-thinking').on('click', function() {
+		activateThinking();
+	})
+
+	$('.to-cache').on('click', function(e) {
+		e.preventDefault();
 
 		event_id = $(this).data('event');
 
@@ -131,30 +159,18 @@ $(document).ready(function() {
 		  	'id': event_id
 		  },
 		  success: function() {
-		  	var polling = setInterval(function(){
-			  	$.ajax({
-			  		type: "GET",
-			  	  url: "/sync_status",
-			  	  dataType: 'json',
-			  	  data: {
-			  	  	'event_id': event_id
-			  	  },
-			  	  success: function(result) {
-			  	    if (result.sync_status == "pending") {
-			  	      $('#thinking .percent').text(result.sync_percent + "%");
-			  	    } else {
-			  	      $('#thinking .message').text("Done! Refreshing list...");
-			  	      window.location = window.location.origin + '/rsvps';
-			  	      clearInterval(polling);
-			  	    }
-			  	  }
-			  	});
-			  }, 1000);
+		  	activatePolling(event_id);
 		  }
 		});
 
-
 	});
+
+	if($('.sync-mode').length > 0) {
+
+    activateThinking();
+    activatePolling($('.sync-mode').data('event'));
+		
+	}
 
 	$('.reveal-modal').on('open.fndtn.reveal', '[data-reveal]', function () {
 	    $('body').addClass('modal-open');

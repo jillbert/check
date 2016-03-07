@@ -32,6 +32,12 @@ $info-color: #a0d3e8;
   min-height: 100vh;
 }
 
+body.maintenance {
+  background-color: $purple;
+  min-height: 100vh;
+  text-align: center;
+}
+
 input[type="text"], input[type="password"], input[type="date"], 
 input[type="datetime"], input[type="datetime-local"], input[type="month"], 
 input[type="week"], input[type="email"], input[type="number"], 

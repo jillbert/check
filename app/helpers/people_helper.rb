@@ -69,4 +69,10 @@ module PeopleHelper
 		  return JSON.parse(response.body)["person"]
 		end
 	end
+
+	def check_nb_update(person)
+	  response = token.get("/api/v1/people/#{person.nbid}", :headers => standard_headers)
+		nbPerson = JSON.parse(response.body)["person"]
+		Person.import(nbPerson, person.nation_id)
+	end
 end

@@ -12,6 +12,15 @@
     <%= csrf_meta_tags %>
   </head>
 
+  <% if ENV["MAINTENANCE"] == "Y" && logged_in? == true && current_user.id != 1 %>
+  <body class="maintenance">
+    <div class="row">
+      <div class="medium-8 small-centered columns">
+        <h2 style="margin-top: 100px;">We're currently doing some neccessary maintenance and will be back online in a bit. Stay tuned!</h2 class="center">
+      </div>
+    </div>
+  </body>
+  <% else %>
   <body>
     <div class="row">
       <div class="medium-8 small-centered columns app">
@@ -57,7 +66,7 @@
                 </li>
                 <li>                    
                   <% if button_enabled %>
-                    <%= link_to(rsvps_cache_path, class: "to-cache", data: {event: @current_event.id}) do %>
+                    <%= link_to(rsvps_cache_path, class: "activate-thinking to-cache", data: {event: @current_event.id}) do %>
                       <%= render 'layouts/check_refresh' %>Refresh
                     <% end %>
                   <% else %>
@@ -68,7 +77,7 @@
                 </li>
                 <li>
                   <% if button_enabled %>
-                    <%= link_to(sync_path, class: "to-cache") do %>
+                    <%= link_to(sync_path, class: "activate-thinking") do %>
                       <%= render 'layouts/check_sync' %>Sync
                     <% end %>
                   <% else %>
@@ -105,7 +114,7 @@
     <%= javascript_include_tag "application" %>
     <div id="thinking">
       <h3 class="check-title">
-        <span class="message">Retrieving your list... <span class="percent"></span> Complete</span>
+        <span class="message">Retrieving your list... <span class="percent"></span></span>
         <br/>
         Thank you for your patience.
 
@@ -115,4 +124,5 @@
       </div>
     </div>
   </body>
+  <% end %>
 </html>

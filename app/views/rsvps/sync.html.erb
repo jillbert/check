@@ -1,6 +1,7 @@
 <div id="header">
   <p><%= @current_event.name %></p>
   <p><%= @current_event.to_local_time %></p>
+  <p>Sync status: <%= @current_event.sync_status %> <br/>Last sync date: <%= @current_event.sync_date.localtime.strftime("%B %d, %Y at %I:%M%p") %></p>
   <p id="attending">
     <%= render('attending', attending: @attending, total: @total) %>
   </p>
