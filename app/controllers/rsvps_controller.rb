@@ -25,10 +25,17 @@ class RsvpsController < ApplicationController
     # create_cache
     # redirect_to rsvps_path
     @current_event.update_attributes(sync_status: "pending", sync_percent: 0, sync_date: DateTime.now)
-    Resque.enqueue(Sync, params[:id], session[:current_site], session[:credential_id])
-
-    respond_to do |format|
-      format.json { render :json => {:status => "started"}}
+    begin
+      Resque.enqueue(Sync, params[:id], session[:current_site], session[:credential_id])
+    rescue => ex
+      @current_event.update_attributes(sync_status: "Error")
+      respond_to do |format|
+        format.json { render :json => {:status => "started"}}
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => {:status => "started"}}
+      end
     end
 
   end
