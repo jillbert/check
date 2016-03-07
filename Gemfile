@@ -41,6 +41,7 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'sorcery'
 gem 'email_validator'
 
+gem 'redis'
 gem 'resque'
 
 gem 'oauth2'

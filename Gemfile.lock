@@ -202,6 +202,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.1.0)
   rails_12factor
+  redis
   resque
   rest-client
   sass-rails (~> 5.0.1)
