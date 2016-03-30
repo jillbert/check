@@ -13,6 +13,26 @@ module EventsHelper
   end
 
   def clean_event_json(event_from_nb)
+    if event_from_nb["venue"]["address"]
+        venue = Hash.new.tap do |v|
+            v["name"] = event_from_nb["venue"]["name"]
+            v["address"] = {
+                "address1" => event_from_nb["venue"]["address"]["address1"],
+                "address2" => event_from_nb["venue"]["address"]["address2"],
+                "address3" => event_from_nb["venue"]["address"]["address3"],
+                "city" => event_from_nb["venue"]["address"]["city"],
+                "county" => event_from_nb["venue"]["address"]["county"],
+                "state" => event_from_nb["venue"]["address"]["state"],
+                "country_code" => event_from_nb["venue"]["address"]["country_code"],
+                "zip" => event_from_nb["venue"]["address"]["zip"],
+                "lat" => event_from_nb["venue"]["address"]["lat"],
+                "lng" => event_from_nb["venue"]["address"]["lng"],
+                "fips" => event_from_nb["venue"]["address"]["fips"]
+            }
+        end
+    else
+        venue = {"name" => event_from_nb["venue"]["name"]}
+    end
 
     return {
       "event" => 
@@ -44,22 +64,7 @@ module EventsHelper
         },
         "capacity" => event_from_nb["capacity"],
         "show_guests" => event_from_nb["show_guests"],
-        "venue" => {
-            "name" => event_from_nb["venue"]["name"],
-            "address" => {
-                "address1" => event_from_nb["venue"]["address"]["address1"],
-                "address2" => event_from_nb["venue"]["address"]["address2"],
-                "address3" => event_from_nb["venue"]["address"]["address3"],
-                "city" => event_from_nb["venue"]["address"]["city"],
-                "county" => event_from_nb["venue"]["address"]["county"],
-                "state" => event_from_nb["venue"]["address"]["state"],
-                "country_code" => event_from_nb["venue"]["address"]["country_code"],
-                "zip" => event_from_nb["venue"]["address"]["zip"],
-                "lat" => event_from_nb["venue"]["address"]["lat"],
-                "lng" => event_from_nb["venue"]["address"]["lng"],
-                "fips" => event_from_nb["venue"]["address"]["fips"]
-            }
-        },
+        "venue" => venue,
         "autoresponse" => event_from_nb["autoresponse"],
         "shifts" => event_from_nb["shifts"]
       }
