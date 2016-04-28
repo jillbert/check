@@ -44,11 +44,16 @@ def create
     end
 
     # the next line makes the password confirmation validation work
-    @user.password_confirmation = params[:user][:password_confirmation]
-    # the next line clears the temporary token and updates the password
-    if @user.change_password!(params[:user][:password])
-      redirect_to(login_path, :notice => 'Password was successfully updated.')
+    if params[:user][:password] == params[:user][:password_confirmation]
+      # the next line clears the temporary token and updates the password
+      if @user.change_password!(params[:user][:password])
+        redirect_to(login_path, :notice => 'Password was successfully updated.')
+      else
+        flash.now[:alert] = "Something went wrong. Please try again. If you continue having these errors, please contact check@cstreet.ca."
+        render :action => "edit"
+      end
     else
+      flash.now[:alert] = "Passwords don't match. Try again!"
       render :action => "edit"
     end
   end
