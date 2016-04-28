@@ -25,7 +25,9 @@
     <div class="row">
       <div class="medium-8 small-centered columns app">
         <div class="<% if (session[:current_site]  || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" %>navbar<% else %>navbar stripped<% end %>">
-          <% if (session[:current_site]  || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" %>
+
+          <% if (session[:current_site]  || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>
+          
             <nav>
               <ul>
                 <li>
