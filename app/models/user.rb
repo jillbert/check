@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   has_one :nation
   accepts_nested_attributes_for :nation
   
-  validates :password, :presence => true, :confirmation => true, :on => :update
-  validates :password_confirmation, :presence => true, :confirmation => true, :on => :update
+  # validates :password, :presence => true, :confirmation => true, :on => :update
+  # validates :password_confirmation, :presence => true, :confirmation => true, :on => :update
 
   validates :email, uniqueness: true
 
