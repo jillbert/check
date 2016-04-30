@@ -44,6 +44,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.skip_validation = true
     if @user.save
       redirect_to login_path, notice: 'User was successfully created!'
     else
