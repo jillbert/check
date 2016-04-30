@@ -24,6 +24,8 @@
   <%= hidden_field_tag 'activation_token', @token %>
 
   <div class="actions">
-    <%= f.submit 'Submit', :class =>"button" %>
+    <%= button_tag(type: "submit", class: "no-style check-login") do %>
+        <span class="lnr lnr-arrow-right-circle"></span>
+    <% end %>
   </div>
 <% end %>
