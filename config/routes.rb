@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :password_resets
-
   get "/callback", to: "oauth#callback"
   get "/authorize", to: "oauth#authorize"
   get "/deauthorize", to: "oauth#deauthorize"
