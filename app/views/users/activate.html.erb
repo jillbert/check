@@ -12,10 +12,10 @@
     </div>
   <% end %>
 
-  <h3>Please create a password:</h3>
+  <h3 class="check-title">Please create a password:</h3>
   
   <div class="field">
-    <%= f.email_field :email, placeholder:"Email Address" %>
+    <%= f.email_field :email, placeholder:"Email Address", :readonly => true %>
     <%= f.password_field :password, placeholder:"Password" %>
     <%= f.password_field :password_confirmation, placeholder:"Password Confirmation" %>
 
