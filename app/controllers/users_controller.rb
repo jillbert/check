@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update(user_params)
-      redirect_to nations_path, notice: 'User was successfully updated!'
+      redirect_to admin_path, notice: 'User was successfully updated!'
     else
       render :edit
       flash[:error] = @user.errors
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, nation_attributes: [:id, :name, :url, :client_uid, :secret_key, :user_id])
+      params.require(:user).permit(:email, :password, :password_confirmation, :active, nation_attributes: [:id, :name, :url, :client_uid, :secret_key, :user_id])
     end
 
 end

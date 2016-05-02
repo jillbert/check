@@ -1103,16 +1103,16 @@ $table-border-size: 0;
 $table-border-color: tranparent;
 
 // These control the table head styles
-// $table-head-bg: #f5f5f5  ;
+$table-head-bg: transparent;
 // $table-head-font-size: rem-calc(14);
-// $table-head-font-color: #222;
+$table-head-font-color: white;
 // $table-head-font-weight: $font-weight-bold;
 // $table-head-padding: rem-calc(8 10 10);
 
 // These control the row padding and font styles
 // $table-row-padding: rem-calc(9 10);
 // $table-row-font-size: rem-calc(14);
-// $table-row-font-color: #222;
+$table-row-font-color: white;
 // $table-line-height: rem-calc(18);
 
 // These are for controlling the display and margin of tables

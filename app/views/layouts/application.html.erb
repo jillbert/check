@@ -24,9 +24,9 @@
   <body>
     <div class="row">
       <div class="medium-8 small-centered columns app">
-        <div class="<% if (session[:current_site]  || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>navbar<% else %>navbar stripped<% end %>">
+        <div class="<% if (controller.controller_name == 'events' || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>navbar<% else %>navbar stripped<% end %>">
 
-          <% if (session[:current_site]  || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>
+          <% if (controller.controller_name == 'events' || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>
           
             <nav>
               <ul>
@@ -57,13 +57,21 @@
                     <% end %>
                   <% elsif controller.controller_name == 'events' %>
                     <% button_enabled = false %>
-                    <% if controller.action_name == 'choose_event' %>
+                    <% if controller.action_name == "choose_event" %>
                       <% back = choose_site_path %>
+                    <% else %>
+                      <% back = nil %>
                     <% end %>
                   <% end %>
 
-                  <%= link_to back do %>
-                    <%= render 'layouts/check_goback' %>Go Back
+                  <% if back != nil %>
+                    <%= link_to back do %>
+                      <%= render 'layouts/check_goback' %>Go Back
+                    <% end %>
+                  <% else %>
+                    <div class="button-disabled">
+                      <%= render 'layouts/check_goback' %>Go Back
+                    </div>
                   <% end %>
                 </li>
                 <li>                    

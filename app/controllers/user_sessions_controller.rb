@@ -23,16 +23,14 @@ class UserSessionsController < ApplicationController
         set_current_credential(credential.id)
       end
 
-      # credential = Credential.where(nation_id: nation.id).first
-      # if credential
-      #   set_current_credential(credential.id)
-      #   redirect_back_or_to(choose_site_path, notice: 'Login successful')
-      # else
-      #   redirect_to :controller => 'nations', :action => 'index'
-      # end
       check_credential
-      if @credential
+      if @credential && @user.active
         redirect_back_or_to(choose_site_path, notice: 'Login successful')
+      else
+        logout
+        destroy_currents
+        flash.now[:alert] = "Sorry, but your account is suspended. If you think this is an error, please contact check@cstreet.ca"
+        render action: 'new'
       end
 
     else

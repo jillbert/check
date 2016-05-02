@@ -16,6 +16,13 @@
   <div class="field">
     <%= f.text_field :email, placeholder:"Email" %>
   </div>
+  <div class="field text-center">
+    Active?
+    <div class="switch">
+      <%= f.check_box :active %>
+      <%= f.label :active %>
+    </div>
+  </div>
 
   <h3 class="check-title">Part 2: Nation Credentials</h3>
 

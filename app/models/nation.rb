@@ -10,5 +10,7 @@ class Nation < ActiveRecord::Base
   def client()
 
     @client ||= OAuth2::Client.new(self.client_uid = ENV['CLIENT_UID'], self.secret_key = ENV['SECRET_KEY'], :site => url)
+    # @client ||= OAuth2::Client.new(self.client_uid = ENV['CLIENT_UID'], self.secret_key = ENV['SECRET_KEY'], :site => "https://#{name}.nationbuilder.com/")
+
   end
 end

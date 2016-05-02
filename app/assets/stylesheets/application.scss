@@ -38,6 +38,15 @@ body.maintenance {
   text-align: center;
 }
 
+label {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 300;
+  margin-bottom: 50px;
+  padding: 0px 15px;
+  color: white;
+}
+
 input[type="text"], input[type="password"], input[type="date"], 
 input[type="datetime"], input[type="datetime-local"], input[type="month"], 
 input[type="week"], input[type="email"], input[type="number"], 
@@ -49,6 +58,7 @@ input[type="url"], input[type="color"], textarea {
   font-weight: 300;
   margin-bottom: 50px;
   padding: 0px 15px;
+  color: white;
 
   &::-webkit-input-placeholder {
      color: #fff;
@@ -457,6 +467,11 @@ button.check-login,
 }
 
 .dataTable {
+  width: 100%;
+}
+
+table {
+  color: white;
   width: 100%;
 }
 
