@@ -108,7 +108,7 @@ class UsersController < ApplicationController
 
 
   def is_admin
-    redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.id != ENV['ADMIN_ID']
+    redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) if current_user.id != ENV['ADMIN_ID'].to_i
   end
 
     # Never trust parameters from the scary internet, only allow the white list through.
