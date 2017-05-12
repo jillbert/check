@@ -23,11 +23,11 @@
   <% else %>
   <body>
     <div class="row">
-      <div class="medium-8 small-centered columns app">
+      <div class="medium-12 small-centered columns app">
         <div class="<% if (controller.controller_name == 'events' || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>navbar<% else %>navbar stripped<% end %>">
 
           <% if (controller.controller_name == 'events' || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>
-          
+
             <nav>
               <ul>
                 <li>
@@ -37,7 +37,7 @@
                   <%= link_to logout_path do %>
                     <%= render 'layouts/check_logout' %>
                     Logout
-                  <% end %> 
+                  <% end %>
                 </li>
                 <li>
 
@@ -74,7 +74,7 @@
                     </div>
                   <% end %>
                 </li>
-                <li>                    
+                <li>
                   <% if button_enabled %>
                     <%= link_to(rsvps_cache_path, class: "activate-thinking to-cache", data: {event: @current_event.id}) do %>
                       <%= render 'layouts/check_refresh' %>Refresh
