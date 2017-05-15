@@ -65,7 +65,7 @@ class RsvpsController < ApplicationController
    else
      @rsvp.update_attribute('attended', true)
    end
- end
+  end
 
   def sync
     @rsvps = Rsvp.where(nation_id: @current_event.nation_id, event_id: @current_event.id).to_a

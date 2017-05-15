@@ -15,7 +15,8 @@
           <span class="lnr lnr-checkmark-circle"></span>
         <% end %>
     	<% else %>
-        <%= link_to('#', :class => "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+      <!-- Disabled check_out until it's finished. todo: reenable this when check_out method is done -->
+        <!-- <%= link_to('#', :class => "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %> -->
           <span class="lnr lnr-checkmark-circle checked-in"></span>
         <% end %>
     	<% end %>
