@@ -50,6 +50,10 @@ gem 'rest-client'
 gem 'rails_12factor', group: :production
 
 gem 'figaro'
+
+gem 'activeadmin', '1.0.0.pre5'
+gem 'kaminari'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -61,4 +65,3 @@ gem 'figaro'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

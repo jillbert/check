@@ -10,7 +10,7 @@
 * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
 * file per style scope.
 *
-*= require_tree .
+*= require_directory .
 *= require_self
 *= require foundation_and_overrides
 *= require font-awesome
@@ -143,7 +143,7 @@ h3 {
   padding: 10px;
   margin-bottom: 35px;
   display: block;
-  color: #fff;
+  color: #fff !important;
   -webkit-transition: all 0.15s linear;
   -moz-transition: all 0.15s linear;
   -ms-transition: all 0.15s linear;
