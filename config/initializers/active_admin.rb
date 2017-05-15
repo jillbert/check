@@ -118,7 +118,7 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  # config.root_to = 'events#index'
+  config.root_to = 'events#index'
 
   # == Admin Comments
   #
