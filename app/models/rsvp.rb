@@ -1,8 +1,8 @@
 class Rsvp < ActiveRecord::Base
-	
+
 	belongs_to :event
 	belongs_to :person
-		
+
 	has_many :guests, class_name: "Rsvp", foreign_key: "host_id"
 	belongs_to :host, class_name: "Rsvp"
 
@@ -14,7 +14,7 @@ class Rsvp < ActiveRecord::Base
 		  person_id: p_id,
 		  nation_id: n_id
 		)
-		
+
 		rsvp.update(
 			guests_count: r['guests_count'].to_i,
 			canceled: r['canceled'],
@@ -50,7 +50,7 @@ class Rsvp < ActiveRecord::Base
 		    "volunteer" => self.volunteer,
 		    "private" => self.is_private,
 		    "canceled" => self.canceled,
-		    "attended" => true,
+		    "attended" => self.attended,
 		    "shift_ids" => self.shift_ids
 		  }
 		}

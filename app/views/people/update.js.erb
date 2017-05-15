@@ -1,7 +1,6 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
   $('#modal').empty().foundation('reveal', 'close');
   $('#rsvp_<%= @rsvp.id %>').replaceWith("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
-  console.log(status);
 
   $('#rsvp_<%= @rsvp.id %> .edit').on('click', function(e) {
     e.preventDefault();
@@ -25,6 +24,4 @@ $(document).bind('ajax:success', function(data, status, xhr) {
 
 }).bind('ajax:error', function(xhr, status, error) {
   $("form.new_person").prepend('<%= escape_javascript(render("shared/error_messages", object: @rsvp)) %>');
-  console.log(status);
 });
-

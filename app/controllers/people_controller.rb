@@ -28,7 +28,7 @@ class PeopleController < ApplicationController
     @person.errors.clear
     if params[:host_id].to_i > 0
       @host_id = params[:host_id].to_i
-    else 
+    else
       @host_id = nil
     end
 
@@ -64,7 +64,7 @@ class PeopleController < ApplicationController
           format.html {render 'new' }
         end
       end
-    
+
     else
       @person.errors.add(:person, nationbuilder_person[:error])
       respond_to do |format|
@@ -86,8 +86,9 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     @person.assign_attributes(person_params)
+
     nationbuilder_person = send_person_to_nationbuilder(@person)
-    
+
     if nationbuilder_person[:status]
       @person.save
       @person.update_attributes(pic: nationbuilder_person[:person]["profile_image_url_ssl"])
@@ -141,9 +142,13 @@ class PeopleController < ApplicationController
 
   def person_params
     params.require(:person).permit(
-      :first_name, 
-      :last_name, 
-      :email
+      :first_name,
+      :last_name,
+      :email,
+      :phone_number,
+      :work_phone_number,
+      :mobile,
+      :home_zip
     )
   end
 
