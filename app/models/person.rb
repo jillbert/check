@@ -3,7 +3,6 @@ class Person < ActiveRecord::Base
   belongs_to :nation
   has_many :rsvps
 
-  
   def full_name
     return self.first_name + " " + self.last_name
   end
@@ -38,7 +37,7 @@ class Person < ActiveRecord::Base
         :email => self.email,
       }
     }
-    
+
     return person_object.to_json
 
   end

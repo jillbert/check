@@ -1,5 +1,5 @@
 /*
-* This is a manifest file that'll be compiled into application.css, which will include 
+* This is a manifest file that'll be compiled into application.css, which will include
 * all the files listed below.
 *
 * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
@@ -10,7 +10,7 @@
 * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
 * file per style scope.
 *
-*= require_tree .
+*= require_directory .
 *= require_self
 *= require foundation_and_overrides
 *= require font-awesome
@@ -47,10 +47,10 @@ label {
   color: white;
 }
 
-input[type="text"], input[type="password"], input[type="date"], 
-input[type="datetime"], input[type="datetime-local"], input[type="month"], 
-input[type="week"], input[type="email"], input[type="number"], 
-input[type="search"], input[type="tel"], input[type="time"], 
+input[type="text"], input[type="password"], input[type="date"],
+input[type="datetime"], input[type="datetime-local"], input[type="month"],
+input[type="week"], input[type="email"], input[type="number"],
+input[type="search"], input[type="tel"], input[type="time"],
 input[type="url"], input[type="color"], textarea {
   border-bottom: 3px solid white;
   text-align: center;
@@ -73,12 +73,12 @@ input[type="url"], input[type="color"], textarea {
   }
 
   &::-moz-placeholder {  /* Firefox 19+ */
-     color: #fff;  
+     color: #fff;
      -moz-transition: color 0.15s linear;
      transition: color 0.15s linear;
   }
 
-  &:-ms-input-placeholder {  
+  &:-ms-input-placeholder {
      color: #fff;
      -webkit-transition: color 0.15s linear;
      -ms-transition: color 0.15s linear;
@@ -91,39 +91,39 @@ input[type="url"], input[type="color"], textarea {
     }
 
     &:-moz-placeholder {
-       color: $salmon;  
+       color: $salmon;
     }
 
     &::-moz-placeholder {  /* Firefox 19+ */
-       color: $salmon;  
+       color: $salmon;
     }
 
-    &:-ms-input-placeholder {  
-       color: $salmon;  
+    &:-ms-input-placeholder {
+       color: $salmon;
     }
   }
 }
 
-input[type="text"][disabled], input[type="text"][readonly], 
-fieldset[disabled] input[type="text"], input[type="password"][disabled], 
-input[type="password"][readonly], fieldset[disabled] input[type="password"], 
-input[type="date"][disabled], input[type="date"][readonly], fieldset[disabled] 
-input[type="date"], input[type="datetime"][disabled], 
-input[type="datetime"][readonly], fieldset[disabled] input[type="datetime"], 
-input[type="datetime-local"][disabled], input[type="datetime-local"][readonly], 
-fieldset[disabled] input[type="datetime-local"], input[type="month"][disabled], 
-input[type="month"][readonly], fieldset[disabled] input[type="month"], 
-input[type="week"][disabled], input[type="week"][readonly], 
-fieldset[disabled] input[type="week"], input[type="email"][disabled], 
-input[type="email"][readonly], fieldset[disabled] input[type="email"], 
-input[type="number"][disabled], input[type="number"][readonly], 
-fieldset[disabled] input[type="number"], input[type="search"][disabled], 
-input[type="search"][readonly], fieldset[disabled] input[type="search"], 
-input[type="tel"][disabled], input[type="tel"][readonly], fieldset[disabled] 
-input[type="tel"], input[type="time"][disabled], input[type="time"][readonly], 
-fieldset[disabled] input[type="time"], input[type="url"][disabled], 
-input[type="url"][readonly], fieldset[disabled] input[type="url"], 
-input[type="color"][disabled], input[type="color"][readonly], fieldset[disabled] 
+input[type="text"][disabled], input[type="text"][readonly],
+fieldset[disabled] input[type="text"], input[type="password"][disabled],
+input[type="password"][readonly], fieldset[disabled] input[type="password"],
+input[type="date"][disabled], input[type="date"][readonly], fieldset[disabled]
+input[type="date"], input[type="datetime"][disabled],
+input[type="datetime"][readonly], fieldset[disabled] input[type="datetime"],
+input[type="datetime-local"][disabled], input[type="datetime-local"][readonly],
+fieldset[disabled] input[type="datetime-local"], input[type="month"][disabled],
+input[type="month"][readonly], fieldset[disabled] input[type="month"],
+input[type="week"][disabled], input[type="week"][readonly],
+fieldset[disabled] input[type="week"], input[type="email"][disabled],
+input[type="email"][readonly], fieldset[disabled] input[type="email"],
+input[type="number"][disabled], input[type="number"][readonly],
+fieldset[disabled] input[type="number"], input[type="search"][disabled],
+input[type="search"][readonly], fieldset[disabled] input[type="search"],
+input[type="tel"][disabled], input[type="tel"][readonly], fieldset[disabled]
+input[type="tel"], input[type="time"][disabled], input[type="time"][readonly],
+fieldset[disabled] input[type="time"], input[type="url"][disabled],
+input[type="url"][readonly], fieldset[disabled] input[type="url"],
+input[type="color"][disabled], input[type="color"][readonly], fieldset[disabled]
 input[type="color"], textarea[disabled], textarea[readonly], fieldset[disabled] textarea {
   background: transparent;
   color: $navy;
@@ -143,7 +143,7 @@ h3 {
   padding: 10px;
   margin-bottom: 35px;
   display: block;
-  color: #fff;
+  color: #fff !important;
   -webkit-transition: all 0.15s linear;
   -moz-transition: all 0.15s linear;
   -ms-transition: all 0.15s linear;
@@ -202,7 +202,7 @@ nav {
           opacity: 1;
         }
         &:hover {
-          color: $salmon; 
+          color: $salmon;
           svg #Top-Nav-Copy {
             fill: $salmon;
           }
@@ -254,10 +254,10 @@ nav {
   .cssload-jumping {
     position:relative;
     display:block;
-    margin: -130px auto 0 auto;
+    margin: -80px auto 0 auto;
     width:107px;
   }
-    
+
   .cssload-jumping, .cssload-jumping * {
     box-sizing: border-box;
   }
@@ -594,7 +594,7 @@ body.modal-open {
   p {
      margin: 0;
   }
-  
+
   a {
     -webkit-transition: all 0.15s linear;
     -moz-transition: all 0.15s linear;

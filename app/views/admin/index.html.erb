@@ -17,9 +17,9 @@
     <% @users.each do |u| %>
     <tr>
       <td><%= u.email %></td>
-      <td><%= u.nation.name %></td>
+      <td><%= u.nation.name unless u.nation.nil? %></td>
       <td><%= u.active %></td>
-      <td><%= u.nation.events.count %></td>
+      <td><%= u.nation.events.count unless u.nation.nil? %></td>
       <td><%= link_to "Edit", edit_user_path(u.id), class:"button" %></td>
     </tr>
     <% end %>

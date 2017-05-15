@@ -15,19 +15,19 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.foundation
 //= require foundation
-//= require_tree .
+//= require_directory .
 
-var table; 
+var table;
 
-$(function(){ 
+$(function(){
 	$(document).foundation({
-		abide: { 
-			patterns: { 	
+		abide: {
+			patterns: {
 				user_phone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
 				user_email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 			},
-		} 
-	}) 
+		}
+	})
 });
 
 function addRSVP() {
@@ -89,6 +89,7 @@ $(document).ready(function() {
 		  },
 		  success: function(result) {
 		    eval(result);
+				window.location.replace("http://www.checkbycstreet.com/rsvps");
 		  },
 		});
 	});
@@ -169,7 +170,7 @@ $(document).ready(function() {
 
     activateThinking();
     activatePolling($('.sync-mode').data('event'));
-		
+
 	}
 
 	$('.reveal-modal').on('open.fndtn.reveal', '[data-reveal]', function () {
@@ -178,7 +179,7 @@ $(document).ready(function() {
 	$('.reveal-modal').on('close.fndtn.reveal', '[data-reveal]', function () {
 	    $('body').removeClass('modal-open');
 	});
-	
+
 	initializeRsvpList();
 
 })

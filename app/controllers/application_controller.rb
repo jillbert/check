@@ -6,7 +6,15 @@ class ApplicationController < ActionController::Base
   before_filter :require_login
 
   delegate :access_token, :to => :credential
-  
+
+  def authenticate_admin_user!
+    redirect_to root_path unless current_user.id == ENV['ADMIN_ID'].to_i
+  end
+
+  def current_admin_user
+    current_user
+  end
+
   private
 
   def deauthorize!
@@ -33,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_credential
-    begin 
+    begin
       response = token.get("/api/v1/people/me", :headers => standard_headers)
     rescue => ex
       cred = Credential.find_by_id(session[:credential_id])
@@ -67,9 +75,8 @@ class ApplicationController < ActionController::Base
     session[:credential_id] = id
   end
 
-
   private
-  
+
   def not_authenticated
     redirect_to login_path, alert: "Please login first"
   end
