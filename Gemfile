@@ -54,6 +54,8 @@ gem 'figaro'
 gem 'activeadmin', '1.0.0.pre5'
 gem 'kaminari'
 
+gem 'nationbuilder-rb'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

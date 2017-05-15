@@ -63,4 +63,19 @@ class Rsvp < ActiveRecord::Base
 
 	end
 
+	def self.make_rsvp(rsvp)
+	rsvp = {
+	  "rsvp": {
+	    "person_id": 375677,
+	    "guests_count": rsvp.guests_count.to_i,
+	    "volunteer": rsvp.volunteer,
+	    "private": rsvp.is_private,
+	    "canceled": rsvp.canceled,
+	    "attended": true,
+	    "shift_ids": rsvp.shift_ids
+	  	}
+		}
+		return rsvp
+	end
+
 end
