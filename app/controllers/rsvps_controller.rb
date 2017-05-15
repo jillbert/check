@@ -21,7 +21,7 @@ class RsvpsController < ApplicationController
     end
   end
 
-  def cache 
+  def cache
     # create_cache
     # redirect_to rsvps_path
     @current_event.update_attributes(sync_status: "pending", sync_percent: 0, sync_date: DateTime.now)
@@ -83,7 +83,7 @@ class RsvpsController < ApplicationController
 
   end
 
-  private 
+  private
 
   def has_current_site_and_event
     unless session[:current_site]
@@ -96,15 +96,14 @@ class RsvpsController < ApplicationController
       end
     end
   end
-  
+
   def is_owner
     if current_user.nation.id != Rsvp.find(params[:id]).person.nation_id
       begin
-        redirect_to(:back, flash: { error: "Sorry, you don't have access to this information"}) 
-      rescue ActionController::RedirectBackError 
-        redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"}) 
+        redirect_to(:back, flash: { error: "Sorry, you don't have access to this information"})
+      rescue ActionController::RedirectBackError
+        redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"})
       end
     end
   end
 end
-
