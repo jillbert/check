@@ -43,9 +43,9 @@ class RsvpsController < ApplicationController
 
   def check_in
   	@rsvp = Rsvp.find(params[:id])
+    @rsvp.update_attribute('attended', true)
     nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
   	if nationbuilder_rsvp[:status]
-      @rsvp.update_attribute('attended', true)
   		respond_to do |format|
   		  format.js {}
   		end
@@ -54,18 +54,28 @@ class RsvpsController < ApplicationController
   end
 
   def check_out
-   @rsvp = Rsvp.find(params[:id])
-   @rsvp.update_attribute('attended', false)
-   nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
-   puts nationbuilder_rsvp
-   if nationbuilder_rsvp[:status]
-     respond_to do |format|
-       format.js {}
-     end
-   else
-     @rsvp.update_attribute('attended', true)
-   end
+  	@rsvp = Rsvp.find(params[:id])
+    @rsvp.update_attribute('attended', false)
+    nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
+  	if nationbuilder_rsvp[:status]
+  		respond_to do |format|
+  		  format.js {}
+  		end
+  	else
+  	end
   end
+
+  # def check_out
+  #  @rsvp = Rsvp.find(params[:id])
+  #  @rsvp.update_attribute('attended', false)
+  #  nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
+  #  if nationbuilder_rsvp[:status]
+  #    respond_to do |format|
+  #      format.js {}
+  #    end
+  #  else
+  #  end
+  # end
 
   def sync
     @rsvps = Rsvp.where(nation_id: @current_event.nation_id, event_id: @current_event.id).to_a
