@@ -3,6 +3,7 @@
   <%= link_to "Create New User", new_user_path, class: "button" %>
 </div>
 
+<div class="admin_user_list">
 <% @users.each do |u| %>
   <div>Email: <%= u.email %></div>
   <div>Nation: <%= u.nation.name unless u.nation.nil? %></div>
@@ -11,3 +12,4 @@
   <div><%= link_to "Edit", edit_user_path(u.id), class:"button" %></div>
   <hr/>
 <% end %>
+</div>
