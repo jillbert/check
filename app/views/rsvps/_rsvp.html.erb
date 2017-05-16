@@ -1,3 +1,6 @@
+<%= javascript_include_tag "check_in" %>
+<%= javascript_include_tag "check_out" %>
+
 <div class="rsvp-card" id="rsvp_<%= rsvp.id %>">
   <img src="<%=rsvp.person.pic %>">
 	<div class="row">
@@ -16,7 +19,9 @@
         <% end %>
     	<% else %>
       <!-- Disabled check_out until it's finished. todo: reenable this when check_out method is done -->
-        <!-- <%= link_to('#', :class => "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %> -->
+          <% if current_user.id == ENV['ADMIN_ID'] %>
+            <%= link_to('#', :class => "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+          <% end %>
           <span class="lnr lnr-checkmark-circle checked-in"></span>
         <% end %>
     	<% end %>
