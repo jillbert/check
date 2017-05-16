@@ -5,9 +5,9 @@
 
 <% @users.each do |u| %>
   <div>Email: <%= u.email %></div>
-  <div>Nation: <%= u.nation.name %></div>
+  <div>Nation: <%= u.nation.name unless u.nation.nil? %></div>
   <div>Status: <% if u.active %>Active<% else %>Canceled<% end %></div>
-  <div>Event Count: <%= u.nation.events.count %></div>
+  <div>Event Count: <%= u.nation.events.count unless u.nation.nil? %></div>
   <div><%= link_to "Edit", edit_user_path(u.id), class:"button" %></div>
   <hr/>
 <% end %>
