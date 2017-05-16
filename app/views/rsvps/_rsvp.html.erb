@@ -16,7 +16,7 @@
         <% end %>
     	<% else %>
       <!-- Disabled check_out until it's finished. todo: reenable this when check_out method is done -->
-          <% if current_user.id == ENV['ADMIN_ID'] %>
+          <% if current_user.id == ENV['ADMIN_ID'].to_i %>
             <%= link_to('#', :class => "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
           <% end %>
           <span class="lnr lnr-checkmark-circle checked-in"></span>
