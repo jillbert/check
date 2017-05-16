@@ -20,6 +20,8 @@
             <%= link_to('#', :class => "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
               <span class="lnr lnr-checkmark-circle checked-in"></span>
             <% end %>
+          <% else %>
+            <span class="lnr lnr-checkmark-circle checked-in"></span>
           <% end %>
     	<% end %>
 
