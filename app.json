@@ -1,0 +1,69 @@
+{
+  "name": "check",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "ADMIN_ID": {
+      "required": true
+    },
+    "CLIENT_UID": {
+      "required": true
+    },
+    "GMAIL_PASS": {
+      "required": true
+    },
+    "GMAIL_USERNAME": {
+      "required": true
+    },
+    "HEROKU_POSTGRESQL_BLACK_URL": {
+      "required": true
+    },
+    "HEROKU_POSTGRESQL_ORANGE_URL": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "MAINTENANCE": {
+      "required": true
+    },
+    "PAPERTRAIL_API_TOKEN": {
+      "required": true
+    },
+    "PASSWORD": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "REDISCLOUD_URL": {
+      "required": true
+    },
+    "SECRET_KEY": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    },
+    "USERNAME": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "papertrail",
+    "heroku-postgresql",
+    "heroku-postgresql",
+    "rediscloud"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}
