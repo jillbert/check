@@ -22,7 +22,7 @@ index do
     link_to(e.name, administrator_event_path(e))
   end
   column "Nation" do |e|
-    e.nation.name
+    e.nation.name unless e.nation.nil?
   end
   column "RSVPs" do |e|
     e.rsvps.count

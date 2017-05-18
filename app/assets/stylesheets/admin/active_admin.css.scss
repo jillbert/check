@@ -7,16 +7,16 @@
 // For example, to change the sidebar width:
 // $sidebar-width: 242px;
 
+$theme-primary: #465da2;
+$theme-accent: #64cbed;
+$theme-accent-fallback: #50E3C2;
+
 // Active Admin's got SASS!
 @import "active_admin/mixins";
-@import "active_admin/base";
+
+@import "active_material";
 
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
-
-#header {
-  background-image: linear-gradient(45deg, #465da2, #27345b);
-  text-shadow: none;
-}

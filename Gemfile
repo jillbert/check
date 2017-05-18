@@ -29,6 +29,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
+  gem 'pry-rails'
 end
 
 gem 'foundation-rails'
@@ -53,6 +54,7 @@ gem 'figaro'
 
 gem 'activeadmin', '1.0.0.pre5'
 gem 'kaminari'
+gem "active_material", github: "vigetlabs/active_material"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -20,7 +20,7 @@ index do
   selectable_column
   column :email
   column "Nation" do |u|
-    u.nation.name
+    u.nation.name unless u.nation.nil?
   end
   column "Created" do |u|
     u.created_at

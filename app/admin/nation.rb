@@ -21,7 +21,7 @@ index do
   selectable_column
   column :name
   column "Owner" do |n|
-    User.find(n.user_id).email
+    User.find(n.user_id).email unless User.where(id: n.user_id).empty?
   end
   column "Events" do |n|
     n.events.count
