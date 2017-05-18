@@ -56,6 +56,7 @@ gem 'activeadmin', '1.0.0.pre5'
 gem 'kaminari'
 gem "active_material", github: "vigetlabs/active_material"
 
+gem 'nationbuilder-rb', require: 'nationbuilder'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
