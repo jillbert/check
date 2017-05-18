@@ -5,6 +5,9 @@
   <div class="field">
     <%= password_field_tag :password, "", placeholder: "Password"  %>
   </div>
+  <div class="terms text-center">
+    <small>By logging in you are agreeing to the Check <a href="http://www.cstreet.ca/check_terms_of_service">Terms of Service.</a></small>
+  </div>
   <div class="actions">
 	   <%= button_tag(type: "submit", class: "no-style check-login user-sessions-new") do %>
 	       <span class="lnr lnr-arrow-right-circle"></span>
