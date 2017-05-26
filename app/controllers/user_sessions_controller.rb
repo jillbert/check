@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
   skip_before_filter :require_login, except: [:destroy]
-  
+
   def new
     if logged_in?
       check_credential
@@ -15,8 +15,8 @@ class UserSessionsController < ApplicationController
   def create
     if @user = login(params[:email], params[:password])
       if @user.active
-        nation = Nation.where(user_id: @user.id).first
-        credential = Credential.find_by nation_id: nation.id
+        nation = Nation.find_by(user_id: @user.id)
+        credential = Credential.find_by(nation_id: nation.id) unless nation.nil?
 
         set_current_nation(nation.id)
 
