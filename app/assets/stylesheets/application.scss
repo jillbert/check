@@ -135,6 +135,14 @@ h3 {
   display: block;
 }
 
+.strikethrough {
+    display: inline;
+}
+
+span.lnr.lnr-checkmark-circle {
+    float: right;
+}
+
 .selection-button {
   border-bottom: 3px solid white;
   text-align: center;
