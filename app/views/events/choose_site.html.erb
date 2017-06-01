@@ -1,5 +1,7 @@
 <% if @error %>
-<%= @error.first %>
+<% @error.each do |error| %>
+<%= error %>
+<% end %>
 <% else %>
 <h3 class="check-title">Choose your site</h3>
 
