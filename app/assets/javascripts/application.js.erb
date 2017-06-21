@@ -12,22 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
-//= require dataTables/jquery.dataTables.foundation
-//= require foundation
 //= require_directory .
 
 var table;
 
 $(function(){
-	$(document).foundation({
-		abide: {
-			patterns: {
-				user_phone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-				user_email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-			},
-		}
-	})
+
 });
 
 function addRSVP() {

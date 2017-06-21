@@ -2,14 +2,46 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import "colours";
+.login-container {
+  padding-top: 143px;
+  text-align: center;
+  color: white;
 
-.app {
-  overflow: hidden;
-}
-.login-form {
-  margin-top: 100px;
-}
-.terms {
-  margin-bottom: 100px;
+  .login-logo {
+    margin: auto;
+    margin-bottom: 27px;
+
+    img {
+      width: 72px;
+      height: 72px;
+    }
+  }
+
+  input {
+    width: 200px;
+    height: 45px;
+    margin: auto;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+  }
+  label {
+    font-family: 'Alright Sans Light';
+    text-align: left;
+    font-size: 10px;
+    line-height: 12px;
+    width: 200px;
+  }
+  .login-btn {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+    height: 54px;
+    margin-bottom: 9px;
+  }
+  small a {
+      color: white;
+      font-size: 13.5px;
+      text-decoration: underline;
+      font-family: 'Alright Sans Light';
+    }
 }

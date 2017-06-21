@@ -3,136 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-    <link href="//cloud.webtype.com/css/f3a5aac8-1919-4d5c-b564-8fe3712600ae.css" rel="stylesheet" type="text/css" />
+    <!-- <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> -->
+    <!-- <link href="//cloud.webtype.com/css/f3a5aac8-1919-4d5c-b564-8fe3712600ae.css" rel="stylesheet" type="text/css" /> -->
     <title><%= content_for?(:title) ? yield(:title) : "Check by cStreet" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-
-  <% if ENV["MAINTENANCE"] == "Y" && logged_in? == true && current_user.id != 1 %>
-  <body class="maintenance">
-    <div class="row">
-      <div class="medium-8 small-centered columns">
-        <h2 style="margin-top: 100px;">We're currently doing some neccessary maintenance and will be back online in a bit. Stay tuned!</h2 class="center">
-      </div>
-    </div>
-  </body>
-  <% else %>
   <body>
-    <div class="row">
-      <div class="medium-12 small-centered columns app">
-        <div class="<% if (controller.controller_name == 'events' || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>navbar<% else %>navbar stripped<% end %>">
+    <header>
 
-          <% if (controller.controller_name == 'events' || controller.controller_name == 'rsvps' || controller.controller_name == "people") && controller.controller_name != "users" && controller.controller_name != "password_resets" %>
-
-            <nav>
-              <ul>
-                <li>
-                  <%= link_to(image_tag("checkapp_logo.svg", class:"logo"), choose_site_path) %>
-                </li>
-                <li>
-                  <%= link_to logout_path do %>
-                    <%= render 'layouts/check_logout' %>
-                    Logout
-                  <% end %>
-                </li>
-                <li>
-
-                  <% back = nil %>
-                  <% button_enabled = true %>
-                  <% if controller.controller_name == 'rsvps' %>
-                    <% if controller.action_name == 'index' %>
-                      <% back = choose_event_path %>
-                    <% elsif controller.action_name == 'show' %>
-                      <% back = rsvps_path %>
-                    <% else %>
-                      <% back = rsvps_path %>
-                    <% end %>
-                  <% elsif controller.controller_name == 'people' %>
-                    <% if controller.action_name == 'show' %>
-                      <% back = rsvps_path %>
-                    <% end %>
-                  <% elsif controller.controller_name == 'events' %>
-                    <% button_enabled = false %>
-                    <% if controller.action_name == "choose_event" %>
-                      <% back = choose_site_path %>
-                    <% else %>
-                      <% back = nil %>
-                    <% end %>
-                  <% end %>
-
-                  <% if back != nil %>
-                    <%= link_to back do %>
-                      <%= render 'layouts/check_goback' %>Go Back
-                    <% end %>
-                  <% else %>
-                    <div class="button-disabled">
-                      <%= render 'layouts/check_goback' %>Go Back
-                    </div>
-                  <% end %>
-                </li>
-                <li>
-                  <% if button_enabled %>
-                    <%= link_to(rsvps_cache_path, class: "activate-thinking to-cache", data: {event: @current_event.id}) do %>
-                      <%= render 'layouts/check_refresh' %>Refresh
-                    <% end %>
-                  <% else %>
-                    <div class="button-disabled">
-                      <%= render 'layouts/check_refresh' %>Refresh
-                    </div>
-                  <% end %>
-                </li>
-                <li>
-                  <% if button_enabled %>
-                    <%= link_to(sync_path, class: "activate-thinking") do %>
-                      <%= render 'layouts/check_sync' %>Status
-                    <% end %>
-                  <% else %>
-                    <div class="button-disabled">
-                      <%= render 'layouts/check_sync' %>Status
-                    </div>
-                  <% end %>
-                </li>
-              </ul>
-            </nav>
-          <% else %>
-            <%= image_tag "checkapp_logo.svg", class:"logo" %>
-          <% end %>
-        <% if flash.count > 0 %>
-        <div class="row" style="padding: 15px 0">
-          <div class="small-12 centered columns">
-            <% flash.each do |type, message| %>
-              <%= content_tag :div, class: "alert-box info alert-#{type}", data: {alert:''} do %>
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <%= message %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        <% end %>
-        </div>
-
-        <%= yield %>
-      </div>
-      <div id="modal" class="reveal-modal" data-reveal aria-labelledby="" aria-hidden="true" role="dialog">
-        <a class="close-reveal-modal" aria-label="Close"><span class='lnr lnr-cross-circle'></span>Close</a>
-      </div>
-    </div>
-    <%= javascript_include_tag "application" %>
-    <div id="thinking">
-      <h3 class="check-title">
-        <span class="message">Retrieving your list... <span class="percent"></span></span>
-        <br/>
-        Thank you for your patience.
-
-      </h3>
-      <div class="cssload-jumping">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-    </div>
+    </header>
+    <%= yield %>
+    <footer>
+      
+    </footer>
   </body>
-  <% end %>
 </html>
