@@ -4,10 +4,10 @@ class UserSessionsController < ApplicationController
   def new
     if logged_in?
       check_credential
-      if @credential
-        redirect_back_or_to(choose_site_path)
-      end
+      redirect_back_or_to(choose_site_path) if @credential
     else
+      @noheader = true
+      @nofooter = true
       @user = User.new
     end
   end
@@ -20,7 +20,7 @@ class UserSessionsController < ApplicationController
 
         set_current_nation(nation.id)
 
-        if(credential)
+        if credential
           set_current_credential(credential.id)
           redirect_back_or_to(choose_site_path, notice: 'Login successful')
         else
@@ -29,7 +29,7 @@ class UserSessionsController < ApplicationController
       else
         logout
         destroy_currents
-        redirect_to(login_path, notice: "Sorry your account has been suspended. If you think is in error, please contact check@cstreet.ca.")
+        redirect_to(login_path, notice: 'Sorry your account has been suspended. If you think is in error, please contact check@cstreet.ca.')
       end
 
     else
@@ -44,14 +44,11 @@ class UserSessionsController < ApplicationController
     redirect_to(login_path, notice: 'Logged out!')
   end
 
-
   private
 
   def destroy_currents
     session[:current_nation] = nil
     session[:current_event] = nil
     session[:credential_id] = nil
-
   end
-
 end

@@ -1,9 +1,14 @@
-<% if @error %>
-<%= @error %>
-<% else %>
-<h3 class="check-title">Choose your site</h3>
+<div class="container">
 
-  <% @sites.each do |s| %>
-  <%= link_to "#{s['name']}", choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'selection-button'  %>
+  <% if @error %>
+    <%= @error %>
+  <% else %>
+
+    <% @sites.each do |s| %>
+      <div class="site">
+        <%= link_to "#{s['name'][0..37]}", choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'selection-button black'  %>
+      </div>
+    <% end %>
+
   <% end %>
-<% end %>
+</div>

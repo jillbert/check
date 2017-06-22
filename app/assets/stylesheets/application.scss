@@ -19,6 +19,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 
 $blue1: rgba(10, 196, 248, 1);
 $blue2: rgba(101, 204, 238, 1);
@@ -50,11 +51,12 @@ $darkgrey: rgba(124, 124, 124, 1);
         }
 
 * {
-  font-family: 'Alright Sans Regular', sans-serif;
+  font-family: 'Alright Sans Light', sans-serif;
 }
+
 html {
   height: 100% !important;
-  background-image: linear-gradient(50deg, #65CCEE 0%, #9DAAD7 100%);
+  background: white;
 }
 
 body {
@@ -63,4 +65,82 @@ body {
 
 .navy {
   background-color: $navy !important;
+}
+
+a {
+  color: rgba(124, 124, 124, 1);
+  text-decoration: none;
+}
+a.black {
+  color: black;
+}
+
+.container {
+  font-size: 14px;
+  padding: 0 !important;
+  margin-bottom: 52px;
+
+  div {
+    padding: 21px 0;
+    padding-left: 50px;
+    border-bottom: 1px solid #EDEDED;
+
+    i {
+      float: right;
+      padding-right: 50px;
+
+    }
+    i:before {
+      vertical-align: sub;
+    }
+  }
+}
+
+header {
+  background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%);
+
+  img {
+    width: 27px;
+    height: 27px;
+    margin: 9px;
+    margin-left: 15px;
+  }
+}
+
+footer {
+  height: 52px;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 7px;
+  text-transform: uppercase;
+  color: $grey9;
+  border-top: 1px solid #EDEDED;
+
+  .icons {
+    margin-top: 10px;
+    margin-left: 75px;
+    margin-right: 75px;
+    margin-bottom: 10px;
+    text-align: center;
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
+    p {
+      margin-top: 8px;
+    }
+  }
+
+  .add-rsvp {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .icons > div {
+    display: inline-block;
+  }
+
 }

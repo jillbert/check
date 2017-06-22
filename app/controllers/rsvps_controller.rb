@@ -1,5 +1,4 @@
 class RsvpsController < ApplicationController
-
   include ApplicationHelper
   include RsvpsHelper
   include PeopleHelper
@@ -10,27 +9,27 @@ class RsvpsController < ApplicationController
 
   def index
     @syncing = false
-    if(@current_event.sync_status == "pending")
+    if @current_event.sync_status == 'pending'
       @syncing = true
     else
       @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
+      @letters = []
+      @rsvps.each { |rsvp| @letters << rsvp.person.last_name[0].upcase.strip }
+      @letters.uniq!.sort_by!(&:downcase) unless @letters.empty?
       get_count
-      if @rsvps.size > 0
-        @rsvps.order( 'last_name DESC')
-      end
+      @rsvps.order('last_name DESC') unless @rsvps.empty?
     end
   end
 
   def cache
     # create_cache
     # redirect_to rsvps_path
-    @current_event.update_attributes(sync_status: "pending", sync_percent: 0, sync_date: DateTime.now)
+    @current_event.update_attributes(sync_status: 'pending', sync_percent: 0, sync_date: DateTime.now)
     Resque.enqueue(Sync, params[:id], session[:current_site], session[:credential_id])
 
     respond_to do |format|
-      format.json { render :json => {:status => "started"}}
+      format.json { render json: { status: 'started' } }
     end
-
   end
 
   def show
@@ -38,31 +37,28 @@ class RsvpsController < ApplicationController
 
     @rsvp = Rsvp.find(params[:id])
     @add_guests = add_guests(@rsvp)
-
   end
 
   def check_in
-  	@rsvp = Rsvp.find(params[:id])
+    @rsvp = Rsvp.find(params[:id])
     @rsvp.update_attribute('attended', true)
     nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
-  	if nationbuilder_rsvp[:status]
-  		respond_to do |format|
-  		  format.js {}
-  		end
-  	else
-  	end
+    if nationbuilder_rsvp[:status]
+      respond_to do |format|
+        format.js {}
+      end
+    end
   end
 
   def check_out
-  	@rsvp = Rsvp.find(params[:id])
+    @rsvp = Rsvp.find(params[:id])
     @rsvp.update_attribute('attended', false)
     nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
-  	if nationbuilder_rsvp[:status]
-  		respond_to do |format|
-  		  format.js {}
-  		end
-  	else
-  	end
+    if nationbuilder_rsvp[:status]
+      respond_to do |format|
+        format.js {}
+      end
+    end
   end
 
   # def check_out
@@ -82,14 +78,10 @@ class RsvpsController < ApplicationController
     @nb = check_sync
     @same = []
 
-
     @rsvps.each do |r|
-      if r.rsvpNBID
-        @nb.each do |n|
-          if n['id'] == r.rsvpNBID
-            @same << r
-          end
-        end
+      next unless r.rsvpNBID
+      @nb.each do |n|
+        @same << r if n['id'] == r.rsvpNBID
       end
     end
 
@@ -104,29 +96,28 @@ class RsvpsController < ApplicationController
     end
 
     get_count
-
   end
 
   private
 
   def has_current_site_and_event
-    unless session[:current_site]
-      redirect_to choose_site_path
-    else
-      unless session[:current_event]
-        redirect_to choose_event_path
+    if session[:current_site]
+      if session[:current_event]
+        true
       else
-        return true
+        redirect_to choose_event_path
       end
+    else
+      redirect_to choose_site_path
     end
   end
 
   def is_owner
     if current_user.nation.id != Rsvp.find(params[:id]).person.nation_id
       begin
-        redirect_to(:back, flash: { error: "Sorry, you don't have access to this information"})
+        redirect_to(:back, flash: { error: "Sorry, you don't have access to this information" })
       rescue ActionController::RedirectBackError
-        redirect_to(:root, flash: { error: "Sorry, you don't have access to this information"})
+        redirect_to(:root, flash: { error: "Sorry, you don't have access to this information" })
       end
     end
   end

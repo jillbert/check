@@ -12,12 +12,35 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-
-    </header>
+    <% unless @noheader %>
+      <header>
+        <%= link_to(image_tag("logo"), landing_path) %>
+      </header>
+    <% end %>
     <%= yield %>
-    <footer>
-      
-    </footer>
+    <% unless @nofooter %>
+      <footer>
+        <div class="icons">
+          <div class="check-in">
+            <%= link_to rsvps_path do %>
+              <%= image_tag "Icon/Checkmark/Grey" %>
+              <p>Check In</p>
+            <% end %>
+          </div>
+          <div class="add-rsvp">
+            <%= link_to new_rsvp_path do %>
+              <%= image_tag "Icon/Add/Grey" %>
+              <p>Add RSVP</p>
+            <% end %>
+          </div>
+          <div class="settings">
+            <%= link_to edit_user_path(current_user) do %>
+              <%= image_tag "Icon/Gear/Grey" %>
+              <p>Settings</p>
+            <% end %>
+          </div>
+        </div>
+      </footer>
+    <% end %>
   </body>
 </html>

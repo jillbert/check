@@ -1,3 +1,30 @@
 // Place all the styles related to the rsvps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.search {
+  padding: 12px 50px !important;
+  position: relative;
+
+  input {
+    background: rgba(10, 196, 248, 0.1);
+    border: none;
+    border-radius: 5px;
+    width: 220px;
+  }
+
+  i {
+    position: absolute;
+    right: 5px;
+    color: #0AC4F8;
+  }
+
+}
+
+.letter-separator {
+  font-size: 10px;
+  color: #7C7C7C;
+  height: 18px;
+  padding: 4px 15px !important;
+  border: none !important;
+}

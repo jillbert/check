@@ -1,0 +1,25 @@
+.loading {
+  margin-top: 143px;
+  color: white;
+  text-align: center;
+  padding: 0 !important;
+
+  .logo {
+    margin: 0 auto;
+    margin-bottom: 45px;
+
+    img {
+      width: 72px;
+      height: 72px;
+    }
+  }
+
+  .loading-quote {
+    font-size: 13.5px;
+    margin: 0 44px;
+    .name {
+      font-size: 10px;
+    }
+  }
+
+}

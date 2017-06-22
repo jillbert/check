@@ -6,6 +6,8 @@
   padding-top: 143px;
   text-align: center;
   color: white;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 
   .login-logo {
     margin: auto;
@@ -25,6 +27,7 @@
     border: none;
     background-color: rgba(255,255,255,0.2);
     color: white;
+    box-shadow: none;
   }
   label {
     font-family: 'Alright Sans Light';
@@ -34,7 +37,6 @@
     width: 200px;
   }
   .login-btn {
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
     height: 54px;
     margin-bottom: 9px;
   }
