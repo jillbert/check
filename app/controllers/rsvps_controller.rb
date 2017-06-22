@@ -12,13 +12,19 @@ class RsvpsController < ApplicationController
     if @current_event.sync_status == 'pending'
       @syncing = true
     else
+      @page = 'rsvps'
       @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
       @letters = []
       @rsvps.each { |rsvp| @letters << rsvp.person.last_name[0].upcase.strip }
-      @letters.uniq!.sort_by!(&:downcase) unless @letters.empty?
+      @letters.sort_by!(&:downcase) unless @letters.empty?
+      @letters.uniq!
       get_count
       @rsvps.order('last_name DESC') unless @rsvps.empty?
     end
+  end
+
+  def new
+    @page = 'new-rsvp'
   end
 
   def cache

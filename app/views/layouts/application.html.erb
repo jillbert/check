@@ -14,7 +14,25 @@
   <body>
     <% unless @noheader %>
       <header>
-        <%= link_to(image_tag("logo"), landing_path) %>
+        <%= link_to landing_path do %>
+          <%= image_tag "logo" %>
+        <% end %>
+        <% if @current_event %>
+        <div class="current-event">
+          <p>
+            <% if @current_event.name.length > 30 %>
+              <%= @current_event.name[0..30] + "..." %>
+            <% else %>
+              <%= @current_event.name %>
+            <% end %>
+          </p>
+          <small><%= @current_event.start_time.to_formatted_s(:long) %></small>
+        </div>
+        <div class="refresh">
+          <%= link_to(image_tag("Icon/Refresh/White"), sync_path) %>
+          <small>Refresh</small>
+        </div>
+        <% end %>
       </header>
     <% end %>
     <%= yield %>
@@ -23,20 +41,39 @@
         <div class="icons">
           <div class="check-in">
             <%= link_to rsvps_path do %>
-              <%= image_tag "Icon/Checkmark/Grey" %>
-              <p>Check In</p>
+              <% if @page != "rsvps" %>
+                <%= image_tag "Icon/Checkmark/Grey" %>
+                <p>Check In</p>
+              <% else %>
+                <%= image_tag "Icon/Checkmark/Color" if @page == "rsvps" %>
+                <p style="color: #0AC4F8">Check In</p>
+              <% end %>
             <% end %>
           </div>
           <div class="add-rsvp">
+            <% if @page != "new-rsvp" %>
+              <%= link_to new_rsvp_path do %>
+                <%= image_tag "Icon/Add/Grey" %>
+                <p>Add RSVP</p>
+              <% end %>
+            <% else %>
             <%= link_to new_rsvp_path do %>
-              <%= image_tag "Icon/Add/Grey" %>
-              <p>Add RSVP</p>
+              <%= image_tag "Icon/Add/Color" %>
+              <p style="color: #0AC4F8">Add RSVP</p>
+            <% end %>
             <% end %>
           </div>
           <div class="settings">
+            <% if @page != "settings" %>
+              <%= link_to edit_user_path(current_user) do %>
+                <%= image_tag "Icon/Gear/Grey" %>
+                <p>Settings</p>
+              <% end %>
+            <% else %>
             <%= link_to edit_user_path(current_user) do %>
-              <%= image_tag "Icon/Gear/Grey" %>
-              <p>Settings</p>
+              <%= image_tag "Icon/Gear/Color" %>
+              <p style="color: #0AC4F8">Settings</p>
+            <% end %>
             <% end %>
           </div>
         </div>

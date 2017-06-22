@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :same_user, only: [:show, :edit, :update, :destroy]
-  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: [:new, :create]
-  skip_before_filter :require_login, only: [:new, :create, :activate, :confirm]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :same_user, only: %i[show edit update destroy]
+  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create]
+  skip_before_filter :require_login, only: %i[new create activate confirm]
   # GET /users
   # GET /users.json
   def index
@@ -12,8 +11,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -24,6 +22,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @page = 'settings'
     @nation = Nation.find_by user_id: current_user.id
   end
 
@@ -39,7 +38,7 @@ class UsersController < ApplicationController
       flash[:error] = @user.errors
     end
   end
-  
+
   # POST /users
   # POST /users.json
   def create
@@ -87,7 +86,7 @@ class UsersController < ApplicationController
     if @user = User.load_from_activation_token(@token)
       if @user.update_attributes(user_params)
         @user.activate!
-        redirect_to login_url, :notice => 'Your account is now activated.'
+        redirect_to login_url, notice: 'Your account is now activated.'
       else
         render :activate
       end
@@ -97,18 +96,18 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def same_user
-      redirect_to root_path if (current_user != @user && current_user.id != 1)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :active, nation_attributes: [:id, :name, :url, :client_uid, :secret_key, :user_id])
-    end
+  def same_user
+    redirect_to root_path if current_user != @user && current_user.id != 1
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :active, nation_attributes: %i[id name url client_uid secret_key user_id])
+  end
 end

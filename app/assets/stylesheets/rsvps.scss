@@ -5,6 +5,7 @@
 .search {
   padding: 12px 50px !important;
   position: relative;
+  border-bottom: none !important;
 
   input {
     background: rgba(10, 196, 248, 0.1);
@@ -16,12 +17,48 @@
   i {
     position: absolute;
     right: 5px;
+    bottom: 17px;
     color: #0AC4F8;
   }
 
 }
 
+.rsvp {
+  width: 90%;
+  height: 63px;
+  margin: auto;
+  position: relative;
+
+  small {
+    display: block;
+    font-size: 10px;
+    color: #B0B0B0;
+    position: absolute;
+    bottom: 9px;
+  }
+
+  .guest-dots {
+    display: block;
+    position: absolute;
+    top: 5px;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  .guest-oval {
+    display: inline;
+  }
+
+  .check {
+    float: right;
+    margin-right: 23px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
 .letter-separator {
+  background: #FCFCFC;
   font-size: 10px;
   color: #7C7C7C;
   height: 18px;

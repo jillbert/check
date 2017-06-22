@@ -98,12 +98,53 @@ a.black {
 
 header {
   background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%);
+  position: relative;
 
   img {
     width: 27px;
     height: 27px;
     margin: 9px;
     margin-left: 15px;
+  }
+
+  .current-event {
+    position: absolute;
+    top: 9px;
+    width: 100%;
+    margin: auto;
+    color: white;
+    text-align: center;
+
+    p {
+      margin-bottom: 0;
+      font-size: 14px;
+      line-height: 14px;
+    }
+    small {
+      font-size: 10px;
+      line-height: 10px;
+    }
+  }
+  .refresh {
+    position: absolute;
+    right: 22px;
+    top: 7px;
+    color: white;
+    height: 33px;
+    width: 33px;
+
+    img {
+      height: 18px;
+      width: 18px;
+      margin: 0 8px;
+    }
+    small {
+      display: block;
+      font-size: 7px;
+      text-align: center;
+      margin-top: 5px;
+    }
+
   }
 }
 

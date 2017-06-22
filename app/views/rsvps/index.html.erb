@@ -1,6 +1,8 @@
 <div class="container">
   <div class="search">
-    <input type="text" name="search" value=""><i class="fa fa-search" aria-hidden="true"></i></input>
+    <input type="text" name="search" value="">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </input>
   </div>
   <% @letters.each do |letter| %>
     <div class="letter-separator">
@@ -8,9 +10,22 @@
     </div>
     <% @rsvps.each do |rsvp| %>
       <% if rsvp.person.last_name[0].upcase == letter %>
+        <%= link_to rsvp_path(rsvp) do %>
         <div class="rsvp">
+          <div class="guest-dots">
+            <% rsvp.guests_count.times do %>
+              <%= image_tag("Oval", class: "guest-oval") %>
+            <% end %>
+          </div>
+
           <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
+          <%= image_tag("Icon/Checkmark/Grey", class: "check") if !rsvp.attended %>
+          <%= image_tag("Icon/Checkmark/Color", class: "check") if rsvp.attended %>
+          <% if rsvp.volunteer %>
+            <small>Volunteer</small>
+          <% end %>
         </div>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

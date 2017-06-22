@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon / Add</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#3A7BD5" offset="0%"></stop>
+            <stop stop-color="#1CA8EB" offset="51.2336575%"></stop>
+            <stop stop-color="#00D2FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-/-Add-/" fill-rule="nonzero" fill="url(#linearGradient-1)">
+            <g id="Icon-/-Add">
+                <path d="M13.5,0.04923 C6.0714,0.04923 0.0492,6.07143 0.0492,13.50003 C0.0492,20.92863 6.0702,26.95083 13.5,26.95083 C20.9286,26.95083 26.9508,20.92983 26.9508,13.50003 C26.9508,6.07143 20.9286,0.04923 13.5,0.04923 Z M13.5,25.56453 C6.8472,25.56453 1.4355,20.15283 1.4355,13.50003 C1.4355,6.84723 6.8472,1.43553 13.5,1.43553 C20.1528,1.43553 25.5645,6.84723 25.5645,13.50003 C25.5645,20.15283 20.1528,25.56453 13.5,25.56453 Z M14.19258,7.29723 L12.80742,7.29723 L12.80742,12.80733 L7.29732,12.80733 L7.29732,14.19249 L12.80742,14.19249 L12.80742,19.70259 L14.19258,19.70259 L14.19258,14.19249 L19.70268,14.19249 L19.70268,12.80733 L14.19258,12.80733 L14.19258,7.29723 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
