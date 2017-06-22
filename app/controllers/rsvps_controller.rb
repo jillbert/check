@@ -25,6 +25,7 @@ class RsvpsController < ApplicationController
 
   def new
     @page = 'new-rsvp'
+    @rsvp = Rsvp.new
   end
 
   def cache

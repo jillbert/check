@@ -65,3 +65,100 @@
   padding: 4px 15px !important;
   border: none !important;
 }
+
+.rsvp-show {
+  h3 {
+    margin: 0;
+  }
+
+  div {
+    border: none !important;
+  }
+
+  .rsvp-person, .email, .tickets {
+    padding: 0 15px !important;
+    margin-top: 27px;
+  }
+
+  .rsvp-person {
+    h3 {
+      font-size: 24px;
+    }
+  }
+
+  .email {
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .check {
+    float: right;
+  }
+
+  small {
+    margin-bottom: 9px;
+    font-size: 10px;
+    color: #B0B0B0;
+  }
+
+}
+
+.add-rsvp {
+  position: relative;
+
+  .add-rsvp-header {
+    margin: 15px 15px 0 15px;
+    padding: 0;
+    border: none;
+    font-size: 10px;
+    text-transform: uppercase;
+    img {
+      margin-right: 9px;
+      margin-top: 9px;
+    }
+  }
+
+  .add-rsvp-form {
+    padding: 0 15px !important;
+    border: none;
+
+    .form-group {
+      padding: 0;
+      border-bottom: none;
+      margin: 18px 0;
+
+      label, input {
+        display: block;
+      }
+    }
+
+    input {
+      width: 290px;
+      height: 45px;
+      background-color: rgba(10, 196, 248, 0.1);
+      border: none;
+      border-radius: 5px;
+    }
+
+    label {
+      font-size: 10px;
+      color: #B0B0B0;
+      margin-bottom: 9px;
+    }
+
+    .btn {
+      background-color: #65CCEE;
+      color: white;
+      font-size: 18px;
+    }
+
+  }
+  .close-btn {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 18px;
+    height: 18px;
+  }
+}

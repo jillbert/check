@@ -1,6 +1,6 @@
 <div class="container">
   <div class="search">
-    <input type="text" name="search" value="">
+    <input type="text" name="search" value="" id="datatable-search">
       <i class="fa fa-search" aria-hidden="true"></i>
     </input>
   </div>
@@ -19,8 +19,10 @@
           </div>
 
           <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
-          <%= image_tag("Icon/Checkmark/Grey", class: "check") if !rsvp.attended %>
-          <%= image_tag("Icon/Checkmark/Color", class: "check") if rsvp.attended %>
+          <%= link_to rsvps_check_in_path(rsvp) do %>
+            <%= image_tag("Icon/Checkmark/Grey", class: "check") if !rsvp.attended %>
+            <%= image_tag("Icon/Checkmark/Color", class: "check") if rsvp.attended %>
+          <% end %>
           <% if rsvp.volunteer %>
             <small>Volunteer</small>
           <% end %>
