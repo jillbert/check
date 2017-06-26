@@ -1,0 +1,33 @@
+<div class="container add-rsvp">
+  <div class="add-rsvp-header">
+    <small>Add RSVP</small>
+    <%= image_tag "X", class: "close-btn" %>
+  </div>
+  <div class="add-rsvp-form">
+
+    <%= bootstrap_form_for @rsvp do |r| %>
+
+      <%= fields_for :person, @rsvp.person do |p| %>
+        <div class="form-group">
+          <%= p.label :first_name %>
+          <%= p.text_field :first_name %>
+        </div>
+        <div class="form-group">
+          <%= p.label :last_name %>
+          <%= p.text_field :last_name %>
+        </div>
+        <div class="form-group">
+          <%= p.label :email %>
+          <%= p.email_field :email %>
+        </div>
+        <div class="form-group">
+          <%= p.label :phone_number %>
+          <%= p.text_field :phone_number %>
+        </div>
+      <% end %>
+
+      <%= r.submit "Save" %>
+    <% end %>
+  </div>
+
+</div>

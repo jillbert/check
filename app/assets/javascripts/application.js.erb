@@ -66,46 +66,6 @@ $(document).ready(function() {
 		})
 	})
 
-	$('.checkin').on('click', function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		console.log($(this).data('id'))
-		var url = '/rsvps/check_in';
-		$.ajax({
-			type: "POST",
-		  url: url,
-		  dataType: 'script',
-		  data: {
-		  	'id': $(this).data('id'),
-		  	'attended': true
-		  },
-		  success: function(result) {
-		    eval(result);
-				window.location.replace("http://www.checkbycstreet.com/rsvps");
-		  },
-		});
-	});
-
-$('.checkout').on('click', function(e) {
-	e.preventDefault();
-	e.stopPropagation();
-	console.log($(this).data('id'))
-	var url = '/rsvps/check_out';
-	$.ajax({
-		type: "POST",
-	  url: url,
-	  dataType: 'script',
-	  data: {
-	  	'id': $(this).data('id'),
-	  	'attended': false
-	  },
-	  success: function(result) {
-	    eval(result);
-			window.location.replace("http://www.checkbycstreet.com/rsvps");
-	  	},
-		});
-	});
-
 	$('.edit').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();

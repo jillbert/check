@@ -1,0 +1,44 @@
+$(document).ready(function() {
+  // initializeSyncRsvpList();
+
+  $('.checkin').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var url = '/rsvps/check_in';
+    $.ajax({
+      type: "POST",
+      url: url,
+      dataType: 'script',
+      data: {
+        'id': $(this).data('id'),
+        'attended': true
+      }
+    });
+  });
+
+  $('.checkout').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var url = '/rsvps/check_out';
+    $.ajax({
+      type: "POST",
+      url: url,
+      dataType: 'script',
+      data: {
+        'id': $(this).data('id'),
+        'attended': false
+      }
+      });
+    });
+
+})
+
+
+
+function initializeSyncRsvpList() {
+  // DataTable
+  table = $('#synclist').DataTable({
+    "order": [[ 0, 'asc' ]],
+    "paging": false
+  });
+}

@@ -1,0 +1,9 @@
+<% if !rsvp.attended %>
+ <%= link_to("#", class: "checkin", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+    <%= image_tag("Icon/Checkmark/Grey", class: "check") %>
+  <% end %>
+<% else %>
+  <%= link_to("#", class: "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+    <%= image_tag("Icon/Checkmark/Color", class: "check") %>
+  <% end %>
+<% end %>

@@ -10,24 +10,7 @@
     </div>
     <% @rsvps.each do |rsvp| %>
       <% if rsvp.person.last_name[0].upcase == letter %>
-        <%= link_to rsvp_path(rsvp) do %>
-        <div class="rsvp">
-          <div class="guest-dots">
-            <% rsvp.guests_count.times do %>
-              <%= image_tag("Oval", class: "guest-oval") %>
-            <% end %>
-          </div>
-
-          <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
-          <%= link_to rsvps_check_in_path(rsvp) do %>
-            <%= image_tag("Icon/Checkmark/Grey", class: "check") if !rsvp.attended %>
-            <%= image_tag("Icon/Checkmark/Color", class: "check") if rsvp.attended %>
-          <% end %>
-          <% if rsvp.volunteer %>
-            <small>Volunteer</small>
-          <% end %>
-        </div>
-        <% end %>
+          <%= render 'rsvp', rsvp: rsvp, letter: letter %>
       <% end %>
     <% end %>
   <% end %>

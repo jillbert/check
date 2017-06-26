@@ -77,23 +77,9 @@ a.black {
 
 .container {
   font-size: 14px;
-  padding: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
   margin-bottom: 52px;
-
-  div {
-    padding: 21px 0;
-    padding-left: 50px;
-    border-bottom: 1px solid #EDEDED;
-
-    i {
-      float: right;
-      padding-right: 50px;
-
-    }
-    i:before {
-      vertical-align: sub;
-    }
-  }
 }
 
 header {

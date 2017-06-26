@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_login
 
-  delegate :access_token, :to => :credential
+  delegate :access_token, to: :credential
 
   def authenticate_admin_user!
     redirect_to root_path unless current_user.id == ENV['ADMIN_ID'].to_i
@@ -30,9 +30,9 @@ class ApplicationController < ActionController::Base
   def has_credential?
     nation = Nation.find_by user_id: current_user.id
     credential = Credential.find_by nation_id: nation.id
-    if !credential
+    unless credential
       redirect_to authorize_path(nation_id: current_user.nation.id)
-      flash[:error] = "Please authenticate."
+      flash[:error] = 'Please authenticate.'
     end
   end
 
@@ -41,20 +41,18 @@ class ApplicationController < ActionController::Base
   end
 
   def check_credential
-    begin
-      response = token.get("/api/v1/people/me", :headers => standard_headers)
-    rescue => ex
-      cred = Credential.find_by_id(session[:credential_id])
-      cred.destroy if cred
-      @credential = nil
-      redirect_to authorize_path(nation_id: current_user.nation.id)
-    else
-      @credential ||= Credential.find_by_id(session[:credential_id])
-    end
+    response = token.get('/api/v1/people/me', headers: standard_headers)
+  rescue => ex
+    cred = Credential.find_by_id(session[:credential_id])
+    cred.destroy if cred
+    @credential = nil
+    redirect_to authorize_path(nation_id: current_user.nation.id)
+  else
+    @credential ||= Credential.find_by_id(session[:credential_id])
   end
 
   def token_for_transactions(credential)
-    return credential.access_token
+    credential.access_token
   end
 
   helper_method :nation
@@ -64,7 +62,7 @@ class ApplicationController < ActionController::Base
   end
 
   def standard_headers
-    { "Accept" => "application/json", "Content-Type" => "application/json" }
+    { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
   end
 
   def set_current_nation(id)
@@ -78,7 +76,7 @@ class ApplicationController < ActionController::Base
   private
 
   def not_authenticated
-    redirect_to login_path, alert: "Please login first"
+    redirect_to login_path, alert: 'Please login first'
   end
 
   def credential_params

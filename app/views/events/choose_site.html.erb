@@ -6,7 +6,11 @@
 
     <% @sites.each do |s| %>
       <div class="site">
-        <%= link_to "#{s['name'][0..37]}", choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'selection-button black'  %>
+        <% if s['name'].length > 30 %>
+          <%= link_to "#{s['name'][0..30]}...", choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'selection-button black'  %>
+        <% else %>
+          <%= link_to "#{s['name']}", choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'selection-button black'  %>
+        <% end %>
       </div>
     <% end %>
 

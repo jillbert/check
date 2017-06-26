@@ -11,23 +11,35 @@
     background: rgba(10, 196, 248, 0.1);
     border: none;
     border-radius: 5px;
-    width: 220px;
+    width: 100%;
   }
 
   i {
     position: absolute;
-    right: 5px;
+    right: 60px;
     bottom: 17px;
     color: #0AC4F8;
   }
 
 }
 
-.rsvp {
+.rsvp, .site {
   width: 90%;
   height: 63px;
   margin: auto;
   position: relative;
+  padding: 21px 0;
+  padding-left: 50px;
+  border-bottom: 1px solid #EDEDED;
+
+  i {
+    float: right;
+    padding-right: 50px;
+
+  }
+  i:before {
+    vertical-align: sub;
+  }
 
   small {
     display: block;
@@ -139,6 +151,9 @@
       background-color: rgba(10, 196, 248, 0.1);
       border: none;
       border-radius: 5px;
+      padding: 13px;
+      font-size: 18px;
+      font-family: "Alright Sans Regular"
     }
 
     label {
