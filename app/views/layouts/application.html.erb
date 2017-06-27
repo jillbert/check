@@ -7,8 +7,8 @@
     <!-- <link href="//cloud.webtype.com/css/f3a5aac8-1919-4d5c-b564-8fe3712600ae.css" rel="stylesheet" type="text/css" /> -->
     <title><%= content_for?(:title) ? yield(:title) : "Check by cStreet" %></title>
 
-    <%= stylesheet_link_tag(asset_path("application")) %>
-    <%= javascript_include_tag(asset_path("application")) %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
