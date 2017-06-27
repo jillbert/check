@@ -33,7 +33,7 @@
       <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
     <% end %>
     <% @current_event.rsvps.where(host_id: @rsvp.id).where(attended: true).each do %>
-      <%= image_tag(asset_path("Oval Color.svg")), class: "guest-oval guest-oval-checked") %>
+      <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
     <% end %>
 
     <% @current_event.rsvps.where(host_id: @rsvp.id).each do |rsvp| %>

@@ -4,21 +4,21 @@ class OauthController < ApplicationController
     credential = current_nation.credentials.create
     credential.request_access_token!(params[:code], callback_url)
     session[:credential_id] = credential.id
-    flash[:success] = "Nation authenticated"
+    flash[:success] = 'Nation authenticated'
     redirect_to nations_path
   end
 
   def authorize
     credential = Credential.find_by nation_id: params[:nation_id]
-    if credential == nil
+    if credential.nil?
       set_current_nation(params[:nation_id])
 
       redirect_to client.auth_code.authorize_url(
-        :redirect_uri => callback_url,
-        :state => current_nation.id
+        redirect_uri: callback_url,
+        state: current_nation.id
       )
     else
-      flash[:alert] = "Nation is already authenticated."
+      flash[:alert] = 'Nation is already authenticated.'
       redirect_to choose_site_path
     end
   end
