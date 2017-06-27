@@ -15,19 +15,20 @@
     <% unless @noheader %>
       <header>
         <%= link_to landing_path do %>
-          <%= image_tag(asset_path("logo.svg")) %>
+            <%= image_tag(asset_path("logo.svg")) %>
+
+          <% if @current_event %>
+          <div class="current-event">
+            <p>
+              <% if @current_event.name.length > 30 %>
+                <%= @current_event.name[0..30] + "..." %>
+              <% else %>
+                <%= @current_event.name %>
+              <% end %>
+            </p>
+            <small><%= @current_event.start_time.to_formatted_s(:long) %></small>
+          </div>
         <% end %>
-        <% if @current_event %>
-        <div class="current-event">
-          <p>
-            <% if @current_event.name.length > 30 %>
-              <%= @current_event.name[0..30] + "..." %>
-            <% else %>
-              <%= @current_event.name %>
-            <% end %>
-          </p>
-          <small><%= @current_event.start_time.to_formatted_s(:long) %></small>
-        </div>
         <div class="refresh">
           <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
           <small>Refresh</small>
