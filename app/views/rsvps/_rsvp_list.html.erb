@@ -14,7 +14,7 @@
                 <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
               <% end %>
               <% (rsvp.guests_count - @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count).times do %>
-                <%= image_tag(asset_path("Oval.svg")), class: "guest-oval") %>
+                <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
               <% end %>
             </div>
           <% end %>
