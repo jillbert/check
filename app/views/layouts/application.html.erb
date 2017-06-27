@@ -15,7 +15,7 @@
     <% unless @noheader %>
       <header>
         <%= link_to landing_path do %>
-          <%= image_tag "logo" %>
+          <%= image_tag(asset_path("logo.svg")) %>
         <% end %>
         <% if @current_event %>
         <div class="current-event">
