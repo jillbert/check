@@ -8,26 +8,49 @@
     <h3>
       <%= @rsvp.person.first_name + " " + @rsvp.person.last_name %>
 
-      <%= link_to rsvps_check_in_path(@rsvp) do %>
-        <%= image_tag("Icon/Checkmark/Grey", class: "check") if !@rsvp.attended %>
-        <%= image_tag("Icon/Checkmark/Color", class: "check") if @rsvp.attended %>
-      <% end %>
+      <%= render 'rsvp', rsvp: @rsvp %>
+
     </h3>
   </div>
 
   <div class="email">
     <small>Email</small>
     <h3>
-      <%= @rsvp.person.email %>
+      <%= @rsvp.person.email if @rsvp.person.email %>
+      <%= "N/A" unless @rsvp.person.email %>
     </h3>
-
   </div>
 
-  <!-- <div class="tickets">
+  <div class="tickets">
     <small style="color:#7C7C7C">TICKETS</small>
-    <h3>
-      Tickets
-    </h3>
-  </div> -->
+    <%= render "ticket", rsvp: @rsvp %>
+  </div>
+
+  <div class="guests">
+    <small style="color:#7C7C7C">GUESTS</small>
+
+    <% (@rsvp.guests_count - @current_event.rsvps.where(host_id: @rsvp.id).where(attended: true).count).times do %>
+      <%= image_tag("Oval", class: "guest-oval") %>
+    <% end %>
+    <% @current_event.rsvps.where(host_id: @rsvp.id).where(attended: true).each do %>
+      <%= image_tag("Oval Color", class: "guest-oval guest-oval-checked") %>
+    <% end %>
+
+    <% @current_event.rsvps.where(host_id: @rsvp.id).each do |rsvp| %>
+      <% @rsvp = rsvp %>
+      <%= link_to rsvp_path(rsvp) do %>
+        <%= render "ticket" %>
+      <% end %>
+    <% end %>
+
+    <% @rsvp = Rsvp.find(params[:id]) %>
+    <% @i = 1 %>
+    <% (@rsvp.guests_count - @current_event.rsvps.where(host_id: @rsvp.id).where(attended: true).count).times do %>
+      <%= link_to new_rsvp_path + '?event_id=' + @rsvp.event.id.to_s + "&host_id=" + @rsvp.id.to_s do %>
+        <%= render "ticket" %>
+      <% end %>
+      <% @i += 1 %>
+    <% end %>
+  </div>
 
 </div>

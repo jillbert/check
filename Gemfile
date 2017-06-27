@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.3.3"
+ruby '2.3.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 # Use sqlite3 as the database for Active Record
@@ -18,10 +18,10 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+gem 'spring', group: :development
 
 group :development do
   gem 'better_errors'
@@ -33,8 +33,9 @@ end
 # gem 'foundation-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'bootstrap_form'
+gem 'nested_form_fields'
 
 gem 'jquery-datatables-rails', '~> 3.1.1'
 
@@ -55,7 +56,7 @@ gem 'figaro'
 
 gem 'activeadmin', '1.0.0.pre5'
 gem 'kaminari'
-gem "active_material", github: "vigetlabs/active_material"
+gem 'active_material', github: 'vigetlabs/active_material'
 
 gem 'nationbuilder-rb', require: 'nationbuilder'
 # Use ActiveModel has_secure_password

@@ -142,6 +142,10 @@ GEM
     multipart-post (2.0.0)
     nationbuilder-rb (1.6.0)
       httpclient (~> 2.7)
+    nested_form_fields (0.8)
+      coffee-rails (>= 3.2.1)
+      jquery-rails
+      rails (>= 3.2.0)
     netrc (0.11.0)
     oauth (0.4.7)
     oauth2 (1.0.0)
@@ -276,6 +280,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   nationbuilder-rb
+  nested_form_fields
   oauth2
   pg
   pry-rails

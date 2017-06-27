@@ -1,25 +1,11 @@
-<div class="rsvp" id="rsvp_<%= rsvp.id %>">
-  <% if rsvp.guests_count > 0 %>
-    <div class="guest-dots">
-      <% rsvp.guests_count.times do %>
-        <%= image_tag("Oval", class: "guest-oval") %>
-      <% end %>
-    </div>
+<% if !rsvp.canceled %>
+  <% if !rsvp.attended %>
+   <%= link_to("#", class: "checkin", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+      <%= image_tag("Icon/Checkmark/Grey", class: "check", id:"rsvp_#{rsvp.id}") %>
+    <% end %>
+  <% else %>
+    <%= link_to("#", class: "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+      <%= image_tag("Icon/Checkmark/Color", class: "check", id:"rsvp_#{rsvp.id}") %>
+    <% end %>
   <% end %>
-    <%= link_to rsvp_path(rsvp) do %>
-      <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
-    <% end %>
-    <% if !rsvp.attended %>
-     <%= link_to("#", class: "checkin", data: {id: rsvp.id}, :method => "post", remote: true) do %>
-        <%= image_tag("Icon/Checkmark/Grey", class: "check") %>
-      <% end %>
-   <% else %>
-      <%= link_to("#", class: "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
-        <%= image_tag("Icon/Checkmark/Color", class: "check") %>
-      <% end %>
-   <% end %>
-
-    <% if rsvp.volunteer %>
-      <small>Volunteer</small>
-    <% end %>
-</div>
+<% end %>

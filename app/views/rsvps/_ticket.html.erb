@@ -1,0 +1,48 @@
+<% if !@i %>
+
+  <% if !@rsvp.attended %>
+    <div class="ticket" id="ticket-<%= @rsvp.id %>">
+  <% elsif @rsvp.canceled %>
+    <div class="ticket ticket-canceled" id="ticket-<%= @rsvp.id %>">
+  <% elsif @rsvp.attended %>
+    <div class="ticket ticket-checked" id="ticket-<%= @rsvp.id %>">
+  <% end %>
+
+      <div class="left-circle-cover circle-cover"></div>
+      <div class="circle left-circle"></div>
+
+      <div class="ticket-name">
+        <%= @rsvp.person.first_name.titleize %>'s Ticket
+      </div>
+
+      <div class="circle right-circle"></div>
+      <div class="right-circle-cover circle-cover"></div>
+    </div>
+
+<% elsif @rsvp.host_id %>
+
+    <div class="ticket">
+      <div class="left-circle-cover circle-cover"></div>
+      <div class="circle left-circle"></div>
+      <div class="ticket-name">
+        <%= @rsvp.person.first_name.titleize %>'s Ticket
+      </div>
+      <div class="circle right-circle"></div>
+      <div class="right-circle-cover circle-cover"></div>
+    </div>
+
+<% elsif !@rsvp.canceled %>
+
+    <div class="ticket">
+      <div class="left-circle-cover circle-cover"></div>
+      <div class="circle left-circle"></div>
+
+      <div class="ticket-name">
+        Guest #<%= @i %>
+      </div>
+
+      <div class="circle right-circle"></div>
+      <div class="right-circle-cover circle-cover"></div>
+    </div>
+
+<% end %>

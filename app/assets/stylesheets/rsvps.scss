@@ -23,6 +23,13 @@
 
 }
 
+.canceled {
+  a {
+    color: #B0B0B0 !important;
+  }
+
+}
+
 .rsvp, .site {
   width: 90%;
   height: 63px;
@@ -84,7 +91,7 @@
   }
 
   div {
-    border: none !important;
+    border: none;
   }
 
   .rsvp-person, .email, .tickets {
@@ -109,7 +116,6 @@
   }
 
   small {
-    margin-bottom: 9px;
     font-size: 10px;
     color: #B0B0B0;
   }
@@ -145,6 +151,10 @@
       }
     }
 
+    .form-control {
+      box-shadow: none;
+    }
+
     input {
       width: 290px;
       height: 45px;
@@ -175,5 +185,79 @@
     right: 9px;
     width: 18px;
     height: 18px;
+  }
+}
+
+.ticket {
+  position: relative;
+  border: 1px solid #EDEDED !important;
+  height: 73px;
+  width: 290px;
+  margin: 9px 0;
+
+  .circle {
+    position: absolute;
+    top: 35%;
+    height: 19px;
+    width: 19px;
+    border: 1px solid #EDEDED;
+    border-radius: 50%;
+    z-index: 10;
+    background-color: white;
+  }
+  .right-circle {
+    right: -10px;
+  }
+  .left-circle {
+    left: -10px;
+  }
+  .circle-cover {
+    position: absolute;
+    top: 35%;
+    background-color: white;
+    height: 20px;
+    width: 20px;
+  }
+  .left-circle-cover {
+    left: -21px;
+    z-index: 20;
+  }
+  .right-circle-cover {
+    right: -21px;
+    z-index: 20;
+  }
+
+  .ticket-name {
+    font-size: 13.5px;
+    color: #B0B0B0;
+    margin-left: 27px;
+    margin-top: 27px;
+  }
+
+}
+.ticket-checked {
+  border-color: #65CCEE !important;
+
+  .ticket-name {
+    color: #0AC4F8 !important;
+  }
+
+  .circle {
+    border-color: #65CCEE !important;
+  }
+}
+.ticket-canceled {
+  border-color: #EDEDED !important;
+  text-decoration: line-through;
+  text-decoration-color: #B0B0B0;
+}
+
+.guests {
+  padding: 0 15px !important;
+  margin-top: 18px;
+
+  .guest-oval {
+    float: right;
+    margin-left: 5px;
   }
 }

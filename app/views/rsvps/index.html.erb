@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container rsvps">
   <div class="search">
     <input type="text" name="search" value="" id="datatable-search">
       <i class="fa fa-search" aria-hidden="true"></i>
@@ -9,8 +9,31 @@
       <%= letter %>
     </div>
     <% @rsvps.each do |rsvp| %>
-      <% if rsvp.person.last_name[0].upcase == letter %>
-          <%= render 'rsvp', rsvp: rsvp, letter: letter %>
+      <% if rsvp.person && rsvp.person.last_name[0].upcase == letter %>
+      <% if !rsvp.canceled %><div class="rsvp"><% end %>
+        <% if rsvp.canceled %><div class="rsvp canceled"><% end %>
+          <% if rsvp.guests_count > 0 %>
+            <div class="guest-dots">
+              <% @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count.times do %>
+                <%= image_tag("Oval Color", class: "guest-oval guest-oval-checked") %>
+              <% end %>
+              <% (rsvp.guests_count - @current_event.rsvps.where(host_id: rsvp.person.id).where(attended: true).count).times do %>
+                <%= image_tag("Oval", class: "guest-oval") %>
+              <% end %>
+            </div>
+          <% end %>
+            <%= link_to rsvp_path(rsvp) do %>
+              <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
+            <% end %>
+
+            <%= render 'rsvp', rsvp: rsvp %>
+
+            <% if rsvp.canceled %>
+              <small>Canceled</small>
+            <% elsif rsvp.volunteer %>
+              <small>Volunteer</small>
+            <% end %>
+        </div>
       <% end %>
     <% end %>
   <% end %>

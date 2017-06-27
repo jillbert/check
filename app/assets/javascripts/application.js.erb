@@ -12,15 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require nested_form_fields
 //= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
 //= require_directory .
 
 var table;
-
-$(function(){
-
-});
 
 function addRSVP() {
 	var url = '/people/new';
@@ -38,7 +35,7 @@ function addRSVP() {
 	})
 }
 
-$(document).ready(function() {
+$(function(){
 
 	$('.search').on('click', function() {
 		$('.search .overlay .text').fadeOut(function() {

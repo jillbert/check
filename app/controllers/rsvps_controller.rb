@@ -15,7 +15,7 @@ class RsvpsController < ApplicationController
       @page = 'rsvps'
       @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
       @letters = []
-      @rsvps.each { |rsvp| @letters << rsvp.person.last_name[0].upcase.strip }
+      @rsvps.each { |rsvp| @letters << rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
       @letters.sort_by!(&:downcase) unless @letters.empty?
       @letters.uniq!
       get_count
@@ -26,6 +26,26 @@ class RsvpsController < ApplicationController
   def new
     @page = 'new-rsvp'
     @rsvp = Rsvp.new
+    @person = Person.new
+    @host = Rsvp.find(params[:host_id]) if params[:host_id]
+    @event = if params[:event_id]
+               Event.find(params[:event_id])
+             else
+               @current_event
+             end
+  end
+
+  def create
+    @rsvp = Rsvp.new(rsvp_params)
+
+    if @rsvp.save
+      @rsvp.update_attributes(nation_id: @current_event.nation_id, guests_count: 0)
+      @rsvp.update_attributes(host_id: @host.id, event_id: @event.id) if @host && @event
+      @person = Person.find_or_create_by(email: rsvp_params[:email], nation_id: @rsvp.nation_id)
+      @rsvp.update_attributes(person_id: @person.id)
+
+    end
+    redirect_to rsvp_path(@rsvp)
   end
 
   def cache
@@ -40,10 +60,11 @@ class RsvpsController < ApplicationController
   end
 
   def show
-    check_nb_update(Rsvp.find(params[:id]).person)
-
     @rsvp = Rsvp.find(params[:id])
+
+    # check_nb_update(Rsvp.find(params[:id]).person)
     @add_guests = add_guests(@rsvp)
+    @guests = Rsvp.where(host_id: @rsvp.id)
   end
 
   def check_in
@@ -68,44 +89,19 @@ class RsvpsController < ApplicationController
     end
   end
 
-  # def check_out
-  #  @rsvp = Rsvp.find(params[:id])
-  #  @rsvp.update_attribute('attended', false)
-  #  nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @rsvp.person)
-  #  if nationbuilder_rsvp[:status]
-  #    respond_to do |format|
-  #      format.js {}
-  #    end
-  #  else
-  #  end
-  # end
-
   def sync
-    @rsvps = Rsvp.where(nation_id: @current_event.nation_id, event_id: @current_event.id).to_a
-    @nb = check_sync
-    @same = []
-
-    @rsvps.each do |r|
-      next unless r.rsvpNBID
-      @nb.each do |n|
-        @same << r if n['id'] == r.rsvpNBID
-      end
+    site = session[:current_site]
+    Rsvp.sync(@current_event, site)
+    respond_to do |format|
+      format.js {}
     end
-
-    @same.each do |s|
-      @rsvps.delete(s)
-      @nb.delete_if { |n| n['id'] == s.rsvpNBID }
-    end
-
-    @nb_person = []
-    @nb.each do |n|
-      @nb_person << get_person(n)
-    end
-
-    get_count
   end
 
   private
+
+  def rsvp_params
+    params.require(:rsvp).permit(:event_id, :guests_count, :canceled, :attended, :rsvpNBID, :nation_id, :volunteer, :is_private, :shift_ids, :host_id, :person_id, :ticket_type, :tickets_sold, :person, person_attributes: %i[first_name last_name email phone_number])
+  end
 
   def has_current_site_and_event
     if session[:current_site]

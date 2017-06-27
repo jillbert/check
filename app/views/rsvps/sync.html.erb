@@ -6,9 +6,7 @@
   <% else %>
   <p>Sync status: No sync yet</p>
   <% end %>
-  <p id="attending">
-    <%= render('attending', attending: @attending, total: @total) %>
-  </p>
+
 </div>
 
 <table id="synclist" role="grid" style="display:none">
@@ -26,7 +24,7 @@
     <% @rsvps.each do |r| %>
     <tr>
       <td>
-        <%= render('rsvp_row', r: r) %>
+        <%= render('rsvp', r: r) %>
       </td>
     </tr>
     <% end %>
@@ -64,10 +62,9 @@
     <% @same.each do |r| %>
       <tr>
         <td class="whiteout">
-          <%= render('rsvp_row', r: r) %>
+          <%= render('rsvp', r: r) %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-

@@ -67,12 +67,12 @@ class EventsController < ApplicationController
   end
 
   def set_event
-    if params[:event]
-      token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event]
+    if params[:event_id]
+      token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event_id]
       response = token.get(token_get_path, headers: standard_headers, params: { page: 1, per_page: 100, limit: 100 })
       event = JSON.parse(response.body)['event']
 
-      token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event]
+      token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event_id]
       puts clean_event_json(event)
       response = token.put(token_put_path, headers: standard_headers, body: clean_event_json(event))
 

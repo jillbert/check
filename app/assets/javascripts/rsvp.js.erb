@@ -1,7 +1,7 @@
 $(document).ready(function() {
   // initializeSyncRsvpList();
 
-  $('.checkin').on('click', function(e) {
+  $('.container').on('click', '.checkin', function(e){
     e.preventDefault();
     e.stopPropagation();
     var url = '/rsvps/check_in';
@@ -10,13 +10,13 @@ $(document).ready(function() {
       url: url,
       dataType: 'script',
       data: {
-        'id': $(this).data('id'),
-        'attended': true
-      }
+          'id': $(this).data('id'),
+          'attended': true
+        }
     });
   });
 
-  $('.checkout').on('click', function(e) {
+  $('.container').on('click', '.checkout', function(e){
     e.preventDefault();
     e.stopPropagation();
     var url = '/rsvps/check_out';
@@ -25,15 +25,23 @@ $(document).ready(function() {
       url: url,
       dataType: 'script',
       data: {
-        'id': $(this).data('id'),
-        'attended': false
-      }
-      });
+          'id': $(this).data('id'),
+          'attended': false
+        }
     });
+  });
+
+  $('header').on('click', '.refresh', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var url = '/sync';
+    $.ajax({
+      type: "GET",
+      url: url
+    });
+  });
 
 })
-
-
 
 function initializeSyncRsvpList() {
   // DataTable

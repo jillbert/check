@@ -1,2 +1,2 @@
 $("#rsvp_<%= @rsvp.id %>").replaceWith("<%= escape_javascript(render 'rsvps/rsvp', rsvp: @rsvp) %>");
-console.log("Hello");
+$("#ticket-<%= @rsvp.id %>").addClass("ticket-checked");
