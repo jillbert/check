@@ -29,7 +29,7 @@
           <small><%= @current_event.start_time.to_formatted_s(:long) %></small>
         </div>
         <div class="refresh">
-          <%= link_to(image_tag("Icon/Refresh/White"), "#") %>
+          <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
           <small>Refresh</small>
         </div>
         <% end %>
@@ -49,10 +49,10 @@
           <div class="check-in">
             <%= link_to rsvps_path do %>
               <% if @page != "index" %>
-                <%= image_tag "Icon/Checkmark/Grey" %>
+                <%= image_tag(asset_path("Icon/Checkmark/Grey.svg")) %>
                 <p>Check In</p>
               <% else %>
-                <%= image_tag "Icon/Checkmark/Color" if @page == "index" %>
+                <%= image_tag(asset_path("Icon/Checkmark/Color.svg")) if @page == "index" %>
                 <p style="color: #0AC4F8">Check In</p>
               <% end %>
             <% end %>
@@ -60,12 +60,12 @@
           <div class="add-rsvp">
             <% if @page != "new-rsvp" %>
               <%= link_to new_rsvp_path do %>
-                <%= image_tag "Icon/Add/Grey" %>
+                <%= image_tag(asset_path("Icon/Add/Grey.svg")) %>
                 <p>Add RSVP</p>
               <% end %>
             <% else %>
             <%= link_to new_rsvp_path do %>
-              <%= image_tag "Icon/Add/Color" %>
+              <%= image_tag(asset_path("Icon/Add/Color.svg")) %>
               <p style="color: #0AC4F8">Add RSVP</p>
             <% end %>
             <% end %>
@@ -73,12 +73,12 @@
           <div class="settings">
             <% if @page != "settings" %>
               <%= link_to edit_user_path(current_user) do %>
-                <%= image_tag "Icon/Gear/Grey" %>
+                <%= image_tag(asset_path("Icon/Gear/Grey.svg")) %>
                 <p>Settings</p>
               <% end %>
             <% else %>
             <%= link_to edit_user_path(current_user) do %>
-              <%= image_tag "Icon/Gear/Color" %>
+              <%= image_tag(asset_path("Icon/Gear/Color.svg")) %>
               <p style="color: #0AC4F8">Settings</p>
             <% end %>
             <% end %>

@@ -11,10 +11,10 @@
           <% if rsvp.guests_count > 0 %>
             <div class="guest-dots">
               <% @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count.times do %>
-                <%= image_tag("Oval Color", class: "guest-oval guest-oval-checked") %>
+                <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
               <% end %>
               <% (rsvp.guests_count - @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count).times do %>
-                <%= image_tag("Oval", class: "guest-oval") %>
+                <%= image_tag(asset_path("Oval.svg")), class: "guest-oval") %>
               <% end %>
             </div>
           <% end %>
