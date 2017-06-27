@@ -39,13 +39,13 @@ $darkgrey: rgba(124, 124, 124, 1);
 
 @font-face {
         font-family: 'Alright Sans Light';
-        src:url('AlrightSans-Light.otf');
+        src: asset-url('AlrightSans-Light.otf');
         font-weight: normal;
         font-style: normal;
         }
 @font-face {
         font-family: 'Alright Sans Regular';
-        src:url('AlrightSans-Regular.otf');
+        src: asset-url('AlrightSans-Regular.otf');
         font-weight: normal;
         font-style: normal;
         }
