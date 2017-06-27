@@ -10,7 +10,7 @@
 <div class="container login-container">
 
   <div class="login-logo">
-    <%= image_tag "logo" %>
+    <%= image_tag(asset_path("logo")) %>
   </div>
 
   <%= bootstrap_form_tag url: user_sessions_path do |f| %>
