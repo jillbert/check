@@ -29,10 +29,17 @@
             <small><%= @current_event.start_time.to_formatted_s(:long) %></small>
           </div>
         <% end %>
-        <div class="refresh">
-          <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
-          <small>Refresh</small>
-        </div>
+          <% if @page == "index" %>
+            <div class="refresh">
+              <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
+              <small>Refresh</small>
+            </div>
+          <% elsif @page == "choose_event" %>
+          <div class="refresh_events">
+            <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
+            <small>Refresh</small>
+          </div>
+          <% end %>
         <% end %>
       </header>
     <% end %>

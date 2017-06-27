@@ -63,6 +63,10 @@ $(function(){
 		})
 	})
 
+	$('.refresh_events').on('click', function(){
+		location.reload();
+	})
+
 	$('.edit').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
