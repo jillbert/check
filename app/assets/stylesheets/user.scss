@@ -1,0 +1,51 @@
+.container.user-settings {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+
+  .form-group {
+    padding: 0;
+    border-bottom: none;
+    margin: 18px 0;
+
+    label, input {
+      display: block;
+    }
+  }
+
+  .form-control {
+    box-shadow: none;
+  }
+
+  input {
+    width: 95%;
+    margin: auto;
+    height: 45px;
+    background-color: rgba(10, 196, 248, 0.1);
+    border: none;
+    border-radius: 5px;
+    padding: 13px;
+    font-size: 18px;
+    font-family: "Alright Sans Regular"
+  }
+
+  label {
+    font-size: 10px;
+    color: #B0B0B0;
+    margin-bottom: 9px;
+  }
+
+  .btn {
+    background-color: #65CCEE;
+    color: white;
+    font-size: 18px;
+  }
+
+  .edit-user-header {
+    padding: 0;
+    margin-top: 15px;
+    border: none;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+
+}

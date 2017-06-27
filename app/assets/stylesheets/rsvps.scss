@@ -156,7 +156,8 @@
     }
 
     input {
-      width: 290px;
+      width: 95%;
+      margin: auto;
       height: 45px;
       background-color: rgba(10, 196, 248, 0.1);
       border: none;
@@ -192,8 +193,8 @@
   position: relative;
   border: 1px solid #EDEDED !important;
   height: 73px;
-  width: 290px;
-  margin: 9px 0;
+  width: 95%;
+  margin: 9px auto;
 
   .circle {
     position: absolute;

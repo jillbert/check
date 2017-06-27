@@ -35,17 +35,24 @@
         <% end %>
       </header>
     <% end %>
+    <% if @page == "index" %>
+      <div class="search">
+        <input type="text" name="query" id="search">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </input>
+      </div>
+    <% end %>
     <%= yield %>
     <% unless @nofooter %>
       <footer>
         <div class="icons">
           <div class="check-in">
             <%= link_to rsvps_path do %>
-              <% if @page != "rsvps" %>
+              <% if @page != "index" %>
                 <%= image_tag "Icon/Checkmark/Grey" %>
                 <p>Check In</p>
               <% else %>
-                <%= image_tag "Icon/Checkmark/Color" if @page == "rsvps" %>
+                <%= image_tag "Icon/Checkmark/Color" if @page == "index" %>
                 <p style="color: #0AC4F8">Check In</p>
               <% end %>
             <% end %>

@@ -1,6 +1,18 @@
 $(document).ready(function() {
   // initializeSyncRsvpList();
 
+  $('#search').on("input", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var url = '/rsvps';
+    var q = $('#search').serialize()
+    $.get(url, q, function(html) {
+      console.log(html);
+      $('#rsvp-results').html(html)
+
+    })
+  });
+
   $('.container').on('click', '.checkin', function(e){
     e.preventDefault();
     e.stopPropagation();

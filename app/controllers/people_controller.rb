@@ -27,12 +27,14 @@ class PeopleController < ApplicationController
     nationbuilder_person = send_person_to_nationbuilder(@person)
     if nationbuilder_person[:status]
       @person = Person.import(nationbuilder_person[:person], current_user.nation.id)
-
       @rsvp = Rsvp.create_new_rsvp(session[:current_nation], @current_event.id, @person.id)
 
       nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @person)
-      if nationbuilder_rsvp[:error].include?('signup_id has already been taken')
-        redirect_to rsvp_path(Rsvp.where(event_id: @rsvp.event_id, person_id: @rsvp.person_id).first)
+      if nationbuilder_rsvp[:error] && nationbuilder_rsvp[:error].include?('signup_id has already been taken')
+        create_cache
+        new_rsvp = Rsvp.find_by(person_id: @person.id, event_id: @current_event.id)
+        new_rsvp.update_attributes(host_id: params[:host_id])
+        redirect_to rsvp_path(new_rsvp)
       elsif nationbuilder_rsvp[:status]
         new_person = Person.create_with(last_name: @person.last_name, first_name: @person.first_name, pic: @person.pic)
                            .find_or_create_by(email: @person.email, nbid: @person.nbid)
