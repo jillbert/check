@@ -105,6 +105,11 @@ a.black {
   margin-bottom: 52px;
 }
 
+.event-group {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 header {
   background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%);
   position: relative;
@@ -195,117 +200,117 @@ footer {
 
 }
 
-@media (min-width: 768px) {
-
-  html {
-    background-color: #F5F5F5;
-  }
-
-  header {
-    height: 54px;
-    background-image: none;
-    background-color: #F5F5F5;
-
-    a {
-      position: fixed;
-      top: 9px;
-      left: 15px;
-      z-index: 10;
-
-      img {
-        margin: 0;
-        width: 36px;
-        height: 36px;
-      }
-    }
-  }
-
-  body {
-    margin-left: 348px;
-
-
-    .container {
-      margin-bottom: 0px;
-    }
-
-    .current-event {
-      display: none;
-    }
-
-    .login-container {
-
-      .login-logo {
-        margin-bottom: 76px;
-
-        img {
-          width: 76px;
-          height: 76px;
-        }
-      }
-
-      input, label {
-        width: 283px;
-        text-align: center;
-      }
-
-      .login-btn {
-        margin-top: 36px;
-        width: 200px;
-      }
-
-    }
-
-    .loading {
-      width: 100%;
-
-      .logo img {
-        width: 120px;
-        height: 120px;
-      }
-    }
-
-    .search {
-      max-width: 394px;
-      margin: 22px 110px !important;
-      padding: 0 !important;
-      input {
-        height: 36px;
-      }
-      i {
-        right: 18px;
-        bottom: 12px;
-      }
-    }
-
-    .rsvp {
-      background-color: white;
-      margin-left: 0;
-    }
-
-  }
-
-  footer {
-    position: fixed;
-    top: 0;
-    left: 348px;
-
-    .icons {
-      text-align: left;
-      display: inline-block;
-      margin-left: 27px;
-
-      img, p {
-        display: inline-block;
-        font-size: 9px;
-      }
-      img {
-        width: 27px;
-        height: 27px;
-        margin-right: 9px;
-      }
-      p {
-        margin-top: 10px;
-      }
-    }
-  }
-}
+// @media (min-width: 768px) {
+//
+//   html {
+//     background-color: #F5F5F5;
+//   }
+//
+//   header {
+//     height: 54px;
+//     background-image: none;
+//     background-color: #F5F5F5;
+//
+//     a {
+//       position: fixed;
+//       top: 9px;
+//       left: 15px;
+//       z-index: 10;
+//
+//       img {
+//         margin: 0;
+//         width: 36px;
+//         height: 36px;
+//       }
+//     }
+//   }
+//
+//   body {
+//     margin-left: 348px;
+//
+//
+//     .container {
+//       margin-bottom: 0px;
+//     }
+//
+//     .current-event {
+//       display: none;
+//     }
+//
+//     .login-container {
+//
+//       .login-logo {
+//         margin-bottom: 76px;
+//
+//         img {
+//           width: 76px;
+//           height: 76px;
+//         }
+//       }
+//
+//       input, label {
+//         width: 283px;
+//         text-align: center;
+//       }
+//
+//       .login-btn {
+//         margin-top: 36px;
+//         width: 200px;
+//       }
+//
+//     }
+//
+//     .loading {
+//       width: 100%;
+//
+//       .logo img {
+//         width: 120px;
+//         height: 120px;
+//       }
+//     }
+//
+//     .search {
+//       max-width: 394px;
+//       margin: 22px 110px !important;
+//       padding: 0 !important;
+//       input {
+//         height: 36px;
+//       }
+//       i {
+//         right: 18px;
+//         bottom: 12px;
+//       }
+//     }
+//
+//     .rsvp {
+//       background-color: white;
+//       margin-left: 0;
+//     }
+//
+//   }
+//
+//   footer {
+//     position: fixed;
+//     top: 0;
+//     left: 348px;
+//
+//     .icons {
+//       text-align: left;
+//       display: inline-block;
+//       margin-left: 27px;
+//
+//       img, p {
+//         display: inline-block;
+//         font-size: 9px;
+//       }
+//       img {
+//         width: 27px;
+//         height: 27px;
+//         margin-right: 9px;
+//       }
+//       p {
+//         margin-top: 10px;
+//       }
+//     }
+//   }
+// }

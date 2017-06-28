@@ -30,7 +30,7 @@
 
 }
 
-.rsvp, .site, .choose_site, .choose_event {
+.rsvp, .site, .choose_site, .choose_event, .event {
   width: 90%;
   height: 63px;
   margin: auto;
@@ -76,7 +76,34 @@
   }
 }
 
-.letter-separator {
+.past_events {
+  .event {
+    font-size: 14px;
+    a {
+      color: #7C7C7C;
+    }
+    .event_date {
+      color: #B0B0B0;
+      font-size: 10px;
+    }
+  }
+}
+
+.current_events {
+  .event {
+    font-size: 14px;
+    a {
+      color: black;
+    }
+    .event_date {
+      color: #0AC4F8;
+      font-size: 10px;
+    }
+  }
+}
+
+.list-separator {
+  text-transform: uppercase;
   background: #FCFCFC;
   font-size: 10px;
   color: #7C7C7C;

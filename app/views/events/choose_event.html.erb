@@ -1,4 +1,27 @@
 <% @page = "choose_event" %>
-<%= render "print_event_groups", event_group: @current_events %>
+<div class="container">
 
-<%= render "print_event_groups", event_group: @past_events %>
+  <div class="current_events">
+    <% @current_events.each do |event| %>
+      <div class="event">
+        <%= link_to event[1][0]["name"], set_event_path(event_id: event[1][0]["id"]), method: :get %>
+        <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if !@past_events.empty? %>
+    <div class="past_events">
+      <div class="list-separator">
+        Past Events
+      </div>
+      <% @past_events.each do |event| %>
+        <div class="event">
+          <%= link_to event[1][0]["name"], set_event_path(event_id: event[1][0]["id"]), method: :get %>
+          <%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %>
+
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
