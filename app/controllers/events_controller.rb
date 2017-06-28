@@ -25,6 +25,7 @@ class EventsController < ApplicationController
 
   def choose_event
     session[:current_site] = params[:site] if params[:site]
+    # binding.pry
     if session[:current_site]
       token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
       response = token.get(token_get_path, headers: standard_headers, params: { page: 1, per_page: 100, limit: 100, starting: 14.days.ago.to_s })

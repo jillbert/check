@@ -1,7 +1,11 @@
 <% if session[:current_site] %>
   <%= link_to choose_site_path do %>
     <div class="choose_site">
-      <%= session[:current_site].titleize %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      <% if session[:current_site].length > 30 %>
+        <%= session[:current_site].titleize[0..30]+"..." %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      <% else %>
+        <%= session[:current_site].titleize %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      <% end %>
     </div>
   <% end %>
 
@@ -18,7 +22,11 @@
 
 <%= link_to choose_event_path do %>
   <div class="choose_event">
-    <%= Event.find(session[:current_event]).name.titleize %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    <% if Event.find(session[:current_event]).name.length > 30 %>
+      <%= Event.find(session[:current_event]).name.titleize[0..30]+"..." %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    <% else %>
+      <%= Event.find(session[:current_event]).name.titleize %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    <% end %>
   </div>
 <% end %>
 

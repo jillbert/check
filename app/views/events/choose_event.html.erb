@@ -4,7 +4,11 @@
   <div class="current_events">
     <% @current_events.each do |event| %>
       <div class="event">
-        <%= link_to event[1][0]["name"], set_event_path(event_id: event[1][0]["id"]), method: :get %>
+        <% if event[1][0]["name"].length > 30 %>
+          <%= link_to event[1][0]["name"][0..30]+"...", set_event_path(event_id: event[1][0]["id"]), method: :get %>
+        <% else %>
+          <%= link_to event[1][0]["name"], set_event_path(event_id: event[1][0]["id"]), method: :get %>
+        <% end %>
         <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
       </div>
     <% end %>
@@ -17,9 +21,12 @@
       </div>
       <% @past_events.each do |event| %>
         <div class="event">
-          <%= link_to event[1][0]["name"], set_event_path(event_id: event[1][0]["id"]), method: :get %>
-          <%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %>
-
+          <% if event[1][0]["name"].length > 30 %>
+            <%= link_to event[1][0]["name"][0..30]+"...", set_event_path(event_id: event[1][0]["id"]), method: :get %>
+          <% else %>
+            <%= link_to event[1][0]["name"], set_event_path(event_id: event[1][0]["id"]), method: :get %>
+          <% end %>
+          <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
         </div>
       <% end %>
     </div>
