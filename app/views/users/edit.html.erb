@@ -1,9 +1,15 @@
 <div class="container user-settings">
 
-<div class="edit-user-header">
-  <small>Account Settings</small>
+  <div class="edit-user-header">
+    <small>Account Settings</small>
+  </div>
 
-</div>
+  <hr>
+  <%= link_to "Log out", logout_path, class: "btn btn-block" %>
+  <hr>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+
+
+
 </div>
