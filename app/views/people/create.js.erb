@@ -7,7 +7,6 @@ $(document).bind('ajax:success', function(data, status, xhr) {
        rsvpArray.push($(this).attr('id'))
       });
       if($.inArray("rsvp_<%= @rsvp.id %>", rsvpArray) < 0) {
-        console.log("HERE")
         $('#checked-guests').append("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
       }
 

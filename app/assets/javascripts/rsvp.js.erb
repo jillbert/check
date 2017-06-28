@@ -7,7 +7,6 @@ $(document).ready(function() {
     var url = '/rsvps';
     var q = $('#search').serialize()
     $.get(url, q, function(html) {
-      console.log(html);
       $('#rsvp-results').html(html)
 
     })
