@@ -21,6 +21,24 @@
     <%= f.label :password_confirmation %>
     <%= f.text_field :password_confirmation %>
   </div>
+  <%= link_to "Log out", logout_path, class: "btn btn-block" %>
+
+  <hr>
+  <div class="edit-user-header">
+    <small>Branding</small>
+  </div>
+  <div class="form-group">
+    <%= f.label "Header Color" %>
+    <%= f.text_field :color %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Logo URL" %>
+    <%= f.text_field :logo %>
+  </div>
+  <hr>
+  <div class="edit-user-header">
+    <small>Nation Settings</small>
+  </div>
   <%= f.fields_for :nation do |n| %>
     <div class="form-group">
       <%= n.label :name, "Nation's Name" %>
@@ -31,6 +49,7 @@
       <%= n.text_field :url %>
     </div>
   <% end %>
+  <%= link_to "Change Site & Event", landing_path, class: "btn btn-block" %>
+  <hr>
   <%= f.submit "Save", class: "btn btn-block" %>
-
 <% end %>

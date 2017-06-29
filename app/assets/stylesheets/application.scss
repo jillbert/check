@@ -75,11 +75,11 @@ a.black {
   color: black;
 }
 
-.hidden {
-  display: none;
+label {
+  text-transform: capitalize;
 }
 
-.sidebar {
+.hidden {
   display: none;
 }
 
@@ -111,7 +111,7 @@ a.black {
 }
 
 header {
-  
+
   position: relative;
 
   img {
