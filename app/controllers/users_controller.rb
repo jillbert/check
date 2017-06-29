@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :same_user, only: %i[show edit update destroy]
-  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create]
+  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create index show]
   skip_before_filter :require_login, only: %i[new create activate confirm]
   # GET /users
   # GET /users.json
