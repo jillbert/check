@@ -1,3 +1,5 @@
+@import 'colors';
+
 .container.user-settings {
   padding-left: 15px !important;
   padding-right: 15px !important;
@@ -20,7 +22,7 @@
     width: 95%;
     margin: auto;
     height: 45px;
-    background-color: rgba(10, 196, 248, 0.1);
+    background-color: $paleblue;
     border: none;
     border-radius: 5px;
     padding: 13px;
@@ -30,12 +32,12 @@
 
   label {
     font-size: 10px;
-    color: #B0B0B0;
+    color: $grey9;
     margin-bottom: 9px;
   }
 
   .btn {
-    background-color: #65CCEE;
+    background-color: $blue2;
     color: white;
     font-size: 18px;
   }

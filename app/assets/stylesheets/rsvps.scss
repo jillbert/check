@@ -1,6 +1,4 @@
-// Place all the styles related to the rsvps controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'colors';
 
 .search {
   padding: 12px 50px !important;
@@ -8,7 +6,7 @@
   border-bottom: none !important;
 
   input {
-    background: rgba(10, 196, 248, 0.1);
+    background: $paleblue;
     border: none;
     border-radius: 5px;
     width: 100%;
@@ -18,13 +16,13 @@
     position: absolute;
     right: 60px;
     bottom: 17px;
-    color: #0AC4F8;
+    color: $blue1;
   }
 }
 
 .canceled {
   a {
-    color: #B0B0B0 !important;
+    color: $grey9 !important;
   }
 }
 
@@ -47,7 +45,7 @@
   position: relative;
   padding: 18px 0;
   padding-left: 18px;
-  border-bottom: 1px solid #EDEDED;
+  border-bottom: 1px solid $grey4;
 
   i {
     float: right;
@@ -61,7 +59,7 @@
   small {
     display: block;
     font-size: 10px;
-    color: #B0B0B0;
+    color: $grey9;
     position: absolute;
     bottom: 9px;
   }
@@ -90,10 +88,10 @@
   .event {
     font-size: 14px;
     a {
-      color: #7C7C7C;
+      color: $darkgrey;
     }
     .event_date {
-      color: #B0B0B0;
+      color: $grey9;
       font-size: 10px;
     }
   }
@@ -106,7 +104,7 @@
       color: black;
     }
     .event_date {
-      color: #0AC4F8;
+      color: $blue1;
       font-size: 10px;
     }
   }
@@ -114,9 +112,9 @@
 
 .list-separator {
   text-transform: uppercase;
-  background: #FCFCFC;
+  background: $grey1;
   font-size: 10px;
-  color: #7C7C7C;
+  color: $darkgrey;
   height: 18px;
   padding: 4px 15px !important;
   border: none !important;
@@ -154,7 +152,7 @@
 
   small {
     font-size: 10px;
-    color: #B0B0B0;
+    color: $grey9;
   }
 
 }
@@ -196,7 +194,7 @@
       width: 95%;
       margin: auto;
       height: 45px;
-      background-color: rgba(10, 196, 248, 0.1);
+      background-color: $paleblue;
       border: none;
       border-radius: 5px;
       padding: 13px;
@@ -206,12 +204,12 @@
 
     label {
       font-size: 10px;
-      color: #B0B0B0;
+      color: $grey9;
       margin-bottom: 9px;
     }
 
     .btn {
-      background-color: #65CCEE;
+      background-color: $blue2;
       color: white;
       font-size: 18px;
     }
@@ -228,7 +226,7 @@
 
 .ticket {
   position: relative;
-  border: 1px solid #EDEDED !important;
+  border: 1px solid $grey4 !important;
   height: 73px;
   width: 95%;
   margin: 9px auto;
@@ -238,7 +236,7 @@
     top: 35%;
     height: 19px;
     width: 19px;
-    border: 1px solid #EDEDED;
+    border: 1px solid $grey4;
     border-radius: 50%;
     z-index: 10;
     background-color: white;
@@ -267,27 +265,27 @@
 
   .ticket-name {
     font-size: 13.5px;
-    color: #B0B0B0;
+    color: $grey9;
     margin-left: 27px;
     margin-top: 27px;
   }
 
 }
 .ticket-checked {
-  border-color: #65CCEE !important;
+  border-color: $blue2 !important;
 
   .ticket-name {
-    color: #0AC4F8 !important;
+    color: $blue1 !important;
   }
 
   .circle {
-    border-color: #65CCEE !important;
+    border-color: $blue2 !important;
   }
 }
 .ticket-canceled {
-  border-color: #EDEDED !important;
+  border-color: $grey4 !important;
   text-decoration: line-through;
-  text-decoration-color: #B0B0B0;
+  text-decoration-color: $grey9;
 }
 
 .guests {
