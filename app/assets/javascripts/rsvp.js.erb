@@ -16,8 +16,8 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
-    $(this).hide();
-    $('#loader-'+id).show();
+    // $(this).hide();
+    $('#load-ani-'+id).show();
     var url = '/rsvps/check_in';
     $.ajax({
       type: "POST",
@@ -34,8 +34,8 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
-    $(this).hide();
-    $('#loader-'+id).show();
+    // $(this).hide();
+    $('#load-ani-'+id).show();
     var url = '/rsvps/check_out';
     $.ajax({
       type: "POST",

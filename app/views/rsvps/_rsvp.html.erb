@@ -1,12 +1,11 @@
 <% if !rsvp.canceled %>
   <% if !rsvp.attended %>
-   <%= link_to("#", class: "checkin", data: {id: rsvp.id}, :method => "post", remote: true) do %>
-      <%= image_tag(asset_path("Icon/Checkmark/Grey.svg"), class: "check", id:"rsvp_#{rsvp.id}") %>
+   <%= link_to("#", class: "checkin", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+      <%= render 'loading', id: rsvp.id, status: "checked-out" %>
     <% end %>
   <% else %>
-    <%= link_to("#", class: "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
-      <%= image_tag(asset_path("Icon/Checkmark/Color.svg"), class: "check", id:"rsvp_#{rsvp.id}") %>
+    <%= link_to("#", class: "checkout", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+      <%= render 'loading', id: rsvp.id, status: "checked-in" %>
     <% end %>
   <% end %>
 <% end %>
-<%= render 'loading', id: rsvp.id %>
