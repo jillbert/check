@@ -1,2 +1,4 @@
 $("#rsvp_<%= @rsvp.id %>").replaceWith("<%= escape_javascript(render 'rsvp', rsvp: @rsvp) %>");
 $("#ticket-<%= @rsvp.id %>").removeClass("ticket-checked");
+$('.loader-wrap').hide();
+$('.checkout').show();
