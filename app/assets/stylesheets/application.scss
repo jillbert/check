@@ -216,7 +216,8 @@ footer {
   .sidebar {
     display: block;
     width: 27%;
-    height: 100vw;
+    max-width: 348px;
+    height: 100%;
     background: $grey1;
     margin: 0;
     padding: 0 !important;
