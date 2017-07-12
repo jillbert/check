@@ -1,4 +1,12 @@
-$("#rsvp_<%= @rsvp.id %>").replaceWith("<%= escape_javascript(render 'rsvps/rsvp', rsvp: @rsvp) %>");
+// $("#rsvp_<%= @rsvp.id %>").replaceWith("<%= escape_javascript(render 'rsvps/rsvp', rsvp: @rsvp) %>");
+
+$.each($('.check'), function(index, value){
+  if (value.id === "rsvp_<%= @rsvp.id %>") {
+    $(value).replaceWith("<%= escape_javascript(render 'rsvps/rsvp', rsvp: @rsvp) %>");
+  }
+})
+
+
 $("#ticket-<%= @rsvp.id %>").addClass("ticket-checked");
 $('.loader-animation').hide();
 $("#load-<%= @rsvp.id %>").removeClass("checked-out");

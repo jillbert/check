@@ -48,10 +48,10 @@ class PeopleController < ApplicationController
           format.js {}
           if @host_id
             @add_guests = add_guests(@rsvp.host)
-            format.html { redirect_to rsvp_path(@host_id) }
+            format.html { redirect_to rsvps_path }
           else
             get_count
-            format.html { redirect_to rsvp_path(@rsvp.id) }
+            format.html { redirect_to rsvps_path }
           end
         end
       else

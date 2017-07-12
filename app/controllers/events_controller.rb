@@ -78,6 +78,8 @@ class EventsController < ApplicationController
       response = token.put(token_put_path, headers: standard_headers, body: clean_event_json(event))
 
       session[:current_event] = Event.import(event, current_user.nation.id).id
+      @current_event = Event.find(session[:current_event])
+      Rsvp.sync(@current_event, session[:current_site])
 
       redirect_to rsvps_path
     else

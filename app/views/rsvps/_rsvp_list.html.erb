@@ -10,15 +10,17 @@
         <% if rsvp.canceled %><div class="rsvp canceled"><% end %>
           <% if rsvp.guests_count > 0 %>
             <div class="guest-dots">
-              <% @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count.times do %>
+              <% attended = @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count %>
+              <% attended.times do %>
                 <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
               <% end %>
-              <% (rsvp.guests_count - @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count).times do %>
+
+              <% (rsvp.guests_count - attended).times do %>
                 <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
               <% end %>
             </div>
           <% end %>
-            <%= link_to rsvp_path(rsvp) do %>
+            <%= link_to rsvp_path(rsvp), class: "rsvp-name" do %>
               <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
             <% end %>
 

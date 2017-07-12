@@ -8,11 +8,10 @@ $(document).ready(function() {
     var q = $('#search').serialize()
     $.get(url, q, function(html) {
       $('#rsvp-results').html(html)
-
     })
   });
 
-  $('.container').on('click', '.checkin', function(e){
+  $('html').on('click', '.checkin', function(e){
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
@@ -30,7 +29,7 @@ $(document).ready(function() {
     });
   });
 
-  $('.container').on('click', '.checkout', function(e){
+  $('html').on('click', '.checkout', function(e){
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
@@ -56,6 +55,42 @@ $(document).ready(function() {
       type: "GET",
       url: url
     });
+  });
+
+  $('.container').on('click', '.rsvp-name', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var url = this.attributes.href.value
+    var desktop = true;
+    $.get(url, function(html) {
+      $('.rsvp-show-card').html(html);
+      $('.rsvp-show-card').show();
+      $('.rsvp-name').removeClass("black");
+      $('a[href="' + url + '"]').addClass("black");
+    });
+  });
+
+  $('.container').on('click', '.guests a', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if (this.classList.contains("new-ticket")) {
+      var url = this.attributes.href.value
+      $.get(url, function(html) {
+        $('.rsvp-show-card').html(html);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+      });
+    } else {
+      var url = this.attributes.href.value
+      $.get(url, function(html) {
+        $('.rsvp-show-card').html(html);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+      });
+    }
+  });
+
+  $('.container').on('click', '.rsvp-show-close', function(e){
+    $('.rsvp-show-card').hide();
+    $('.rsvp-name').removeClass("black");
   });
 
 })

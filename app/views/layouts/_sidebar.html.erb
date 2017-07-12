@@ -2,12 +2,14 @@
 
   <% if !current_user %>
     <div class="sidebar-header"></div>
-    <div class="sidebar-filler1"></div>
-    <div class="sidebar-filler2"></div>
+    <div class="sidebar-filler1 sidebar-filler"></div>
+    <div class="sidebar-filler2 sidebar-filler"></div>
   <% end %>
 
   <% if current_user %>
-    <div class="sidebar-header logged-in"></div>
+    <div class="sidebar-header logged-in">
+      <%= image_tag('logo', class: "desktop-logo") %>
+    </div>
       <%= render 'events/landing' %>
   <% end %>
 

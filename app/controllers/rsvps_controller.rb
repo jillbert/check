@@ -15,7 +15,6 @@ class RsvpsController < ApplicationController
 
       if params[:query]
         r = Rsvp.where(event_id: @current_event.id, host_id: nil)
-        # @rsvps = r.joins(:person).where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%")
         @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
       else
         @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
@@ -27,7 +26,6 @@ class RsvpsController < ApplicationController
       @letters.uniq!
       get_count
       @rsvps.order('last_name DESC') unless @rsvps.empty?
-      # binding.pry
       render layout: false if params[:query]
     end
   end
@@ -42,19 +40,21 @@ class RsvpsController < ApplicationController
              else
                @current_event
              end
+   render layout: false
   end
 
   def create
     @rsvp = Rsvp.new(rsvp_params)
-
     if @rsvp.save
-      @rsvp.update_attributes(nation_id: @current_event.nation_id, guests_count: 0)
-      @rsvp.update_attributes(host_id: @host.id, event_id: @event.id) if @host && @event
       @person = Person.find_or_create_by(email: rsvp_params[:email], nation_id: @rsvp.nation_id)
-      @rsvp.update_attributes(person_id: @person.id)
+      if @host && @event
+        @rsvp.update_attributes(person_id: @person.id, nation_id: @current_event.nation_id, guests_count: 0, host_id: @host.id, event_id: @event.id)
+      else
+        @rsvp.update_attributes(person_id: @person.id, nation_id: @current_event.nation_id, guests_count: 0)
+      end
 
     end
-    redirect_to rsvp_path(@rsvp)
+    redirect_to rsvps_path
   end
 
   def cache
@@ -70,10 +70,10 @@ class RsvpsController < ApplicationController
 
   def show
     @rsvp = Rsvp.find(params[:id])
-
     # check_nb_update(Rsvp.find(params[:id]).person)
     @add_guests = add_guests(@rsvp)
     @guests = Rsvp.where(host_id: @rsvp.id)
+    render layout: false
   end
 
   def check_in

@@ -52,10 +52,11 @@ body {
   background-color: $navy !important;
 }
 
-a {
+a, a:hover, a:focus {
   color: $darkgrey;
   text-decoration: none;
 }
+
 a.black {
   color: black;
 }
@@ -66,6 +67,14 @@ label {
 
 .hidden {
   display: none;
+}
+
+.sidebar {
+  display: none;
+}
+
+.form-group {
+  margin-bottom: 18px;
 }
 
 .loading {
@@ -181,6 +190,94 @@ footer {
 
   .icons > div {
     display: inline-block;
+  }
+
+}
+
+@media (min-width: 792px) {
+  html {
+    background: $grey3;
+  }
+
+  .container {
+    width: 100%;
+    padding: 18px !important;
+    margin-bottom: 0;
+  }
+
+  .main {
+    margin-left: 27%;
+  }
+
+  .sidebar {
+    display: block;
+    width: 27%;
+    height: 100vw;
+    background: $grey1;
+    margin: 0;
+    padding: 0 !important;
+    position: fixed;
+    top: 0;
+
+    .sidebar-header {
+      background: $grey3;
+      height: 54px;
+      width: 100%;
+    }
+
+    .logged-in {
+      background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%);
+    }
+
+    .desktop-logo {
+      height: 27px;
+      width: 27px;
+      margin-left: 18px;
+      margin-top: 13.5px;
+    }
+
+    .sidebar-filler {
+      background: $grey3;
+      height: 15px;
+      width: 80%;
+      margin: 27px auto;
+    }
+  }
+
+  .login-container {
+    input, label {
+      width: 270px;
+      text-align: center;
+    }
+  }
+
+  .user-settings, .container.add-rsvp, .container.rsvp-show, .choose-site, .choose-event {
+    width: 50%;
+    margin: 27px auto;
+    background: white;
+  }
+
+  footer {
+    position: fixed;
+    top: 0;
+    left: 27%;
+    border-bottom: $grey4 solid 1px;
+
+    .icons {
+      text-align: left;
+      margin: 13.5px 0 0 27px;
+
+      img {
+        height: 27px;
+        width: 27px;
+      }
+
+      p {
+        display: inline-block;
+        margin-left: 9px;
+        vertical-align: sub;
+      }
+    }
   }
 
 }

@@ -1,10 +1,10 @@
 <% if !rsvp.canceled %>
   <% if !rsvp.attended %>
-   <%= link_to("#", class: "checkin", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+   <%= link_to("#", class: "checkin check", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
       <%= render 'loading', id: rsvp.id, status: "checked-out" %>
     <% end %>
   <% else %>
-    <%= link_to("#", class: "checkout", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+    <%= link_to("#", class: "checkout check", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
       <%= render 'loading', id: rsvp.id, status: "checked-in" %>
     <% end %>
   <% end %>
