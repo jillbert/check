@@ -13,14 +13,14 @@
   </head>
   <body>
     <% unless @noheader %>
-      <% if current_user.color %>
+      <% if current_user && current_user.color %>
         <header style="background: <%= current_user.color %>">
       <% else %>
         <header style="background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%)">
       <% end %>
         <%= link_to landing_path do %>
-          <%= image_tag(current_user.logo) if current_user.logo %>
-          <%= image_tag(asset_path("logo.svg")) if !current_user.logo %>
+          <%= image_tag(current_user.logo) if current_user && current_user.logo %>
+          <%= image_tag(asset_path("logo.svg")) if !current_user || !current_user.logo %>
 
           <% if @current_event %>
           <div class="current-event">
@@ -58,8 +58,8 @@
         </div>
       <% end %>
       <%= yield %>
-    </div>  
-    <% unless @nofooter %>
+    </div>
+    <% unless @nofooter || !current_user %>
       <footer>
         <div class="icons">
           <div class="check-in">
