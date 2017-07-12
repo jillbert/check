@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def edit
     @page = 'settings'
     @nation = Nation.find_by user_id: current_user.id
+    render layout: false
   end
 
   def new_password

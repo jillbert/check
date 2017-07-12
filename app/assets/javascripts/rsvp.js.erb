@@ -63,8 +63,8 @@ $(document).ready(function() {
     var url = this.attributes.href.value
     var desktop = true;
     $.get(url, function(html) {
-      $('.rsvp-show-card').html(html);
-      $('.rsvp-show-card').show();
+      $('.show-card').html(html);
+      $('.show-card').show();
       $('.rsvp-name').removeClass("black");
       $('a[href="' + url + '"]').addClass("black");
       $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -77,20 +77,42 @@ $(document).ready(function() {
     if (this.classList.contains("new-ticket")) {
       var url = this.attributes.href.value
       $.get(url, function(html) {
-        $('.rsvp-show-card').html(html);
+        $('.show-card').html(html);
         $("html, body").animate({ scrollTop: 0 }, "slow");
       });
     } else {
       var url = this.attributes.href.value
       $.get(url, function(html) {
-        $('.rsvp-show-card').html(html);
+        $('.show-card').html(html);
         $("html, body").animate({ scrollTop: 0 }, "slow");
       });
     }
   });
 
+  $('.add-rsvp a').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var url = this.attributes.href.value
+    $.get(url, function(html) {
+      $('.show-card').html(html);
+      $('.show-card').show();
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
+  });
+
+  $('.settings a').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var url = this.attributes.href.value
+    $.get(url, function(html) {
+      $('.show-card').html(html);
+      $('.show-card').show();
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
+  });
+
   $('.container').on('click', '.rsvp-show-close', function(e){
-    $('.rsvp-show-card').hide();
+    $('.show-card').hide();
     $('.rsvp-name').removeClass("black");
   });
 
