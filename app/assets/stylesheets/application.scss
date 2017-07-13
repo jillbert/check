@@ -93,7 +93,7 @@ label {
   -webkit-animation: colorchange 2s ease-in-out infinite alternate;
   margin-top: 0 !important;
   .logo {
-    margin-top: 279px;
+    margin-top: 55%;
   }
 }
 
@@ -118,8 +118,8 @@ label {
     80%   {background-image: linear-gradient(13deg, $blue2 80%, #9DAAD7 100%);}
     85%   {background-image: linear-gradient(13deg, $blue2 85%, #9DAAD7 100%);}
     90%   {background-image: linear-gradient(13deg, $blue2 90%, #9DAAD7 100%);}
-    95%   {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
-    100%  {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
+    95%   {background-image: linear-gradient(13deg, $blue2 93%, #9DAAD7 100%);}
+    100%  {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
   }
 
 @-webkit-keyframes colorchange
@@ -143,8 +143,8 @@ label {
     80%   {background-image: linear-gradient(13deg, $blue2 80%, #9DAAD7 100%);}
     85%   {background-image: linear-gradient(13deg, $blue2 85%, #9DAAD7 100%);}
     90%   {background-image: linear-gradient(13deg, $blue2 90%, #9DAAD7 100%);}
-    95%   {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
-    100%  {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
+    95%   {background-image: linear-gradient(13deg, $blue2 93%, #9DAAD7 100%);}
+    100%  {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
   }
 
 
@@ -345,6 +345,10 @@ footer {
         vertical-align: sub;
       }
     }
+  }
+
+  .logo {
+    margin-top: 35%;
   }
 
   .refresh, .refresh_events {
