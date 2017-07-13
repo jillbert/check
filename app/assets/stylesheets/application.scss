@@ -77,6 +77,10 @@ label {
   margin-bottom: 18px;
 }
 
+.main {
+  margin-top: 45px;
+}
+
 .loading {
   width: 100vw;
   height: 100vw;
@@ -105,8 +109,10 @@ label {
 }
 
 header {
-
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 
   img {
     width: 27px;
@@ -197,6 +203,10 @@ footer {
 @media (min-width: 792px) {
   html {
     background: $grey3;
+  }
+
+  header {
+    display: none;
   }
 
   .container {

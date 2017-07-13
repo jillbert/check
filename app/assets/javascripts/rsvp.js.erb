@@ -48,9 +48,8 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     var url = '/sync';
-    $.ajax({
-      type: "GET",
-      url: url
+    $.get(url, function() {
+      // nothing to do here. carry on.
     });
   });
 
@@ -105,16 +104,12 @@ $(document).ready(function() {
     $.get(url, function(html) {
       $('.show-card-content').html(html)
       updateIcons(page);
-      // $('.settings a').css("color", "#0AC4F8")
-      // $('.settings a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
       showCard();
     });
   });
 
   $('.container').on('click', '.show-card-close', function(e){
-    $('.show-card').hide();
-    $('.rsvp-name').removeClass("black");
-    $('body').removeClass("overflow-hidden");
+    hideCard();
   });
 
   $('body').on('click', '.check-in', function(e){
@@ -122,9 +117,7 @@ $(document).ready(function() {
     e.stopPropagation();
     var page = "checkIn"
     updateIcons(page);
-    $('.show-card').hide();
-    $('.rsvp-name').removeClass("black");
-    $('body').removeClass("overflow-hidden");
+    hideCard();
   });
 
 })
@@ -157,6 +150,12 @@ function updateIcons(page) {
     $('.check-in a img').attr("src", "<%= asset_path("Icon/Checkmark/Color.svg") %>")
   } else {};
 };
+
+function hideCard() {
+  $('.show-card').hide();
+  $('.rsvp-name').removeClass("black");
+  $('body').removeClass("overflow-hidden");
+}
 
 function showCard() {
   $('.show-card').show();
