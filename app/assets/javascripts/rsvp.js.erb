@@ -160,9 +160,4 @@ function hideCard() {
 function showCard() {
   $('.show-card').show();
   $('body').addClass("overflow-hidden");
-  if ($(window).width() > 792) {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-  } else {
-    window.scrollTo(0, 0);
-  }
 };
