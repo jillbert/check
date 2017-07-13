@@ -48,6 +48,7 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     $('.loading').fadeIn();
+    setQuote();
     var url = '/sync';
     $.get(url, function() {
       $('.loading').delay(1000).fadeOut();
