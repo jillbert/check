@@ -14,7 +14,6 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
-    // $(this).hide();
     $('#load-ani-'+id).show();
     var url = '/rsvps/check_in';
     $.ajax({
@@ -32,7 +31,6 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
-    // $(this).hide();
     $('#load-ani-'+id).show();
     var url = '/rsvps/check_out';
     $.ajax({
@@ -119,6 +117,16 @@ $(document).ready(function() {
     $('body').removeClass("overflow-hidden");
   });
 
+  $('body').on('click', '.check-in', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var page = "checkIn"
+    updateIcons(page);
+    $('.show-card').hide();
+    $('.rsvp-name').removeClass("black");
+    $('body').removeClass("overflow-hidden");
+  });
+
 })
 
 function updateIcons(page) {
@@ -128,7 +136,13 @@ function updateIcons(page) {
   });
 
   $.each($('.icons a img'), function(key, value){
-    var newSrc = $(value).attr("src").replace("Color", "Grey")
+    if ($(value).attr("src").includes("Checkmark")) {
+      var newSrc = "<%= asset_path("Icon/Checkmark/Grey.svg") %>"
+    } else if ($(value).attr("src").includes("Add")) {
+      var newSrc = "<%= asset_path("Icon/Add/Grey.svg") %>"
+    } else if ($(value).attr("src").includes("Gear")) {
+      var newSrc = "<%= asset_path("Icon/Gear/Grey.svg") %>"
+    }
     $(value).attr("src", newSrc)
   });
 
@@ -137,7 +151,10 @@ function updateIcons(page) {
     $('.settings a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
   } else if (page === "newRsvp") {
     $('.add-rsvp a p').css("color", "#0AC4F8")
-    $('.add-rsvp a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
+    $('.add-rsvp a img').attr("src", "<%= asset_path("Icon/Add/Color.svg") %>")
+  } else if (page === "checkIn") {
+    $('.check-in a p').css("color", "#0AC4F8")
+    $('.check-in a img').attr("src", "<%= asset_path("Icon/Checkmark/Color.svg") %>")
   } else {};
 };
 
