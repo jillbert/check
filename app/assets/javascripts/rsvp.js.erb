@@ -100,13 +100,27 @@ $(document).ready(function() {
   $('.settings a').on('click', function(e){
     e.preventDefault();
     e.stopPropagation();
-    var url = this.attributes.href.value
     var page = "settings"
-    $.get(url, function(html) {
-      $('.show-card-content').html(html)
-      updateIcons(page);
-      showCard();
-    });
+    var url = this.attributes.href.value
+    if (window.location.href.includes("/rsvps")) {
+      $.get(url, function(html) {
+        $('.show-card-content').html(html)
+        updateIcons(page);
+        showCard();
+      });
+    } else if (window.location.href.includes("/choose_event")) {
+      $.get(url, function(html) {
+        $('.show-card-content').html(html)
+        updateIcons(page);
+        $('.choose-event').html(html)
+      });
+    } else if (window.location.href.includes("/choose_site")) {
+      $.get(url, function(html) {
+        $('.show-card-content').html(html)
+        updateIcons(page);
+        $('.choose-site').html(html)
+      });
+    }
   });
 
   $('.container').on('click', '.show-card-close', function(e){

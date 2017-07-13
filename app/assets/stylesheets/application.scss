@@ -99,8 +99,8 @@ label {
 
 @keyframes colorchange
   {
-    0%   {background-image: linear-gradient(13deg, $blue2 0%, #9DAAD7 100%);}
-    5%   {background-image: linear-gradient(13deg, $blue2 5%, #9DAAD7 100%);}
+    0%    {background-image: linear-gradient(13deg, $blue2 0%, #9DAAD7 100%);}
+    5%    {background-image: linear-gradient(13deg, $blue2 5%, #9DAAD7 100%);}
     10%   {background-image: linear-gradient(13deg, $blue2 10%, #9DAAD7 100%);}
     15%   {background-image: linear-gradient(13deg, $blue2 15%, #9DAAD7 100%);}
     20%   {background-image: linear-gradient(13deg, $blue2 20%, #9DAAD7 100%);}
@@ -119,13 +119,13 @@ label {
     85%   {background-image: linear-gradient(13deg, $blue2 85%, #9DAAD7 100%);}
     90%   {background-image: linear-gradient(13deg, $blue2 90%, #9DAAD7 100%);}
     95%   {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
-    100% {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
+    100%  {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
   }
 
 @-webkit-keyframes colorchange
   {
-    0%   {background-image: linear-gradient(13deg, $blue2 0%, #9DAAD7 100%);}
-    5%   {background-image: linear-gradient(13deg, $blue2 5%, #9DAAD7 100%);}
+    0%    {background-image: linear-gradient(13deg, $blue2 0%, #9DAAD7 100%);}
+    5%    {background-image: linear-gradient(13deg, $blue2 5%, #9DAAD7 100%);}
     10%   {background-image: linear-gradient(13deg, $blue2 10%, #9DAAD7 100%);}
     15%   {background-image: linear-gradient(13deg, $blue2 15%, #9DAAD7 100%);}
     20%   {background-image: linear-gradient(13deg, $blue2 20%, #9DAAD7 100%);}
@@ -144,7 +144,7 @@ label {
     85%   {background-image: linear-gradient(13deg, $blue2 85%, #9DAAD7 100%);}
     90%   {background-image: linear-gradient(13deg, $blue2 90%, #9DAAD7 100%);}
     95%   {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
-    100% {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
+    100%  {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
   }
 
 
