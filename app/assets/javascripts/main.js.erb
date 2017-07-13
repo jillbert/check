@@ -1,0 +1,44 @@
+$(function(){
+
+	$('.refresh_events').on('click', function(){
+		$('.loading').fadeIn();
+		location.reload();
+		$('.loading').delay(2000).fadeOut();
+	});
+
+	$('body').on('click', '.choose-event .event a', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var url = this.attributes.href.value
+		$('.loading').fadeIn();
+		$.get(url, function(response){
+			window.location.href = "/rsvps"
+			$('.loading').delay(2000).fadeOut();
+		})
+	});
+
+	if (!window.location.href.includes("/rsvps")) {
+		$('.check-in').hide();
+		$('.add-rsvp').hide();
+	}
+
+	setQuote();
+
+});
+
+function setQuote() {
+	var quotes = {1: "<p>Equal rights for all, special privileges for none.<p><small>Thomas Jefferson</small>",
+	 							2: "<p>Injustice anywhere is a threat to justice everywhere.<p><small> Martin Luther King Jr.</small>",
+								3: "<p>In a time of universal deceit, telling the truth is a revolutionary act.<p><small>George Orwell</small>",
+							 	4: "<p>The earth is the mother of all people, and all people should have equal rights upon it.<p><small>Chief Joseph</small>",
+								5: "<p>When the whole world is silent, even one voice becomes powerful.<p><small>Malala Yousafzai</small>",
+								6: "<p>Power is not only what you have but what the enemy thinks you have.</p><small>Saul Alinsky</small>",
+								7: "<p>Ultimately, America's answer to the intolerant man is diversity.</p><small>Robert Kennedy</small>",
+								8: "<p>It is time for parents to teach young people early on that in diversity there is beauty and there is strength.</p><small>Maya Angelou</small>",
+								9: "<p>I'm for truth, no matter who tells it. I'm for justice, no matter who it's for or against.</p><small>Malcolm X</small>",
+								10: "<p>Kindness is the language which the deaf can hear and the blind can see.</p><small>Mark Twain</small>",
+								11: "<p>Countries with higher levels of gender equality have higher economic growth.</p><small>Ban Ki-moon</small>"}
+
+	var quote = quotes[Math.floor((Math.random() * 8) + 1)]
+	$('.loading-quote')["0"].innerHTML = quote
+}
