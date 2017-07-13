@@ -40,6 +40,7 @@
 
 .overflow-hidden {
   overflow: hidden !important;
+  position: relative;
 }
 
 .rsvp, .site, .choose_site, .choose_event, .event {
@@ -361,7 +362,7 @@
     border: 1px solid #EDEDED;
 
     .guest-dots {
-      top: 0;
+      top: 5px;
     }
 
     small {
@@ -370,6 +371,9 @@
 
     .loader-wrap {
       margin-top: 4.5px;
+    }
+    .rsvp-name {
+      line-height: 36px;
     }
   }
   .search {

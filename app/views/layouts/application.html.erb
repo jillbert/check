@@ -12,98 +12,100 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <% unless @noheader %>
-      <% if current_user && current_user.color %>
-        <header style="background: <%= current_user.color %>">
-      <% else %>
-        <header style="background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%)">
-      <% end %>
-        <%= link_to landing_path do %>
-        <% if current_user %>
-          <%= image_tag(current_user.logo) if current_user.logo %>
-          <%= image_tag(asset_path("logo.svg")) if !current_user.logo %>
+    <div class="body">
+      <% unless @noheader %>
+        <% if current_user && current_user.color %>
+          <header style="background: <%= current_user.color %>">
         <% else %>
-          <%= image_tag(asset_path("logo.svg")) %>
+          <header style="background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%)">
         <% end %>
-          <% if @current_event %>
-          <div class="current-event">
-            <p>
-              <% if @current_event.name.length > 30 %>
-                <%= @current_event.name[0..30] + "..." %>
-              <% else %>
-                <%= @current_event.name %>
-              <% end %>
-            </p>
-            <small><%= @current_event.start_time.to_formatted_s(:long) %></small>
-          </div>
-        <% end %>
-          <% if @page == "index" %>
-            <div class="refresh">
+          <%= link_to landing_path do %>
+          <% if current_user %>
+            <%= image_tag(current_user.logo) if current_user.logo %>
+            <%= image_tag(asset_path("logo.svg")) if !current_user.logo %>
+          <% else %>
+            <%= image_tag(asset_path("logo.svg")) %>
+          <% end %>
+            <% if @current_event %>
+            <div class="current-event">
+              <p>
+                <% if @current_event.name.length > 30 %>
+                  <%= @current_event.name[0..30] + "..." %>
+                <% else %>
+                  <%= @current_event.name %>
+                <% end %>
+              </p>
+              <small><%= @current_event.start_time.to_formatted_s(:long) %></small>
+            </div>
+          <% end %>
+            <% if @page == "index" %>
+              <div class="refresh">
+                <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
+                <small>Refresh</small>
+              </div>
+            <% elsif @page == "choose_event" %>
+            <div class="refresh_events">
               <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
               <small>Refresh</small>
             </div>
-          <% elsif @page == "choose_event" %>
-          <div class="refresh_events">
-            <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
-            <small>Refresh</small>
-          </div>
+            <% end %>
           <% end %>
-        <% end %>
-      </header>
-    <% end %>
-    <%= render 'layouts/sidebar' %>
-    <div class="main">
-      <% if @page == "index" %>
-        <div class="search">
-          <input type="text" name="query" id="search">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </input>
-        </div>
+        </header>
       <% end %>
-      <%= yield %>
-    </div>
-    <% unless @nofooter || !current_user %>
-      <footer>
-        <div class="icons">
-          <div class="check-in">
-            <%= link_to rsvps_path do %>
-              <% if @page != "index" %>
-                <%= image_tag(asset_path("Icon/Checkmark/Grey.svg")) %>
-                <p>Check In</p>
+      <%= render 'layouts/sidebar' %>
+      <div class="main">
+        <% if @page == "index" %>
+          <div class="search">
+            <input type="text" name="query" id="search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </input>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
+      <% unless @nofooter || !current_user %>
+        <footer>
+          <div class="icons">
+            <div class="check-in">
+              <%= link_to rsvps_path do %>
+                <% if @page != "index" %>
+                  <%= image_tag(asset_path("Icon/Checkmark/Grey.svg")) %>
+                  <p>Check In</p>
+                <% else %>
+                  <%= image_tag(asset_path("Icon/Checkmark/Color.svg")) if @page == "index" %>
+                  <p style="color: #0AC4F8">Check In</p>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="add-rsvp">
+              <% if @page != "new-rsvp" %>
+                <%= link_to new_rsvp_path do %>
+                  <%= image_tag(asset_path("Icon/Add/Grey.svg")) %>
+                  <p>Add RSVP</p>
+                <% end %>
               <% else %>
-                <%= image_tag(asset_path("Icon/Checkmark/Color.svg")) if @page == "index" %>
-                <p style="color: #0AC4F8">Check In</p>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="add-rsvp">
-            <% if @page != "new-rsvp" %>
               <%= link_to new_rsvp_path do %>
-                <%= image_tag(asset_path("Icon/Add/Grey.svg")) %>
-                <p>Add RSVP</p>
+                <%= image_tag(asset_path("Icon/Add/Color.svg")) %>
+                <p style="color: #0AC4F8">Add RSVP</p>
               <% end %>
-            <% else %>
-            <%= link_to new_rsvp_path do %>
-              <%= image_tag(asset_path("Icon/Add/Color.svg")) %>
-              <p style="color: #0AC4F8">Add RSVP</p>
-            <% end %>
-            <% end %>
-          </div>
-          <div class="settings">
-            <% if @page != "settings" %>
+              <% end %>
+            </div>
+            <div class="settings">
+              <% if @page != "settings" %>
+                <%= link_to edit_user_path(current_user) do %>
+                  <%= image_tag(asset_path("Icon/Gear/Grey.svg")) %>
+                  <p>Settings</p>
+                <% end %>
+              <% else %>
               <%= link_to edit_user_path(current_user) do %>
-                <%= image_tag(asset_path("Icon/Gear/Grey.svg")) %>
-                <p>Settings</p>
+                <%= image_tag(asset_path("Icon/Gear/Color.svg")) %>
+                <p style="color: #0AC4F8">Settings</p>
               <% end %>
-            <% else %>
-            <%= link_to edit_user_path(current_user) do %>
-              <%= image_tag(asset_path("Icon/Gear/Color.svg")) %>
-              <p style="color: #0AC4F8">Settings</p>
-            <% end %>
-            <% end %>
+              <% end %>
+            </div>
           </div>
-        </div>
-      </footer>
-    <% end %>
+        </footer>
+      <% end %>
+    </div>
   </body>
 </html>
