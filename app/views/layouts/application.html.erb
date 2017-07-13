@@ -61,7 +61,7 @@
             </input>
           </div>
         <% end %>
-
+        <%= render 'layouts/check_sync' %>
         <%= yield %>
       </div>
       <% unless @nofooter || !current_user %>

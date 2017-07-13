@@ -17,170 +17,26 @@
 //= require dataTables/jquery.dataTables
 //= require_directory .
 
-var table;
-
-function addRSVP() {
-	var url = '/people/new';
-	$.ajax({
-		type: "GET",
-		url: url,
-		dataType: 'script',
-		data: {
-			'host_id': $(this).data('host-id')
-		},
-		success: function(result) {
-			eval(result);
-			$(this).hide();
-		}
-	})
-}
-
 $(function(){
 
-	$('.search').on('click', function() {
-		$('.search .overlay .text').fadeOut(function() {
-			$('.search').addClass('active');
-			setTimeout( function() {
-				$('.search input').attr('placeholder', 'Name or Email').focus();
-			}, 300);
-		});
-	})
-
-	$('.add').on('click', function(e) {
-		e.preventDefault();
-		var url = '/people/new';
-		$.ajax({
-			type: "GET",
-			url: url,
-			dataType: 'script',
-			data: {
-				'host_id': $(this).data('host-id')
-			},
-			success: function(result) {
-				eval(result);
-				$(this).hide();
-			}
-		})
-	})
-
 	$('.refresh_events').on('click', function(){
+		$('.loading').fadeIn();
 		location.reload();
-	})
+		$('.loading').delay(2000).fadeOut();
+	});
 
-	$('.edit').on('click', function(e) {
+	$('body').on('click', '.choose-event .event a', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
-
-		person_id = $(this).data('person-id');
-		rsvp_id = $(this).data('rsvp-id');
-		var url = '/people/' + person_id + '/edit';
-		$.ajax({
-			type: "GET",
-		  url: url,
-		  dataType: 'script',
-		  data: {
-		  	'rsvp_id': rsvp_id
-		  },
-		  success: function(result) {
-		    eval(result);
-		  },
-		});
+		var url = this.attributes.href.value
+		$('.loading').fadeIn();
+		$.get(url, function(response){
+			window.location.href = "/rsvps"
+			$('.loading').delay(2000).fadeOut();
+		})
 	});
 
-	function activateThinking() {
-		$('#thinking').show();
-		$('body').css({'overflow': 'hidden'});
-	}
 
-	function activatePolling(event_id) {
-  	var polling = setInterval(function(){
-	  	$.ajax({
-	  		type: "GET",
-	  	  url: "/sync_status",
-	  	  dataType: 'json',
-	  	  data: {
-	  	  	'event_id': event_id
-	  	  },
-	  	  success: function(result) {
-	  	    if (result.sync_status == "pending") {
-	  	      $('#thinking .percent').text(result.sync_percent + "% Complete");
-	  	    } else {
-	  	      $('#thinking .message').text("Done! Refreshing list...");
-	  	      window.location = window.location.origin + '/rsvps';
-	  	      clearInterval(polling);
-	  	    }
-	  	  }
-	  	});
-	  }, 1000);
-	}
-
-	$('.activate-thinking').on('click', function() {
-		activateThinking();
-	})
-
-	$('.to-cache').on('click', function(e) {
-		e.preventDefault();
-
-		event_id = $(this).data('event');
-
-		$.ajax({
-			type: "GET",
-		  url: "/rsvps/cache",
-		  dataType: 'json',
-		  data: {
-		  	'id': event_id
-		  },
-		  success: function() {
-		  	activatePolling(event_id);
-		  }
-		});
-
-	});
-
-	if($('.sync-mode').length > 0) {
-
-    activateThinking();
-    activatePolling($('.sync-mode').data('event'));
-
-	}
-
-	$('.reveal-modal').on('open.fndtn.reveal', '[data-reveal]', function () {
-	    $('body').addClass('modal-open');
-	});
-	$('.reveal-modal').on('close.fndtn.reveal', '[data-reveal]', function () {
-	    $('body').removeClass('modal-open');
-	});
-
-	initializeRsvpList();
-
-})
-
-function initializeRsvpList() {
-	if($('#list').size() > 0) {
-		$('#list tfoot th').each( function () {
-		    var title = $('#list thead th').eq( $(this).index() ).text();
-		    $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-		} );
-
-		// DataTable
-		table = $('#list').DataTable({
-			"order": [[ 0, 'asc' ]],
-			"paging": false,
-			"oLanguage": {
-	      "sZeroRecords": "No one found."
-	    }
-		});
-
-		// Apply the search
-		table.columns().eq( 0 ).each( function ( colIdx ) {
-		    $('#datatable-search').on( 'keyup change', function () {
-		        table
-		            .column( colIdx )
-		            .search( this.value )
-		            .draw();
-		    } );
-		} );
-	}
-}
+});
 
 $('.alert-box').delay(4000).slideUp(400);

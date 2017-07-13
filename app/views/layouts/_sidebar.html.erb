@@ -14,6 +14,17 @@
       <% else %>
         <%= image_tag(asset_path("logo.svg"), class: "desktop-logo") %>
       <% end %>
+      <% if @page == "index" %>
+        <div class="refresh">
+          <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
+          <small>Refresh</small>
+        </div>
+      <% elsif @page == "choose_event" %>
+      <div class="refresh_events">
+        <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
+        <small>Refresh</small>
+      </div>
+      <% end %>
     </div>
       <%= render 'events/landing' %>
   <% end %>

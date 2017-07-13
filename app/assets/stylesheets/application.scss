@@ -82,19 +82,71 @@ label {
 }
 
 .loading {
-  width: 100vw;
-  height: 100vw;
-  position: absolute;
+  width: 100%;
+  height: 100%;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 99999;
   background-image: linear-gradient(13deg, $blue2 0%, #9DAAD7 100%);
+  animation: colorchange 2s ease-in-out infinite alternate;
+  -webkit-animation: colorchange 2s ease-in-out infinite alternate;
   margin-top: 0 !important;
-
   .logo {
     margin-top: 279px;
   }
 }
+
+@keyframes colorchange
+  {
+    0%   {background-image: linear-gradient(13deg, $blue2 0%, #9DAAD7 100%);}
+    5%   {background-image: linear-gradient(13deg, $blue2 5%, #9DAAD7 100%);}
+    10%   {background-image: linear-gradient(13deg, $blue2 10%, #9DAAD7 100%);}
+    15%   {background-image: linear-gradient(13deg, $blue2 15%, #9DAAD7 100%);}
+    20%   {background-image: linear-gradient(13deg, $blue2 20%, #9DAAD7 100%);}
+    25%   {background-image: linear-gradient(13deg, $blue2 25%, #9DAAD7 100%);}
+    30%   {background-image: linear-gradient(13deg, $blue2 30%, #9DAAD7 100%);}
+    35%   {background-image: linear-gradient(13deg, $blue2 35%, #9DAAD7 100%);}
+    40%   {background-image: linear-gradient(13deg, $blue2 40%, #9DAAD7 100%);}
+    45%   {background-image: linear-gradient(13deg, $blue2 45%, #9DAAD7 100%);}
+    50%   {background-image: linear-gradient(13deg, $blue2 50%, #9DAAD7 100%);}
+    55%   {background-image: linear-gradient(13deg, $blue2 55%, #9DAAD7 100%);}
+    60%   {background-image: linear-gradient(13deg, $blue2 60%, #9DAAD7 100%);}
+    65%   {background-image: linear-gradient(13deg, $blue2 65%, #9DAAD7 100%);}
+    70%   {background-image: linear-gradient(13deg, $blue2 70%, #9DAAD7 100%);}
+    75%   {background-image: linear-gradient(13deg, $blue2 75%, #9DAAD7 100%);}
+    80%   {background-image: linear-gradient(13deg, $blue2 80%, #9DAAD7 100%);}
+    85%   {background-image: linear-gradient(13deg, $blue2 85%, #9DAAD7 100%);}
+    90%   {background-image: linear-gradient(13deg, $blue2 90%, #9DAAD7 100%);}
+    95%   {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
+    100% {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
+  }
+
+@-webkit-keyframes colorchange
+  {
+    0%   {background-image: linear-gradient(13deg, $blue2 0%, #9DAAD7 100%);}
+    5%   {background-image: linear-gradient(13deg, $blue2 5%, #9DAAD7 100%);}
+    10%   {background-image: linear-gradient(13deg, $blue2 10%, #9DAAD7 100%);}
+    15%   {background-image: linear-gradient(13deg, $blue2 15%, #9DAAD7 100%);}
+    20%   {background-image: linear-gradient(13deg, $blue2 20%, #9DAAD7 100%);}
+    25%   {background-image: linear-gradient(13deg, $blue2 25%, #9DAAD7 100%);}
+    30%   {background-image: linear-gradient(13deg, $blue2 30%, #9DAAD7 100%);}
+    35%   {background-image: linear-gradient(13deg, $blue2 35%, #9DAAD7 100%);}
+    40%   {background-image: linear-gradient(13deg, $blue2 40%, #9DAAD7 100%);}
+    45%   {background-image: linear-gradient(13deg, $blue2 45%, #9DAAD7 100%);}
+    50%   {background-image: linear-gradient(13deg, $blue2 50%, #9DAAD7 100%);}
+    55%   {background-image: linear-gradient(13deg, $blue2 55%, #9DAAD7 100%);}
+    60%   {background-image: linear-gradient(13deg, $blue2 60%, #9DAAD7 100%);}
+    65%   {background-image: linear-gradient(13deg, $blue2 65%, #9DAAD7 100%);}
+    70%   {background-image: linear-gradient(13deg, $blue2 70%, #9DAAD7 100%);}
+    75%   {background-image: linear-gradient(13deg, $blue2 75%, #9DAAD7 100%);}
+    80%   {background-image: linear-gradient(13deg, $blue2 80%, #9DAAD7 100%);}
+    85%   {background-image: linear-gradient(13deg, $blue2 85%, #9DAAD7 100%);}
+    90%   {background-image: linear-gradient(13deg, $blue2 90%, #9DAAD7 100%);}
+    95%   {background-image: linear-gradient(13deg, $blue2 95%, #9DAAD7 100%);}
+    100% {background-image: linear-gradient(13deg, $blue2 100%, #9DAAD7 100%);}
+  }
+
 
 .container {
   font-size: 14px;
@@ -292,6 +344,16 @@ footer {
         margin-left: 9px;
         vertical-align: sub;
       }
+    }
+  }
+
+  .refresh, .refresh_events {
+    float: right;
+    margin: 9px;
+    color: white;
+    a {
+      display: block;
+      text-align: center;
     }
   }
 

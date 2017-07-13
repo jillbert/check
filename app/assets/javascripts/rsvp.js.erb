@@ -44,12 +44,13 @@ $(document).ready(function() {
     });
   });
 
-  $('header').on('click', '.refresh', function(e){
+  $('body').on('click', '.refresh', function(e){
     e.preventDefault();
     e.stopPropagation();
+    $('.loading').fadeIn();
     var url = '/sync';
     $.get(url, function() {
-      // nothing to do here. carry on.
+      $('.loading').delay(1000).fadeOut();
     });
   });
 
