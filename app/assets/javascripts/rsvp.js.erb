@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  // initializeSyncRsvpList();
 
   $('#search').on("input", function(e){
     e.preventDefault();
@@ -63,11 +62,10 @@ $(document).ready(function() {
     var url = this.attributes.href.value
     var desktop = true;
     $.get(url, function(html) {
-      $('.show-card').html(html);
-      $('.show-card').show();
+      $('.show-card-content').html(html)
+      showCard();
       $('.rsvp-name').removeClass("black");
       $('a[href="' + url + '"]').addClass("black");
-      $("html, body").animate({ scrollTop: 0 }, "slow");
     });
   });
 
@@ -77,14 +75,14 @@ $(document).ready(function() {
     if (this.classList.contains("new-ticket")) {
       var url = this.attributes.href.value
       $.get(url, function(html) {
-        $('.show-card').html(html);
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $('.show-card-content').html(html)
+        showCard();
       });
     } else {
       var url = this.attributes.href.value
       $.get(url, function(html) {
-        $('.show-card').html(html);
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $('.show-card-content').html(html)
+        showCard();
       });
     }
   });
@@ -93,10 +91,11 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     var url = this.attributes.href.value
+    var page = "newRsvp"
     $.get(url, function(html) {
-      $('.show-card').html(html);
-      $('.show-card').show();
-      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $('.show-card-content').html(html)
+      updateIcons(page);
+      showCard();
     });
   });
 
@@ -104,24 +103,50 @@ $(document).ready(function() {
     e.preventDefault();
     e.stopPropagation();
     var url = this.attributes.href.value
+    var page = "settings"
     $.get(url, function(html) {
-      $('.show-card').html(html);
-      $('.show-card').show();
-      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $('.show-card-content').html(html)
+      updateIcons(page);
+      // $('.settings a').css("color", "#0AC4F8")
+      // $('.settings a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
+      showCard();
     });
   });
 
-  $('.container').on('click', '.rsvp-show-close', function(e){
+  $('.container').on('click', '.show-card-close', function(e){
     $('.show-card').hide();
     $('.rsvp-name').removeClass("black");
+    $('body').removeClass("overflow-hidden");
   });
 
 })
 
-function initializeSyncRsvpList() {
-  // DataTable
-  table = $('#synclist').DataTable({
-    "order": [[ 0, 'asc' ]],
-    "paging": false
+function updateIcons(page) {
+
+  $.each($('.icons a p'), function(key, value){
+    $(value).css("color", "#7c7c7c")
   });
-}
+
+  $.each($('.icons a img'), function(key, value){
+    var newSrc = $(value).attr("src").replace("Color", "Grey")
+    $(value).attr("src", newSrc)
+  });
+
+  if (page === "settings") {
+    $('.settings a p').css("color", "#0AC4F8")
+    $('.settings a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
+  } else if (page === "newRsvp") {
+    $('.add-rsvp a p').css("color", "#0AC4F8")
+    $('.add-rsvp a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
+  } else {};
+};
+
+function showCard() {
+  $('.show-card').show();
+  $('body').addClass("overflow-hidden");
+  if ($(window).width() > 792) {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+  } else {
+    window.scrollTo(0, 0);
+  }
+};

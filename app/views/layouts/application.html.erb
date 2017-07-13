@@ -25,8 +25,6 @@
         <% else %>
           <%= image_tag(asset_path("logo.svg")) %>
         <% end %>
-
-          <%= image_tag(asset_path("logo.svg")) if !current_user || !current_user.logo %>
           <% if @current_event %>
           <div class="current-event">
             <p>
