@@ -1,11 +1,11 @@
 <% if !@i %>
 
-  <% if !@rsvp.attended %>
-    <div class="ticket" id="ticket-<%= @rsvp.id %>">
-  <% elsif @rsvp.canceled %>
+  <% if @rsvp.canceled %>
     <div class="ticket ticket-canceled" id="ticket-<%= @rsvp.id %>">
   <% elsif @rsvp.attended %>
     <div class="ticket ticket-checked" id="ticket-<%= @rsvp.id %>">
+  <% else %>
+    <div class="ticket" id="ticket-<%= @rsvp.id %>">
   <% end %>
 
       <div class="left-circle-cover circle-cover"></div>
