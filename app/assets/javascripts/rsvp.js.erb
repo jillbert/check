@@ -108,7 +108,7 @@ $(document).ready(function() {
       $.get(url, function(html) {
         $('.show-card-content').html(html)
         updateIcons(page);
-        $('.choose-event').html(html)
+        $('.events').html(html)
       });
     } else if (window.location.href.includes("/choose_site")) {
       $.get(url, function(html) {

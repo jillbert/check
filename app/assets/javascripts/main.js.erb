@@ -6,7 +6,7 @@ $(function(){
 		loadingOut(sidebarHtml);
 	});
 
-	$('body').on('click', '.choose-event a', function(e) {
+	$('body').on('click', '.events a', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		var url = this.attributes.href.value
@@ -16,6 +16,51 @@ $(function(){
 			delay(2000);
 			loadingOut(sidebarHtml);
 		})
+	});
+
+	$('body').on('click', '.choose_site', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var url = this.parentElement.attributes.href.value
+		if (window.innerWidth > 792) {
+			$.get(url, function(response){
+				$('.sidebar-main').html(response)
+			})
+		} else {
+			$.get(url, function(response){
+				$('.landing').html(response)
+			})
+		}
+	})
+
+	$('body').on('click', '.choose_event', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		var url = this.parentElement.attributes.href.value
+		if (window.innerWidth > 792) {
+			$.get(url, function(response){
+				$('.sidebar-main').html(response)
+			})
+		} else {
+			$.get(url, function(response){
+				$('.landing').html(response)
+			})
+		}
+	})
+
+	$('body').on('click', '.site', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var url = this.parentElement.attributes.href.value
+		if (window.innerWidth > 792) {
+			$.get(url, function(response){
+				$('.sidebar-main').html(response)
+			})
+		} else {
+			$.get(url, function(response){
+				$('.landing').html(response)
+			})
+		}
 	});
 
 	if (!window.location.href.includes("/rsvps")) {

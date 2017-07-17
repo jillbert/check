@@ -21,11 +21,11 @@ class EventsController < ApplicationController
     else
       @sites = JSON.parse(response.body)['results']
     end
+    render layout: false
   end
 
   def choose_event
     session[:current_site] = params[:site] if params[:site]
-    # binding.pry
     if session[:current_site]
       token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
       response = token.get(token_get_path, headers: standard_headers, params: { page: 1, per_page: 100, limit: 100, starting: 14.days.ago.to_s })
@@ -63,8 +63,9 @@ class EventsController < ApplicationController
       @past_events = Hash[events.select { |e| Time.zone = e['time_zone'] if e['start_time'] < 1.day.ago }.group_by { |e| e['start_time'].to_datetime.strftime('%B %Y') }.to_a.reverse]
 
     else
-      redirect_to choose_site_path
+      redirect_to landing_path
     end
+    render layout: false
   end
 
   def set_event
@@ -83,7 +84,7 @@ class EventsController < ApplicationController
 
       redirect_to rsvps_path
     else
-      redirect_to choose_event_path
+      redirect_to landing_path
     end
   end
 

@@ -117,10 +117,10 @@ class RsvpsController < ApplicationController
       if session[:current_event]
         true
       else
-        redirect_to choose_event_path
+        redirect_to landing_path
       end
     else
-      redirect_to choose_site_path
+      redirect_to landing_path
     end
   end
 

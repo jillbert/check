@@ -2,9 +2,9 @@
   <%= link_to choose_site_path do %>
     <div class="choose_site">
       <% if session[:current_site].length > 30 %>
-        <%= session[:current_site].titleize[0..30]+"..." %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <%= session[:current_site].titleize[0..30]+"..." %> <i class="fa fa-angle-right" aria-hidden="true"></i>
       <% else %>
-        <%= session[:current_site].titleize %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <%= session[:current_site].titleize %> <i class="fa fa-angle-right" aria-hidden="true"></i>
       <% end %>
     </div>
   <% end %>
@@ -13,19 +13,20 @@
 
   <%= link_to choose_site_path do %>
     <div class="choose_site">
-      Select your website <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      Select your website <i class="fa fa-angle-right" aria-hidden="true"></i>
     </div>
   <% end %>
 <% end %>
+<div class="sidebar-sites"></div>
 
 <% if session[:current_event] %>
 
 <%= link_to choose_event_path do %>
   <div class="choose_event">
     <% if Event.find(session[:current_event]).name.length > 30 %>
-      <%= Event.find(session[:current_event]).name.titleize[0..30]+"..." %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      <%= Event.find(session[:current_event]).name.titleize[0..30]+"..." %> <i class="fa fa-angle-right" aria-hidden="true"></i>
     <% else %>
-      <%= Event.find(session[:current_event]).name.titleize %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      <%= Event.find(session[:current_event]).name.titleize %> <i class="fa fa-angle-right" aria-hidden="true"></i>
     <% end %>
   </div>
 <% end %>
@@ -34,7 +35,8 @@
 
   <%= link_to choose_event_path do %>
     <div class="choose_event">
-      Select your event <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      Select your event <i class="fa fa-angle-right" aria-hidden="true"></i>
     </div>
   <% end %>
 <% end %>
+<div class="sidebar-events"></div>

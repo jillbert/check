@@ -22,7 +22,7 @@ class UserSessionsController < ApplicationController
 
         if credential
           set_current_credential(credential.id)
-          redirect_back_or_to(choose_site_path, notice: 'Login successful')
+          redirect_back_or_to(landing_path, notice: 'Login successful')
         else
           redirect_to authorize_path(nation_id: current_user.nation.id)
         end
