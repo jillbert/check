@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <!-- <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> -->
     <!-- <link href="//cloud.webtype.com/css/f3a5aac8-1919-4d5c-b564-8fe3712600ae.css" rel="stylesheet" type="text/css" /> -->
     <title><%= content_for?(:title) ? yield(:title) : "Check by cStreet" %></title>
@@ -67,30 +67,32 @@
       <% unless @nofooter || !current_user %>
         <footer>
           <div class="icons">
-            <div class="check-in">
-              <%= link_to rsvps_path do %>
-                <% if @page != "index" %>
-                  <%= image_tag(asset_path("Icon/Checkmark/Grey.svg")) %>
-                  <h6>Check In</h6>
+            <% if session[:current_event] && session[:current_site] %>
+              <div class="check-in">
+                <%= link_to rsvps_path do %>
+                  <% if @page != "index" %>
+                    <%= image_tag(asset_path("Icon/Checkmark/Grey.svg")) %>
+                    <h6>Check In</h6>
+                  <% else %>
+                    <%= image_tag(asset_path("Icon/Checkmark/Color.svg")) if @page == "index" %>
+                    <h6 style="color: #0AC4F8">Check In</h6>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="add-rsvp">
+                <% if @page != "new-rsvp" %>
+                  <%= link_to new_rsvp_path do %>
+                    <%= image_tag(asset_path("Icon/Add/Grey.svg")) %>
+                    <h6>Add RSVP</h6>
+                  <% end %>
                 <% else %>
-                  <%= image_tag(asset_path("Icon/Checkmark/Color.svg")) if @page == "index" %>
-                  <h6 style="color: #0AC4F8">Check In</h6>
-                <% end %>
-              <% end %>
-            </div>
-            <div class="add-rsvp">
-              <% if @page != "new-rsvp" %>
                 <%= link_to new_rsvp_path do %>
-                  <%= image_tag(asset_path("Icon/Add/Grey.svg")) %>
-                  <h6>Add RSVP</h6>
+                  <%= image_tag(asset_path("Icon/Add/Color.svg")) %>
+                  <h6 style="color: #0AC4F8">Add RSVP</h6>
                 <% end %>
-              <% else %>
-              <%= link_to new_rsvp_path do %>
-                <%= image_tag(asset_path("Icon/Add/Color.svg")) %>
-                <h6 style="color: #0AC4F8">Add RSVP</h6>
-              <% end %>
-              <% end %>
-            </div>
+                <% end %>
+              </div>
+            <% end %>
             <div class="settings">
               <% if @page != "settings" %>
                 <%= link_to edit_user_path(current_user) do %>
