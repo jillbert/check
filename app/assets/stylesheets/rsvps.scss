@@ -99,7 +99,7 @@
     z-index: 999;
 
     .show-card-close {
-      padding: 9px;
+      padding: 9px 15px;
       width: 100%;
       text-align: right;
       img {
@@ -156,7 +156,7 @@
 
   .rsvp-person, .email, .tickets {
     padding: 0 15px !important;
-    margin-top: 27px;
+    margin-top: 18px;
   }
 
   .rsvp-person {
@@ -186,8 +186,7 @@
   position: relative;
 
   .add-rsvp-header {
-    margin: 15px 15px 0 15px;
-    padding: 0;
+    padding: 0 15px;
     border: none;
     font-size: 10px;
     text-transform: uppercase;
