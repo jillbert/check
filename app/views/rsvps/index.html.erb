@@ -1,5 +1,6 @@
 <% @page = "index" %>
 <div class="container rsvps">
+  <% if !@rsvps.empty? %>
     <div id="rsvp-results">
       <%= render "rsvp_list", letters: @letters, rsvps: @rsvps %>
     </div>
@@ -7,4 +8,10 @@
       <div class="show-card-close"><%= image_tag(asset_path("X.svg")) %></div>
       <div class="show-card-content"></div>
     </div>
+  <% else %>
+  <div class="no-rsvps text-center">
+    <p>No RSVPs found.</p>
+    <%= link_to("Select another event", landing_path) %>
+  </div>
+  <% end %>
 </div>

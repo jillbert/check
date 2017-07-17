@@ -2,17 +2,24 @@
 <div class="container events">
 
   <div class="current_events">
-    <% @current_events.each do |event| %>
-      <%= link_to set_event_path(event_id: event[1][0]["id"]), class: "list-item", method: :get do %>
-        <div class="event">
-          <% if event[1][0]["name"].length > 30 %>
-            <%= event[1][0]["name"][0..30]+"..." %>
-          <% else %>
-            <%= event[1][0]["name"] %>
-          <% end %>
-          <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
-        </div>
+    <% if !@current_events.empty? %>
+      <% @current_events.each do |event| %>
+        <%= link_to set_event_path(event_id: event[1][0]["id"]), class: "list-item", method: :get do %>
+          <div class="event">
+            <% if event[1][0]["name"].length > 30 %>
+              <%= event[1][0]["name"][0..30]+"..." %>
+            <% else %>
+              <%= event[1][0]["name"] %>
+            <% end %>
+            <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+          </div>
+        <% end %>
       <% end %>
+    <% else %>
+      <div class="no-events text-center">
+        <p>No events found.</p>
+        <%= link_to("Select another site", landing_path) %>
+      </div>
     <% end %>
   </div>
 
