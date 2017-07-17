@@ -57,8 +57,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update(user_params)
-      @user.update_attributes(color: nil) if @user.color.empty?
-      @user.update_attributes(logo: nil) if @user.logo.empty?
+      @user.update_attributes(color: nil) if @user.color.nil? || @user.color.empty?
+      @user.update_attributes(logo: nil) if @user.logo.nil? || @user.logo.empty?
       redirect_to admin_path, notice: 'User was successfully updated!'
     else
       render :edit

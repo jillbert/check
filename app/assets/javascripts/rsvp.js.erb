@@ -104,17 +104,11 @@ $(document).ready(function() {
         updateIcons(page);
         showCard();
       });
-    } else if (window.location.href.includes("/choose_event")) {
+    } else if (window.location.href.includes("/landing")) {
       $.get(url, function(html) {
-        $('.show-card-content').html(html)
+        $('.main').html("<div class='container'></div>");
+        $('.main .container').html(html);
         updateIcons(page);
-        $('.events').html(html)
-      });
-    } else if (window.location.href.includes("/choose_site")) {
-      $.get(url, function(html) {
-        $('.show-card-content').html(html)
-        updateIcons(page);
-        $('.choose-site').html(html)
       });
     }
   });
