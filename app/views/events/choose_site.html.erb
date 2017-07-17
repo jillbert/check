@@ -5,13 +5,15 @@
   <% else %>
 
     <% @sites.each do |s| %>
-      <div class="site">
-        <% if s['name'].length > 30 %>
-          <%= link_to "#{s['name'][0..30]}...", choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'selection-button black'  %>
-        <% else %>
-          <%= link_to "#{s['name']}", choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'selection-button black'  %>
-        <% end %>
-      </div>
+      <%= link_to choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'list-item black' do %>
+        <div class="site">
+          <% if s['name'].length > 30 %>
+            <%= "#{s['name'][0..30]}..." %>
+          <% else %>
+            <%= "#{s['name']}" %>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
 
   <% end %>

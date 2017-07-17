@@ -3,11 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .login-container {
-  padding-top: 143px;
+  padding-top: 25%;
   text-align: center;
   color: white;
   padding-left: 0 !important;
   padding-right: 0 !important;
+  margin-bottom: 0px !important;
 
   .login-logo {
     margin: auto;
@@ -23,7 +24,6 @@
     width: 200px;
     height: 45px;
     margin: auto;
-    border-radius: 5px;
     border: none;
     background-color: rgba(255,255,255,0.2);
     color: white;
@@ -39,6 +39,7 @@
   .login-btn {
     height: 54px;
     margin-bottom: 9px;
+    margin-top: 36px;
   }
   small a {
       color: white;

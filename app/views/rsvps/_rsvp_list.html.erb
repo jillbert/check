@@ -1,37 +1,48 @@
-<% @letters = letters %>
-<% @rsvps = rsvps %>
-  <% @letters.each do |letter| %>
-    <div class="list-separator">
-      <%= letter %>
-    </div>
-    <% @rsvps.each do |rsvp| %>
-      <% if rsvp.person && rsvp.person.last_name[0].upcase == letter %>
-      <% if !rsvp.canceled %><div class="rsvp"><% end %>
-        <% if rsvp.canceled %><div class="rsvp canceled"><% end %>
-          <% if rsvp.guests_count > 0 %>
-            <div class="guest-dots">
-              <% attended = @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count %>
-              <% attended.times do %>
-                <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
-              <% end %>
+<% @letters = letters %><% @rsvps = rsvps %>
+<% @letters.each do |letter| %>
+  <div class="list-separator">
+    <%= letter %>
+  </div>
+  <% @rsvps.each do |rsvp| %>
+    <% if rsvp.person && rsvp.person.last_name[0].upcase == letter %>
+    <!-- Cancelled or not? -->
+    <% if rsvp.canceled %>
+      <div class='rsvp canceled list-item'>
+    <% else %>
+      <div class='rsvp list-item'>
+    <% end %>
+    <div href="<%= rsvp_path(rsvp) %>" class="rsvp-click-zone"></div>
 
-              <% (rsvp.guests_count - attended).times do %>
-                <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
-              <% end %>
-            </div>
+      <!-- Guest Dots -->
+      <% if rsvp.guests_count > 0 %>
+        <div class="guest-dots">
+          <% attended = @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count %>
+
+          <% attended.times do %>
+            <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
           <% end %>
-            <%= link_to rsvp_path(rsvp), class: "rsvp-name" do %>
-              <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
-            <% end %>
 
-            <%= render 'rsvp', rsvp: rsvp %>
+          <% (rsvp.guests_count - attended).times do %>
+            <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
+          <% end %>
 
-            <% if rsvp.canceled %>
-              <small>Canceled</small>
-            <% elsif rsvp.volunteer %>
-              <small>Volunteer</small>
-            <% end %>
         </div>
       <% end %>
+
+      <!-- RSVP name -->
+      <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
+
+      <!-- Render the RSVP checkmark -->
+      <%= render 'rsvp', rsvp: rsvp %>
+
+      <!-- RSVP Canceled or Volunteer -->
+      <% if rsvp.canceled %>
+        <small>Canceled</small>
+      <% elsif rsvp.volunteer %>
+        <small>Volunteer</small>
+      <% end %>
+    </div>
+
     <% end %>
   <% end %>
+<% end %>

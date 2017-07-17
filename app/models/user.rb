@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true
 
+
   before_create :setup_activation
   # after_create :send_activation_needed_email!
 

@@ -10,52 +10,47 @@ $(document).ready(function() {
     })
   });
 
+  $('html').on('click', '.ticket', function(e){
+    if (this.classList.contains("ticket-checked")) {
+      e.preventDefault();
+      e.stopPropagation();
+      var id = $(this).data('id');
+      checkOut(id);
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+      var id = $(this).data('id');
+      checkIn(id);
+    }
+  });
+
   $('html').on('click', '.checkin', function(e){
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
-    $('#load-ani-'+id).show();
-    var url = '/rsvps/check_in';
-    $.ajax({
-      type: "POST",
-      url: url,
-      dataType: 'script',
-      data: {
-          'id': $(this).data('id'),
-          'attended': true
-        }
-    });
+    checkIn(id);
   });
 
   $('html').on('click', '.checkout', function(e){
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
-    $('#load-ani-'+id).show();
-    var url = '/rsvps/check_out';
-    $.ajax({
-      type: "POST",
-      url: url,
-      dataType: 'script',
-      data: {
-          'id': $(this).data('id'),
-          'attended': false
-        }
-    });
+    checkOut(id);
   });
 
   $('body').on('click', '.refresh', function(e){
     e.preventDefault();
     e.stopPropagation();
-    $('.loading').fadeIn();
+    var sidebarHtml = loadingIn();
     setQuote();
     var url = '/sync';
     $.get(url, function() {
-      $('.loading').delay(1000).fadeOut();
+      loadingOut(sidebarHtml);
     });
   });
 
-  $('.container').on('click', '.rsvp-name', function(e){
+  $('.container').on('click', '.rsvp-click-zone', function(e){
+
     e.preventDefault();
     e.stopPropagation();
     var url = this.attributes.href.value
@@ -138,9 +133,42 @@ $(document).ready(function() {
 
 })
 
+function checkIn(id){
+  $('*[id*=load-ani-'+id+']').each(function() {
+      $(this).show()
+  });
+  var url = '/rsvps/check_in';
+  $.ajax({
+    type: "POST",
+    url: url,
+    dataType: 'script',
+    data: {
+        'id': id,
+        'attended': true
+      }
+  });
+}
+
+function checkOut(id){
+  $('*[id*=load-ani-'+id+']').each(function() {
+      $(this).show()
+  });
+  var url = '/rsvps/check_out';
+  $.ajax({
+    type: "POST",
+    url: url,
+    dataType: 'script',
+    data: {
+        'id': id,
+        'attended': false
+      }
+  });
+}
+
+
 function updateIcons(page) {
 
-  $.each($('.icons a p'), function(key, value){
+  $.each($('.icons a h6'), function(key, value){
     $(value).css("color", "#7c7c7c")
   });
 
@@ -156,13 +184,13 @@ function updateIcons(page) {
   });
 
   if (page === "settings") {
-    $('.settings a p').css("color", "#0AC4F8")
+    $('.settings a h6').css("color", "#0AC4F8")
     $('.settings a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
   } else if (page === "newRsvp") {
-    $('.add-rsvp a p').css("color", "#0AC4F8")
+    $('.add-rsvp a h6').css("color", "#0AC4F8")
     $('.add-rsvp a img').attr("src", "<%= asset_path("Icon/Add/Color.svg") %>")
   } else if (page === "checkIn") {
-    $('.check-in a p').css("color", "#0AC4F8")
+    $('.check-in a h6').css("color", "#0AC4F8")
     $('.check-in a img').attr("src", "<%= asset_path("Icon/Checkmark/Color.svg") %>")
   } else {};
 };
@@ -176,4 +204,7 @@ function hideCard() {
 function showCard() {
   $('.show-card').show();
   $('body').addClass("overflow-hidden");
+  if (window.innerWidth > 792) {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+  }
 };

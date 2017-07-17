@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> 
     <!-- <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"> -->
     <!-- <link href="//cloud.webtype.com/css/f3a5aac8-1919-4d5c-b564-8fe3712600ae.css" rel="stylesheet" type="text/css" /> -->
     <title><%= content_for?(:title) ? yield(:title) : "Check by cStreet" %></title>
@@ -17,7 +17,7 @@
         <% if current_user && current_user.color %>
           <header style="background: <%= current_user.color %>">
         <% else %>
-          <header style="background-image: linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%)">
+          <header style="background-image: linear-gradient(20deg, #65CCEE 37%, #9DAAD7 100%)">
         <% end %>
           <%= link_to landing_path do %>
           <% if current_user %>
@@ -71,10 +71,10 @@
               <%= link_to rsvps_path do %>
                 <% if @page != "index" %>
                   <%= image_tag(asset_path("Icon/Checkmark/Grey.svg")) %>
-                  <p>Check In</p>
+                  <h6>Check In</h6>
                 <% else %>
                   <%= image_tag(asset_path("Icon/Checkmark/Color.svg")) if @page == "index" %>
-                  <p style="color: #0AC4F8">Check In</p>
+                  <h6 style="color: #0AC4F8">Check In</h6>
                 <% end %>
               <% end %>
             </div>
@@ -82,12 +82,12 @@
               <% if @page != "new-rsvp" %>
                 <%= link_to new_rsvp_path do %>
                   <%= image_tag(asset_path("Icon/Add/Grey.svg")) %>
-                  <p>Add RSVP</p>
+                  <h6>Add RSVP</h6>
                 <% end %>
               <% else %>
               <%= link_to new_rsvp_path do %>
                 <%= image_tag(asset_path("Icon/Add/Color.svg")) %>
-                <p style="color: #0AC4F8">Add RSVP</p>
+                <h6 style="color: #0AC4F8">Add RSVP</h6>
               <% end %>
               <% end %>
             </div>
@@ -95,12 +95,12 @@
               <% if @page != "settings" %>
                 <%= link_to edit_user_path(current_user) do %>
                   <%= image_tag(asset_path("Icon/Gear/Grey.svg")) %>
-                  <p>Settings</p>
+                  <h6>Settings</h6>
                 <% end %>
               <% else %>
               <%= link_to edit_user_path(current_user) do %>
                 <%= image_tag(asset_path("Icon/Gear/Color.svg")) %>
-                <p style="color: #0AC4F8">Settings</p>
+                <h6 style="color: #0AC4F8">Settings</h6>
               <% end %>
               <% end %>
             </div>
