@@ -193,7 +193,7 @@
   .add-rsvp-header {
     padding: 0 15px;
     border: none;
-    font-size: 10px;
+    font-size: 14px;
     text-transform: uppercase;
     img {
       margin-right: 9px;
@@ -349,6 +349,7 @@
     width: 50%;
     margin-left: 27px;
     margin-top: 27px;
+    padding: 4.5px 27px !important;
   }
   #rsvp-results {
     position: relative;
@@ -384,7 +385,7 @@
     width: 37%;
     left: 27%;
     top: 54px;
-    padding: 9px !important;
+    padding: 9px 27px !important;
 
     input {
       height: 36px;

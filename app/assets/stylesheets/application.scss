@@ -36,7 +36,7 @@
         }
 
 * {
-  font-family: 'Alright Sans Light', sans-serif;
+  font-family: 'Alright Sans Regular', sans-serif;
   font-weight: normal;
 }
 
@@ -92,6 +92,7 @@ input, input:focus, input:hover {
 .btn {
   font-size: 18px;
   font-weight: normal;
+  border-radius: 0;
 }
 
 .form-control:focus {
