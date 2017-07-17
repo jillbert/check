@@ -253,6 +253,10 @@ h6 {
   }
 }
 
+.container.rsvps {
+    margin-top: 90px;
+}
+
 footer {
   height: 54px;
   background-color: white;
@@ -262,7 +266,7 @@ footer {
   text-transform: uppercase;
   color: $grey9;
   border-top: 1px solid $grey4;
-  z-index: 999;
+  z-index: 1000;
 
   .icons {
     margin: 5px auto;
