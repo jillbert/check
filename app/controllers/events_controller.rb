@@ -5,7 +5,8 @@ class EventsController < ApplicationController
   before_filter :has_credential?
 
   def landing
-    session[:current_site] = params[:site] if params[:site]
+    session[:current_site] = nil
+    session[:current_event] = nil
   end
 
   def choose_site
