@@ -18,6 +18,7 @@ class Rsvp < ActiveRecord::Base
                                                        site_slug: site,
                                                        id: event.eventNBID
     ))
+
     unless @rsvps.body['results'].empty?
       while @rsvps
         @rsvps.body['results'].each do |rsvp|
@@ -48,6 +49,13 @@ class Rsvp < ActiveRecord::Base
         @rsvps = (@rsvps.next if @rsvps.next?)
       end
     end
+  end
+
+  def self.letters(rsvps)
+    letters = []
+    rsvps.each { |rsvp| letters << rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
+    letters.sort_by!(&:downcase) unless letters.empty?
+    letters.uniq!
   end
 
   def self.import(r, event, p_id, n_id)

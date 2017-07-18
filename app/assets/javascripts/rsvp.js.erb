@@ -43,7 +43,8 @@ $(document).ready(function() {
     e.stopPropagation();
     var sidebarHtml = loadingIn();
     var url = '/sync';
-    $.get(url, function() {
+    $.get(url, function(html) {
+      $('#rsvp-results').html(html)
       loadingOut(sidebarHtml);
     });
   });

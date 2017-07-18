@@ -13,14 +13,12 @@ class RsvpsController < ApplicationController
       r = Rsvp.where(event_id: @current_event.id, host_id: nil)
       @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
     else
-      @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
+      @rsvps = Rsvp.includes(:person).where(event_id: @current_event.id, host_id: nil)
     end
 
-    @letters = []
-    @rsvps.each { |rsvp| @letters << rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
-    @letters.sort_by!(&:downcase) unless @letters.empty?
-    @letters.uniq!
-    get_count
+    @letters = Rsvp.letters(@rsvps)
+
+    # get_count
     @rsvps.order('last_name DESC') unless @rsvps.empty?
     render layout: false if params[:query]
 
@@ -97,9 +95,9 @@ class RsvpsController < ApplicationController
   def sync
     Rsvp.sync(@current_event, session[:current_site])
     @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
-    respond_to do |format|
-      format.js {}
-    end
+    @letters = Rsvp.letters(@rsvps)
+    @rsvps.order('last_name DESC') unless @rsvps.empty?
+    render layout: false
   end
 
   private
