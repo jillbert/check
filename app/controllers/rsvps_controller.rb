@@ -8,26 +8,22 @@ class RsvpsController < ApplicationController
   before_filter :is_owner, only: [:show]
 
   def index
-    @syncing = false
-    if @current_event.sync_status == 'pending'
-      @syncing = true
+
+    if params[:query]
+      r = Rsvp.where(event_id: @current_event.id, host_id: nil)
+      @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
     else
-
-      if params[:query]
-        r = Rsvp.where(event_id: @current_event.id, host_id: nil)
-        @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
-      else
-        @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
-      end
-
-      @letters = []
-      @rsvps.each { |rsvp| @letters << rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
-      @letters.sort_by!(&:downcase) unless @letters.empty?
-      @letters.uniq!
-      get_count
-      @rsvps.order('last_name DESC') unless @rsvps.empty?
-      render layout: false if params[:query]
+      @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
     end
+
+    @letters = []
+    @rsvps.each { |rsvp| @letters << rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
+    @letters.sort_by!(&:downcase) unless @letters.empty?
+    @letters.uniq!
+    get_count
+    @rsvps.order('last_name DESC') unless @rsvps.empty?
+    render layout: false if params[:query]
+
   end
 
   def new

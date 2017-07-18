@@ -6,7 +6,7 @@ $(document).ready(function() {
     var url = '/rsvps';
     var q = $('#search').serialize()
     $.get(url, q, function(html) {
-      $('#rsvp-results').html(html)
+      $('.rsvps').replaceWith(html)
     })
   });
 
