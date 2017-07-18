@@ -3,6 +3,7 @@
 .user-settings {
   padding-left: 15px !important;
   padding-right: 15px !important;
+  // padding-bottom: 54px;
 
   .form-group {
     padding: 0;
@@ -48,9 +49,9 @@
     font-size: 14px;
     text-transform: uppercase;
   }
+  .logout {
+    width: 100%;
+    text-align: center;
+  }
 
-}
-.logout {
-  width: 100%;
-  text-align: center;
 }

@@ -35,6 +35,8 @@
 .overflow-hidden {
   overflow: hidden !important;
   position: relative;
+  margin: 0;
+  height: 100%;
 }
 
 .rsvp, .site, .choose_site, .choose_event, .event {
@@ -97,6 +99,7 @@
     position: fixed;
     top: 45px;
     padding-bottom: 108px;
+    overflow-y: scroll;
     overflow-x: hidden;
     background: white;
     width: 100%;
@@ -104,7 +107,7 @@
     z-index: 1000;
 
     .show-card-close {
-      padding: 4.5px 18px;
+      padding: 18px 18px;
       width: 100%;
       text-align: right;
       img {
@@ -211,6 +214,10 @@
     padding: 0 18px !important;
     border: none;
 
+    form#new_person {
+      margin-bottom: 27px;
+    }
+
     .form-group {
       padding: 0;
       border-bottom: none;
@@ -248,14 +255,6 @@
       color: white;
       font-size: 18px;
     }
-
-  }
-  .close-btn {
-    position: absolute;
-    top: 9px;
-    right: 9px;
-    width: 18px;
-    height: 18px;
   }
 }
 
@@ -425,7 +424,7 @@
     overflow-x: scroll;
     margin-right: 27px;
     position: absolute;
-    top: 59px;
+    top: 149px;
     left: 65%;
     border: 1px solid #ECECEC;
     box-shadow: 0 25px 40px -20px rgba(0,0,0,0.10);

@@ -10,7 +10,7 @@ $(document).ready(function() {
     })
   });
 
-  $('html').on('click', '.ticket', function(e){
+  $('html').on('click ', '.ticket', function(e){
     if (this.classList.contains("ticket-checked")) {
       e.preventDefault();
       e.stopPropagation();
@@ -24,21 +24,21 @@ $(document).ready(function() {
     }
   });
 
-  $('html').on('click', '.checkin', function(e){
+  $('html').on('click ', '.checkin', function(e){
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
     checkIn(id);
   });
 
-  $('html').on('click', '.checkout', function(e){
+  $('html').on('click ', '.checkout', function(e){
     e.preventDefault();
     e.stopPropagation();
     var id = $(this).data('id');
     checkOut(id);
   });
 
-  $('body').on('click', '.refresh', function(e){
+  $('body').on('click ', '.refresh', function(e){
     e.preventDefault();
     e.stopPropagation();
     var sidebarHtml = loadingIn();
@@ -49,7 +49,7 @@ $(document).ready(function() {
     });
   });
 
-  $('body').on('click', '.rsvp-click-zone', function(e){
+  $('html').on('click ', '.rsvp-click-zone', function(e){
     e.preventDefault();
     e.stopPropagation();
     var url = this.attributes.href.value
@@ -61,7 +61,7 @@ $(document).ready(function() {
     });
   });
 
-  $('body').on('click', '.guests a', function(e){
+  $('body').on('click ', '.guests a', function(e){
     e.preventDefault();
     e.stopPropagation();
     if (this.classList.contains("new-ticket")) {
@@ -92,7 +92,15 @@ $(document).ready(function() {
     });
   });
 
-  $('body').on('click','.settings a', function(e){
+  $('body').on('click','.add-rsvp-cancel', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    debugger
+    updateIcons("checkIn");
+    hideCard();
+  });
+
+  $('body').on('click ','.settings a', function(e){
     e.preventDefault();
     e.stopPropagation();
     var page = "settings"
@@ -107,17 +115,18 @@ $(document).ready(function() {
       $.get(url, function(html) {
         $('.main').html("<div class='container'></div>");
         $('.main .container').html(html);
+        $('.user-settings').css("margin-bottom", "54px")
         updateIcons(page);
       });
     }
   });
 
-  $('body').on('click', '.show-card-close', function(e){
+  $('body').on('click ', '.show-card-close', function(e){
     hideCard();
     $('.show-card').removeClass("add-rsvp-card");
   });
 
-  $('body').on('click', '.check-in', function(e){
+  $('body').on('click ', '.check-in', function(e){
     e.preventDefault();
     e.stopPropagation();
     updateIcons("checkIn");
@@ -187,14 +196,16 @@ $(document).ready(function() {
 
   function hideCard() {
     $('.show-card').hide();
+    $('.show-card-content').html("");
     $('.rsvp-name').removeClass("black");
-    $('body').removeClass("overflow-hidden");
+    $('.show-card').removeClass("add-rsvp-card");
+    $('.body, html, body').removeClass("overflow-hidden");
     updateIcons("checkIn")
   }
 
   function showCard() {
     $('.show-card').show();
-    $('body').addClass("overflow-hidden");
+    $('.body, html, body').addClass("overflow-hidden");
     if (window.innerWidth > 792) {
       $("html, body").animate({ scrollTop: 0 }, "slow");
     }

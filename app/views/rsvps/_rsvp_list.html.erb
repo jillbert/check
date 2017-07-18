@@ -11,7 +11,7 @@
     <% else %>
       <div class='rsvp list-item'>
     <% end %>
-    <div href="<%= rsvp_path(rsvp) %>" class="rsvp-click-zone"></div>
+    <a href="<%= rsvp_path(rsvp) %>" class="rsvp-click-zone"></a>
 
       <!-- Guest Dots -->
       <% if rsvp.guests_count > 0 %>
