@@ -18,12 +18,13 @@ class Rsvp < ActiveRecord::Base
                                                        site_slug: site,
                                                        id: event.eventNBID
     ))
-
     unless @rsvps.body['results'].empty?
       while @rsvps
         @rsvps.body['results'].each do |rsvp|
-          new_rsvp = Rsvp.find_or_create_by(rsvpNBID: rsvp['id'], event_id: event.id, nation_id: event.nation.id)
-          person = Person.find_or_create_by(nbid: rsvp['person_id'], nation_id: event.nation.id)
+          new_rsvp = Rsvp.find_or_create_by(rsvpNBID: rsvp['id'],
+                                            event_id: event.id,
+                                            nation_id: event.nation.id,
+                                            person_id: Person.find_or_create_by(nbid: rsvp['person_id'], nation_id: event.nation.id).id)
 
           new_rsvp.assign_attributes(guests_count: rsvp['guests_count'],
                                      volunteer: rsvp['volunteer'],
@@ -32,11 +33,10 @@ class Rsvp < ActiveRecord::Base
                                      attended: rsvp['attended'],
                                      shift_ids: rsvp['shift_ids'],
                                      ticket_type: rsvp['ticket_type'],
-                                     tickets_sold: rsvp['tickets_sold'],
-                                     person_id: person.id)
+                                     tickets_sold: rsvp['tickets_sold'])
 
           nb_person = nb_client.call(:people, :show, id: rsvp['person_id'])
-          person.assign_attributes(first_name: nb_person['person']['first_name'],
+          new_rsvp.person.assign_attributes(first_name: nb_person['person']['first_name'],
                                    last_name: nb_person['person']['last_name'],
                                    email: nb_person['person']['email'],
                                    phone_number: nb_person['person']['phone'],
@@ -44,7 +44,7 @@ class Rsvp < ActiveRecord::Base
                                    mobile: nb_person['person']['mobile'])
 
           new_rsvp.save if new_rsvp.changed?
-          person.save if person.changed?
+          new_rsvp.person.save if new_rsvp.person.changed?
         end
         @rsvps = (@rsvps.next if @rsvps.next?)
       end

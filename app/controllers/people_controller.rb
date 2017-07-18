@@ -34,7 +34,7 @@ class PeopleController < ApplicationController
         create_cache
         new_rsvp = Rsvp.find_by(person_id: @person.id, event_id: @current_event.id)
         new_rsvp.update_attributes(host_id: params[:host_id])
-        redirect_to rsvp_path(new_rsvp)
+        redirect_to rsvps_path
       elsif nationbuilder_rsvp[:status]
         new_person = Person.create_with(last_name: @person.last_name, first_name: @person.first_name, pic: @person.pic)
                            .find_or_create_by(email: @person.email, nbid: @person.nbid)

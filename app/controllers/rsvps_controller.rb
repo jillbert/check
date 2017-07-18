@@ -44,7 +44,7 @@ class RsvpsController < ApplicationController
       if @host && @event
         @rsvp.update_attributes(person_id: @person.id, nation_id: @current_event.nation_id, guests_count: 0, host_id: @host.id, event_id: @event.id)
       else
-        @rsvp.update_attributes(person_id: @person.id, nation_id: @current_event.nation_id, guests_count: 0)
+        @rsvp.update_attributes(person_id: @person.id, nation_id: @current_event.nation_id, guests_count: 0, event_id: @event.id  )
       end
 
     end

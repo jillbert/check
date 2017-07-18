@@ -54,7 +54,7 @@ class EventsController < ApplicationController
           events << JSON.parse(response.body)['results']
         end
       else
-        events << parsed['results'] 
+        events << parsed['results']
       end
 
       events.flatten!
