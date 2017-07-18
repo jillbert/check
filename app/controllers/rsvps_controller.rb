@@ -95,8 +95,8 @@ class RsvpsController < ApplicationController
   end
 
   def sync
-    site = session[:current_site]
-    Rsvp.sync(@current_event, site)
+    Rsvp.sync(@current_event, session[:current_site])
+    @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
     respond_to do |format|
       format.js {}
     end

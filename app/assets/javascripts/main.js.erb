@@ -63,21 +63,19 @@ $(function(){
 		}
 	});
 
-	// if (!window.location.href.includes("/rsvps")) {
-	// 	$('.check-in').hide();
-	// 	$('.add-rsvp').hide();
-	// }
-
 	setQuote();
 
 });
 
 function loadingIn() {
+	setQuote();
 	var sidebarHtml = $('.sidebar').html()
-	$('.sidebar').html("<div class='sidebar-header'></div><div class='sidebar-filler1 sidebar-filler'></div><div class='sidebar-filler2 sidebar-filler'></div>");
+	var emptySidebar = "<div class='sidebar-header'></div><div class='sidebar-filler1 sidebar-filler'></div><div class='sidebar-filler2 sidebar-filler'></div>"
+	$('.sidebar').html(emptySidebar);
 	$('.loading').fadeIn();
 	return sidebarHtml
 }
+
 function loadingOut(sidebarHtml){
 	$('.sidebar').html(sidebarHtml);
 	$('.loading').fadeOut();
