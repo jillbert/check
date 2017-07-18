@@ -92,7 +92,7 @@ input, input:focus, input:hover {
 .btn {
   font-size: 18px;
   font-weight: normal;
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 .form-control:focus {
