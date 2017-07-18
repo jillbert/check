@@ -52,10 +52,9 @@ class Rsvp < ActiveRecord::Base
   end
 
   def self.letters(rsvps)
-    letters = []
-    rsvps.each { |rsvp| letters << rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
-    letters.sort_by!(&:downcase) unless letters.empty?
-    letters.uniq!
+    letters = rsvps.map { |rsvp| rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
+    letters.sort_by!(&:downcase) unless letters.empty? || letters.nil?
+    letters = letters.uniq
   end
 
   def self.import(r, event, p_id, n_id)

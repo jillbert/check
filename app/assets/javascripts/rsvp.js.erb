@@ -49,7 +49,7 @@ $(document).ready(function() {
     });
   });
 
-  $('.container').on('click', '.rsvp-click-zone', function(e){
+  $('body').on('click', '.rsvp-click-zone', function(e){
     e.preventDefault();
     e.stopPropagation();
     var url = this.attributes.href.value
@@ -61,7 +61,7 @@ $(document).ready(function() {
     });
   });
 
-  $('.container').on('click', '.guests a', function(e){
+  $('body').on('click', '.guests a', function(e){
     e.preventDefault();
     e.stopPropagation();
     if (this.classList.contains("new-ticket")) {
@@ -79,19 +79,20 @@ $(document).ready(function() {
     }
   });
 
-  $('.add-rsvp a').on('click', function(e){
+  $('body').on('click','.add-rsvp a', function(e){
     e.preventDefault();
     e.stopPropagation();
     var url = this.attributes.href.value
     var page = "newRsvp"
     $.get(url, function(html) {
-      $('.show-card-content').html(html)
+      $('.show-card').addClass("add-rsvp-card");
+      $('.show-card-content').html(html);
       updateIcons(page);
       showCard();
     });
   });
 
-  $('.settings a').on('click', function(e){
+  $('body').on('click','.settings a', function(e){
     e.preventDefault();
     e.stopPropagation();
     var page = "settings"
@@ -111,15 +112,15 @@ $(document).ready(function() {
     }
   });
 
-  $('.container').on('click', '.show-card-close', function(e){
+  $('body').on('click', '.show-card-close', function(e){
     hideCard();
+    $('.show-card').removeClass("add-rsvp-card");
   });
 
   $('body').on('click', '.check-in', function(e){
     e.preventDefault();
     e.stopPropagation();
-    var page = "checkIn"
-    updateIcons(page);
+    updateIcons("checkIn");
     hideCard();
   });
 
@@ -188,6 +189,7 @@ $(document).ready(function() {
     $('.show-card').hide();
     $('.rsvp-name').removeClass("black");
     $('body').removeClass("overflow-hidden");
+    updateIcons("checkIn")
   }
 
   function showCard() {

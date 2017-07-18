@@ -185,6 +185,14 @@
   }
 }
 
+.show-card.add-rsvp-card {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: 9999;
+    padding: 18px 0px;
+}
+
 .add-rsvp {
   position: relative;
 
