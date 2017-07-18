@@ -20,36 +20,43 @@
     </h3>
   </div>
 
-  <div class="tickets">
+  <div class="list-separator">
     <small style="color:#7C7C7C">TICKETS</small>
+  </div>
+  <div class="tickets">
     <%= render "ticket", rsvp: @rsvp %>
   </div>
 
   <div class="guests">
-    <small style="color:#7C7C7C">GUESTS</small>
-    <% guest_tickets = @current_event.rsvps.where(host_id: @rsvp.id) %>
-    <% (@rsvp.guests_count - guest_tickets.where(attended: true).count).times do %>
-      <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
-    <% end %>
-    <% guest_tickets.where(attended: true).each do %>
-      <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
-    <% end %>
-
-    <% guest_tickets.each do |rsvp| %>
-      <% @rsvp = rsvp %>
-      <%= link_to rsvp_path(rsvp) do %>
-        <%= render "ticket" %>
+    <div class="list-separator">
+      <small style="color:#7C7C7C">GUESTS</small>
+      <% guest_tickets = @current_event.rsvps.where(host_id: @rsvp.id) %>
+      <% (@rsvp.guests_count - guest_tickets.where(attended: true).count).times do %>
+        <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
       <% end %>
-    <% end %>
-
-    <% @rsvp = Rsvp.find(params[:id]) %>
-    <% @i = 1 %>
-    <% (@rsvp.guests_count - guest_tickets.count).times do %>
-      <%= link_to(new_rsvp_path + '?event_id=' + @rsvp.event.id.to_s + "&host_id=" + @rsvp.id.to_s, class: "new-ticket") do %>
-        <%= render "ticket" %>
+      <% guest_tickets.where(attended: true).each do %>
+        <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
       <% end %>
-      <% @i += 1 %>
-    <% end %>
+    </div>
+
+    <div class="tickets">
+      <% guest_tickets.each do |rsvp| %>
+        <% @rsvp = rsvp %>
+        <%= link_to rsvp_path(rsvp) do %>
+          <%= render "ticket" %>
+        <% end %>
+      <% end %>
+
+      <% @rsvp = Rsvp.find(params[:id]) %>
+      <% @i = 1 %>
+      <% (@rsvp.guests_count - guest_tickets.count).times do %>
+        <%= link_to(new_rsvp_path + '?event_id=' + @rsvp.event.id.to_s + "&host_id=" + @rsvp.id.to_s, class: "new-ticket") do %>
+          <%= render "ticket" %>
+        <% end %>
+        <% @i += 1 %>
+      <% end %>
+    </div>
   </div>
+
 
 </div>

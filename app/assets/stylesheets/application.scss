@@ -222,13 +222,13 @@ header {
     right: 18px;
     top: 7px;
     color: white;
-    height: 33px;
-    width: 33px;
+    height: 27px;
+    width: 27px;
 
     img {
       height: 18px;
       width: 18px;
-      margin: 0 8px;
+      margin: 0 5px;
     }
     small {
       display: block;
@@ -256,6 +256,13 @@ h6 {
 
 .container.rsvps {
     margin-top: 90px;
+}
+
+.word-wrapper {
+  overflow-x: hidden;
+  white-space: nowrap;
+  width: 95%;
+  display: inline-block;
 }
 
 footer {
@@ -360,9 +367,10 @@ footer {
   }
 
   .choose-site, .events {
-
     background: white;
   }
+
+
 
   footer {
     position: fixed;

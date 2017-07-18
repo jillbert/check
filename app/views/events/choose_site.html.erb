@@ -7,11 +7,9 @@
     <% @sites.each do |s| %>
       <%= link_to choose_event_path(:site => "#{s['slug']}"), method: :get, class: 'list-item black' do %>
         <div class="site">
-          <% if s['name'].length > 30 %>
-            <%= "#{s['name'][0..30]}..." %>
-          <% else %>
-            <%= "#{s['name']}" %>
-          <% end %>
+          <div class="word-wrapper">
+            <%= s['name'] %>
+          </div>
         </div>
       <% end %>
     <% end %>

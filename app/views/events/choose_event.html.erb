@@ -6,12 +6,10 @@
       <% @current_events.each do |event| %>
         <%= link_to set_event_path(event_id: event[1][0]["id"]), class: "list-item", method: :get do %>
           <div class="event">
-            <% if event[1][0]["name"].length > 30 %>
-              <%= event[1][0]["name"][0..30]+"..." %>
-            <% else %>
+            <div class="word-wrapper">
               <%= event[1][0]["name"] %>
-            <% end %>
-            <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+              <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -31,12 +29,10 @@
       <% @past_events.each do |event| %>
         <%= link_to set_event_path(event_id: event[1][0]["id"]), class: "list-item", method: :get do %>
           <div class="event">
-            <% if event[1][0]["name"].length > 30 %>
-              <%= event[1][0]["name"][0..30]+"..." %>
-            <% else %>
+            <div class="word-wrapper">
               <%= event[1][0]["name"] %>
-            <% end %>
-            <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+              <div class="event_date"><%= event[1][0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+            </div>
           </div>
         <% end %>
       <% end %>

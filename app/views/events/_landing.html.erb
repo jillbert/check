@@ -1,11 +1,10 @@
 <% if session[:current_site] %>
   <%= link_to choose_site_path do %>
     <div class="choose_site">
-      <% if session[:current_site].length > 30 %>
-        <%= session[:current_site].titleize[0..30]+"..." %> <i class="fa fa-angle-right" aria-hidden="true"></i>
-      <% else %>
-        <%= session[:current_site].titleize %> <i class="fa fa-angle-right" aria-hidden="true"></i>
-      <% end %>
+      <div class="word-wrapper">
+        <%= session[:current_site].titleize %>
+      </div>
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
     </div>
   <% end %>
 
@@ -23,11 +22,10 @@
 
 <%= link_to choose_event_path do %>
   <div class="choose_event">
-    <% if Event.find(session[:current_event]).name.length > 30 %>
-      <%= Event.find(session[:current_event]).name.titleize[0..30]+"..." %> <i class="fa fa-angle-right" aria-hidden="true"></i>
-    <% else %>
-      <%= Event.find(session[:current_event]).name.titleize %> <i class="fa fa-angle-right" aria-hidden="true"></i>
-    <% end %>
+    <div class="word-wrapper">
+      <%= Event.find(session[:current_event]).name.titleize %>
+    </div>
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
   </div>
 <% end %>
 
