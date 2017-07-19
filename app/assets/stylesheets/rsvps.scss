@@ -1,7 +1,7 @@
 @import 'colors';
 
 .search {
-  padding: 9px 45px !important;
+  padding: 9px 45px;
   border-bottom: none !important;
   position: fixed;
   top: 45px;
@@ -388,11 +388,14 @@
     }
   }
   .search {
-    width: 33%;
+    width: 100%;
     left: 27%;
     top: 54px;
-    padding: 9px 27px !important;
+    padding: 9px 27px;
     margin-left: 18px;
+    background: whitesmoke;
+    padding-right: 69%;
+    z-index: 1001;
 
     input {
       height: 36px;
@@ -401,7 +404,7 @@
 
     i {
       bottom: 18px;
-      right: 36px;
+      right: 70%;
       font-size: 18px;
     }
   }
