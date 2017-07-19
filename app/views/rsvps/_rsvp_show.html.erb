@@ -10,53 +10,53 @@
       <%= render 'rsvp', rsvp: @rsvp %>
 
     </h3>
-  </div>
 
-  <div class="email">
-    <small>Email</small>
-    <h3>
-      <%= @rsvp.person.email if @rsvp.person.email %>
-      <%= "N/A" unless @rsvp.person.email %>
-    </h3>
-  </div>
 
-  <div class="list-separator">
-    <small style="color:#7C7C7C">TICKETS</small>
-  </div>
-  <div class="tickets">
-    <%= render "ticket", rsvp: @rsvp %>
-  </div>
-
-  <div class="guests">
-    <div class="list-separator">
-      <small style="color:#7C7C7C">GUESTS</small>
-      <% guest_tickets = @current_event.rsvps.where(host_id: @rsvp.id) %>
-      <% (@rsvp.guests_count - guest_tickets.where(attended: true).count).times do %>
-        <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
-      <% end %>
-      <% guest_tickets.where(attended: true).each do %>
-        <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
-      <% end %>
+    <div class="email">
+      <small>Email</small>
+      <h3>
+        <%= @rsvp.person.email if @rsvp.person.email %>
+        <%= "N/A" unless @rsvp.person.email %>
+      </h3>
     </div>
 
     <div class="tickets">
-      <% guest_tickets.each do |rsvp| %>
-        <% @rsvp = rsvp %>
-        <%= link_to rsvp_path(rsvp) do %>
-          <%= render "ticket" %>
-        <% end %>
-      <% end %>
-
-      <% @rsvp = Rsvp.find(params[:id]) %>
-      <% @i = 1 %>
-      <% (@rsvp.guests_count - guest_tickets.count).times do %>
-        <%= link_to(new_rsvp_path + '?event_id=' + @rsvp.event.id.to_s + "&host_id=" + @rsvp.id.to_s, class: "new-ticket") do %>
-          <%= render "ticket" %>
-        <% end %>
-        <% @i += 1 %>
-      <% end %>
+      <%= render "ticket", rsvp: @rsvp %>
     </div>
   </div>
+
+  <% if @rsvp.guests_count > 0 %>
+    <div class="guests">
+      <div class="list-separator">
+        <small style="color:#7C7C7C">GUESTS</small>
+        <% guest_tickets = @current_event.rsvps.where(host_id: @rsvp.id) %>
+        <% (@rsvp.guests_count - guest_tickets.where(attended: true).count).times do %>
+          <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
+        <% end %>
+        <% guest_tickets.where(attended: true).each do %>
+          <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
+        <% end %>
+      </div>
+
+      <div class="tickets">
+        <% guest_tickets.each do |rsvp| %>
+          <% @rsvp = rsvp %>
+          <%= link_to rsvp_path(rsvp) do %>
+            <%= render "ticket" %>
+          <% end %>
+        <% end %>
+
+        <% @rsvp = Rsvp.find(params[:id]) %>
+        <% @i = 1 %>
+        <% (@rsvp.guests_count - guest_tickets.count).times do %>
+          <%= link_to(new_rsvp_path + '?event_id=' + @rsvp.event.id.to_s + "&host_id=" + @rsvp.id.to_s, class: "new-ticket") do %>
+            <%= render "ticket" %>
+          <% end %>
+          <% @i += 1 %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
 
 </div>

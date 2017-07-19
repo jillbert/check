@@ -8,17 +8,16 @@ class RsvpsController < ApplicationController
   before_filter :is_owner, only: [:show]
 
   def index
-
     if params[:query]
       r = Rsvp.where(event_id: @current_event.id, host_id: nil)
       @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
     else
-      @rsvps = Rsvp.includes(:person).where(event_id: @current_event.id, host_id: nil)
+      @rsvps = Rsvp.joins(:person).where(event_id: @current_event.id, host_id: nil)
     end
 
-    @letters = Rsvp.letters(@rsvps)
-
     # get_count
+
+    @letters = Rsvp.letters(@rsvps)
     @rsvps.order('last_name DESC') unless @rsvps.empty?
     render layout: false if params[:query]
 

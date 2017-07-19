@@ -1,12 +1,11 @@
-
 <% @page = "index" %>
 <div class="container rsvps">
   <% if !@rsvps.empty? %>
     <div id="rsvp-results">
+      <%= render 'search' %>
       <%= render "rsvp_list", letters: @letters, rsvps: @rsvps %>
     </div>
     <div class="show-card" style="display: none;">
-      <div class="show-card-close"><%= image_tag(asset_path("X.svg")) %></div>
       <div class="show-card-content"></div>
     </div>
   <% else %>

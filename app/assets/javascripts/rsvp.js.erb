@@ -56,6 +56,7 @@ $(document).ready(function() {
     $.get(url, function(html) {
       $('.show-card-content').html(html)
       showCard();
+      updateIcons("checkIn");
       $('.rsvp-name').removeClass("black");
       $('a[href="' + url + '"]').addClass("black");
     });
@@ -85,10 +86,10 @@ $(document).ready(function() {
     var url = this.attributes.href.value
     var page = "newRsvp"
     $.get(url, function(html) {
-      $('.show-card').addClass("add-rsvp-card");
       $('.show-card-content').html(html);
       updateIcons(page);
       showCard();
+      $('.show-card').addClass("add-rsvp-card");
     });
   });
 
@@ -105,13 +106,13 @@ $(document).ready(function() {
     e.stopPropagation();
     var page = "settings"
     var url = this.attributes.href.value
-    if (window.location.href.includes("/rsvps")) {
+    if (!window.location.href.includes("/landing")) {
       $.get(url, function(html) {
         $('.show-card-content').html(html)
         updateIcons(page);
         showCard();
       });
-    } else if (window.location.href.includes("/landing")) {
+    } else {
       $.get(url, function(html) {
         $('.main').html("<div class='container'></div>");
         $('.main .container').html(html);
@@ -204,10 +205,11 @@ $(document).ready(function() {
   }
 
   function showCard() {
+    $('.show-card').removeClass("add-rsvp-card");
     $('.show-card').show();
     $('.body, html, body').addClass("overflow-hidden");
     if (window.innerWidth > 792) {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $("html, body, .body").animate({ scrollTop: 0 }, "slow");
     }
   };
 })

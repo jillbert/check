@@ -67,8 +67,8 @@
     display: block;
     position: absolute;
     top: 0px;
-    padding: 0 !important;
-    border: none !important;
+    padding: 0;
+    border: none;
   }
 
   .guest-oval {
@@ -96,26 +96,30 @@
 }
 
 .show-card {
-    position: fixed;
-    top: 45px;
-    padding-bottom: 108px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background: white;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+  position: fixed;
+  top: 45px;
+  padding: 27px 18px 108px 18px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: white;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 
-    .show-card-close {
-      padding: 18px 18px;
-      width: 100%;
-      text-align: right;
-      img {
-        width: 18px;
-        height: 18px;
-        cursor: pointer;
-      }
+  .show-card-close {
+    margin-bottom: 27px;
+    width: 100%;
+    text-align: right;
+    img {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
     }
+  }
+  .list-separator {
+    margin: 0 -18px;
+    padding: 4.5px 18px;
+  }
 }
 
 .past_events {
@@ -150,9 +154,9 @@
   font-size: 10px;
   color: $darkgrey;
   height: 18px;
-  padding: 4.5px 18px !important;
-  border: none !important;
-  margin-top: 18px;
+  padding: 4.5px 18px;
+  border: none;
+  margin: 18px 0px;
 }
 
 .rsvp-show {
@@ -162,8 +166,7 @@
   }
 
   .rsvp-person, .email {
-    padding: 0 18px !important;
-    margin-top: 18px;
+    margin-bottom: 27px;
   }
 
   .rsvp-person {
@@ -193,14 +196,13 @@
     top: 0;
     height: 100%;
     z-index: 9999;
-    padding: 18px 0px;
+    padding-bottom: 27px;
 }
 
 .add-rsvp {
   position: relative;
 
   .add-rsvp-header {
-    padding: 0 18px;
     border: none;
     font-size: 14px;
     text-transform: uppercase;
@@ -211,7 +213,6 @@
   }
 
   .add-rsvp-form {
-    padding: 0 18px !important;
     border: none;
 
     form#new_person {
@@ -256,10 +257,6 @@
       font-size: 18px;
     }
   }
-}
-
-.tickets {
-  padding: 0 18px;
 }
 
 .ticket {
@@ -332,7 +329,8 @@
 
   .guest-oval {
     float: right;
-    margin-left: 5px;
+    margin-left: 4.5px;
+    margin-top: 3px;
   }
 }
 
@@ -354,10 +352,10 @@
     background: none;
     font-size: 18px;
     height: 27px;
-    width: 50%;
-    margin-left: 27px;
+    width: 45%;
     margin-top: 27px;
-    padding: 4.5px 27px !important;
+    margin-left: 18px;
+    padding: 4.5px 27px;
   }
   #rsvp-results {
     position: relative;
@@ -365,7 +363,7 @@
   .rsvp {
     background: white;
     height: 72px;
-    margin: 27px;
+    margin: 18px;
     margin-top: 4.5px;
     margin-bottom: 9px;
     width: 45%;
@@ -390,10 +388,11 @@
     }
   }
   .search {
-    width: 37%;
+    width: 33%;
     left: 27%;
     top: 54px;
     padding: 9px 27px !important;
+    margin-left: 18px;
 
     input {
       height: 36px;
@@ -418,13 +417,13 @@
   }
   .show-card {
     display: block;
-    padding: 27px;
+    padding: 45px;
     width: 33%;
     height: auto;
     overflow-x: scroll;
     margin-right: 27px;
     position: absolute;
-    top: 149px;
+    top: 162px;
     left: 65%;
     border: 1px solid #ECECEC;
     box-shadow: 0 25px 40px -20px rgba(0,0,0,0.10);
@@ -434,5 +433,18 @@
         width: 100%;
       }
     }
+    .list-separator {
+      width: 100%;
+      background: $grey1;
+      margin: 0;
+      padding: 4.5px 0px;
+      small {
+        vertical-align: text-top;
+      }
+    }
+  }
+  .show-card.add-rsvp-card {
+      top: 149px;
+      height: auto;
   }
 }
