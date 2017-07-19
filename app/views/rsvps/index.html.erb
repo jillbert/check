@@ -2,7 +2,6 @@
 <div class="container rsvps">
   <% if !@rsvps.empty? %>
     <div id="rsvp-results">
-      <%= render 'search' %>
       <%= render "rsvp_list", letters: @letters, rsvps: @rsvps %>
     </div>
     <div class="show-card" style="display: none;">
