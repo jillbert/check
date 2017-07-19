@@ -447,7 +447,9 @@
     }
   }
   .show-card.add-rsvp-card {
-      top: 149px;
+      position: absolute;
+      top: 162px;
       height: auto;
+      z-index: 1000;
   }
 }
