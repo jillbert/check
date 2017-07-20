@@ -3,7 +3,7 @@ class NationsController < ApplicationController
     @credential = check_credential
 
     if @credential
-      redirect_to choose_site_path
+      redirect_to landing_path
     end
 
   end

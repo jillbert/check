@@ -19,7 +19,7 @@ class OauthController < ApplicationController
       )
     else
       flash[:alert] = 'Nation is already authenticated.'
-      redirect_to choose_site_path
+      redirect_to landing_path
     end
   end
 

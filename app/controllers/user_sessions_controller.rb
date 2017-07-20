@@ -4,7 +4,7 @@ class UserSessionsController < ApplicationController
   def new
     if logged_in?
       check_credential
-      redirect_back_or_to(choose_site_path) if @credential
+      redirect_back_or_to(landing_path) if @credential
     else
       @noheader = true
       @nofooter = true
@@ -29,7 +29,7 @@ class UserSessionsController < ApplicationController
       else
         logout
         destroy_currents
-        redirect_to(login_path, notice: 'Sorry your account has been suspended. If you think is in error, please contact check@cstreet.ca.')
+        redirect_to(login_path, notice: 'Sorry your account has been suspended. If you think is in error, please contact support@cstreet.ca.')
       end
 
     else

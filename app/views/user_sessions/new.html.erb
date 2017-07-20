@@ -7,7 +7,9 @@
 <%= render "layouts/check_sync" %>
 
 <div class="container login-container">
-
+  <% if flash[:alert] %>
+    <div class="notice"><%= flash[:alert] %></div>
+  <% end %>
   <div class="login-logo">
     <%= image_tag(asset_path("logo.svg")) %>
   </div>
