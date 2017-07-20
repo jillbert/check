@@ -7,12 +7,14 @@
 <%= render "layouts/check_sync" %>
 
 <div class="container login-container">
-  <% if flash[:alert] %>
-    <div class="notice"><%= flash[:alert] %></div>
-  <% end %>
+
   <div class="login-logo">
     <%= image_tag(asset_path("logo.svg")) %>
   </div>
+
+  <% if flash[:alert] %>
+    <div class="flash"><%= flash[:alert] %></div>
+  <% end %>
 
   <%= bootstrap_form_tag url: user_sessions_path do |f| %>
     <%= f.email_field :email %>
