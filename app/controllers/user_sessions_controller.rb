@@ -31,10 +31,8 @@ class UserSessionsController < ApplicationController
         destroy_currents
         redirect_to(login_path, notice: 'Sorry your account has been suspended. If you think is in error, please contact support@cstreet.ca.')
       end
-
     else
-      flash.now[:alert] = 'Login failed'
-      render action: 'new'
+      redirect_to(login_path, alert: 'Login failed')
     end
   end
 
