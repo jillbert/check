@@ -64,6 +64,7 @@ $(function(){
 	});
 
 	setQuote();
+	$('.flash').delay(4000).slideUp();
 
 });
 
@@ -97,5 +98,3 @@ function setQuote() {
 	var quote = quotes[Math.floor((Math.random() * 8) + 1)]
 	$('.loading-quote')["0"].innerHTML = quote
 }
-
-$('.flash').delay(4000).slideUp();
