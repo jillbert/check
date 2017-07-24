@@ -21,7 +21,7 @@ index do
   selectable_column
   column :name
   column "Owner" do |n|
-    User.find(n.user_id).email unless User.where(id: n.user_id).empty?
+    n.users.first.email unless n.users.first.email.empty?
   end
   column "Events" do |n|
     n.events.count
@@ -45,7 +45,7 @@ show do
     row :created_at
     row :updated_at
     row "Owner" do |n|
-      User.find(n.user_id)
+      n.users.first
     end
   end
   active_admin_comments

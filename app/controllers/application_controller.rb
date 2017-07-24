@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def has_credential?
-    nation = Nation.find_by user_id: current_user.id
+    nation = current_user.nation
     credential = Credential.find_by nation_id: nation.id
     unless credential
       redirect_to authorize_path(nation_id: current_user.nation.id)

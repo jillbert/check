@@ -17,13 +17,13 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @nation = @user.build_nation
-    @nation.user_id = @user.id
+    @user.nation = @nation
   end
 
   # GET /users/1/edit
   def edit
     @page = 'settings'
-    @nation = Nation.find_by user_id: current_user.id
+    @nation = @user.nation
     render layout: false
   end
 
@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.skip_validation = true
+
     if @user.save
       redirect_to login_path, notice: 'User was successfully created!'
     else
@@ -111,6 +112,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:email, :username, :password, :password_confirmation, :active, :color, :logo, nation_attributes: %i[id name url client_uid secret_key user_id])
+    params.require(:user).permit(:email, :username, :password, :password_confirmation, :active, :color, :logo, :nation_id, :nation_attributes => [:id, :name, :url, :client_uid, :secret_key])
   end
 end

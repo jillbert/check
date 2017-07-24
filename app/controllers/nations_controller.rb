@@ -1,11 +1,11 @@
 class NationsController < ApplicationController
+
   def index
     @credential = check_credential
 
     if @credential
       redirect_to landing_path
     end
-
   end
 
   def new

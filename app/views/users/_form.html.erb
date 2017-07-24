@@ -11,15 +11,15 @@
   <% end %>
   <div class="form-group">
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.email_field :email %>
   </div>
   <div class="form-group">
     <%= f.label :password %>
-    <%= f.text_field :password %>
+    <%= f.password_field :password %>
   </div>
   <div class="form-group">
     <%= f.label :password_confirmation %>
-    <%= f.text_field :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
   </div>
   <hr>
   <!-- <div class="edit-user-header">
@@ -37,7 +37,7 @@
   <div class="edit-user-header">
     <small>Nation Settings</small>
   </div>
-  <%= f.fields_for :nation do |n| %>
+  <%= f.fields_for :nation, @user.build_nation do |n| %>
     <div class="form-group">
       <%= n.label :name, "Nation's Name" %>
       <%= n.text_field :name %>
