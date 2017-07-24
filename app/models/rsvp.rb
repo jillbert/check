@@ -11,67 +11,59 @@ class Rsvp < ActiveRecord::Base
   end
 
   def self.sync(event, site)
-    nb_client = NationBuilder::Client.new(event.nation.name, event.nation.credentials.first.token, retries: 8)
-    @rsvps = NationBuilder::Paginator.new(nb_client, nb_client.call(
+    nation = event.nation
+    nb_client = NationBuilder::Client.new(nation.name,
+                                          nation.credentials.first.token, retries: 8)
+    rsvps = NationBuilder::Paginator.new(nb_client, nb_client.call(
                                                        :events,
                                                        :rsvps,
                                                        site_slug: site,
                                                        id: event.eventNBID
     ))
-    unless @rsvps.body['results'].empty?
-      while @rsvps
-        @rsvps.body['results'].each do |rsvp|
-          new_rsvp = Rsvp.find_or_create_by(rsvpNBID: rsvp['id'],
-                                            event_id: event.id,
-                                            nation_id: event.nation.id,
-                                            person_id: Person.find_or_create_by(nbid: rsvp['person_id'], nation_id: event.nation.id).id)
+    unless rsvps.body['results'].empty?
+      while rsvps
+        rsvps.body['results'].each do |rsvp|
+          nb_person = nb_client.call(:people,
+                                     :show,
+                                     id: rsvp['person_id'])
 
-          new_rsvp.assign_attributes(guests_count: rsvp['guests_count'],
-                                     volunteer: rsvp['volunteer'],
-                                     is_private: rsvp['private'],
-                                     canceled: rsvp['canceled'],
-                                     attended: rsvp['attended'],
-                                     shift_ids: rsvp['shift_ids'],
-                                     ticket_type: rsvp['ticket_type'],
-                                     tickets_sold: rsvp['tickets_sold'])
 
-          nb_person = nb_client.call(:people, :show, id: rsvp['person_id'])
-          new_rsvp.person.assign_attributes(first_name: nb_person['person']['first_name'],
-                                   last_name: nb_person['person']['last_name'],
-                                   email: nb_person['person']['email'],
-                                   phone_number: nb_person['person']['phone'],
-                                   work_phone_number: nb_person['person']['work_phone_number'],
-                                   mobile: nb_person['person']['mobile'])
+          person = Person.import(nb_person["person"], nation.id)
 
-          new_rsvp.save if new_rsvp.changed?
-          new_rsvp.person.save if new_rsvp.person.changed?
+          Rsvp.import(rsvp,
+                      event.id,
+                      person.id,
+                      nation.id)
+
         end
-        @rsvps = (@rsvps.next if @rsvps.next?)
+        rsvps = (rsvps.next if rsvps.next?)
       end
     end
   end
 
-  def self.letters(rsvps)
-    letters = rsvps.map { |rsvp| rsvp.person.last_name[0].upcase.strip unless rsvp.person.nil? }
+  def self.letters(last_names)
+    letters = last_names.map { |name| name[0].upcase.strip unless name.nil? || name.empty? }
     letters.sort_by!(&:downcase) unless letters.empty? || letters.nil?
     letters = letters.uniq
   end
 
-  def self.import(r, event, p_id, n_id)
+  def self.import(r, e_id, p_id, n_id)
     rsvp = Rsvp.find_or_create_by(
-      event_id: event,
+      event_id: e_id,
       rsvpNBID: r['id'].to_i,
       person_id: p_id,
       nation_id: n_id
     )
 
-    rsvp.update(
+    rsvp.assign_attributes(
       guests_count: r['guests_count'].to_i,
       canceled: r['canceled'],
       volunteer: r['volunteer'],
       shift_ids: r['shift_ids'].to_a,
       attended: r['attended']
     )
+
+    rsvp.save if rsvp.changed?
 
     rsvp
   end

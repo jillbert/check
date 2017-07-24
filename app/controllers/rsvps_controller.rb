@@ -9,16 +9,16 @@ class RsvpsController < ApplicationController
 
   def index
     if params[:query]
-      r = Rsvp.where(event_id: @current_event.id, host_id: nil)
-      @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
+      @rsvps = Rsvp.includes(:person).where(event_id: @current_event.id, host_id: nil).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%").order("people.last_name desc")
+      # @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
     else
-      @rsvps = Rsvp.joins(:person).where(event_id: @current_event.id, host_id: nil)
+      @rsvps = Rsvp.includes(:person).where(event_id: @current_event.id, host_id: nil).order("people.last_name desc")
     end
 
     # get_count
-
-    @letters = Rsvp.letters(@rsvps)
-    @rsvps.order('last_name DESC') unless @rsvps.empty?
+    @letters = Rsvp.letters(@rsvps.pluck("people.last_name"))
+    # @letters = Rsvp.letters(@rsvps)
+    # @rsvps.order('last_name DESC') unless @rsvps.empty? || @rsvps.nil?
     render layout: false if params[:query]
 
   end
@@ -93,8 +93,8 @@ class RsvpsController < ApplicationController
 
   def sync
     Rsvp.sync(@current_event, session[:current_site])
-    @rsvps = Rsvp.where(event_id: @current_event.id, host_id: nil)
-    @letters = Rsvp.letters(@rsvps)
+    @rsvps = Rsvp.includes(:person).where(event_id: @current_event.id, host_id: nil).order("people.last_name desc")
+    @letters = Rsvp.letters(@rsvps.pluck("people.last_name"))
     @rsvps.order('last_name DESC') unless @rsvps.empty?
     render layout: false
   end

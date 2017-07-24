@@ -1,16 +1,15 @@
 <% @page = "index" %>
 <div class="container rsvps">
-  <% if !@rsvps.empty? %>
-    <div id="rsvp-results">
-      <%= render "rsvp_list", letters: @letters, rsvps: @rsvps %>
-    </div>
-    <div class="show-card" style="display: none;">
-      <div class="show-card-content"></div>
-    </div>
-  <% else %>
+  <div id="rsvp-results">
+    <%= render "rsvp_list", letters: @letters, rsvps: @rsvps %>
+  </div>
+  <div class="show-card" style="display: none;">
+    <div class="show-card-content"></div>
+  </div>
+  <% if @rsvps.empty? %>
   <div class="no-rsvps text-center">
     <p>No RSVPs found.</p>
     <%= link_to("Select another event", landing_path) %>
-  </div>
+  </div>  
   <% end %>
 </div>

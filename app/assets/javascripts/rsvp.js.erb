@@ -46,6 +46,10 @@ $(document).ready(function() {
     $.get(url, function(html) {
       $('#rsvp-results').html(html)
       loadingOut();
+    }).done(function(){
+      if ($('.rsvp').length > 0) {
+        $('.no-rsvps').hide();
+      }
     });
   });
 
@@ -68,6 +72,7 @@ $(document).ready(function() {
     var url = this.attributes.href.value
     $.get(url, function(html) {
       $('.show-card-content').html(html);
+    }).done(function(html){
       if (html.includes("add-rsvp-form")) {
         $('.show-card').addClass("add-rsvp-card");
       }
@@ -100,8 +105,8 @@ $(document).ready(function() {
       });
     } else {
       $.get(url, function(html) {
-        $('.main').html("<div class='container'></div>");
-        $('.main .container').html(html);
+        $('.main').append("<div class='settings-container' style='padding: 45px !important;'></div>");
+        $('.settings-container').html(html);
         $('.user-settings').css("margin-bottom", "54px")
         updateIcons(page);
       });
