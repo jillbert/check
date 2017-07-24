@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :same_user, only: %i[show edit update destroy]
-  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create index show]
+  before_filter :is_admin, only: %i[show index new create destroy]
   skip_before_filter :require_login, only: %i[new create activate confirm]
+  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create index show]
+
   # GET /users
   # GET /users.json
   def index
-    redirect_to edit_user_path(current_user)
+    redirect_to landing_path
   end
 
   # GET /users/1
@@ -100,6 +102,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def is_admin
+    redirect_to(:root, flash: { notice: "Page not found" }) unless ENV['ADMIN_ID'].include? current_user.id.to_s
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
