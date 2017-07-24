@@ -41,11 +41,11 @@ $(document).ready(function() {
   $('body').on('click ', '.refresh', function(e){
     e.preventDefault();
     e.stopPropagation();
-    var sidebarHtml = loadingIn();
+    loadingIn();
     var url = '/sync';
     $.get(url, function(html) {
       $('#rsvp-results').html(html)
-      loadingOut(sidebarHtml);
+      loadingOut();
     });
   });
 
@@ -68,7 +68,6 @@ $(document).ready(function() {
     var url = this.attributes.href.value
     $.get(url, function(html) {
       $('.show-card-content').html(html);
-      showCard();
       if (html.includes("add-rsvp-form")) {
         $('.show-card').addClass("add-rsvp-card");
       }
@@ -86,14 +85,6 @@ $(document).ready(function() {
       showCard();
       $('.show-card').addClass("add-rsvp-card");
     });
-  });
-
-  $('body').on('click','.add-rsvp-cancel', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    debugger
-    updateIcons("checkIn");
-    hideCard();
   });
 
   $('body').on('click ','.settings a', function(e){
@@ -119,7 +110,6 @@ $(document).ready(function() {
 
   $('body').on('click ', '.show-card-close', function(e){
     hideCard();
-    $('.show-card').removeClass("add-rsvp-card");
   });
 
   $('body').on('click ', '.check-in', function(e){
@@ -191,20 +181,28 @@ $(document).ready(function() {
   };
 
   function hideCard() {
-    $('.show-card').hide();
-    $('.show-card-content').html("");
-    $('.rsvp-name').removeClass("black");
-    $('.show-card').removeClass("add-rsvp-card");
-    $('.body, html, body').removeClass("overflow-hidden");
+    $('.show-card').fadeOut(300, function(){
+      $('.show-card-content').html("");
+      $('.rsvp-name').removeClass("black");
+      $('.show-card').removeClass("add-rsvp-card");
+      $('.body, html, body').removeClass("overflow-hidden");
+    });
     updateIcons("checkIn")
   }
 
   function showCard() {
-    $('.show-card').removeClass("add-rsvp-card");
-    $('.show-card').show();
-    $('.body, html, body').addClass("overflow-hidden");
     if (window.innerWidth > 792) {
       $("html, body, .body").animate({ scrollTop: 0 }, "slow");
     }
+    $('.show-card').fadeIn(300);
+    $('.show-card').removeClass("add-rsvp-card");
+    $('.body, html, body').addClass("overflow-hidden");
+
   };
+
+  $('body').on('click', function(e){
+    if (!this.classList.contains("show-card")) {
+      hideCard();
+    }
+  });
 })

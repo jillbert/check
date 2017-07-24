@@ -1,20 +1,20 @@
 $(function(){
 
 	$('.refresh_events').on('click', function(){
-		var sidebarHtml = loadingIn();
-		location.reload();
-		loadingOut(sidebarHtml);
+		loadingIn();
+		location.reload(function(){
+			loadingOut();
+		});
 	});
 
 	$('body').on('click', '.events a', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		var url = this.attributes.href.value
-		var sidebarHtml = loadingIn();
+		loadingIn();
 		$.get(url, function(response){
 			window.location.href = "/rsvps"
-			delay(2000);
-			loadingOut(sidebarHtml);
+			loadingOut();
 		})
 	});
 
@@ -40,6 +40,7 @@ $(function(){
 		if (window.innerWidth > 792) {
 			$.get(url, function(response){
 				$('.sidebar-main').html(response)
+
 			})
 		} else {
 			$.get(url, function(response){
@@ -70,16 +71,11 @@ $(function(){
 
 function loadingIn() {
 	setQuote();
-	var sidebarHtml = $('.sidebar').html()
-	var emptySidebar = "<div class='sidebar-header'></div><div class='sidebar-filler1 sidebar-filler'></div><div class='sidebar-filler2 sidebar-filler'></div>"
-	$('.sidebar').html(emptySidebar);
-	$('.loading').fadeIn();
-	return sidebarHtml
+	$('.loading').fadeIn(300);
 }
 
-function loadingOut(sidebarHtml){
-	$('.sidebar').html(sidebarHtml);
-	$('.loading').fadeOut();
+function loadingOut(){
+	$('.loading').fadeOut(300);
 }
 
 function setQuote() {
