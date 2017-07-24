@@ -21,7 +21,6 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </div>
-  <hr>
   <!-- <div class="edit-user-header">
     <small>Branding</small>
   </div>
@@ -32,20 +31,22 @@
   <div class="form-group">
     <%= f.label "Logo URL" %>
     <%= f.text_field :logo %>
-  </div>
-  <hr> -->
-  <div class="edit-user-header">
-    <small>Nation Settings</small>
-  </div>
-  <%= f.fields_for :nation, @user.build_nation do |n| %>
-    <div class="form-group">
-      <%= n.label :name, "Nation's Name" %>
-      <%= n.text_field :name %>
+  </div> -->
+  <hr>
+  <% if ENV['ADMIN_ID'].include? current_user.id.to_s %>
+    <div class="edit-user-header">
+      <small>Nation Settings</small>
     </div>
-    <div class="form-group">
-      <%= n.label :url, "Nation's URL" %>
-      <%= n.text_field :url %>
-    </div>
+    <%= f.fields_for :nation, @user.build_nation do |n| %>
+      <div class="form-group">
+        <%= n.label :name, "Nation's Name" %>
+        <%= n.text_field :name %>
+      </div>
+      <div class="form-group">
+        <%= n.label :url, "Nation's URL" %>
+        <%= n.text_field :url %>
+      </div>
+    <% end %>
   <% end %>
   <%= link_to "Change Site & Event", landing_path, class: "btn btn-block" %>
   <hr>
