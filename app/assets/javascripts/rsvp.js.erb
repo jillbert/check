@@ -206,7 +206,9 @@ $(document).ready(function() {
   };
 
   $('body').on('click', function(e){
-    if (!this.classList.contains("show-card")) {
+    if (e.target.classList.contains("show-card") || $(e.target).parents(".show-card").length > 0) {
+      null
+    } else {
       hideCard();
     }
   });
