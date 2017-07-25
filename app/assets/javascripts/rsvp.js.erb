@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+// Performs real time searches as you type in the search field
   $('#search').on("input", function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -10,6 +11,7 @@ $(document).ready(function() {
     })
   });
 
+// Handles clicks on the RSVP's ticket, to check the RSVP in or out.
   $('body').on('click ', '.host-tickets .ticket', function(e){
     if (this.classList.contains("ticket-checked")) {
       e.preventDefault();
@@ -24,6 +26,7 @@ $(document).ready(function() {
     }
   });
 
+  // listens for clicks on the checkin button.
   $('body').on('click ', '.checkin', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -31,6 +34,7 @@ $(document).ready(function() {
     checkIn(id);
   });
 
+  // listens for clicks on the checkout button.
   $('body').on('click ', '.checkout', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -38,6 +42,7 @@ $(document).ready(function() {
     checkOut(id);
   });
 
+// Refreshes the RSVP list when you tap the Refresh icon.
   $('body').on('click ', '.refresh', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -53,6 +58,7 @@ $(document).ready(function() {
     });
   });
 
+// Opens the RSVP show-card when you tap on the RSVP in the list.
   $('body').on('click ', '.rsvp-click-zone', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -66,6 +72,7 @@ $(document).ready(function() {
     });
   });
 
+// Opens an RSVP show-card when you tap on a Ticket within another RSVP.
   $('body').on('click ', '.guests .tickets a', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -79,6 +86,7 @@ $(document).ready(function() {
     });
   });
 
+// Opening the Add RSVP show-card when tapped.
   $('body').on('click','.add-rsvp a', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -92,6 +100,7 @@ $(document).ready(function() {
     });
   });
 
+// Opens the Settings panel. Behaves differently depending if you've selected a site and event or not.
   $('body').on('click ','.settings a', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -113,10 +122,12 @@ $(document).ready(function() {
     }
   });
 
+  // Closes the show-card when you tap the X in the corner of it
   $('body').on('click ', '.show-card-close', function(e){
     hideCard();
   });
 
+// Hides the show-card and activates the Check In footer button when it's tapped\clicked
   $('body').on('click ', '.check-in', function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -124,6 +135,7 @@ $(document).ready(function() {
     hideCard();
   });
 
+// Checks in an RSVP
   function checkIn(id){
     $('*[id*=load-ani-'+id+']').each(function() {
         $(this).show()
@@ -140,6 +152,7 @@ $(document).ready(function() {
     });
   }
 
+// checks out an RSVP when you tap\click it
   function checkOut(id){
     $('*[id*=load-ani-'+id+']').each(function() {
         $(this).show()
@@ -156,6 +169,7 @@ $(document).ready(function() {
     });
   }
 
+  // Updates the footer icons so the active icon is colored.
   function updateIcons(page) {
 
     $.each($('.icons a h6'), function(key, value){
@@ -185,6 +199,7 @@ $(document).ready(function() {
     } else {};
   };
 
+  // Hides the show-card
   function hideCard() {
     $('.show-card').fadeOut(300, function(){
       $('.show-card-content').html("");
@@ -195,6 +210,7 @@ $(document).ready(function() {
     updateIcons("checkIn")
   }
 
+  // Displays the show-card
   function showCard() {
     if (window.innerWidth > 792) {
       $("html, body, .body").animate({ scrollTop: 0 }, "slow");
@@ -205,6 +221,7 @@ $(document).ready(function() {
 
   };
 
+  // Closes the show-card when you click outside of it.
   $('body').on('click', function(e){
     if (e.target.classList.contains("show-card") || $(e.target).parents(".show-card").length > 0) {
       null
