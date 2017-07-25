@@ -9,16 +9,17 @@ class RsvpsController < ApplicationController
 
   def index
     if params[:query]
-      @rsvps = Rsvp.includes(:person).where(event_id: @current_event.id, host_id: nil).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%").order("people.last_name desc")
-      # @rsvps = r.joins(:person).where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
+      @rsvps = Rsvp.includes(:person)
+                   .where(event_id: @current_event.id, host_id: nil)
+                   .where('lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?', "%#{params[:query].downcase}%", "%#{params[:query].downcase}%", "%#{params[:query].downcase}%")
+                   .order("people.last_name desc")
     else
-      @rsvps = Rsvp.includes(:person).where(event_id: @current_event.id, host_id: nil).order("people.last_name desc")
+      @rsvps = Rsvp.includes(:person)
+                   .where(event_id: @current_event.id, host_id: nil)
+                   .order("people.last_name desc")
     end
 
-    # get_count
     @letters = Rsvp.letters(@rsvps.pluck("people.last_name"))
-    # @letters = Rsvp.letters(@rsvps)
-    # @rsvps.order('last_name DESC') unless @rsvps.empty? || @rsvps.nil?
     render layout: false if params[:query]
 
   end
@@ -63,8 +64,8 @@ class RsvpsController < ApplicationController
 
   def show
     @rsvp = Rsvp.find(params[:id])
-    # check_nb_update(Rsvp.find(params[:id]).person)
-    @add_guests = add_guests(@rsvp)
+    # check_nb_update(@rsvp.person)
+    # @add_guests = add_guests(@rsvp)
     @guests = Rsvp.where(host_id: @rsvp.id)
     render layout: false
   end
@@ -106,15 +107,7 @@ class RsvpsController < ApplicationController
   end
 
   def has_current_site_and_event
-    if session[:current_site]
-      if session[:current_event]
-        true
-      else
-        redirect_to landing_path
-      end
-    else
-      redirect_to landing_path
-    end
+    if session[:current_site] && session[:current_event] then true else redirect_to landing_path end
   end
 
   def is_owner

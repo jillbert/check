@@ -10,10 +10,10 @@ class EventsController < ApplicationController
   end
 
   def choose_site
-    if session[:current_site]
-      session[:current_site] = nil
-      session[:current_event] = nil
-    end
+    # if session[:current_site]
+    #   session[:current_site] = nil
+    #   session[:current_event] = nil
+    # end
 
     begin
       response = token.get('/api/v1/sites', headers: standard_headers, params: { page: 1, per_page: 100, limit: 100 })

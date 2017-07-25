@@ -43,7 +43,7 @@ class Rsvp < ActiveRecord::Base
 
   def self.letters(last_names)
     letters = last_names.map { |name| name[0].upcase.strip unless name.nil? || name.empty? }
-    letters.sort_by!(&:downcase) unless letters.empty? || letters.nil?
+    letters.sort! unless letters.empty? || letters.nil?
     letters = letters.uniq
   end
 

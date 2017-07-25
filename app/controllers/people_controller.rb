@@ -50,7 +50,7 @@ class PeopleController < ApplicationController
             @add_guests = add_guests(@rsvp.host)
             format.html { redirect_to rsvps_path }
           else
-            get_count
+            # get_count
             format.html { redirect_to rsvps_path }
           end
         end
