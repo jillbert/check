@@ -49,7 +49,7 @@ $(document).ready(function() {
     loadingIn();
     var url = '/sync';
     $.get(url, function(html) {
-      $('#rsvp-results').html(html)
+      $('#rsvp-results').html(html);
       loadingOut();
     }).done(function(){
       if ($('.rsvp').length > 0) {

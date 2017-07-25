@@ -1,12 +1,5 @@
 $(function(){
 
-	$('.refresh_events').on('click', function(){
-		loadingIn();
-		location.reload(function(){
-			loadingOut();
-		});
-	});
-
 	$('body').on('click', '.events a', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -64,13 +57,12 @@ $(function(){
 		}
 	});
 
-	setQuote();
 	$('.flash').delay(4000).slideUp();
 
 });
 
 function loadingIn() {
-	setQuote();
+	$('.loading-quote')["0"].innerHTML = setQuote();
 	$('.loading').fadeIn(300);
 }
 
@@ -80,9 +72,9 @@ function loadingOut(){
 
 function setQuote() {
 	var quotes = {1: '<p>"Equal rights for all, special privileges for none."<p><small>THOMAS JEFFERSON</small>',
-	 							2: '<p>"Injustice anywhere is a threat to justice everywhere."<p><small>MARTIN LUTHER KING JR.</small>',
+								2: '<p>"Injustice anywhere is a threat to justice everywhere."<p><small>MARTIN LUTHER KING JR.</small>',
 								3: '<p>"In a time of universal deceit, telling the truth is a revolutionary act."<p><small>GEORGE ORWELL</small>',
-							 	4: '<p>"The earth is the mother of all people, and all people should have equal rights upon it."<p><small>CHIEF JOSEPH</small>',
+								4: '<p>"The earth is the mother of all people, and all people should have equal rights upon it."<p><small>CHIEF JOSEPH</small>',
 								5: '<p>"When the whole world is silent, even one voice becomes powerful."<p><small>MALALA YOUSAFZAI</small>',
 								6: '<p>"Power is not only what you have but what the enemy thinks you have."</p><small>SAUL ALINSKY</small>',
 								7: '<p>"Ultimately, America\'s answer to the intolerant man is diversity."</p><small>ROBERT KENNEDY</small>',
@@ -91,6 +83,5 @@ function setQuote() {
 								10: '<p>"Kindness is the language which the deaf can hear and the blind can see."</p><small>MARK TWAIN</small>',
 								11: '<p>"Countries with higher levels of gender equality have higher economic growth."</p><small>BAN KI-MOON</small>'}
 
-	var quote = quotes[Math.floor((Math.random() * 8) + 1)]
-	$('.loading-quote')["0"].innerHTML = quote
+	return quotes[Math.floor((Math.random() * 8) + 1)]
 }
