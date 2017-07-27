@@ -87,7 +87,7 @@ $(document).ready(function() {
   });
 
 // Opening the Add RSVP show-card when tapped.
-  $('body').on('click','.add-rsvp a', function(e){
+  $('body').on('click','.add-rsvp-btn a', function(e){
     e.preventDefault();
     e.stopPropagation();
     var url = this.attributes.href.value
@@ -191,8 +191,8 @@ $(document).ready(function() {
       $('.settings a h6').css("color", "#0AC4F8")
       $('.settings a img').attr("src", "<%= asset_path("Icon/Gear/Color.svg") %>")
     } else if (page === "newRsvp") {
-      $('.add-rsvp a h6').css("color", "#0AC4F8")
-      $('.add-rsvp a img').attr("src", "<%= asset_path("Icon/Add/Color.svg") %>")
+      $('.add-rsvp-btn a h6').css("color", "#0AC4F8")
+      $('.add-rsvp-btn a img').attr("src", "<%= asset_path("Icon/Add/Color.svg") %>")
     } else if (page === "checkIn") {
       $('.check-in a h6').css("color", "#0AC4F8")
       $('.check-in a img').attr("src", "<%= asset_path("Icon/Checkmark/Color.svg") %>")
@@ -212,7 +212,7 @@ $(document).ready(function() {
 
   // Displays the show-card
   function showCard() {
-    if ($('.user-settings').length > 0) {
+    if ($('.user-settings').length > 0 || $('.add-rsvp').length > 0 ) {
       $('.show-card').css('position','absolute');
       if (window.innerWidth > 792) {
         $("html, body, .body").animate({ scrollTop: 0 }, "slow");
