@@ -29,7 +29,7 @@ class UserSessionsController < ApplicationController
       else
         logout
         destroy_currents
-        redirect_to(login_path, notice: 'Sorry your account has been suspended. If you think is in error, please contact support@cstreet.ca.')
+        redirect_to(login_path, notice: 'Sorry your account has been suspended. If you think is in error, please contact check@cstreet.ca.')
       end
     else
       redirect_to(login_path, alert: 'Login failed')
