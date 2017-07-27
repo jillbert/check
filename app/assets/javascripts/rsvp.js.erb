@@ -212,13 +212,8 @@ $(document).ready(function() {
 
   // Displays the show-card
   function showCard() {
-    if ($('.user-settings').length > 0 || $('.add-rsvp').length > 0 ) {
-      $('.show-card').css('position','absolute');
-      if (window.innerWidth > 792) {
-        $("html, body, .body").animate({ scrollTop: 0 }, "slow");
-      }
-    } else {
-      $('.show-card').css('position','fixed');
+    if (window.innerWidth > 792) {
+      $("html, body, .body").animate({ scrollTop: 0 }, "slow");
     }
     $('.show-card').fadeIn(300);
     $('.show-card').removeClass("add-rsvp-card");
