@@ -119,6 +119,19 @@ input, input:focus, input:hover {
   right: 0;
 }
 
+.container.password-reset {
+  max-width: 300px;
+  padding: 27px !important;
+  padding-left: 27px !important;
+  padding-right: 27px !important;
+  input {
+    margin-bottom: 18px;
+  }
+  button {
+    width: 100%;
+  }
+}
+
 .loading {
   color: white;
   text-align: center;

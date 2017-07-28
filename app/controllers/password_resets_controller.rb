@@ -1,6 +1,9 @@
 class PasswordResetsController < ApplicationController
   skip_before_filter :require_login
 
+  def new
+  end
+
   def password_reset
   end
   # request password reset.
@@ -16,7 +19,7 @@ class PasswordResetsController < ApplicationController
 
         # Tell the user instructions have been sent whether or not email was found.
         # This is to not leak information to attackers about which emails exist in the system.
-        redirect_to(root_path, :notice => 'Instructions have been sent to your email.')
+        redirect_to(login_path, :notice => 'Instructions have been sent to your email.')
       else
         redirect_to(root_path, :alert => "Sorry, but your account is suspended. If you think this is an error, please contact check@cstreet.ca")
       end

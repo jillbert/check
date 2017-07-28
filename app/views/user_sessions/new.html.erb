@@ -13,8 +13,8 @@
     <%= image_tag(asset_path("logo.svg")) %>
   </div>
 
-  <% if flash[:alert] %>
-    <div class="flash"><%= flash[:alert] %></div>
+  <% if flash[:alert] || flash[:notice] %>
+    <div class="flash"><%= flash[:alert] %><%= flash[:notice] %></div>
   <% end %>
 
   <%= bootstrap_form_tag url: user_sessions_path do |f| %>
