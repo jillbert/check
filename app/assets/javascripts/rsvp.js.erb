@@ -13,12 +13,12 @@ $(document).ready(function() {
 
 // Handles clicks on the RSVP's ticket, to check the RSVP in or out.
   $('body').on('click ', '.host-tickets .ticket', function(e){
-    if (this.classList.contains("ticket-checked")) {
+    if (this.classList.contains("ticket-checked") && !this.classList.contains("ticket-canceled")) {
       e.preventDefault();
       e.stopPropagation();
       var id = $(this).data('id');
       checkOut(id);
-    } else {
+    } else if (!this.classList.contains("ticket-canceled")) {
       e.preventDefault();
       e.stopPropagation();
       var id = $(this).data('id');

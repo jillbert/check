@@ -14,7 +14,7 @@
     <a href="<%= rsvp_path(rsvp) %>" class="rsvp-click-zone"></a>
 
       <!-- Guest Dots -->
-      <% if rsvp.guests_count > 0 %>
+      <% if rsvp.guests_count > 0 && !rsvp.canceled %>
         <div class="guest-dots">
           <% attended = @current_event.attended(rsvp) %>
 
@@ -29,8 +29,8 @@
         </div>
       <% end %>
 
-      <!-- RSVP name -->
-      <%= rsvp.get_rsvp_name %>
+      <!-- RSVP ticket name -->
+      <%= rsvp.ticket_name %>
 
       <!-- Render the RSVP checkmark -->
       <%= render 'rsvp', rsvp: rsvp %>

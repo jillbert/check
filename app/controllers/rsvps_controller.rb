@@ -54,7 +54,7 @@ class RsvpsController < ApplicationController
   def cache
     # create_cache
     # redirect_to rsvps_path
-    @current_event.update_attributes(sync_status: 'pending', sync_percent: 0, sync_date: DateTime.now)
+    # @current_event.update_attributes(sync_status: 'pending', sync_percent: 0, sync_date: DateTime.now)
     Resque.enqueue(Sync, params[:id], session[:current_site], session[:credential_id])
 
     respond_to do |format|
@@ -67,6 +67,8 @@ class RsvpsController < ApplicationController
     # check_nb_update(@rsvp.person)
     # @add_guests = add_guests(@rsvp)
     @guests = Rsvp.where(host_id: @rsvp.id)
+    @guest_tickets = @current_event.rsvps.where(host_id: @rsvp.id)
+    @attended_guest_tickets = @guest_tickets.where(attended: true)
     render layout: false
   end
 

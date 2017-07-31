@@ -56,7 +56,7 @@ class Rsvp < ActiveRecord::Base
     end
   end
 
-  def get_rsvp_name
+  def ticket_name
     first_name = self.person.first_name
     last_name = self.person.last_name
     if !first_name.empty? && !last_name.empty?

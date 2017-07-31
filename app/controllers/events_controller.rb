@@ -28,7 +28,7 @@ class EventsController < ApplicationController
   def choose_event
     session[:current_site] = params[:site] if params[:site]
     if session[:current_site]
-      token_get_path = '/api/v1/sites/' + session[:current_site] + '/pages/events'
+      token_get_path = "/api/v1/sites/#{session[:current_site]}/pages/events"
       response = token.get(token_get_path, headers: standard_headers, params: { page: 1, per_page: 100, limit: 100, starting: 14.days.ago.to_s })
       parsed = JSON.parse(response.body)
       events = []
@@ -75,7 +75,7 @@ class EventsController < ApplicationController
       response = token.get(token_get_path, headers: standard_headers, params: { page: 1, per_page: 100, limit: 100 })
       event = JSON.parse(response.body)['event']
 
-      token_put_path = '/api/v1/sites/' + session[:current_site] + '/pages/events/' + params[:event_id]
+      token_put_path = "/api/v1/sites/#{session[:current_site]}/pages/events/#{params[:event_id]}"
       # puts clean_event_json(event)
       response = token.put(token_put_path, headers: standard_headers, body: clean_event_json(event))
 
@@ -89,12 +89,12 @@ class EventsController < ApplicationController
     end
   end
 
-  def sync_status
-    @event = Event.find(params[:event_id])
-    respond_to do |format|
-      format.json { render json: { sync_status: @event.sync_status, sync_percent: @event.sync_percent } }
-    end
-  end
+  # def sync_status
+  #   @event = Event.find(params[:event_id])
+  #   respond_to do |format|
+  #     format.json { render json: { sync_status: @event.sync_status, sync_percent: @event.sync_percent } }
+  #   end
+  # end
 
   def destroy
     @event = Event.find(params[:id])

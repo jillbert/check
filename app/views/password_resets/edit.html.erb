@@ -1,7 +1,7 @@
 <div class="container password-reset">
 
 
-<h3 class="check-title text-center">Create a new password</h3>
+<h3 class="check-title text-center">Enter a new password</h3>
 <%= form_for @user, :url => password_reset_path(@token), :html => {:method => :put} do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -16,12 +16,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.password_field :password, placeholder:"Password", class: "form-control" %>
+    <%= f.password_field :password, placeholder:"Password", class: "form-control text-center" %>
   </div>
   <div class="field">
-    <%= f.password_field :password_confirmation, placeholder:"Password Confirmation", class: "form-control" %>
+    <%= f.password_field :password_confirmation, placeholder:"Password Confirmation", class: "form-control text-center" %>
   </div>
-  <%= button_tag(type: "submit", class: "btn") do %>
+  <%= button_tag(type: "submit", class: "btn btn-block") do %>
       Submit
   <% end %>
 <% end %>
