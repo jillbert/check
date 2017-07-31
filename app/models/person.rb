@@ -4,7 +4,15 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :rsvps
 
   def full_name
-    first_name + ' ' + last_name
+    if first_name && last_name
+      first_name + " " + last_name
+    elsif first_name
+      first_name
+    elsif last_name
+      last_name
+    else
+      nil
+    end
   end
 
   def nbid=(val)

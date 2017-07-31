@@ -1,3 +1,45 @@
+<div class="text-center new-user user-settings">
+
 <h3 class="check-title">New user</h3>
 
-<%= render 'form' %>
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control text-center" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: "form-control text-center" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, class: "form-control text-center" %>
+  </div>
+  <hr>
+  <div class="edit-user-header">
+    <p>Nation Settings</p>
+  </div>
+  <%= f.fields_for :nation, @user.build_nation do |n| %>
+    <div class="form-group">
+      <%= n.label :name, "Nation's Name" %>
+      <%= n.text_field :name, class: "form-control text-center" %>
+    </div>
+    <div class="form-group">
+      <%= n.label :url, "Nation's URL" %>
+      <%= n.text_field :url, class: "form-control text-center" %>
+    </div>
+  <% end %>
+  <hr>
+  <%= f.submit "Save", class: "btn btn-block" %>
+<% end %>
+</div>

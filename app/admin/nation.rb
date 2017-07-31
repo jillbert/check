@@ -21,7 +21,7 @@ index do
   selectable_column
   column :name
   column "Owner" do |n|
-    n.users.first.email unless n.users.first.email.empty?
+    n.user.email if n.user && !n.user.email.empty?
   end
   column "Events" do |n|
     n.events.count

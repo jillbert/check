@@ -20,10 +20,10 @@ ActiveAdmin.register Rsvp do
   index do
     selectable_column
     column 'Person' do |r|
-      link_to(Person.find(r.person_id).first_name.titleize + ' ' + Person.find(r.person_id).last_name.titleize, administrator_person_path(Person.find(r.person_id)))
+      link_to(Person.find(r.person_id).first_name.titleize + ' ' + Person.find(r.person_id).last_name.titleize, admin_person_path(Person.find(r.person_id)))
     end
     column 'Event' do |r|
-      link_to(r.event.name, administrator_event_path(r.event))
+      link_to(r.event.name, admin_event_path(r.event))
     end
     column 'Nation' do |r|
       Nation.find(r.nation_id).name

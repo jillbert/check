@@ -33,7 +33,7 @@
     <%= f.text_field :logo %>
   </div> -->
   <hr>
-  <% if ENV['ADMIN_ID'].include? current_user.id.to_s %>
+  <!-- <% if ENV['ADMIN_ID'].include? current_user.id.to_s %>
     <div class="edit-user-header">
       <small>Nation Settings</small>
     </div>
@@ -47,7 +47,7 @@
         <%= n.text_field :url %>
       </div>
     <% end %>
-  <% end %>
+  <% end %> -->
   <%= link_to "Change Site & Event", landing_path, class: "btn btn-block" %>
   <hr>
   <%= f.submit "Save", class: "btn btn-block" %>
