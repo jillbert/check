@@ -21,11 +21,12 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </div>
-  <hr>
-  <%= link_to "Change Site & Event", landing_path, class: "btn btn-block" %>
-  <hr>
   <%= f.submit "Save", class: "btn btn-block" %>
 <% end %>
+<hr>
+<div class="text-center">
+  <%= link_to "Change Site & Event", landing_path, class: "btn btn-block" %>
+</div>
 <hr>
 <div class="logout">
   <%= link_to "Log out", logout_path %>
