@@ -132,8 +132,11 @@ input, input:focus, input:hover {
   padding-right: 27px !important;
   input {
     margin-bottom: 18px;
+    background-color: $paleblue;
+    box-shadow: none;
+    border: none;
+    height: 45px;
   }
-
 }
 
 .loading {
