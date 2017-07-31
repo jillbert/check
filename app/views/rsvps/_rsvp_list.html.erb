@@ -4,7 +4,7 @@
     <%= letter %>
   </div>
   <% @rsvps.each do |rsvp| %>
-    <% if rsvp.person && rsvp.person.last_name[0].upcase == letter %>
+    <% if rsvp.person && !rsvp.person.last_name.empty? && rsvp.person.last_name[0].upcase == letter %>
     <!-- Cancelled or not? -->
     <% if rsvp.canceled %>
       <div class='rsvp canceled list-item'>
@@ -30,7 +30,15 @@
       <% end %>
 
       <!-- RSVP name -->
-      <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
+      <% if !rsvp.person.last_name.empty? && !rsvp.person.first_name.empty? %>
+        <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
+      <% elsif !rsvp.person.last_name.empty? %>
+        <%= rsvp.person.last_name.titleize %>
+      <% elsif !rsvp.person.first_name.empty? %>
+        <%= rsvp.person.first_name.titleize %>
+      <% else %>
+        <%= rsvp.person.email unless rsvp.person.email.empty? %>
+      <% end %>
 
       <!-- Render the RSVP checkmark -->
       <%= render 'rsvp', rsvp: rsvp %>

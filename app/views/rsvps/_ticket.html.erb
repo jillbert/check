@@ -12,7 +12,13 @@
       <div class="circle left-circle"></div>
 
       <div class="ticket-name">
-        <%= @rsvp.person.first_name.titleize %>'s Ticket
+        <% if !@rsvp.person.first_name.empty? %>
+          <%= @rsvp.person.first_name.titleize %>'s Ticket
+        <% elsif !@rsvp.person.last_name.empty? %>
+          <%= @rsvp.person.last_name.titleize %>'s Ticket
+        <% else %>
+          "Host's Ticket"
+        <% end %>
       </div>
 
       <div class="circle right-circle"></div>
