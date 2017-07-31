@@ -41,7 +41,7 @@
       <div class="tickets">
         <% guest_tickets.each do |rsvp| %>
           <% @rsvp = rsvp %>
-          <%= link_to rsvp_path(rsvp) do %>
+          <%= link_to rsvp_path(@rsvp) do %>
             <%= render "ticket" %>
           <% end %>
         <% end %>
@@ -49,7 +49,7 @@
         <% @rsvp = Rsvp.find(params[:id]) %>
         <% @i = 1 %>
         <% (@rsvp.guests_count - guest_tickets.count).times do %>
-          <%= link_to(new_rsvp_path + '?event_id=' + @rsvp.event.id.to_s + "&host_id=" + @rsvp.id.to_s, class: "new-ticket") do %>
+          <%= link_to(new_rsvp_path + "?event_id=#{@rsvp.event.id.to_s}&host_id=#{@rsvp.id.to_s}", class: "new-ticket") do %>
             <%= render "ticket" %>
           <% end %>
           <% @i += 1 %>

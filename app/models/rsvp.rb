@@ -48,6 +48,29 @@ class Rsvp < ActiveRecord::Base
     letters = letters.uniq
   end
 
+  def additional_status
+    if self.canceled
+      "Canceled"
+    elsif self.volunteer
+      "Volunteer"
+    end
+  end
+
+  def get_rsvp_name
+    first_name = self.person.first_name
+    last_name = self.person.last_name
+    if !first_name.empty? && !last_name.empty?
+      @name = "#{last_name}, #{first_name}"
+    elsif !last_name.empty?
+      @name = last_name
+    elsif !first_name.empty?
+      @name = first_name
+    else
+      @name = "Guest"
+    end
+    @name.titleize
+  end
+
   def self.import(r, e_id, p_id, n_id)
     rsvp = Rsvp.find_or_create_by(
       event_id: e_id,

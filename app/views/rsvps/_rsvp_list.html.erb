@@ -4,7 +4,7 @@
     <%= letter %>
   </div>
   <% @rsvps.each do |rsvp| %>
-    <% if rsvp.person && !rsvp.person.last_name.empty? && rsvp.person.last_name[0].upcase == letter %>
+    <% if rsvp.person && rsvp.person.last_name[0].upcase == letter %>
     <!-- Cancelled or not? -->
     <% if rsvp.canceled %>
       <div class='rsvp canceled list-item'>
@@ -16,7 +16,7 @@
       <!-- Guest Dots -->
       <% if rsvp.guests_count > 0 %>
         <div class="guest-dots">
-          <% attended = @current_event.rsvps.where(host_id: rsvp.id).where(attended: true).count %>
+          <% attended = @current_event.attended(rsvp) %>
 
           <% attended.times do %>
             <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
@@ -30,25 +30,14 @@
       <% end %>
 
       <!-- RSVP name -->
-      <% if !rsvp.person.last_name.empty? && !rsvp.person.first_name.empty? %>
-        <%= rsvp.person.last_name.titleize + ", " + rsvp.person.first_name.titleize %>
-      <% elsif !rsvp.person.last_name.empty? %>
-        <%= rsvp.person.last_name.titleize %>
-      <% elsif !rsvp.person.first_name.empty? %>
-        <%= rsvp.person.first_name.titleize %>
-      <% else %>
-        <%= rsvp.person.email unless rsvp.person.email.empty? %>
-      <% end %>
+      <%= rsvp.get_rsvp_name %>
 
       <!-- Render the RSVP checkmark -->
       <%= render 'rsvp', rsvp: rsvp %>
 
       <!-- RSVP Canceled or Volunteer -->
-      <% if rsvp.canceled %>
-        <small>Canceled</small>
-      <% elsif rsvp.volunteer %>
-        <small>Volunteer</small>
-      <% end %>
+      <small><%= rsvp.additional_status %></small>
+
     </div>
 
     <% end %>

@@ -18,6 +18,10 @@ class Event < ActiveRecord::Base
     return event
   end
 
+  def attended(rsvp)
+    self.rsvps.where(host_id: rsvp.id, attended: true).count
+  end
+
   def to_local_time
     return self.start_time.in_time_zone(self.time_zone).strftime("%B %e, %Y at %l%P %Z")
   end
