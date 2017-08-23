@@ -5,7 +5,7 @@
     <% if !@current_events.empty? %>
       <% @current_events.each do |month| %>
         <% month.each do |event| %>
-          <% if event.class == Array %>
+          <% if event.class != String %>
             <%= link_to set_event_path(event_id: event[0]["id"]), class: "list-item", method: :get do %>
               <div class="event">
                 <div class="word-wrapper">
@@ -32,7 +32,7 @@
       </div>
       <% @past_events.each do |month| %>
         <% month.each do |event| %>
-          <% if event.class == Array %>
+          <% if event.class != String %>
             <%= link_to set_event_path(event_id: event[0]["id"]), class: "list-item", method: :get do %>
               <div class="event">
                 <div class="word-wrapper">
