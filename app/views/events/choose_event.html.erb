@@ -3,18 +3,16 @@
 
   <div class="current_events">
     <% if !@current_events.empty? %>
-      <% @current_events.each do |month| %>
-        <% month.each do |event| %>
-          <% if event.class != String %>
-            <%= link_to set_event_path(event_id: event[0]["id"]), class: "list-item", method: :get do %>
+      <% @current_events.each do |month, event| %>
+        <% event.each do |e| %>
+            <%= link_to set_event_path(event_id: e["id"]), class: "list-item", method: :get do %>
               <div class="event">
                 <div class="word-wrapper">
-                  <%= event[0]["name"] %>
-                  <div class="event_date"><%= event[0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+                  <%= e["name"] %>
+                  <div class="event_date"><%= e["start_time"].to_datetime.to_formatted_s(:long) %></div>
                 </div>
               </div>
             <% end %>
-          <% end %>
         <% end %>
       <% end %>
     <% else %>
@@ -30,14 +28,14 @@
       <div class="list-separator">
         Past Events
       </div>
-      <% @past_events.each do |month| %>
-        <% month.each do |event| %>
+      <% @past_events.each do |month, event| %>
+        <% month.each do |e| %>
           <% if event.class != String %>
-            <%= link_to set_event_path(event_id: event[0]["id"]), class: "list-item", method: :get do %>
+            <%= link_to set_event_path(event_id: e["id"]), class: "list-item", method: :get do %>
               <div class="event">
                 <div class="word-wrapper">
-                  <%= event[0]["name"] %>
-                  <div class="event_date"><%= event[0]["start_time"].to_datetime.to_formatted_s(:long) %></div>
+                  <%= e["name"] %>
+                  <div class="event_date"><%= e["start_time"].to_datetime.to_formatted_s(:long) %></div>
                 </div>
               </div>
             <% end %>
