@@ -29,7 +29,7 @@
         Past Events
       </div>
       <% @past_events.each do |month, event| %>
-        <% month.each do |e| %>
+        <% event.each do |e| %>
           <% if event.class != String %>
             <%= link_to set_event_path(event_id: e["id"]), class: "list-item", method: :get do %>
               <div class="event">
