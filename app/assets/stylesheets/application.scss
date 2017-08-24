@@ -20,7 +20,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
-@import "colors";
+
+$blue1: rgba(10, 196, 248, 1);
+$blue2: rgba(101, 204, 238, 1);
+$navy: rgba(56, 74, 127, 1);
+$paleblue: rgba(10, 196, 248, 0.1);
+$grey1: rgba(252, 252, 252, 1);
+$grey3: rgba(245, 245, 245, 1);
+$grey4: rgba(237, 237, 237, 1);
+$grey9: rgba(176, 176, 176, 1);
+$darkgrey: rgba(124, 124, 124, 1);
+
+$caa_blue1: rgba(84, 155, 244, 1);
+$caa_blue2: rgba(150, 204, 238, 1);
+$caa_navy: rgba(56, 74, 127, 1);
+$caa_paleblue: rgba(84, 155, 244, 0.1);
+$caa_grey9: rgba(255, 255, 255, 1);
 
 @font-face {
         font-family: 'Alright Sans Light';

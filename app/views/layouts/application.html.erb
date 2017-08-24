@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <title><%= content_for?(:title) ? yield(:title) : "Check by cStreet" %></title>
 
-    <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag  "application"  %>
     <%= javascript_include_tag "application" %>
+
     <%= csrf_meta_tags %>
   </head>
   <body>
     <div class="body">
       <% unless @noheader %>
-        <% if current_user && current_user.color %>
-          <header style="background: <%= current_user.color %>">
+        <% if current_user && current_user.nation.name.include?("columbia") %>
+          <header style="background-image: linear-gradient(20deg, #6AABDC 37%, #A3D5F0 100%)">
         <% else %>
           <header style="background-image: linear-gradient(20deg, #65CCEE 37%, #9DAAD7 100%)">
         <% end %>
           <%= link_to landing_path do %>
-          <% if current_user %>
-            <%= image_tag(current_user.logo) if current_user.logo %>
-            <%= image_tag(asset_path("logo.svg")) if !current_user.logo %>
+          <% if current_user && current_user.nation.name.include?("columbia") %>
+            <%= image_tag(asset_path("logo_caa.svg")) %>
           <% else %>
             <%= image_tag(asset_path("logo.svg")) %>
           <% end %>
