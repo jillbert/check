@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :password_resets
   get 'reset', to: 'password_resets#password_reset'
 
-  # get 'admin', to: 'users#new'
+  get 'admin', to: 'users#new'
   get 'login' => 'user_sessions#new', :as => :login
   get 'logout' => 'user_sessions#destroy', :as => :logout
 

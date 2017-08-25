@@ -4,7 +4,7 @@ class Nation < ActiveRecord::Base
   has_many :events, inverse_of: :nation
   has_many :people
   has_many :rsvps, through: :events
-  has_one :user
+  has_many :users
 
   def client()
 
