@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: "check@cstreet.ca"
+  layout 'user_mailer'
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
