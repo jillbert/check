@@ -1,27 +1,28 @@
 module RsvpsHelper
+
   def send_rsvp_to_nationbuilder(rsvp, person)
     # return {status: true, id: 10000000}
-
     rsvpObject = rsvp.to_rsvp_object(person)
     if rsvpObject['rsvp'].key?('id')
       begin
         checkInResponse = token.put("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/#{rsvp.rsvpNBID}", headers: standard_headers, body: rsvpObject.to_json)
         checked_in = JSON.parse(checkInResponse.body)['rsvp']
       rescue => ex
-        begin
-          nb_error = JSON.parse(ex.response.body)
-          error = nb_error['message']
-          if nb_error['validation_errors']
-            error += '<ul>'
-            for v_error in nb_error['validation_errors']
-              error = error + '<li>' + v_error + '</li>'
-            end
-            error += '</ul>'
-          end
-        rescue JSON::ParserError => e
-          error = 'Nationbuilder unresponsive, please try again'
-        end
-        return { status: false, error: error }
+        validation_errors(ex)
+        # begin
+        #   nb_error = JSON.parse(ex.response.body)
+        #   error = nb_error['message']
+        #   if nb_error['validation_errors']
+        #     error += '<ul>'
+        #     for v_error in nb_error['validation_errors']
+        #       error = error + '<li>' + v_error + '</li>'
+        #     end
+        #     error += '</ul>'
+        #   end
+        # rescue JSON::ParserError => e
+        #   error = 'Nationbuilder unresponsive, please try again'
+        # end
+        # return { status: false, error: error }
       else
         return { status: true, id: checked_in['id'].to_i }
       end
@@ -31,26 +32,44 @@ module RsvpsHelper
       begin
         checkInResponse = token.post("/api/v1/sites/#{session[:current_site]}/pages/events/#{@current_event.eventNBID}/rsvps/", headers: standard_headers, body: rsvpObject.to_json)
       rescue => ex
-        begin
-          nb_error = JSON.parse(ex.response.body)
-          error = nb_error['message']
-          if nb_error['validation_errors']
-            error += '<ul>'
-            for v_error in nb_error['validation_errors']
-              error = error + '<li>' + v_error + '</li>'
-            end
-            error += '</ul>'
-          end
-        rescue JSON::ParserError => e
-          error = 'Nationbuilder unresponsive, please try again'
-        end
-        return { status: false, error: error }
+        validation_errors(ex)
+        # begin
+        #   nb_error = JSON.parse(ex.response.body)
+        #   error = nb_error['message']
+        #   if nb_error['validation_errors']
+        #     error += '<ul>'
+        #     for v_error in nb_error['validation_errors']
+        #       error = error + '<li>' + v_error + '</li>'
+        #     end
+        #     error += '</ul>'
+        #   end
+        # rescue JSON::ParserError => e
+        #   error = 'Nationbuilder unresponsive, please try again'
+        # end
+        # return { status: false, error: error }
       else
         checked_in = JSON.parse(checkInResponse.body)['rsvp']
         return { status: true, id: checked_in['id'].to_i }
       end
 
     end
+  end
+
+  def validation_errors(ex)
+    begin
+      nb_error = JSON.parse(ex.response.body)
+      error = nb_error['message']
+      if nb_error['validation_errors']
+        error += '<ul>'
+        for v_error in nb_error['validation_errors']
+          error = error + '<li>' + v_error + '</li>'
+        end
+        error += '</ul>'
+      end
+    rescue JSON::ParserError => e
+      error = 'Nationbuilder unresponsive, please try again'
+    end
+    return { status: false, error: error }
   end
 
   def get_count
