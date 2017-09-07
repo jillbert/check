@@ -95,7 +95,7 @@ module RsvpsHelper
     parsed = JSON.parse(response.body)
     rsvpListfromNB = []
 
-    # This is due different pagination rules implemented by NationBuilder
+    # This is due to different pagination rules implemented by NationBuilder
 
     if parsed['next']
       rsvpListfromNB << parsed['results']
