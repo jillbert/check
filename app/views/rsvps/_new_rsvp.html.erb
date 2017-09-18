@@ -27,6 +27,15 @@
       <%= p.label :phone_number %>
       <%= p.text_field :phone_number %>
       </div>
+      <div class="additional-fields-toggle">
+        <p>Additional Fields <i class="fa fa-angle-down" aria-hidden="true"></i></p>
+      </div>
+      <div class="additional-fields" style="display: none;">
+        <div class="form-group">
+        <%= p.label :home_zip %>
+        <%= p.text_field :home_zip %>
+        </div>
+      </div>
       <%= p.submit "Save", class: "btn btn-block" %>
     <% end %>
 

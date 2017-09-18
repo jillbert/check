@@ -210,6 +210,11 @@ $(document).ready(function() {
     updateIcons("checkIn")
   }
 
+  // toggles the additional fields section
+  $('body').on("click", ".additional-fields-toggle", function(){
+    $('.additional-fields').toggle("slow");
+  })
+
   // Displays the show-card
   function showCard() {
     if (window.innerWidth > 792) {
@@ -228,4 +233,5 @@ $(document).ready(function() {
       hideCard();
     }
   });
+
 })
