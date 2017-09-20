@@ -9,10 +9,10 @@
   <% if current_user %>
       <% if current_user.nation.name.include?("columbia") %>
       <div class="sidebar-header logged-in" style="background-image: linear-gradient(37deg, #6AABDC 37%, #A3D5F0 100%)" >
-        <%= image_tag(asset_path("logo_caa.svg"), class: "desktop-logo") %>
+        <%= link_to(image_tag(asset_path("logo_caa.svg"), class: "desktop-logo"), root_path) %>
       <% else %>
       <div class="sidebar-header logged-in" style="background-image:linear-gradient(13deg, #65CCEE 0%, #9DAAD7 100%);" >
-        <%= image_tag(asset_path("logo.svg"), class: "desktop-logo") %>
+        <%= link_to(image_tag(asset_path("logo.svg"), class: "desktop-logo"), root_path) %>
       <% end %>
       <div class="refresh">
         <%= link_to(image_tag(asset_path("Icon/Refresh/White.svg")), "#") %>
