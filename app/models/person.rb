@@ -24,7 +24,7 @@ class Person < ActiveRecord::Base
       nbid: p['id'],
       nation_id: nation
     )
-
+    zip = p['home_address']['zip'] if p['home_address']
     person.update(
       first_name: p['first_name'],
       last_name: p['last_name'],
@@ -32,10 +32,9 @@ class Person < ActiveRecord::Base
       phone_number: p['phone'],
       work_phone_number: p['work_phone_number'],
       mobile: p['mobile'],
-      home_zip: p['home_address']['zip'],
+      home_zip: zip,
       pic: p['profile_image_url_ssl']
     )
-
     person
   end
 
