@@ -196,7 +196,7 @@ $(function(){
     if (window.location.href.includes("/landing")) {
       $.get(url, function(html) {
         if (window.innerWidth > 791){
-          $('.main').html("<div class='settings-container'></div>");
+          $('.main').append("<div class='settings-container'></div>");
         } else {
           $('.landing').html("<div class='settings-container'></div>");
         }
