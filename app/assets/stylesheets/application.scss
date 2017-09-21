@@ -301,6 +301,10 @@ h6 {
     margin-top: 90px;
 }
 
+.settings-container {
+  padding: 27px;
+}
+
 .word-wrapper {
   overflow-x: hidden;
   white-space: nowrap;
@@ -361,6 +365,10 @@ footer {
 
   .landing {
     display: none;
+  }
+
+  .settings-container {
+    padding: 45px;
   }
 
   .sidebar {

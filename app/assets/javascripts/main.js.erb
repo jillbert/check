@@ -195,7 +195,7 @@ $(function(){
     var url = this.attributes.href.value
     if (window.location.href.includes("/landing")) {
       $.get(url, function(html) {
-        $('.main').html("<div class='settings-container' style='padding: 27px !important;'></div>");
+        $('.main').html("<div class='settings-container'></div>");
         $('.settings-container').html(html);
         $('.user-settings').css("margin-bottom", "54px")
       });
