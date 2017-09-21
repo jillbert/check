@@ -76,7 +76,7 @@
   height: 63px;
   margin: auto;
   position: relative;
-  padding: 21px 51px;
+  padding: 21px 45px;
   border-bottom: 1px solid $grey4;
 
   i {
@@ -383,11 +383,9 @@
 
   .list-separator {
     background: none;
-    font-size: 18px;
+    font-size: 14px;
     height: 27px;
-    width: 45%;
-    margin-top: 27px;
-    margin-left: 18px;
+    width: 60%;
     padding: 4.5px 27px;
   }
   #rsvp-results {

@@ -372,6 +372,7 @@ footer {
     padding: 0 !important;
     position: fixed;
     top: 0;
+    overflow: scroll;
 
     .sidebar-header {
       background: $grey3;
