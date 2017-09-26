@@ -19,7 +19,7 @@ development:
   encoding: unicode
   database: cstreetEventCheckInApp_development
   pool: 5
-  username: 
+  username:
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -46,9 +46,9 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: cstreetEventCheckInApp_test
+  database: cstreetEventCheckInApp_development
   pool: 5
-  username: 
+  username:
   password:
 
 production:
@@ -56,5 +56,5 @@ production:
   encoding: unicode
   database: cstreetEventCheckInApp_production
   pool: 5
-  username: 
+  username:
   password:

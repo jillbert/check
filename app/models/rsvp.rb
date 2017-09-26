@@ -18,8 +18,8 @@ class Rsvp < ActiveRecord::Base
                                                        :events,
                                                        :rsvps,
                                                        site_slug: site,
-                                                       id: event.eventNBID
-    ))
+                                                       id: event.eventNBID,
+                                                       limit: 100))
     unless rsvps.body['results'].empty?
       while rsvps
         rsvps.body['results'].each do |rsvp|
