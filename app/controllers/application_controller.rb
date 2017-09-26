@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   delegate :access_token, to: :credential
 
   def authenticate_admin_user!
-    redirect_to root_path unless current_user.id == ENV['ADMIN_ID'].to_i
+    redirect_to root_path unless ENV['ADMIN_ID'].split(",").include?(current_user.id.to_s)
   end
 
   def current_admin_user

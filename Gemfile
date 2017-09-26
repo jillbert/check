@@ -30,7 +30,6 @@ group :development do
   gem 'pry-rails'
 end
 
-# gem 'foundation-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-rails'
