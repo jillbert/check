@@ -45,7 +45,7 @@ gem 'sorcery'
 gem 'email_validator'
 
 gem 'redis'
-gem 'resque'
+gem 'resque', "~> 1.22.0"
 
 gem 'oauth2'
 gem 'rest-client'
