@@ -25,8 +25,9 @@ class Rsvp < ActiveRecord::Base
         rsvps.body['results'].each do |rsvp|
 
           person = Person.find_by(nation_id: nation.id, nbid: rsvp["person_id"])
-
-          if person.nil?
+          if person
+            UpdatePeople.perform(person)
+          else
             nb_person = nb_client.call(:people,
                                      :show,
                                      id: rsvp['person_id'])
