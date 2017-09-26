@@ -15,30 +15,29 @@ class Rsvp < ActiveRecord::Base
     nb_client = NationBuilder::Client.new(nation.name,
                                           nation.credentials.first.token, retries: 8)
     rsvps = NationBuilder::Paginator.new(nb_client, nb_client.call(
-                                                       :events,
-                                                       :rsvps,
-                                                       site_slug: site,
-                                                       id: event.eventNBID,
-                                                       limit: 100))
+                                                      :events,
+                                                      :rsvps,
+                                                      site_slug: site,
+                                                      id: event.eventNBID,
+                                                      limit: 100
+    ))
     unless rsvps.body['results'].empty?
       while rsvps
         rsvps.body['results'].each do |rsvp|
-
-          person = Person.find_by(nation_id: nation.id, nbid: rsvp["person_id"])
+          person = Person.find_by(nation_id: nation.id, nbid: rsvp['person_id'])
           if person
             Resque.enqueue(UpdatePerson, person.id)
           else
             nb_person = nb_client.call(:people,
-                                     :show,
-                                     id: rsvp['person_id'])
-            person = Person.import(nb_person["person"], nation.id)
+                                       :show,
+                                       id: rsvp['person_id'])
+            person = Person.import(nb_person['person'], nation.id)
           end
 
           Rsvp.import(rsvp,
                       event.id,
                       person.id,
                       nation.id)
-
         end
         rsvps = (rsvps.next if rsvps.next?)
       end
@@ -53,25 +52,25 @@ class Rsvp < ActiveRecord::Base
   end
 
   def additional_status
-    if self.canceled
-      "Canceled"
-    elsif self.volunteer
-      "Volunteer"
+    if canceled
+      'Canceled'
+    elsif volunteer
+      'Volunteer'
     end
   end
 
   def ticket_name
-    first_name = self.person.first_name
-    last_name = self.person.last_name
-    if !first_name.empty? && !last_name.empty?
-      @name = "#{last_name}, #{first_name}"
-    elsif !last_name.empty?
-      @name = last_name
-    elsif !first_name.empty?
-      @name = first_name
-    else
-      @name = "Guest"
-    end
+    first_name = person.first_name
+    last_name = person.last_name
+    @name = if !first_name.empty? && !last_name.empty?
+              "#{last_name}, #{first_name}"
+            elsif !last_name.empty?
+              last_name
+            elsif !first_name.empty?
+              first_name
+            else
+              'Guest'
+            end
     @name.titleize
   end
 

@@ -3,9 +3,9 @@ class Event < ActiveRecord::Base
   belongs_to :nation, inverse_of: :events
 
   def self.import(nb, session_nation)
-    event = self.find_or_create_by(
+    event = find_or_create_by(
       nation_id: session_nation,
-      eventNBID: nb['id'].to_i,
+      eventNBID: nb['id'].to_i
     )
 
     event.update(
@@ -15,15 +15,14 @@ class Event < ActiveRecord::Base
       time_zone: nb['time_zone']
     )
 
-    return event
+    event
   end
 
   def attended(rsvp)
-    self.rsvps.where(host_id: rsvp.id, attended: true).count
+    rsvps.where(host_id: rsvp.id, attended: true).count
   end
 
   def to_local_time
-    return self.start_time.in_time_zone(self.time_zone).strftime("%B %e, %Y at %l%P %Z")
+    start_time.in_time_zone(time_zone).strftime('%B %e, %Y at %l%P %Z')
   end
-
 end

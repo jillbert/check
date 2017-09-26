@@ -5,13 +5,11 @@ class Person < ActiveRecord::Base
 
   def full_name
     if first_name && last_name
-      first_name + " " + last_name
+      first_name + ' ' + last_name
     elsif first_name
       first_name
     elsif last_name
       last_name
-    else
-      nil
     end
   end
 
