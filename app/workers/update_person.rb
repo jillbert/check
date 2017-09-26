@@ -1,5 +1,5 @@
-class UpdatePeople
-  @queue = :update_people
+class UpdatePerson
+  @queue = :update_person
 
   def self.perform(person_id)
     person = Person.find(person_id)
@@ -10,7 +10,7 @@ class UpdatePeople
     nb_person = nb_client.call(:people,
                                :show,
                                id: person.nbid)
-    Person.import(nb_person["person"], nation.id)
+    Person.import(nb_person["person"], nation.id) if nb_person["person"]
   end
 
 end

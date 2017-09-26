@@ -26,7 +26,7 @@ class Rsvp < ActiveRecord::Base
 
           person = Person.find_by(nation_id: nation.id, nbid: rsvp["person_id"])
           if person
-            Resque.enqueue(UpdatePeople, person.id)
+            Resque.enqueue(UpdatePerson, person.id)
           else
             nb_person = nb_client.call(:people,
                                      :show,
