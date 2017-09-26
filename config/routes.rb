@@ -14,7 +14,6 @@ Rails.application.routes.draw do
 
   get 'events/cancel_event', to: 'events#new_event'
   get 'events/cancel_site', to: 'events#new_site'
-  get 'sync_status', to: 'events#sync_status'
 
   get 'rsvps/cache', to: 'rsvps#cache'
 

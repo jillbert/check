@@ -31,7 +31,6 @@ class PeopleController < ApplicationController
 
       nationbuilder_rsvp = send_rsvp_to_nationbuilder(@rsvp, @person)
       if nationbuilder_rsvp[:error] && nationbuilder_rsvp[:error].include?('signup_id has already been taken')
-        create_cache
         new_rsvp = Rsvp.find_by(person_id: @person.id, event_id: @current_event.id)
         new_rsvp.update_attributes(host_id: params[:host_id])
         redirect_to rsvps_path

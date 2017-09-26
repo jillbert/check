@@ -89,13 +89,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # def sync_status
-  #   @event = Event.find(params[:event_id])
-  #   respond_to do |format|
-  #     format.json { render json: { sync_status: @event.sync_status, sync_percent: @event.sync_percent } }
-  #   end
-  # end
-
   def destroy
     @event = Event.find(params[:id])
     @event.rsvps.destroy_all

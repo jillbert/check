@@ -125,13 +125,6 @@ module RsvpsHelper
     rsvpListfromNB.flatten!
   end
 
-  def create_cache
-    get_rsvps.each do |r|
-      person = Person.import(get_person(r), current_user.nation.id)
-      rsvp = Rsvp.import(r, @current_event.id, person.id, current_user.nation.id)
-    end
-  end
-
   def check_sync
     get_rsvps
   end

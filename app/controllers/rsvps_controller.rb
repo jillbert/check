@@ -52,9 +52,6 @@ class RsvpsController < ApplicationController
   end
 
   def cache
-    # create_cache
-    # redirect_to rsvps_path
-    # @current_event.update_attributes(sync_status: 'pending', sync_percent: 0, sync_date: DateTime.now)
     Resque.enqueue(Sync, params[:id], session[:current_site], session[:credential_id])
 
     respond_to do |format|
