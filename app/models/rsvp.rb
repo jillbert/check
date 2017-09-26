@@ -23,12 +23,15 @@ class Rsvp < ActiveRecord::Base
     unless rsvps.body['results'].empty?
       while rsvps
         rsvps.body['results'].each do |rsvp|
-          nb_person = nb_client.call(:people,
+
+          person = Person.find_by(nation_id: nation.id, nbid: rsvp["person_id"])
+
+          if person.nil?
+            nb_person = nb_client.call(:people,
                                      :show,
                                      id: rsvp['person_id'])
-
-
-          person = Person.import(nb_person["person"], nation.id)
+            person = Person.import(nb_person["person"], nation.id)
+          end
 
           Rsvp.import(rsvp,
                       event.id,
