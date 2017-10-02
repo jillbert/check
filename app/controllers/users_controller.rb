@@ -107,9 +107,14 @@ class UsersController < ApplicationController
   def send_newsletter
     @body = params[:body]
     @subject = params[:subject]
-    binding.pry
-    User.find_each do |user|
-      UserMailer.newsletter(user, @subject, @body).deliver
+
+    if params[:test]
+      binding.pry
+      UserMailer.newsletter(User.find_by_email("alex@cstreet.ca"), @subject, @body).deliver
+    else
+      User.find_each do |user|
+        UserMailer.newsletter(user, @subject, @body).deliver
+      end
     end
     flash[:notice] = "Sending newsletter"
     redirect_to(newsletter_path)

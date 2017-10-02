@@ -13,6 +13,8 @@
         placeholder: "Body",
         class: "form-control"
     ) %>
+    <%= label_tag "Send test email?" %>
+    <%= check_box_tag(:test, params[:test],class: "form-control") %>
     <%= submit_tag "Send", class: "btn btn-primary form-control" %>
   <% end %>
 </div>
