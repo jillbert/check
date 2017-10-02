@@ -33,7 +33,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.action_mailer.perform_deliveries = true
 
-  config.action_mailer.default_url_options = { host: '135.23.103.61:3000' }
+  config.action_mailer.default_url_options = { host: 'http://localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
@@ -43,6 +43,6 @@ Rails.application.configure do
     password: ENV['GMAIL_PASS'],
     authentication: 'plain',
     enable_starttls_auto: true
-
   }
+  config.action_mailer.asset_host = "http://localhost:3000"
 end

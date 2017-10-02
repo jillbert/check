@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :same_user, only: %i[show edit update destroy]
-  before_filter :is_admin, only: %i[show index new create destroy]
+  before_filter :is_admin, only: %i[show index new create destroy newsletter, send_newsletter]
   skip_before_filter :require_login, only: %i[new create activate confirm]
-  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create index show]
+  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create index show newsletter]
 
   # GET /users
   # GET /users.json
@@ -99,6 +99,19 @@ class UsersController < ApplicationController
     else
       not_authenticated
     end
+  end
+
+  def newsletter
+  end
+
+  def send_newsletter
+    @body = params[:body]
+    @subject = params[:subject]
+    User.find_each do |user|
+      UserMailer.newsletter(user, @subject, @body).deliver
+    end
+    flash[:notice] = "Sending newsletter"
+    redirect_to(newsletter_path)
   end
 
   private

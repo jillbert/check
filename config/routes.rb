@@ -34,6 +34,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/newsletter', to: 'users#newsletter'
+  post '/send_newsletter', to: 'users#send_newsletter'
+
   resources :password_resets
   get 'reset', to: 'password_resets#password_reset'
 

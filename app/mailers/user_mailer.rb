@@ -33,4 +33,11 @@ class UserMailer < ActionMailer::Base
          :subject => "Your password has been reset")
   end
 
+  def newsletter(user, subject, body)
+    @subject = subject
+    @body = body
+    mail(:to => user.email,
+         :subject => subject)
+  end
+
 end

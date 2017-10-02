@@ -16,4 +16,9 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.reset_password_email(User.first)
   end
 
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/newsletter
+  def newsletter
+    UserMailer.newsletter(User.first, "Test Subject", "This is a test body")
+  end
+
 end
