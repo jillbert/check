@@ -12,7 +12,9 @@
             </p>
             <!-- /hero -->
             <div class="content" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; max-width: 600px; display: block; margin: 0 auto; padding: 27px; padding-top: 0;">
-              <p class="lead" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.6; margin: 27px; padding: 0;"><%= @body %></p>
+              <p class="lead" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.6; margin: 27px; padding: 0;">
+                <%= ApplicationController.helpers.simple_format(@body) %>
+              </p>
             </div>
           </td>
         </tr>

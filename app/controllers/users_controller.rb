@@ -107,6 +107,7 @@ class UsersController < ApplicationController
   def send_newsletter
     @body = params[:body]
     @subject = params[:subject]
+    binding.pry
     User.find_each do |user|
       UserMailer.newsletter(user, @subject, @body).deliver
     end
