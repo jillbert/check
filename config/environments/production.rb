@@ -95,5 +95,5 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
   # todo: change this base URL
-  config.action_mailer.asset_host = "https://beta.checkbycstreet.ca"
+  config.action_mailer.asset_host = "https://checkv2.herokuapp.com"
 end
