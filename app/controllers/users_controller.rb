@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :same_user, only: %i[show edit update destroy]
   before_filter :is_admin, only: %i[show index new create destroy newsletter, send_newsletter]
   skip_before_filter :require_login, only: %i[new create activate confirm]
-  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create index show newsletter]
+  http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD'], only: %i[new create index show]
 
   # GET /users
   # GET /users.json
@@ -109,7 +109,6 @@ class UsersController < ApplicationController
     @subject = params[:subject]
 
     if params[:test]
-      binding.pry
       UserMailer.newsletter(User.find_by_email("alex@cstreet.ca"), @subject, @body).deliver
     else
       User.find_each do |user|
