@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515200948) do
+ActiveRecord::Schema.define(version: 20170926195126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,9 +47,6 @@ ActiveRecord::Schema.define(version: 20170515200948) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.string   "time_zone"
-    t.string   "sync_status",  default: "complete"
-    t.integer  "sync_percent", default: 100
-    t.datetime "sync_date"
   end
 
   create_table "nations", force: true do |t|
@@ -59,7 +56,6 @@ ActiveRecord::Schema.define(version: 20170515200948) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "people", force: true do |t|
@@ -91,6 +87,8 @@ ActiveRecord::Schema.define(version: 20170515200948) do
     t.string   "shift_ids",    default: [], array: true
     t.integer  "host_id"
     t.integer  "person_id"
+    t.string   "ticket_type"
+    t.integer  "tickets_sold"
   end
 
   create_table "users", force: true do |t|
@@ -108,6 +106,9 @@ ActiveRecord::Schema.define(version: 20170515200948) do
     t.string   "activation_token"
     t.datetime "activation_token_expires_at"
     t.boolean  "active",                          default: true
+    t.string   "logo"
+    t.string   "color"
+    t.integer  "nation_id"
   end
 
   add_index "users", ["activation_token"], name: "index_users_on_activation_token", using: :btree

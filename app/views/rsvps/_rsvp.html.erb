@@ -1,28 +1,11 @@
-<div class="rsvp-card" id="rsvp_<%= rsvp.id %>">
-  <img src="<%=rsvp.person.pic %>">
-	<div class="row">
-    <div class="small-8 columns">
-      <div class="name"><%= rsvp.person.full_name %></div>
-      <div class="email"><%= rsvp.person.email %></div>
-      <% if rsvp.guests_count > 0 %>
-
-        <div class="rsvp-guest-count">+<%= pluralize(rsvp.guests_count, 'RSVP') %></div>
-      <% end %>
-    </div>
-    <div class="small-4 columns rsvp-actions">
-      <% if !rsvp.attended %>
-      	<%= link_to('#', :class => "checkin", data: {id: rsvp.id}, :method => "post", remote: true) do %>
-          <span class="lnr lnr-checkmark-circle"></span>
-        <% end %>
-    	<% else %>
-        <%= link_to('#', :class => "checkout", data: {id: rsvp.id}, :method => "post", remote: true) do %>
-          <span class="lnr lnr-checkmark-circle checked-in"></span>
-        <% end %>
-    	<% end %>
-
-      <%= link_to '#', :class => "edit", data: {rsvp_id: rsvp.id, person_id: rsvp.person.id}, remote: true do %>
-        <span class="lnr lnr-menu-circle"></span>
-      <% end %>
-    </div>
-  </div>
-</div>
+<% if !rsvp.canceled %>
+  <% if !rsvp.attended %>
+   <%= link_to("#", class: "checkin check", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+      <%= render 'loading', id: rsvp.id, status: "checked-out" %>
+    <% end %>
+  <% else %>
+    <%= link_to("#", class: "checkout check", id: "rsvp_#{rsvp.id}", data: {id: rsvp.id}, :method => "post", remote: true) do %>
+      <%= render 'loading', id: rsvp.id, status: "checked-in" %>
+    <% end %>
+  <% end %>
+<% end %>

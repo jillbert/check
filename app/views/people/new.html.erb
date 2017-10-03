@@ -1,6 +1,6 @@
-<%= form_for(person, url: {action: 'create'} ) do |p| %>
-  <% if person.errors.any? %>
-  <%= render("shared/error_messages", object: person) %>
+<%= form_for(@person, url: {action: 'create'} ) do |p| %>
+  <% if @person.errors.any? %>
+  <%= render("shared/error_messages", object: @person) %>
   <% end %>
 
   <div class="row">

@@ -1,0 +1,40 @@
+<% if session[:current_site] %>
+  <%= link_to choose_site_path do %>
+    <div class="choose_site">
+      <div class="word-wrapper">
+        <%= session[:current_site].titleize %>
+      </div>
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </div>
+  <% end %>
+
+<% else %>
+
+  <%= link_to choose_site_path do %>
+    <div class="choose_site">
+      Select your website <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </div>
+  <% end %>
+<% end %>
+<div class="sidebar-sites"></div>
+
+<% if session[:current_event] %>
+
+<%= link_to choose_event_path do %>
+  <div class="choose_event">
+    <div class="word-wrapper">
+      <%= Event.find(session[:current_event]).name.titleize %>
+    </div>
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+  </div>
+<% end %>
+
+<% else %>
+
+  <%= link_to choose_event_path do %>
+    <div class="choose_event">
+      Select your event <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </div>
+  <% end %>
+<% end %>
+<div class="sidebar-events"></div>

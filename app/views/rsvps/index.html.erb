@@ -1,70 +1,15 @@
-<% if @syncing %>
-  <div class="sync-mode" data-event="<%= @current_event.id %>"></div>
-<% else %>
-
-  <% if @rsvps.size > 0 %>
-  <div id="rsvp-choices">
-    <div class="row">
-      <div class="small-12 medium-6 centered columns">
-        <%= link_to "#", class:"add", data: { host_id: nil } do %>
-        <span class="lnr lnr-plus-circle"></span> Add a Guest
-        <% end %>
-      </div>
-      <div class="small-12 medium-6 centered columns">
-        <div class="search disabled">
-          <div class="overlay"><span class="lnr lnr-magnifier"></span><span class="text">Search</span></div>
-          <input type="text" id="datatable-search">
-        </div>
-      </div>
-    </div>
+<% @page = "index" %>
+<div class="container rsvps">
+  <div id="rsvp-results">
+    <%= render "rsvp_list", letters: @letters, rsvps: @rsvps %>
   </div>
-
-    <div id="header">
-      <p><%= @current_event.name %></p>
-      <p><%= @current_event.to_local_time %></p>
-      <p id="attending">
-        <%= render('attending', attending: @attending, total: @total) %>
-      </p>
-
-    </div>
-
-    <table id="list" role="grid">
-      <thead>
-        <tr  style="display:none">
-          <th scope="column">Name</th>
-        </tr>
-      </thead>
-
-      <tfoot style="display:none">
-        <tr>
-          <th>Name</th>
-        </tr>
-      </tfoot>
-
-      <tbody>
-        <% @rsvps.each do |r| %>
-          <tr>
-            <td>
-              <%= render('rsvp_row', r: r) %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-
-  <div class="row">
-    <div class="medium-6 small-centered columns no-list">
-      <div class="top">
-        <span class="lnr lnr-star-empty"></span>
-        <p>You don't have guests on the list right now</p>
-      </div>
-      <div class="bottom">
-        <p>Refresh and sync your NationBuilder list</p>
-      <%= link_to(rsvps_cache_path, class: "activate-thinking to-cache", data: {event: @current_event.id}) do %>
-        <span class="lnr lnr-sync"></span>
-      <% end %>
-    </div>
+  <div class="show-card" style="display: none;">
+    <div class="show-card-content"></div>
   </div>
+  <% if @rsvps.empty? %>
+  <div class="no-rsvps text-center">
+    <p>No RSVPs found.</p>
+    <%= link_to("Select another event", landing_path) %>
+  </div>  
   <% end %>
-<% end %>
+</div>

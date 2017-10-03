@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: "check@cstreet.ca"
+  layout 'user_mailer'
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -8,7 +9,7 @@ class UserMailer < ActionMailer::Base
   #
   def activation_needed_email(user)
     @user = user
-    @url  = "http://www.checkbycstreet.com/users/#{user.activation_token}/activate"
+    @url  = "https://checkv2.herokuapp.com/users/#{user.activation_token}/activate"
     mail(:to => user.email,
          :subject => "Welcome to Check! Please activate your account")
   end
@@ -20,16 +21,23 @@ class UserMailer < ActionMailer::Base
   #
   def activation_success_email(user)
     @user = user
-    @url  = "http://www.checkbycstreet.com/login"
+    @url  = "https://checkv2.herokuapp.com/login"
     mail(:to => user.email,
          :subject => "Your Check account is now activated")
   end
 
   def reset_password_email(user)
     @user = User.find user.id
-    @url  = "http://www.checkbycstreet.com/password_resets/#{@user.reset_password_token}/edit"
+    @url  = "https://checkv2.herokuapp.com/password_resets/#{@user.reset_password_token}/edit"
     mail(:to => user.email,
          :subject => "Your password has been reset")
+  end
+
+  def newsletter(user, subject, body)
+    @subject = subject
+    @body = body
+    mail(:to => user.email,
+         :subject => subject)
   end
 
 end

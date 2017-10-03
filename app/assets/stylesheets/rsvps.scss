@@ -1,333 +1,486 @@
-// Place all the styles related to the rsvps controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'colors';
 
-@import "colours";
+.search {
+  padding: 9px 45px;
+  border-bottom: none !important;
+  position: fixed;
+  top: 45px;
+  left: 0px;
+  width: 100%;
+  z-index: 1000;
+  background: white;
 
-#list_filter {
-  display: none !important;
-}
-
-.dataTables_wrapper {
-  margin-bottom: 30px;
-
-  #list_info {
-    margin-top: -5px;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: $teal;
+  input {
+    background: $paleblue;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 27px;
+    padding: 4.5px;
   }
 
-  table {
-
-    td {
-      font-size: 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.5);
-      padding: 10px;
-      -webkit-transition: all 0.15s linear;
-      -moz-transition: all 0.15s linear;
-      -ms-transition: all 0.15s linear;
-      transition: all 0.15s linear;
-
-      a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        -webkit-transition: all 0.1s linear;
-        -moz-transition: all 0.1s linear;
-        -ms-transition: all 0.1s linear;
-        transition: all 0.1s linear;
-
-        img {
-          width: 30px;
-          height: 30px;
-          margin-right: 10px;
-        }
-
-        span {
-          margin-left: 10px;
-          color: $salmon;
-          font-size: 25px;
-          vertical-align: text-bottom;
-        }
-
-        .guests-count {
-          float:right;
-          font-size: 20px;
-          font-weight: bold;
-          margin-top: 1%;
-        }
-      }
-
-      &:hover {
-        background: rgba(0,0,0,0.07);
-        -webkit-transition: all 0.1s linear;
-        -moz-transition: all 0.1s linear;
-        -ms-transition: all 0.1s linear;
-        transition: all 0.1s linear;
-      }
-    }
-
-    td.whiteout {
-      pointer-events: none;
-      border-bottom: 2px solid $navy;
-      opacity: 0.5;
-      a {
-        color: $navy !important;
-
-        span {
-          color: $navy;
-        }
-
-        img {
-          opacity: 0.5;
-        }
-      }
-    }
-    td.dataTables_empty {
-      color: white;
-      text-align: center;
-    }
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    $grey9;
   }
 
-  &>.row:last-of-type {
-    .large-6.columns:first-of-type {
-      width: 100%;
-      text-align: center;
-    }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    $grey9;
+  }
+
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    $grey9;
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    $grey9;
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+     color:    $grey9;
+  }
+
+  i {
+    position: absolute;
+    right: 54px;
+    bottom: 17px;
+    color: $blue1;
   }
 }
 
-#synclist_filter, #synclist_info {
-  display: none !important;
-}
-
-#rsvp-choices {
-  padding-bottom: 20px;
-
-  input, a {
-    border: 1px solid $teal;
-    padding: 10px 10px 10px 15px;
-    margin: 0;
-    height: 50px;
-    font-size: 10px;
-    text-align: center;
-
-    @media only screen and (min-width: 768px) {
-      font-size: 16px;
-    }
-
-    line-height: 30px;
-    color: $teal;
-
-    span {
-      margin-right: 5px;
-      font-size: 25px;
-      display: inline-block;
-      vertical-align: top;
-    }
-
-    -webkit-transition: all 0.15s linear;
-    -moz-transition: all 0.15s linear;
-    -ms-transition: all 0.15s linear;
-    transition: all 0.15s linear;
-
-    &:hover {
-      background-color: darken($purple, 5)
-    }
-  }
-
+.canceled {
   a {
-    display: block;
-    text-transform: uppercase;
-  }
-
-  .search {
-    position: relative;
-    transition: all 0.5s ease-in-out;
-    @media (max-width: 640px) {
-      margin-top: 10px;
-    }
-     .overlay {
-      color: #64cbed;
-      height: 50px;
-      padding-top: 5px;
-      text-transform: uppercase;
-      font-size: 10px;
-      @media only screen and (min-width: 768px) {
-        font-size: 16px;
-      }
-      position: absolute;
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
-      width: 95px;
-      @media (min-width: 640px) {
-        width: 103px;
-      }
-      transition: all 0.3s ease-in-out;
-      span.lnr {
-        display: inline-block;
-        border: 1px solid #64cbed;
-        border-radius: 500px;
-        margin-top: 7px;
-        margin-right: 10px;
-        padding: 5px;
-        font-size: 12px;
-      }
-    }
-    input {
-      pointer-events: none;
-    }
-    &.active {
-      .overlay {
-        right: 100%;
-        padding-left: 10px;
-        width: 0;
-      }
-      input {
-        text-align: left;
-        pointer-events: auto;
-        font-size: 16px;
-      }
-    }
-    input {
-      text-align: center;
-      padding-left: 45px;
-      &::-webkit-input-placeholder {
-        color: $teal;
-        text-transform: uppercase;
-      } &:-moz-placeholder {
-        color: $teal;
-        text-transform: uppercase;
-      } &::-moz-placeholder {
-        color: $teal;
-        text-transform: uppercase;
-      } &:-ms-input-placeholder {
-        color: $teal;
-        text-transform: uppercase;
-      }
-    }
+    color: $grey9 !important;
   }
 }
 
-#header {
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  padding-top: 15px;
-
-  p {
-    margin-bottom: 15px;
-  }
-
-  p:first-of-type {
-    font-size: 26px;
-  }
-}
-
-.rsvp-card {
+.overflow-hidden {
+  overflow: hidden !important;
   position: relative;
-  padding: 20px 0 20px 70px;
-  font-size: 16px;
-  border-bottom: 1px solid white;
+  margin: 0;
+  height: 100%;
+}
 
-    .name {
-      font-weight: bold;
-    }
+.additional-fields-toggle {
+  margin-bottom: 9px;
+  text-align: center;
+  color: #b0b0b0;
+  cursor: pointer;
+  font-family: 'Alright Sans Regular', sans-serif;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
 
+.rsvp, .site, .choose_site, .choose_event, .event {
+  color: black;
+  width: 100%;
+  height: 63px;
+  margin: auto;
+  position: relative;
+  padding: 21px 45px;
+  border-bottom: 1px solid $grey4;
+
+  i {
+    float: right;
+  }
+  i:before {
+    vertical-align: sub;
+  }
+
+  small {
+    display: block;
+    font-size: 10px;
+    color: $grey9;
+    position: absolute;
+    bottom: 9px;
+  }
+
+  .guest-dots {
+    display: block;
+    position: absolute;
+    top: 0px;
+    padding: 0;
+    border: none;
+  }
+
+  .guest-oval {
+    display: inline;
+  }
+
+  .check {
+    float: right;
+    width: 27px;
+    height: 27px;
+  }
+}
+
+.rsvp {
+  padding: 21px 18px;
+  font-size: 18px;
+}
+
+.rsvp-click-zone {
+    width: 85%;
+    height: 100%;
+    position: absolute;
+    margin-left: -26px;
+    margin-top: -18px;
+}
+
+.show-card {
+  position: fixed;
+  top: 45px;
+  padding: 27px 18px 108px 18px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: white;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+
+  .show-card-close {
+    margin-bottom: 27px;
+    width: 100%;
+    text-align: right;
     img {
-      position: absolute;
-      left: 10px;
-      top: 20px;
-      width: 50px;
-      height: 50px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+  }
+  .list-separator {
+    margin: 0 -18px;
+    padding: 4.5px 18px;
+  }
+}
+
+.past_events {
+  .event {
+    font-size: 14px;
+    a {
+      color: $darkgrey;
+    }
+    .event_date {
+      color: $grey9;
+      font-size: 10px;
+    }
+  }
+}
+
+.current_events {
+  .event {
+    font-size: 14px;
+    a {
+      color: black;
+    }
+    .event_date {
+      color: $blue1;
+      font-size: 10px;
+    }
+  }
+}
+
+.list-separator {
+  text-transform: uppercase;
+  background: $grey1;
+  font-size: 10px;
+  color: $darkgrey;
+  height: 18px;
+  padding: 4.5px 18px;
+  border: none;
+  margin: 18px 0px;
+}
+
+.rsvp-show {
+  color: black;
+  h3 {
+    margin: 0;
+  }
+
+  .rsvp-person, .email {
+    margin-bottom: 27px;
+  }
+
+  .rsvp-person {
+    h3 {
+      font-size: 24px;
+    }
+  }
+
+  .email {
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .check {
+    float: right;
+  }
+
+  small {
+    font-size: 10px;
+    color: $grey9;
+  }
+}
+
+.show-card.add-rsvp-card {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: 9999;
+    padding-bottom: 27px;
+}
+
+.add-rsvp {
+  position: relative;
+
+  .add-rsvp-header {
+    border: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    img {
+      margin-right: 9px;
+      margin-top: 9px;
+    }
+  }
+
+  .add-rsvp-form {
+    border: none;
+
+    form#new_person {
+      margin-bottom: 27px;
     }
 
-    .rsvp-actions {
-      float: right;
-      font-size: 33px;
-      text-align: right;
-      padding-top: 10px;
-      padding-right: 40px;
-      @media (max-width: 500px) {
+    .form-group {
+      padding: 0;
+      border-bottom: none;
+      margin: 18px 0;
+
+      label, input {
+        display: block;
+      }
+    }
+
+    .form-control {
+      box-shadow: none;
+    }
+
+    input {
+      width: 100%;
+      margin: auto;
+      height: 45px;
+      background-color: $paleblue;
+      border: none;
+      border-radius: 5px;
+      padding: 13px;
+      font-size: 18px;
+      font-family: "Alright Sans Regular"
+    }
+
+    label {
+      font-size: 10px;
+      color: $grey9;
+      margin-bottom: 9px;
+    }
+
+    .btn {
+      background-color: $blue2;
+      color: white;
+      font-size: 18px;
+    }
+  }
+}
+
+.ticket {
+  position: relative;
+  border: 1px solid $grey4 !important;
+  height: 73px;
+  width: 100%;
+  margin: 9px auto;
+  cursor: pointer;
+
+  .circle {
+    position: absolute;
+    top: 35%;
+    height: 19px;
+    width: 19px;
+    border: 1px solid $grey4;
+    border-radius: 50%;
+    z-index: 10;
+    background-color: white;
+  }
+  .right-circle {
+    right: -10px;
+  }
+  .left-circle {
+    left: -10px;
+  }
+  .circle-cover {
+    position: absolute;
+    top: 35%;
+    background-color: white;
+    height: 20px;
+    width: 20px;
+  }
+  .left-circle-cover {
+    left: -21px;
+    z-index: 20;
+  }
+  .right-circle-cover {
+    right: -21px;
+    z-index: 20;
+  }
+
+  .ticket-name {
+    font-size: 13.5px;
+    color: $grey9;
+    margin-left: 27px;
+    margin-top: 27px;
+  }
+
+}
+.ticket-checked {
+  border-color: $blue2 !important;
+
+  .ticket-name {
+    color: $blue1 !important;
+  }
+
+  .circle {
+    border-color: $blue2 !important;
+  }
+}
+.ticket-canceled {
+  border-color: $grey4 !important;
+  text-decoration: line-through;
+  text-decoration-color: $grey9;
+  -webkit-text-decoration-color: $grey9;
+}
+
+.guests {
+  margin-top: 18px;
+  margin-bottom: 63px;
+
+  .guest-oval {
+    float: right;
+    margin-left: 4.5px;
+    margin-top: 3px;
+  }
+}
+
+@media (min-width: 792px) {
+
+  .overflow-hidden {
+    overflow: auto !important;
+  }
+
+  .btn {
+    border-radius: 0px !important;
+  }
+
+  .rsvps {
+    padding: 0 !important;
+  }
+
+  .list-separator {
+    background: none;
+    font-size: 14px;
+    height: 27px;
+    width: 60%;
+    padding: 4.5px 27px;
+  }
+  #rsvp-results {
+    position: relative;
+  }
+  .rsvp {
+    background: white;
+    height: 72px;
+    margin: 18px;
+    margin-top: 4.5px;
+    margin-bottom: 9px;
+    width: 45%;
+    padding: 18px 27px;
+    font-size: 18px;
+    border-bottom: none;
+    border: 1px solid #EDEDED;
+
+    .guest-dots {
+      top: 0px;
+    }
+
+    small {
+      font-size: 13.5px;
+    }
+
+    .loader-wrap {
+      margin-top: 4.5px;
+    }
+    .rsvp-name {
+      line-height: 36px;
+    }
+  }
+  .search {
+    width: 100%;
+    left: 27%;
+    top: 54px;
+    padding: 9px 27px;
+    margin-left: 18px;
+    background: whitesmoke;
+    padding-right: 69%;
+    z-index: 1001;
+
+    input {
+      height: 36px;
+      padding: 9px 4.5px;
+    }
+
+    i {
+      bottom: 18px;
+      right: 70%;
+      font-size: 18px;
+    }
+  }
+  .rsvp-show {
+    background: white;
+    height: 100%;
+    .ticket {
+      margin: 9px auto;
+    }
+    .guests {
+      margin-bottom: 18px;
+    }
+  }
+  .show-card {
+    display: block;
+    padding: 45px;
+    width: 33%;
+    height: auto;
+    overflow-x: scroll;
+    margin-right: 27px;
+    position: absolute;
+    top: 162px;
+    left: 65%;
+    border: 1px solid #ECECEC;
+    box-shadow: 0 25px 40px -20px rgba(0,0,0,0.10);
+
+    .add-rsvp {
+      input {
         width: 100%;
       }
-      span {
-      color: $navy;
-      -webkit-transition: all 0.15s linear;
-      -moz-transition: all 0.15s linear;
-      -ms-transition: all 0.15s linear;
-      transition: all 0.15s linear;
-
-        &:hover {
-          color: $teal;
-        }
-
-        &.checked-in {
-          color: $salmon;
-        }
+    }
+    .list-separator {
+      width: 100%;
+      background: $grey1;
+      margin: 0;
+      padding: 4.5px 0px;
+      small {
+        vertical-align: text-top;
       }
     }
-}
-
-.main-rsvp {
-
-  .rsvp-card {
-    padding: 20px 0 20px 95px;
-    border-bottom: 3px solid white;
-    border-spacing: 5px;
-
-      img {
-        width: 75px;
-        height: 75px;
-      }
-
-      .rsvp-guest-count {
-        font-size: 24px;
-      }
   }
-}
-
-form {
-  button.check-login, .check-login {
-    margin-top: 0;
-    margin-bottom: 0;
-    &.user-sessions-new {
-      margin-bottom: 10px;
-    }
-  }
-}
-
-.add {
-  .small-8.columns {
-    margin-top: 12px;
-    color: $teal;
-  }
-}
-
-
-.no-list {
-  text-align: center;
-  .top {
-    color: #384A80;
-    margin-bottom: 10vh;
-    @media only screen and (min-width: 768px) {
-      margin-top: 30px;
-    }
-    span {
-      font-size: 96px;
-    }
-    p {
-      font-size: 20px;
-      line-height: 25px;
-    }
-  }
-  .bottom {
-    span {
-      font-size: 50px;
-      color: $teal;
-    }
+  .show-card.add-rsvp-card {
+      position: absolute;
+      top: 162px;
+      height: auto;
+      z-index: 1000;
   }
 }

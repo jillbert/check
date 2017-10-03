@@ -24,7 +24,7 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
@@ -33,14 +33,14 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.0'
+  config.assets.version = '1.1'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = (ENV["FORCE_SSL"] == "true")
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
@@ -83,7 +83,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
 
-  config.action_mailer.default_url_options = { :host => 'http://cstreetcheck.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'https://cstreetcheck.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => 'smtp.gmail.com',
@@ -94,4 +94,6 @@ Rails.application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
+  # todo: change this base URL
+  config.action_mailer.asset_host = "https://beta.checkbycstreet.ca"
 end

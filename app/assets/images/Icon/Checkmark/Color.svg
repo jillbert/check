@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon / Checkmark</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#3A7BD5" offset="0%"></stop>
+            <stop stop-color="#1CA8EB" offset="51.2336575%"></stop>
+            <stop stop-color="#00D2FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-/-Checkmark-/" fill-rule="nonzero" fill="url(#linearGradient-1)">
+            <g id="Icon-/-Checkmark">
+                <path d="M13.359375,0 C20.7278437,0 26.71875,5.99090625 26.71875,13.359375 C26.71875,20.7278437 20.7278437,26.71875 13.359375,26.71875 C5.99090625,26.71875 0,20.7278437 0,13.359375 C0,5.99090625 5.99090625,0 13.359375,0 Z M13.359375,25.0872187 C19.828125,25.0872187 25.0872187,19.828125 25.0872187,13.359375 C25.0872187,6.890625 19.828125,1.63153125 13.359375,1.63153125 C6.890625,1.63153125 1.63153125,6.890625 1.63153125,13.359375 C1.63153125,19.828125 6.890625,25.0872187 13.359375,25.0872187 Z M11.4558844,15.9036875 L19.3306312,8 L20.7929063,9.434825 L11.4556875,18.7720438 L6,13.3163562 L7.43372813,11.8815312 L11.4558844,15.9036875 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

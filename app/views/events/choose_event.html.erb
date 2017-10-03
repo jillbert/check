@@ -1,3 +1,47 @@
-<%= render "print_event_groups", event_group: @current_events %>
+<% @page = "choose_event" %>
+<div class="container events">
 
-<%= render "print_event_groups", event_group: @past_events %>
+  <div class="current_events">
+    <% if !@current_events.empty? %>
+      <% @current_events.each do |month, event| %>
+        <% event.each do |e| %>
+            <%= link_to set_event_path(event_id: e["id"]), class: "list-item", method: :get do %>
+              <div class="event">
+                <div class="word-wrapper">
+                  <%= e["name"] %>
+                  <div class="event_date"><%= e["start_time"].to_datetime.to_formatted_s(:long) %></div>
+                </div>
+              </div>
+            <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="no-events text-center">
+        <p>No upcoming events found.</p>
+        <%= link_to("Select another site", landing_path) %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if !@past_events.empty? %>
+    <div class="past_events">
+      <div class="list-separator">
+        Past Events
+      </div>
+      <% @past_events.each do |month, event| %>
+        <% event.each do |e| %>
+          <% if event.class != String %>
+            <%= link_to set_event_path(event_id: e["id"]), class: "list-item", method: :get do %>
+              <div class="event">
+                <div class="word-wrapper">
+                  <%= e["name"] %>
+                  <div class="event_date"><%= e["start_time"].to_datetime.to_formatted_s(:long) %></div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

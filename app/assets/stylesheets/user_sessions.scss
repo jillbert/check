@@ -1,0 +1,55 @@
+// Place all the styles related to the UserSessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login-container {
+  padding-top: 18%;
+  text-align: center;
+  color: white;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-bottom: 0px !important;
+
+  form {
+    margin-bottom: 27px;
+  }
+
+  .login-logo {
+    margin: auto;
+    margin-bottom: 27px;
+
+    img {
+      width: 72px;
+      height: 72px;
+    }
+  }
+
+  input {
+    width: 200px;
+    height: 45px;
+    margin: auto;
+    border: none;
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    box-shadow: none;
+  }
+  
+  label {
+    font-family: 'Alright Sans Light';
+    text-align: left;
+    font-size: 10px;
+    line-height: 12px;
+    width: 200px;
+  }
+  .login-btn {
+    height: 54px;
+    margin-bottom: 9px;
+    margin-top: 36px;
+  }
+  small a {
+      color: white;
+      font-size: 13.5px;
+      text-decoration: underline;
+      font-family: 'Alright Sans Light';
+    }
+}

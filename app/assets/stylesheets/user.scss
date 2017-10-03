@@ -1,0 +1,66 @@
+@import 'colors';
+
+.flash {
+  margin: 27px auto;
+}
+
+.new-user {
+  padding: 45px;
+}
+
+.admin_user_list {
+  padding: 45px;
+  padding-top: 0;
+}
+
+.user-settings {
+  .form-group {
+    padding: 0;
+    border-bottom: none;
+    margin: 18px 0;
+
+    label, input {
+      display: block;
+    }
+  }
+
+  .form-control {
+    box-shadow: none;
+  }
+
+  input {
+    width: 100%;
+    margin: auto;
+    height: 45px;
+    background-color: $paleblue;
+    border: none;
+    border-radius: 5px;
+    padding: 13px;
+    font-size: 18px;
+    font-family: "Alright Sans Regular"
+  }
+
+  label {
+    font-size: 10px;
+    color: $grey9;
+    margin-bottom: 9px;
+  }
+
+  .btn {
+    background-color: $blue2;
+    color: white;
+    font-size: 18px;
+  }
+
+  .edit-user-header {
+    padding: 0;
+    border: none;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  .logout {
+    width: 100%;
+    text-align: center;
+  }
+
+}

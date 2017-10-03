@@ -1,0 +1,20 @@
+<div class="container newsletter">
+
+  <%= form_tag 'send_newsletter', method: :post, class: "form-group" do %>
+    <%= text_field_tag(
+        :subject,
+        params[:subject],
+        placeholder: "Subject",
+        class: "form-control"
+    ) %>
+    <%= text_area_tag(
+        :body,
+        params[:body],
+        placeholder: "Body",
+        class: "form-control"
+    ) %>
+    <%= label_tag "Send test email?" %>
+    <%= check_box_tag(:test, params[:test],class: "form-control") %>
+    <%= submit_tag "Send", class: "btn btn-primary form-control" %>
+  <% end %>
+</div>

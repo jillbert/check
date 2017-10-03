@@ -1,28 +1,27 @@
 Rails.application.routes.draw do
-
   ActiveAdmin.routes(self)
-  get "/callback", to: "oauth#callback"
-  get "/authorize", to: "oauth#authorize"
-  get "/deauthorize", to: "oauth#deauthorize"
+  get '/callback', to: 'oauth#callback'
+  get '/authorize', to: 'oauth#authorize'
+  get '/deauthorize', to: 'oauth#deauthorize'
 
   resources :nations
 
   resources :events
-  get "/choose_site", to: "events#choose_site"
-  get "/choose_event", to: "events#choose_event"
-  get "/set_event", to: "events#set_event"
+  get '/choose_site', to: 'events#choose_site'
+  get '/choose_event', to: 'events#choose_event'
+  get '/landing', to: 'events#landing'
+  get '/set_event', to: 'events#set_event'
 
-  get "events/cancel_event", to: "events#new_event"
-  get "events/cancel_site", to: "events#new_site"
-  get "sync_status", to: "events#sync_status"
+  get 'events/cancel_event', to: 'events#new_event'
+  get 'events/cancel_site', to: 'events#new_site'
 
-  get "rsvps/cache", to: "rsvps#cache"
+  get 'rsvps/cache', to: 'rsvps#cache'
 
   resources :rsvps
-  post "/rsvps/check_in", to: "rsvps#check_in"
-  post "/rsvps/check_out", to: "rsvps#check_out"
-  get "rsvps/new_guest", to: "rsvps#new_guest"
-  get "/sync", to: "rsvps#sync"
+  post '/rsvps/check_in', to: 'rsvps#check_in'
+  post '/rsvps/check_out', to: 'rsvps#check_out'
+  get 'rsvps/new_guest', to: 'rsvps#new'
+  get '/sync', to: 'rsvps#sync'
 
   resources :people
 
@@ -35,13 +34,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :password_resets
-  get "reset", to: "password_resets#password_reset"
+  get '/newsletter', to: 'users#newsletter'
+  post '/send_newsletter', to: 'users#send_newsletter'
 
-  get 'admin', to: 'admin#index'
+  resources :password_resets
+  get 'reset', to: 'password_resets#password_reset'
+
+  get 'admin', to: 'users#new'
   get 'login' => 'user_sessions#new', :as => :login
   get 'logout' => 'user_sessions#destroy', :as => :logout
 
-  root :to => 'user_sessions#new'
-
+  root 'rsvps#index'
 end

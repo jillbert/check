@@ -19,7 +19,7 @@ ActiveAdmin.register Event do
 index do
   selectable_column
   column :name do |e|
-    link_to(e.name, administrator_event_path(e))
+    link_to(e.name, admin_event_path(e))
   end
   column "Nation" do |e|
     e.nation.name unless e.nation.nil?

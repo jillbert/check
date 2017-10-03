@@ -11,8 +11,6 @@ class Sync
     @current_nation = @current_event.nation
     @current_site = site_slug
     @token = Credential.find_by_id(credential_id).access_token
-
-    create_cache
   end
 
   def self.get_rsvps
@@ -27,15 +25,15 @@ class Sync
       rsvpListfromNB = []
 
       # This is due different pagination rules implemented by NationBuilder
-      
+
       if parsed['next']
         rsvpListfromNB << parsed["results"]
         currentpage = 1
         is_next = parsed['next']
         while is_next
-          
+
           currentpage += 1
-          
+
           begin
             pagination_result = @token.get(is_next, :headers => { "Accept" => "application/json", "Content-Type" => "application/json" }, :params => { token_paginator: currentpage, per_page: 100, limit: 100})
           rescue => ex
@@ -64,7 +62,7 @@ class Sync
             rsvpListfromNB << JSON.parse(response.body)["results"]
           end
         end
-      else 
+      else
         rsvpListfromNB << parsed["results"]
       end
     end
@@ -84,57 +82,6 @@ class Sync
     else
       return JSON.parse(response.body)["person"]
     end
-  end
-
-
-  def self.create_cache
-
-    rsvps = get_rsvps
-
-    if rsvps != "error"
-
-      total = rsvps.count
-      error = 0
-
-      rsvps.each_with_index do |r, index| 
-        person = Person.find_by(nbid: r['person_id'].to_i, nation_id: @current_nation.id)
-        
-        if !person
-          nbPerson = get_person(r)
-          if nbPerson != "error"
-            person = Person.import(nbPerson, @current_nation.id)
-          else
-            error += 1
-          end
-        end
-
-        if person
-          rsvp = Rsvp.import(r, @current_event.id, person.id, @current_nation.id)
-        end
-
-        percent = (index.to_f/total) * 100
-        @current_event.update_attributes(sync_percent: percent.to_i)
-      end
-
-      if error > 0
-        
-        if error > 1
-          errorString = "#{error} rsvps"
-        else
-          errorString = "#{error} rsvp"
-        end
-
-        sync_status = "Complete. However, NationBuilder did not allow Check to import #{errorString}."
-      else
-        sync_status = "Complete."
-      end
-
-    else
-      sync_status = "Could not complete. There was a problem connecting to NationBuilder."
-    end
-
-    @current_event.update_attributes(sync_status: sync_status)
-
   end
 
 end

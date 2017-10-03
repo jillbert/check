@@ -1,17 +1,38 @@
-<h3 class="check-title">Sign in to your Check account</h3>
+<style media="screen">
+  html {
+    background-image: linear-gradient(50deg, #65CCEE 0%, #9DAAD7 100%);
+    overflow: hidden;
+  }
+</style>
 
-<div class="login-form">
-  <%= render 'form' %>
-</div>
+<%= render "layouts/check_sync" %>
 
-<div class="teal-box">
-  <div class="row">
-    <div class="medium-8 small-centered columns">
-      <%= link_to(reset_path) do %>
-        <p>Forgot your password?</p>
-        <p>Get a reminder <span class="lnr lnr-arrow-right"></span></p>
-      <% end %>
+<div class="container login-container">
 
-    </div>
+  <div class="login-logo">
+    <%= image_tag(asset_path("logo.svg")) %>
   </div>
+
+  <% if flash[:alert] || flash[:notice] %>
+    <div class="flash">
+      <%= flash[:alert] %><%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <%= bootstrap_form_tag url: user_sessions_path do |f| %>
+    <%= f.email_field :email %>
+    <%= f.password_field :password %>
+    <%= f.submit "Log in", class: " btn btn-primary navy login-btn" %>
+  <% end %>
+  <p>
+    <small>
+      <%= link_to("Forgot your password?", new_password_reset_path) %>
+    </small>
+  </p>
+  <p>
+    <small>
+      <%= link_to("Need help?", "https://cstreetcheck.zendesk.com/hc/en-us", target: "_blank") %>
+    </small>
+  </p>
+
 </div>

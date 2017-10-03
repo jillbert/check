@@ -1,3 +1,15 @@
-<h3 class="check-title">Edit your information</h3>
-
-<%= render 'form' %>
+<% @page = "settings" %>
+<div class="user-settings">
+  <div class="edit-user-header">
+    <small>Account Settings</small>
+  </div>
+  <%= render 'form' %>
+  <hr>
+  <div class="support text-center" style="width:100%;margin:auto;">
+    <%= link_to "Support", "https://cstreetcheck.zendesk.com/hc/en-us", target: "_blank" %>
+  </div>
+  <hr>
+  <div class="logout">
+    <%= link_to "Log out", logout_path %>
+  </div>
+</div>

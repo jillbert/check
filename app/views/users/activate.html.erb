@@ -13,19 +13,14 @@
   <% end %>
 
   <h3 class="check-title">Please create a password:</h3>
-  
+
   <div class="field">
     <%= f.email_field :email, placeholder:"Email Address", :readonly => true %>
     <%= f.password_field :password, placeholder:"Password" %>
     <%= f.password_field :password_confirmation, placeholder:"Password Confirmation" %>
-
+    <%= f.submit "Save" %>
   </div>
 
   <%= hidden_field_tag 'activation_token', @token %>
 
-  <div class="actions">
-    <%= button_tag(type: "submit", class: "no-style check-login") do %>
-        <span class="lnr lnr-arrow-right-circle"></span>
-    <% end %>
-  </div>
 <% end %>

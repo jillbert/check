@@ -2,7 +2,6 @@
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
       <ul>
       <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,30 +9,21 @@
       </ul>
     </div>
   <% end %>
-
-  <h3 class="check-title">Part 1: User Credentials</h3>
-  
-  <div class="field">
-    <%= f.text_field :email, placeholder:"Email" %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
   </div>
-  <div class="field text-center">
-    Active?
-    <div class="switch">
-      <%= f.check_box :active %>
-      <%= f.label :active %>
-    </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
   </div>
-
-  <h3 class="check-title">Part 2: Nation Credentials</h3>
-
-  <%= f.fields_for :nation do |n| %>
-    <%= n.text_field :name, placeholder:"Nation's Name" %>
-    <%= n.text_field :url, placeholder:"Nation's URL" %>
-  <% end %>
-
-  <div class="actions">
-    <%= button_tag(type: "submit", class: "no-style check-login") do %>
-        <span class="lnr lnr-arrow-right-circle"></span>
-    <% end %>
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
   </div>
+  <%= f.submit "Save", class: "btn btn-block" %>
 <% end %>
+<hr>
+<div class="text-center">
+  <%= link_to "Change Site & Event", landing_path, class: "btn btn-block" %>
+</div>

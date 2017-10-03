@@ -1,0 +1,57 @@
+<div class=" rsvp-show">
+  <div class="rsvp-person">
+
+      <small><%= @rsvp.additional_status %></small>
+    <h3>
+      <%= @rsvp.person.full_name %>
+      <%= render 'rsvp', rsvp: @rsvp %>
+    </h3>
+
+    <div class="email">
+      <small>Email</small>
+      <h3>
+        <%= if @rsvp.person.email then @rsvp.person.email else "N/A" end %>
+      </h3>
+    </div>
+
+    <div class="tickets host-tickets">
+      <%= render "ticket", rsvp: @rsvp %>
+    </div>
+  </div>
+
+  <% if @rsvp.guests_count > 0 && !@rsvp.canceled %>
+    <div class="guests">
+      <div class="list-separator">
+        <small style="color:#7C7C7C">GUESTS</small>
+
+        <% (@rsvp.guests_count - @attended_guest_tickets.count).times do %>
+          <%= image_tag(asset_path("Oval.svg"), class: "guest-oval") %>
+        <% end %>
+
+        <% @attended_guest_tickets.each do %>
+          <%= image_tag(asset_path("Oval Color.svg"), class: "guest-oval guest-oval-checked") %>
+        <% end %>
+
+      </div>
+
+      <div class="tickets">
+        <% @guest_tickets.each do |rsvp| %>
+          <% @rsvp = rsvp %>
+          <%= link_to rsvp_path(@rsvp) do %>
+            <%= render "ticket" %>
+          <% end %>
+        <% end %>
+
+        <% @rsvp = Rsvp.find(params[:id]) %>
+        <% @i = 1 %>
+        <% (@rsvp.guests_count - @guest_tickets.count).times do %>
+          <%= link_to(new_rsvp_path + "?event_id=#{@rsvp.event.id.to_s}&host_id=#{@rsvp.id.to_s}", class: "new-ticket") do %>
+            <%= render "ticket" %>
+          <% end %>
+          <% @i += 1 %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+</div>

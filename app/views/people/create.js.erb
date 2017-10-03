@@ -1,13 +1,12 @@
 $(document).bind('ajax:success', function(data, status, xhr) {
 
   <% if @rsvp && @rsvp.id %>
-    <% if @host_id %> 
+    <% if @host_id %>
       var rsvpArray = []
-      $('#checked-guests .rsvp-card').each( function() { 
-       rsvpArray.push($(this).attr('id')) 
+      $('#checked-guests .rsvp-card').each( function() {
+       rsvpArray.push($(this).attr('id'))
       });
       if($.inArray("rsvp_<%= @rsvp.id %>", rsvpArray) < 0) {
-        console.log("HERE")
         $('#checked-guests').append("<%= j(render 'rsvps/rsvp', rsvp: @rsvp) %>");
       }
 
@@ -16,12 +15,12 @@ $(document).bind('ajax:success', function(data, status, xhr) {
           $('.add').remove()
         <% end %>
       <% end %>
-    
+
     <% else %>
         table.destroy();
         var rsvpArray = []
-        $('table a').each( function() { 
-         rsvpArray.push($(this).attr('href')) 
+        $('table a').each( function() {
+         rsvpArray.push($(this).attr('href'))
         });
         if($.inArray("/rsvps/<%= @rsvp.id %>", rsvpArray) < 0) {
           $('#list').append('<tr><td><%= j(render "rsvps/rsvp_row", r: @rsvp) %></td></tr>');
@@ -31,7 +30,6 @@ $(document).bind('ajax:success', function(data, status, xhr) {
     <% end %>
   <% end %>
 
-  $('#modal').foundation('reveal', 'close');
 
 }).bind('ajax:error', function(xhr, status, error) {
 
