@@ -1,0 +1,17 @@
+.newsletter {
+  margin: auto;
+  width: 80%;
+  max-width: 500px;
+
+  form {
+    padding: 15px;
+
+    input {
+      margin: 9px auto;
+    }
+
+    #body {
+      height: 300px;
+    }
+  }
+}
