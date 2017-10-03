@@ -94,5 +94,6 @@ Rails.application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
-  config.action_mailer.asset_host = "https://checkbycstreet.ca"
+  # todo: change this base URL
+  config.action_mailer.asset_host = "https://beta.checkbycstreet.ca"
 end
