@@ -1,26 +1,16 @@
-<%= form_for @user, url: confirm_user_url(@user), method: :put do |f| %>
+<div class="container password-reset">
 
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <%= form_for @user, url: confirm_user_url(@user), method: :put do |f| %>
+    <h3 class="check-title text-center">Please create a password</h3>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="field form-group">
+      <%= f.email_field :email, class: "form-control text-center", placeholder:"Email Address", :readonly => true %>
+      <%= f.password_field :password, class: "form-control text-center", placeholder:"Password" %>
+      <%= f.password_field :password_confirmation, class: "form-control text-center", placeholder:"Password Confirmation" %>
+
     </div>
+    <%= f.button "Save", class: "btn btn-block" %>
+
+    <%= hidden_field_tag 'activation_token', @token %>
   <% end %>
-
-  <h3 class="check-title">Please create a password:</h3>
-
-  <div class="field">
-    <%= f.email_field :email, placeholder:"Email Address", :readonly => true %>
-    <%= f.password_field :password, placeholder:"Password" %>
-    <%= f.password_field :password_confirmation, placeholder:"Password Confirmation" %>
-    <%= f.submit "Save" %>
-  </div>
-
-  <%= hidden_field_tag 'activation_token', @token %>
-
-<% end %>
+</div>
