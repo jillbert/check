@@ -83,7 +83,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
 
-  config.action_mailer.default_url_options = { :host => 'https://cstreetcheck.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'https://www.checkbycstreet.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => 'smtp.gmail.com',
@@ -95,5 +95,5 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
   # todo: change this base URL
-  config.action_mailer.asset_host = "https://checkv2.herokuapp.com"
+  config.action_mailer.asset_host = "https://www.checkbycstreet.com"
 end
