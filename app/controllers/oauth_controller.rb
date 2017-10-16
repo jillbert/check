@@ -4,6 +4,7 @@ class OauthController < ApplicationController
     credential = current_nation.credentials.create
     credential.request_access_token!(params[:code], callback_url)
     session[:credential_id] = credential.id
+    # Resque.enqueue(ImportNation, current_nation.id.to_s)
     flash[:success] = 'Nation authenticated'
     redirect_to nations_path
   end

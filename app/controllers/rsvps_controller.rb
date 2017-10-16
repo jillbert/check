@@ -112,9 +112,9 @@ class RsvpsController < ApplicationController
   def is_owner
     if current_user.nation.id != Rsvp.find(params[:id]).person.nation_id
       begin
-        redirect_to(:back, flash: { error: "Sorry, you don't have access to this information" })
+        redirect_to(:back, flash: { error: "Page not found" })
       rescue ActionController::RedirectBackError
-        redirect_to(:root, flash: { error: "Sorry, you don't have access to this information" })
+        redirect_to(:root, flash: { error: "Page not found" })
       end
     end
   end
