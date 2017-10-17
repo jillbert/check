@@ -15,7 +15,7 @@ class ImportNation
       end
     end
     nation.users.each do |user|
-      UserMailer.nation_import_done(user).deliver_now
+      UserMailer.nation_import_done(user).deliver
     end
   end
 
