@@ -21,9 +21,14 @@ class UserMailer < ActionMailer::Base
   #
   def activation_success_email(user)
     @user = user
-    @url  = "https://checkv2.herokuapp.com/login"
-    mail(:to => user.email,
+    mail(:to => @user.email,
          :subject => "Your Check account is now activated")
+  end
+
+  def nation_import_done(user)
+    @user = user
+    mail(:to => @user.email,
+         :subject => "Check is ready for use!")
   end
 
   def reset_password_email(user)

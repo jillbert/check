@@ -14,6 +14,9 @@ class ImportNation
         Rsvp.sync(event, slug)
       end
     end
+    nation.users.each do |user|
+      UserMailer.nation_import_done(user).deliver_now
+    end
   end
 
 end
