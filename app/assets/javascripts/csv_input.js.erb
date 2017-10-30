@@ -1,0 +1,31 @@
+$(document).ready(function() {
+  $('body').on('change', "#csv_input", function(evt) {
+    importCsv(evt);
+  });
+});
+
+function importCsv(evt) {
+  var files = evt.target.files; // FileList object
+  var file = files[0];
+  Papa.parse(file,{
+    config: {
+      // base config to use for each file
+    },
+    error: function(err, file, inputElem, reason) {
+      // executed if an error occurs while loading the file,
+      // or if before callback aborted for some reason
+    },
+    complete: function(output) {
+      var results = output.data
+      var url = '/import_csv'
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: {data: results}
+      });
+      hideCard();
+    }
+  });
+}

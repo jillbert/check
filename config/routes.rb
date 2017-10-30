@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post '/rsvps/check_out', to: 'rsvps#check_out'
   get 'rsvps/new_guest', to: 'rsvps#new'
   get '/sync', to: 'rsvps#sync'
+  post 'import_csv', to: 'rsvps#import_csv'
 
   resources :people
 

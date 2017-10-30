@@ -49,6 +49,9 @@ gem 'resque', "~> 1.22.0"
 gem 'oauth2'
 gem 'rest-client'
 
+gem 'aws-sdk'
+gem 'fog'
+
 gem 'rails_12factor', group: :production
 
 gem 'figaro'

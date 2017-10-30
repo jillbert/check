@@ -367,6 +367,18 @@
   }
 }
 
+[hidden] {
+  display: none !important;
+}
+
+.import_csv {
+  margin: 0 !important;
+  .import_csv_label {
+    cursor: pointer;
+    margin-bottom: 0 !important;
+  }
+}
+
 @media (min-width: 792px) {
 
   .overflow-hidden {

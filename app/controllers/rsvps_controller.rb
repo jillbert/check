@@ -99,6 +99,9 @@ class RsvpsController < ApplicationController
     render layout: false
   end
 
+  def import_csv
+  end
+
   private
 
   def rsvp_params
